@@ -16,6 +16,8 @@ namespace Domain.Helpers
         DateTime GetEndDate(DateTime date);
         IList<Holiday> GetHolidays(IEnumerable<Holiday> entries);
         Holiday GetHoliday(IEnumerable<Holiday> entries, int id);
+        IList<Leave> GetLeaves(IEnumerable<Leave> entries);
+        Leave GetLeave(IEnumerable<Leave> entries, int id);
         IList<LogEntry> GetMonthLogs(IEnumerable<LogEntry> logEntries, DateTime selectedMonth);
         IList<LogEntry> GetMonthSummaryLogs(IEnumerable<LogEntry> logEntries, DateTime selectedMonth);
         IList<LogEntry> GenerateMissingEntriesForMissingDates(IEnumerable<LogEntry> entries, DateTime selectedMonth);
@@ -90,6 +92,25 @@ namespace Domain.Helpers
                 .FirstOrDefault();
 
             return holiday;
+        }
+
+        public IList<Leave> GetLeaves(IEnumerable<Leave> entries)
+        {
+            IList<Leave> leaveList = entries
+                .OrderBy(x => x.Date)
+                .ToList();
+
+            return leaveList;
+        }
+
+        public Leave GetLeave(IEnumerable<Leave> entries, int id)
+        {
+            Leave leave = entries
+                .Where(x => x.Id == id)
+                .DefaultIfEmpty(null)
+                .FirstOrDefault();
+
+            return leave;
         }
 
         public bool RecordExists(IEnumerable<Holiday> entries, int id)

@@ -71,6 +71,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmLeaves.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLeaves.Designer.cs">
+      <DependentUpon>frmLeaves.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmHolidays.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +108,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="frmLeaves.resx">
+      <DependentUpon>frmLeaves.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmHolidays.resx">
       <DependentUpon>frmHolidays.cs</DependentUpon>
     </EmbeddedResource>
