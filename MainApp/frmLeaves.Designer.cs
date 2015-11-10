@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dGridHolidays = new System.Windows.Forms.DataGridView();
+            this.dGridLeaves = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.holidayDate = new System.Windows.Forms.DateTimePicker();
-            this.txtHolidayDescription = new System.Windows.Forms.TextBox();
+            this.leaveDate = new System.Windows.Forms.DateTimePicker();
+            this.txtLeaveDescription = new System.Windows.Forms.TextBox();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
@@ -40,28 +40,28 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.lblId = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dGridHolidays)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dGridLeaves)).BeginInit();
             this.SuspendLayout();
             // 
-            // dGridHolidays
+            // dGridLeaves
             // 
-            this.dGridHolidays.AllowUserToAddRows = false;
-            this.dGridHolidays.AllowUserToDeleteRows = false;
-            this.dGridHolidays.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dGridLeaves.AllowUserToAddRows = false;
+            this.dGridLeaves.AllowUserToDeleteRows = false;
+            this.dGridLeaves.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dGridHolidays.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dGridHolidays.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGridHolidays.Location = new System.Drawing.Point(255, 1);
-            this.dGridHolidays.MultiSelect = false;
-            this.dGridHolidays.Name = "dGridHolidays";
-            this.dGridHolidays.ReadOnly = true;
-            this.dGridHolidays.RowTemplate.ReadOnly = true;
-            this.dGridHolidays.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dGridHolidays.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dGridHolidays.Size = new System.Drawing.Size(568, 473);
-            this.dGridHolidays.TabIndex = 2;
-            this.dGridHolidays.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGridHolidays_CellClick);
+            this.dGridLeaves.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dGridLeaves.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dGridLeaves.Location = new System.Drawing.Point(255, 1);
+            this.dGridLeaves.MultiSelect = false;
+            this.dGridLeaves.Name = "dGridLeaves";
+            this.dGridLeaves.ReadOnly = true;
+            this.dGridLeaves.RowTemplate.ReadOnly = true;
+            this.dGridLeaves.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dGridLeaves.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dGridLeaves.Size = new System.Drawing.Size(568, 473);
+            this.dGridLeaves.TabIndex = 2;
+            this.dGridLeaves.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGridLeaves_CellClick);
             // 
             // label1
             // 
@@ -77,24 +77,24 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 82);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(101, 13);
+            this.label2.Size = new System.Drawing.Size(96, 13);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Holiday Description:";
+            this.label2.Text = "Leave Description:";
             // 
-            // holidayDate
+            // leaveDate
             // 
-            this.holidayDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.holidayDate.Location = new System.Drawing.Point(49, 45);
-            this.holidayDate.Name = "holidayDate";
-            this.holidayDate.Size = new System.Drawing.Size(119, 20);
-            this.holidayDate.TabIndex = 5;
+            this.leaveDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.leaveDate.Location = new System.Drawing.Point(49, 45);
+            this.leaveDate.Name = "leaveDate";
+            this.leaveDate.Size = new System.Drawing.Size(119, 20);
+            this.leaveDate.TabIndex = 5;
             // 
-            // txtHolidayDescription
+            // txtLeaveDescription
             // 
-            this.txtHolidayDescription.Location = new System.Drawing.Point(49, 108);
-            this.txtHolidayDescription.Name = "txtHolidayDescription";
-            this.txtHolidayDescription.Size = new System.Drawing.Size(200, 20);
-            this.txtHolidayDescription.TabIndex = 6;
+            this.txtLeaveDescription.Location = new System.Drawing.Point(49, 108);
+            this.txtLeaveDescription.Name = "txtLeaveDescription";
+            this.txtLeaveDescription.Size = new System.Drawing.Size(200, 20);
+            this.txtLeaveDescription.TabIndex = 6;
             // 
             // btnAdd
             // 
@@ -177,15 +177,15 @@
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.txtHolidayDescription);
-            this.Controls.Add(this.holidayDate);
+            this.Controls.Add(this.txtLeaveDescription);
+            this.Controls.Add(this.leaveDate);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dGridHolidays);
+            this.Controls.Add(this.dGridLeaves);
             this.Name = "frmLeaves";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Holidays";
-            ((System.ComponentModel.ISupportInitialize)(this.dGridHolidays)).EndInit();
+            this.Text = "Leaves";
+            ((System.ComponentModel.ISupportInitialize)(this.dGridLeaves)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -193,11 +193,11 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dGridHolidays;
+        private System.Windows.Forms.DataGridView dGridLeaves;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DateTimePicker holidayDate;
-        private System.Windows.Forms.TextBox txtHolidayDescription;
+        private System.Windows.Forms.DateTimePicker leaveDate;
+        private System.Windows.Forms.TextBox txtLeaveDescription;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnDelete;
