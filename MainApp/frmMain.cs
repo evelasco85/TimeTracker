@@ -21,8 +21,7 @@ namespace MainApp
         bool _promptingInProgress = false;
         
         IEFRepository _repo;
-        ILogEntriesHelper _logHelper;
-        IDateHelper _dateHelper;
+        IDateHelper _helper;
         public Action<Func<LogEntry, bool>> QueryViewRecords { get; set; }
         public Action<Func<LogEntry, bool>> DeleteViewRecords { get; set; }
         public Action<LogEntry> SaveViewRecord { get; set; }
@@ -34,8 +33,7 @@ namespace MainApp
 
             RegisterController();
 
-            this._logHelper = LogEntriesHelper.GetInstance();
-            this._dateHelper = DateHelper.GetInstance();
+            this._helper = DateHelper.GetInstance();
             this._repo = repository;
 
             InitializeComponent();
@@ -59,8 +57,8 @@ namespace MainApp
             this.QueryViewRecords(null);        //Query the controller
 
             DateTime selectedMonth = this.dateTimeMonth.Value;
-            IList<LogEntry> availableLogEntries = this._logHelper.GetMonthLogs(this.ViewQueryResult, selectedMonth);
-            IList<LogEntry> missingLogEntries = this._logHelper.GenerateMissingEntriesForMissingDates(availableLogEntries, selectedMonth);
+            IList<LogEntry> availableLogEntries = this._helper.GetMonthLogs(this.ViewQueryResult, selectedMonth);
+            IList<LogEntry> missingLogEntries = this._helper.GenerateMissingEntriesForMissingDates(availableLogEntries, selectedMonth);
             List<LogEntry> logEntries = new List<LogEntry>();
 
             logEntries.AddRange(availableLogEntries);
@@ -347,14 +345,14 @@ namespace MainApp
             DateTime selectedMonth = this.dateTimeMonth.Value;
             int year = DateTime.Now.Year;
             int month = selectedMonth.Month;
-            IList<LogEntry> logEntries = this._logHelper.GetMonthLogs(this.ViewQueryResult, selectedMonth);
+            IList<LogEntry> logEntries = this._helper.GetMonthLogs(this.ViewQueryResult, selectedMonth);
             int uniqueLogEntriesPerDate = logEntries.GroupBy(x => x.Created.Date).Distinct().Count();
             int daysInMonth = DateTime.DaysInMonth(year, month);
             int holidayCount = 0;
-            DateTime startDate = this._dateHelper.GetStartDate(selectedMonth);
-            DateTime endDate = this._dateHelper.GetEndDate(startDate);
-            int saturdayCount = this._dateHelper.CountDaysByDayName(DayOfWeek.Saturday, startDate, endDate);
-            int sundayCount = this._dateHelper.CountDaysByDayName(DayOfWeek.Sunday, startDate, endDate);
+            DateTime startDate = this._helper.GetStartDate(selectedMonth);
+            DateTime endDate = this._helper.GetEndDate(startDate);
+            int saturdayCount = this._helper.CountDaysByDayName(DayOfWeek.Saturday, startDate, endDate);
+            int sundayCount = this._helper.CountDaysByDayName(DayOfWeek.Sunday, startDate, endDate);
             int workdaysCount = (daysInMonth - (saturdayCount + sundayCount + holidayCount));
 
             this.lblSaturdaysCount.Text = string.Format("Saturday Days Count: {0}", saturdayCount.ToString());
@@ -380,7 +378,7 @@ namespace MainApp
                 string description = row.Cells[LogEntriesController.DESCRIPTION_INDEX].Value.ToString();
                 string category = row.Cells[LogEntriesController.CATEGORY_INDEX].Value.ToString();
 
-                if (this._dateHelper.WeekendDate(created))
+                if (this._helper.WeekendDate(created))
                 {
                     row.DefaultCellStyle.BackColor = Color.Red;
                     row.Cells[LogEntriesController.DESCRIPTION_INDEX].Value = (string.IsNullOrEmpty(description)) ? LogEntriesController.WEEKEND : description;

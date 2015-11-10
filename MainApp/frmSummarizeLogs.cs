@@ -13,7 +13,7 @@ namespace MainApp
 {
     public partial class frmSummarizeLogs : Form, IView<LogEntry>
     {
-        ILogEntriesHelper _logHelper;
+        IDateHelper _helper;
 
         public Action<Func<LogEntry, bool>> QueryViewRecords { get; set; }
         public Action<Func<LogEntry, bool>> DeleteViewRecords { get; set; }
@@ -26,7 +26,7 @@ namespace MainApp
 
             RegisterController();
 
-            this._logHelper = LogEntriesHelper.GetInstance();
+            this._helper = DateHelper.GetInstance();
 
             InitializeComponent();
             this.DisplayLogEntries(selectedMonth);
@@ -35,7 +35,7 @@ namespace MainApp
         {
             this.QueryViewRecords(null);
 
-            IList<LogEntry> logEntries = this._logHelper.GetMonthSummaryLogs(this.ViewQueryResult, selectedMonth);
+            IList<LogEntry> logEntries = this._helper.GetMonthSummaryLogs(this.ViewQueryResult, selectedMonth);
             IEnumerable<IGrouping<string, string>> perDateLogs =
                 logEntries
                 .Where(x => !(x.Category.ToLower() == "others"))

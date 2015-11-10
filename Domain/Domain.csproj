@@ -60,17 +60,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\DateHelper.cs" />
-    <Compile Include="Helpers\HolidayHelper.cs" />
-    <Compile Include="Helpers\LogEntriesHelper.cs" />
     <Compile Include="Holiday.cs">
       <DependentUpon>WorkDbEf.tt</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\EFRepository.cs" />
     <Compile Include="Infrastructure\NinjectManager.cs" />
+    <Compile Include="Leave.cs">
+      <DependentUpon>WorkDbEf.tt</DependentUpon>
+    </Compile>
     <Compile Include="LogEntry.cs">
       <DependentUpon>WorkDbEf.tt</DependentUpon>
     </Compile>
     <Compile Include="MVP\BaseController.cs" />
+    <Compile Include="MVP\LeaveController.cs" />
     <Compile Include="MVP\HolidayController.cs" />
     <Compile Include="MVP\IController.cs" />
     <Compile Include="MVP\IView.cs" />

@@ -22,7 +22,7 @@ namespace MainApp
             Cancel
         };
 
-        IHolidayHelper _helper;
+        IDateHelper _helper;
         public Action<Func<Holiday, bool>> QueryViewRecords { get; set; }
         public Action<Holiday> SaveViewRecord { get; set; }
         public Action<Func<Holiday, bool>> DeleteViewRecords { get; set; }
@@ -34,7 +34,7 @@ namespace MainApp
 
             RegisterController();
 
-            this._helper = HolidayHelper.GetInstance();
+            this._helper = DateHelper.GetInstance();
 
             InitializeComponent();
 

@@ -62,6 +62,7 @@
   <ItemGroup>
     <Build Include="LogEntry.sql" />
     <Build Include="Holiday.sql" />
+    <Build Include="Leave.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="WorklogDB.publish.xml" />

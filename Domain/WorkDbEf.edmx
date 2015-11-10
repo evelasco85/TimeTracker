@@ -15,6 +15,16 @@
           <Property Name="SystemCreated" Type="datetime" Nullable="false" />
           <Property Name="SystemUpdated" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="Leave">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="SystemCreated" Type="datetime" Nullable="false" />
+          <Property Name="SystemUpdated" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="LogEntry">
           <Key>
             <PropertyRef Name="Id" />
@@ -28,6 +38,7 @@
         </EntityType>
         <EntityContainer Name="WorklogDBModelStoreContainer">
           <EntitySet Name="Holiday" EntityType="Self.Holiday" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Leave" EntityType="Self.Leave" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LogEntry" EntityType="Self.LogEntry" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -37,6 +48,7 @@
         <EntityContainer Name="WorklogDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Holidays" EntityType="WorklogDBModel.Holiday" />
           <EntitySet Name="LogEntries" EntityType="WorklogDBModel.LogEntry" />
+          <EntitySet Name="Leaves" EntityType="WorklogDBModel.Leave" />
         </EntityContainer>
         <EntityType Name="Holiday">
           <Key>
@@ -58,6 +70,16 @@
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Category" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SystemUpdateDateTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Leave">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="SystemCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SystemUpdated" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -84,6 +106,17 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="System_Created" ColumnName="System_Created" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Leaves">
+            <EntityTypeMapping TypeName="WorklogDBModel.Leave">
+              <MappingFragment StoreEntitySet="Leave">
+                <ScalarProperty Name="SystemUpdated" ColumnName="SystemUpdated" />
+                <ScalarProperty Name="SystemCreated" ColumnName="SystemCreated" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

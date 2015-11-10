@@ -4,7 +4,7 @@
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseName>WorklogDB</TargetDatabaseName>
     <DeployScriptFileName>WorklogDB.sql</DeployScriptFileName>
-    <TargetConnectionString>Data Source=127.0.0.1;Persist Security Info=True;User ID=sa;Pooling=False</TargetConnectionString>
+    <TargetConnectionString>Data Source=127.0.0.1;Integrated Security=True;Pooling=False</TargetConnectionString>
     <ProfileVersionNumber>1</ProfileVersionNumber>
     <BlockOnPossibleDataLoss>True</BlockOnPossibleDataLoss>
   </PropertyGroup>
