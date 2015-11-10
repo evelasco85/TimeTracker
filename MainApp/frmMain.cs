@@ -496,18 +496,42 @@ namespace MainApp
 
         private void btnHoliday_Click(object sender, EventArgs e)
         {
-            this.OpenHolidays(this.dateTimeMonth.Value);
+            this.OpenHolidays();
         }
 
-        void OpenHolidays(DateTime selectedMonth)
+        void OpenHolidays()
         {
             MethodInvoker invokeFromUI = new MethodInvoker(
                () =>
                {
-                   using (frmHolidays logs = new frmHolidays(this._repo))
+                   using (frmHolidays holiday = new frmHolidays(this._repo))
                    {
-                       logs.ShowDialog(this);
-                       logs.Dispose();
+                       holiday.ShowDialog(this);
+                       holiday.Dispose();
+                   }
+               }
+           );
+
+            if (this.InvokeRequired)
+                this.Invoke(invokeFromUI);
+            else
+                invokeFromUI.Invoke();
+        }
+
+        private void btnLeave_Click(object sender, EventArgs e)
+        {
+            this.OpenLeaves();
+        }
+
+        void OpenLeaves()
+        {
+            MethodInvoker invokeFromUI = new MethodInvoker(
+               () =>
+               {
+                   using (frmLeaves leave = new frmLeaves(this._repo))
+                   {
+                       leave.ShowDialog(this);
+                       leave.Dispose();
                    }
                }
            );

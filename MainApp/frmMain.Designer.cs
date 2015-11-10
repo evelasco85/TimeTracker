@@ -50,6 +50,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnSummarizeLogs = new System.Windows.Forms.Button();
             this.btnHoliday = new System.Windows.Forms.Button();
+            this.btnLeave = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dGridLogs)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -82,7 +83,7 @@
             // btnManuaTrackerEntry
             // 
             this.btnManuaTrackerEntry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnManuaTrackerEntry.Location = new System.Drawing.Point(391, 545);
+            this.btnManuaTrackerEntry.Location = new System.Drawing.Point(392, 528);
             this.btnManuaTrackerEntry.Name = "btnManuaTrackerEntry";
             this.btnManuaTrackerEntry.Size = new System.Drawing.Size(151, 30);
             this.btnManuaTrackerEntry.TabIndex = 1;
@@ -124,7 +125,7 @@
             // btnRefresh
             // 
             this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnRefresh.Location = new System.Drawing.Point(15, 545);
+            this.btnRefresh.Location = new System.Drawing.Point(16, 528);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(148, 30);
             this.btnRefresh.TabIndex = 12;
@@ -262,7 +263,7 @@
             // btnSummarizeLogs
             // 
             this.btnSummarizeLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSummarizeLogs.Location = new System.Drawing.Point(15, 581);
+            this.btnSummarizeLogs.Location = new System.Drawing.Point(13, 600);
             this.btnSummarizeLogs.Name = "btnSummarizeLogs";
             this.btnSummarizeLogs.Size = new System.Drawing.Size(151, 30);
             this.btnSummarizeLogs.TabIndex = 18;
@@ -273,7 +274,7 @@
             // btnHoliday
             // 
             this.btnHoliday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnHoliday.Location = new System.Drawing.Point(391, 581);
+            this.btnHoliday.Location = new System.Drawing.Point(392, 564);
             this.btnHoliday.Name = "btnHoliday";
             this.btnHoliday.Size = new System.Drawing.Size(151, 30);
             this.btnHoliday.TabIndex = 19;
@@ -281,10 +282,22 @@
             this.btnHoliday.UseVisualStyleBackColor = true;
             this.btnHoliday.Click += new System.EventHandler(this.btnHoliday_Click);
             // 
+            // btnLeave
+            // 
+            this.btnLeave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnLeave.Location = new System.Drawing.Point(392, 600);
+            this.btnLeave.Name = "btnLeave";
+            this.btnLeave.Size = new System.Drawing.Size(151, 30);
+            this.btnLeave.TabIndex = 20;
+            this.btnLeave.Text = "Leave";
+            this.btnLeave.UseVisualStyleBackColor = true;
+            this.btnLeave.Click += new System.EventHandler(this.btnLeave_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(1249, 649);
+            this.Controls.Add(this.btnLeave);
             this.Controls.Add(this.btnHoliday);
             this.Controls.Add(this.btnSummarizeLogs);
             this.Controls.Add(this.txtDescription);
@@ -332,6 +345,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSummarizeLogs;
         private System.Windows.Forms.Button btnHoliday;
+        private System.Windows.Forms.Button btnLeave;
     }
 }
 

@@ -183,6 +183,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dGridHolidays);
             this.Name = "frmHolidays";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Holidays";
             ((System.ComponentModel.ISupportInitialize)(this.dGridHolidays)).EndInit();
             this.ResumeLayout(false);

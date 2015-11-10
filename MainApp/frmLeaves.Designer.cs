@@ -165,7 +165,7 @@
             this.lblId.TabIndex = 13;
             this.lblId.Text = "0";
             // 
-            // frmHolidays
+            // frmLeaves
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -182,7 +182,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dGridHolidays);
-            this.Name = "frmHolidays";
+            this.Name = "frmLeaves";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Holidays";
             ((System.ComponentModel.ISupportInitialize)(this.dGridHolidays)).EndInit();
             this.ResumeLayout(false);
