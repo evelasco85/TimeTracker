@@ -25,11 +25,18 @@ namespace MainApp
         public Action<Func<LogEntry, bool>> QueryViewRecords { get; set; }
         public Action<Func<LogEntry, bool>> DeleteViewRecords { get; set; }
         public Action<LogEntry> SaveViewRecord { get; set; }
-        public IEnumerable<LogEntry> ViewQueryResult { get; set; } 
+        public IEnumerable<LogEntry> ViewQueryResult { get; set; }
+
+        Func<Func<Holiday, bool>, IEnumerable<Holiday>> _getHolidaysFunc { get; set; }
 
         public frmMain(IEFRepository repository)
         {
-            Action RegisterController = () => new LogEntriesController(repository, this);
+            Action RegisterController = () =>
+                {
+                   LogEntriesController controller =new LogEntriesController(repository, this);
+
+                   this._getHolidaysFunc = controller.GetHolidays;
+                };
 
             RegisterController();
 
@@ -348,13 +355,16 @@ namespace MainApp
             IList<LogEntry> logEntries = this._helper.GetMonthLogs(this.ViewQueryResult, selectedMonth);
             int uniqueLogEntriesPerDate = logEntries.GroupBy(x => x.Created.Date).Distinct().Count();
             int daysInMonth = DateTime.DaysInMonth(year, month);
-            int holidayCount = 0;
             DateTime startDate = this._helper.GetStartDate(selectedMonth);
             DateTime endDate = this._helper.GetEndDate(startDate);
             int saturdayCount = this._helper.CountDaysByDayName(DayOfWeek.Saturday, startDate, endDate);
             int sundayCount = this._helper.CountDaysByDayName(DayOfWeek.Sunday, startDate, endDate);
+            int holidayCount = this._getHolidaysFunc(holiday =>
+                ((holiday.Date.Ticks > startDate.Ticks) && (holiday.Date.Ticks < endDate.AddDays(1).Ticks))
+                ).Count();
             int workdaysCount = (daysInMonth - (saturdayCount + sundayCount + holidayCount));
 
+            this.lblHolidaysCount.Text = string.Format("Holidays Count: {0}", holidayCount.ToString());
             this.lblSaturdaysCount.Text = string.Format("Saturday Days Count: {0}", saturdayCount.ToString());
             this.lblSundayDaysCount.Text = string.Format("Sunday Days Count: {0}", sundayCount.ToString());
             this.lblWorkdaysCount.Text = string.Format("Workdays Count: {0}", workdaysCount.ToString());
@@ -516,6 +526,8 @@ namespace MainApp
                 this.Invoke(invokeFromUI);
             else
                 invokeFromUI.Invoke();
+
+            this.RefreshDashboardData();
         }
 
         private void btnLeave_Click(object sender, EventArgs e)

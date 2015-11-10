@@ -23,8 +23,11 @@ namespace Domain.MVP
         public const string NO_DESCRIPTION = "No Description";
         public const string WEEKEND = "Weekend";
 
+        public Func<Func<Holiday, bool>, IEnumerable<Holiday>> GetHolidays { get; set; }
+
         public LogEntriesController(IEFRepository repository, IView<LogEntry> view) : base(repository, view)
         {
+            this.GetHolidays = this.QueryHolidays;
         }
 
         public override void GetData(Func<LogEntry, bool> criteria)
@@ -36,6 +39,20 @@ namespace Domain.MVP
                 this._view.ViewQueryResult = logQuery.Select(x => x);
             else
                 this._view.ViewQueryResult = logQuery.Where(criteria);
+        }
+
+        IEnumerable<Holiday> QueryHolidays(Func<Holiday, bool> criteria)
+        {
+            IQueryable<Holiday> logQuery = this._repository
+                .GetEntityQuery<Holiday>();
+            IEnumerable<Holiday> results = new List<Holiday>();
+
+            if (criteria == null)
+                results = logQuery.Select(x => x);
+            else
+                results = logQuery.Where(criteria);
+
+            return results;
         }
 
         public override void SaveData(LogEntry data)
