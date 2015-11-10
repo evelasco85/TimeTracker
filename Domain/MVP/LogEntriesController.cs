@@ -24,10 +24,12 @@ namespace Domain.MVP
         public const string WEEKEND = "Weekend";
 
         public Func<Func<Holiday, bool>, IEnumerable<Holiday>> GetHolidays { get; set; }
+        public Func<Func<Leave, bool>, IEnumerable<Leave>> GetLeaves { get; set; }
 
         public LogEntriesController(IEFRepository repository, IView<LogEntry> view) : base(repository, view)
         {
             this.GetHolidays = this.QueryHolidays;
+            this.GetLeaves = this.QueryLeaves;
         }
 
         public override void GetData(Func<LogEntry, bool> criteria)
@@ -43,14 +45,28 @@ namespace Domain.MVP
 
         IEnumerable<Holiday> QueryHolidays(Func<Holiday, bool> criteria)
         {
-            IQueryable<Holiday> logQuery = this._repository
+            IQueryable<Holiday> holidayQuery = this._repository
                 .GetEntityQuery<Holiday>();
             IEnumerable<Holiday> results = new List<Holiday>();
 
             if (criteria == null)
-                results = logQuery.Select(x => x);
+                results = holidayQuery.Select(x => x);
             else
-                results = logQuery.Where(criteria);
+                results = holidayQuery.Where(criteria);
+
+            return results;
+        }
+
+        IEnumerable<Leave> QueryLeaves(Func<Leave, bool> criteria)
+        {
+            IQueryable<Leave> leaveQuery = this._repository
+                .GetEntityQuery<Leave>();
+            IEnumerable<Leave> results = new List<Leave>();
+
+            if (criteria == null)
+                results = leaveQuery.Select(x => x);
+            else
+                results = leaveQuery.Where(criteria);
 
             return results;
         }

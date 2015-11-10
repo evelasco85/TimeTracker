@@ -51,6 +51,7 @@
             this.btnSummarizeLogs = new System.Windows.Forms.Button();
             this.btnHoliday = new System.Windows.Forms.Button();
             this.btnLeave = new System.Windows.Forms.Button();
+            this.lblLeavesCount = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dGridLogs)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -136,6 +137,7 @@
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.lblLeavesCount);
             this.panel1.Controls.Add(this.lblDaysCountWithNoLogs);
             this.panel1.Controls.Add(this.lblLogCountsPerMonth);
             this.panel1.Controls.Add(this.lblMonthDaysCount);
@@ -154,7 +156,7 @@
             this.lblDaysCountWithNoLogs.AutoSize = true;
             this.lblDaysCountWithNoLogs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDaysCountWithNoLogs.ForeColor = System.Drawing.Color.Red;
-            this.lblDaysCountWithNoLogs.Location = new System.Drawing.Point(12, 156);
+            this.lblDaysCountWithNoLogs.Location = new System.Drawing.Point(12, 150);
             this.lblDaysCountWithNoLogs.Name = "lblDaysCountWithNoLogs";
             this.lblDaysCountWithNoLogs.Size = new System.Drawing.Size(159, 13);
             this.lblDaysCountWithNoLogs.TabIndex = 18;
@@ -164,7 +166,7 @@
             // 
             this.lblLogCountsPerMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblLogCountsPerMonth.AutoSize = true;
-            this.lblLogCountsPerMonth.Location = new System.Drawing.Point(12, 135);
+            this.lblLogCountsPerMonth.Location = new System.Drawing.Point(12, 130);
             this.lblLogCountsPerMonth.Name = "lblLogCountsPerMonth";
             this.lblLogCountsPerMonth.Size = new System.Drawing.Size(134, 13);
             this.lblLogCountsPerMonth.TabIndex = 17;
@@ -174,7 +176,7 @@
             // 
             this.lblMonthDaysCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblMonthDaysCount.AutoSize = true;
-            this.lblMonthDaysCount.Location = new System.Drawing.Point(12, 76);
+            this.lblMonthDaysCount.Location = new System.Drawing.Point(12, 90);
             this.lblMonthDaysCount.Name = "lblMonthDaysCount";
             this.lblMonthDaysCount.Size = new System.Drawing.Size(98, 13);
             this.lblMonthDaysCount.TabIndex = 16;
@@ -184,7 +186,7 @@
             // 
             this.lblWorkdaysCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblWorkdaysCount.AutoSize = true;
-            this.lblWorkdaysCount.Location = new System.Drawing.Point(12, 114);
+            this.lblWorkdaysCount.Location = new System.Drawing.Point(12, 110);
             this.lblWorkdaysCount.Name = "lblWorkdaysCount";
             this.lblWorkdaysCount.Size = new System.Drawing.Size(89, 13);
             this.lblWorkdaysCount.TabIndex = 15;
@@ -194,7 +196,7 @@
             // 
             this.lblHolidaysCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblHolidaysCount.AutoSize = true;
-            this.lblHolidaysCount.Location = new System.Drawing.Point(12, 54);
+            this.lblHolidaysCount.Location = new System.Drawing.Point(12, 50);
             this.lblHolidaysCount.Name = "lblHolidaysCount";
             this.lblHolidaysCount.Size = new System.Drawing.Size(104, 13);
             this.lblHolidaysCount.TabIndex = 14;
@@ -204,7 +206,7 @@
             // 
             this.lblSundayDaysCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSundayDaysCount.AutoSize = true;
-            this.lblSundayDaysCount.Location = new System.Drawing.Point(12, 33);
+            this.lblSundayDaysCount.Location = new System.Drawing.Point(12, 30);
             this.lblSundayDaysCount.Name = "lblSundayDaysCount";
             this.lblSundayDaysCount.Size = new System.Drawing.Size(104, 13);
             this.lblSundayDaysCount.TabIndex = 13;
@@ -293,6 +295,16 @@
             this.btnLeave.UseVisualStyleBackColor = true;
             this.btnLeave.Click += new System.EventHandler(this.btnLeave_Click);
             // 
+            // lblLeavesCount
+            // 
+            this.lblLeavesCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblLeavesCount.AutoSize = true;
+            this.lblLeavesCount.Location = new System.Drawing.Point(12, 70);
+            this.lblLeavesCount.Name = "lblLeavesCount";
+            this.lblLeavesCount.Size = new System.Drawing.Size(99, 13);
+            this.lblLeavesCount.TabIndex = 19;
+            this.lblLeavesCount.Text = "Leaves Count: N/A";
+            // 
             // frmMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -346,6 +358,7 @@
         private System.Windows.Forms.Button btnSummarizeLogs;
         private System.Windows.Forms.Button btnHoliday;
         private System.Windows.Forms.Button btnLeave;
+        private System.Windows.Forms.Label lblLeavesCount;
     }
 }
 
