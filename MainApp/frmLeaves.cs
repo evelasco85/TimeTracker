@@ -11,7 +11,7 @@ using Domain.Helpers;
 
 namespace MainApp
 {
-    public partial class frmLeaves : Form, IView<Leave>
+    public partial class frmLeaves : Form, ILeaveView
     {
         enum ModifierState
         {
@@ -22,12 +22,13 @@ namespace MainApp
             Cancel
         };
 
-        IDateHelper _helper;
         public Action<Func<Leave, bool>> QueryViewRecords { get; set; }
         public Action OnQueryViewRecordsCompletion { get; set; }
         public Action<Leave> SaveViewRecord { get; set; }
         public Action<Func<Leave, bool>> DeleteViewRecords { get; set; }
         public IEnumerable<Leave> ViewQueryResult { get; set; }
+        public Action<IEnumerable<Leave>> GetLeaveData { get; set; }
+        public Action<dynamic, DateTime> OnGetLeaveDataCompletion { get; set; }
 
         public frmLeaves(IEFRepository repository)
         {
@@ -35,8 +36,8 @@ namespace MainApp
 
             RegisterController();
 
-            this._helper = DateHelper.GetInstance();
             this.OnQueryViewRecordsCompletion = RefreshGridData;
+            this.OnGetLeaveDataCompletion = UpdateLeaveData;
 
             InitializeComponent();
 
@@ -49,16 +50,15 @@ namespace MainApp
         void RefreshGridData()
         {
             IEnumerable<Leave> leaves = this.ViewQueryResult;
-            var displayColumns = this._helper.GetLeaves(leaves);
+
+            this.GetLeaveData(leaves);
+        }
+
+        void UpdateLeaveData(dynamic displayColumns, DateTime lastUpdatedDate)
+        {
             this.dGridLeaves.DataSource = displayColumns;
 
             this.dGridLeaves.Refresh();
-
-            DateTime lastUpdatedDate = displayColumns
-                .Select(x => x.SystemUpdated)
-                .OrderByDescending(x => x)
-                .FirstOrDefault();
-
             this.HighlightRecordByDate(lastUpdatedDate);
         }
 
@@ -99,7 +99,7 @@ namespace MainApp
             try
             {
                 int id = int.Parse(this.dGridLeaves.Rows[rowIndex].Cells[LeaveController.ID_INDEX].Value.ToString());
-                Leave leave = this._helper.GetLeave(this.ViewQueryResult, id);
+                Leave leave = DateHelper.GetInstance().GetLeave(this.ViewQueryResult, id);
 
                 this.lblId.Text = leave.Id.ToString();
                 this.leaveDate.Value = leave.Date;
@@ -225,7 +225,7 @@ namespace MainApp
             };
 
             if (!string.IsNullOrEmpty(this.lblId.Text))
-                leave = this._helper.GetLeave(this.ViewQueryResult, int.Parse(this.lblId.Text));
+                leave = DateHelper.GetInstance().GetLeave(this.ViewQueryResult, int.Parse(this.lblId.Text));
 
             leave.Date = this.leaveDate.Value;
             leave.Description = this.txtLeaveDescription.Text;

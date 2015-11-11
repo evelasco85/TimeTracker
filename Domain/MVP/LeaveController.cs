@@ -16,11 +16,27 @@ namespace Domain.MVP
         public const int SYSTEM_CREATED_INDEX = 3;
         public const int SYSTEM_UPDATED_INDEX = 4;
 
-        public LeaveController(IEFRepository repository, IView<Leave> view)
+        ILeaveView _leaveView;
+        IDateHelper _helper;
+
+        public LeaveController(IEFRepository repository, ILeaveView view)
             : base(repository, view)
         {
+            this._helper = DateHelper.GetInstance();
+            this._leaveView = view;
+            this._leaveView.GetLeaveData = this.GetLeaveData;
         }
 
+        void GetLeaveData(IEnumerable<Leave> leaves)
+        {
+            var displayColumns = this._helper.GetLeaves(leaves);
+            DateTime lastUpdatedDate = displayColumns
+                .Select(x => x.SystemUpdated)
+                .OrderByDescending(x => x)
+                .FirstOrDefault();
+
+            this._leaveView.OnGetLeaveDataCompletion(displayColumns, lastUpdatedDate);
+        }
         public override void GetData(Func<Leave, bool> criteria)
         {
             IQueryable<Leave> holidayQuery = this._repository
