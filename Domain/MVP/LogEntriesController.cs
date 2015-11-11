@@ -42,6 +42,8 @@ namespace Domain.MVP
                 this._view.ViewQueryResult = logQuery.Select(x => x);
             else
                 this._view.ViewQueryResult = logQuery.Where(criteria);
+
+            this._view.OnQueryViewRecordsCompletion();
         }
 
         IEnumerable<Holiday> QueryHolidays(Func<Holiday, bool> criteria)

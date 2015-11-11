@@ -24,6 +24,7 @@ namespace MainApp
 
         IDateHelper _helper;
         public Action<Func<Leave, bool>> QueryViewRecords { get; set; }
+        public Action OnQueryViewRecordsCompletion { get; set; }
         public Action<Leave> SaveViewRecord { get; set; }
         public Action<Func<Leave, bool>> DeleteViewRecords { get; set; }
         public IEnumerable<Leave> ViewQueryResult { get; set; }

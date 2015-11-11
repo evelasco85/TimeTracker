@@ -11,6 +11,7 @@ namespace Domain.MVP
     public interface IView<TModel>
     {
         Action<Func<TModel, bool>> QueryViewRecords { get; set; }
+        Action OnQueryViewRecordsCompletion { get; set; }
         Action<TModel> SaveViewRecord { get; set; }
         Action<Func<TModel, bool>> DeleteViewRecords { get; set; }
         IEnumerable<TModel> ViewQueryResult { get; set; }

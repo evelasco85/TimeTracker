@@ -24,6 +24,7 @@ namespace MainApp
         IDateHelper _helper;
 
         public Action<Func<LogEntry, bool>> QueryViewRecords { get; set; }
+        public Action OnQueryViewRecordsCompletion { get; set; }
         public Action<Func<LogEntry, bool>> DeleteViewRecords { get; set; }
         public Action<LogEntry> SaveViewRecord { get; set; }
         public IEnumerable<LogEntry> ViewQueryResult { get; set; }
@@ -45,11 +46,12 @@ namespace MainApp
 
             this._helper = DateHelper.GetInstance();
             this._repository = repository;
+            this.OnQueryViewRecordsCompletion = this.RefreshGridData;
 
             InitializeComponent();
             this.InitializeRequiredData();
             this.RefreshDashboardData();
-            this.RefreshGridData();
+            this.QueryViewRecords(null);
             this.StartTimer();
         }
 
@@ -64,10 +66,9 @@ namespace MainApp
 
         void RefreshGridData()
         {
-            this.QueryViewRecords(null);        //Query the controller
-
+            IEnumerable<LogEntry> log = this.ViewQueryResult;
             DateTime selectedMonth = this.dateTimeMonth.Value;
-            IList<LogEntry> availableLogEntries = this._helper.GetMonthLogs(this.ViewQueryResult, selectedMonth);
+            IList<LogEntry> availableLogEntries = this._helper.GetMonthLogs(log, selectedMonth);
             IList<LogEntry> missingLogEntries = this._helper.GenerateMissingEntriesForMissingDates(availableLogEntries, selectedMonth);
             List<LogEntry> logEntries = new List<LogEntry>();
 
@@ -334,7 +335,7 @@ namespace MainApp
                 throw ex;
             }
 
-            this.RefreshGridData();
+            this.QueryViewRecords(null);
             this.RefreshDashboardData();
 
             success = true;
@@ -391,7 +392,7 @@ namespace MainApp
 
         private void dateTimeMonth_ValueChanged(object sender, EventArgs e)
         {
-            this.RefreshGridData();
+            this.QueryViewRecords(null);
             this.RefreshDashboardData();
         }
 
@@ -452,7 +453,7 @@ namespace MainApp
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            this.RefreshGridData();
+            this.QueryViewRecords(null);
             this.RefreshDashboardData();
         }
 
