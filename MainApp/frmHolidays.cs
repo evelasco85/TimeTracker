@@ -35,21 +35,21 @@ namespace MainApp
 
             RegisterController();
 
+            this.OnQueryViewRecordsCompletion = this.RefreshGridData;
             this._helper = DateHelper.GetInstance();
 
             InitializeComponent();
 
             this.holidayDate.Value = DateTime.Now;
 
-            this.RefreshGridData();
+            this.QueryViewRecords(null);
             this.WindowInputChanges(ModifierState.Cancel);
         }
 
         void RefreshGridData()
         {
-            this.QueryViewRecords(null);
-
-            var displayColumns = this._helper.GetHolidays(this.ViewQueryResult);
+            IEnumerable<Holiday> holidays = this.ViewQueryResult;
+            var displayColumns = this._helper.GetHolidays(holidays);
             this.dGridHolidays.DataSource = displayColumns;
 
             this.dGridHolidays.Refresh();
@@ -219,7 +219,7 @@ namespace MainApp
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
                     this.DeleteViewRecords(x => x.Id == id);
-                    this.RefreshGridData();
+                    this.QueryViewRecords(null);
                     this.ResetInputWindow();
 
                 }
@@ -252,7 +252,7 @@ namespace MainApp
 
             this.SaveViewRecord(holiday);
             this.WindowInputChanges(ModifierState.Save);
-            this.RefreshGridData();
+            this.QueryViewRecords(null);
             this.ResetInputWindow();
         }
 

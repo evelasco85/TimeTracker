@@ -29,6 +29,8 @@ namespace Domain.MVP
                 this._view.ViewQueryResult = holidayQuery.Select(x => x);
             else
                 this._view.ViewQueryResult = holidayQuery.Where(criteria);
+
+            this._view.OnQueryViewRecordsCompletion();
         }
 
         public override void SaveData(Holiday data)

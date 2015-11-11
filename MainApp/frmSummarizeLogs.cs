@@ -27,16 +27,17 @@ namespace MainApp
 
             RegisterController();
 
+            this.OnQueryViewRecordsCompletion = () => DisplayLogEntries(selectedMonth);
             this._helper = DateHelper.GetInstance();
-
+            
             InitializeComponent();
-            this.DisplayLogEntries(selectedMonth);
+            this.QueryViewRecords(null);
         }
+
         void DisplayLogEntries(DateTime selectedMonth)
         {
-            this.QueryViewRecords(null);
-
-            IList<LogEntry> logEntries = this._helper.GetMonthSummaryLogs(this.ViewQueryResult, selectedMonth);
+            IEnumerable<LogEntry> logs = this.ViewQueryResult;
+            IList<LogEntry> logEntries = this._helper.GetMonthSummaryLogs(logs, selectedMonth);
             IEnumerable<IGrouping<string, string>> perDateLogs =
                 logEntries
                 .Where(x => !(x.Category.ToLower() == "others"))

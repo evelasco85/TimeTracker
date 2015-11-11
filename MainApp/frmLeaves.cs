@@ -36,20 +36,20 @@ namespace MainApp
             RegisterController();
 
             this._helper = DateHelper.GetInstance();
+            this.OnQueryViewRecordsCompletion = RefreshGridData;
 
             InitializeComponent();
 
             this.leaveDate.Value = DateTime.Now;
 
-            this.RefreshGridData();
+            this.QueryViewRecords(null);
             this.WindowInputChanges(ModifierState.Cancel);
         }
 
         void RefreshGridData()
         {
-            this.QueryViewRecords(null);
-
-            var displayColumns = this._helper.GetLeaves(this.ViewQueryResult);
+            IEnumerable<Leave> leaves = this.ViewQueryResult;
+            var displayColumns = this._helper.GetLeaves(leaves);
             this.dGridLeaves.DataSource = displayColumns;
 
             this.dGridLeaves.Refresh();
@@ -207,7 +207,7 @@ namespace MainApp
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
                     this.DeleteViewRecords(x => x.Id == id);
-                    this.RefreshGridData();
+                    this.QueryViewRecords(null);
                     this.ResetInputWindow();
 
                 }
@@ -240,7 +240,7 @@ namespace MainApp
 
             this.SaveViewRecord(leave);
             this.WindowInputChanges(ModifierState.Save);
-            this.RefreshGridData();
+            this.QueryViewRecords(null);
             this.ResetInputWindow();
         }
 

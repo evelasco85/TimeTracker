@@ -366,8 +366,6 @@ namespace MainApp
 
             Func<DateTime, bool> betweenMonthDates = (currentDate) => ((currentDate.Ticks > startDate.Ticks) && (currentDate.Ticks < endDate.AddDays(1).Ticks));
 
-            //int holidayCount = this._getHolidaysFunc(holiday => betweenDates(holiday.Date)).Count();        //Including Saturdays/Sundays
-
             //Excluding Saturdays/Sundays
             int holidayCount = this._getHolidaysFunc(holiday =>
                 betweenMonthDates(holiday.Date) && (!this._helper.WeekendDate(holiday.Date))

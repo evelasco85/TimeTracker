@@ -27,6 +27,8 @@ namespace Domain.MVP
                 this._view.ViewQueryResult = logQuery.Select(x => x);
             else
                 this._view.ViewQueryResult = logQuery.Where(criteria);
+
+            this._view.OnQueryViewRecordsCompletion();
         }
 
         public override void SaveData(LogEntry data)
