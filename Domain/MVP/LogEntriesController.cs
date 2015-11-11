@@ -32,6 +32,40 @@ namespace Domain.MVP
             this._helper = DateHelper.GetInstance();
             this._logView = (ILogView)this._view;
             this._logView.GetLogStatistics = this.GetLogStatistics;
+            this._logView.GetCalendarData = this.GetCalendarData;
+        }
+
+        void GetCalendarData(IEnumerable<LogEntry> logs, DateTime selectedMonth)
+        {
+            IList<LogEntry> availableLogEntries = this._helper.GetMonthLogs(logs, selectedMonth);
+            IList<LogEntry> missingLogEntries = this._helper.GenerateMissingEntriesForMissingDates(availableLogEntries, selectedMonth);
+
+            List<LogEntry> logEntries = new List<LogEntry>();
+
+            logEntries.AddRange(availableLogEntries);
+            logEntries.AddRange(missingLogEntries);
+
+            var displayColumns = logEntries
+                .Select(x => new
+                {
+                    x.Id,
+                    x.Created,
+                    Time = x.Created,
+                    Day = x.Created,
+                    x.Category,
+                    x.Description,
+                    x.System_Created,
+                    x.SystemUpdateDateTime,
+                })
+                .OrderByDescending(x => x.Created)
+                .ToList();
+
+            DateTime lastUpdatedDate = availableLogEntries
+                .Select(x => x.SystemUpdateDateTime)
+                .OrderByDescending(x => x)
+                .FirstOrDefault();
+
+            this._logView.OnGetCalendarDataCompletion(displayColumns, lastUpdatedDate);
         }
 
         void GetLogStatistics(IEnumerable<LogEntry> logs, DateTime selectedMonth)

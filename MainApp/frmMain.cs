@@ -21,7 +21,6 @@ namespace MainApp
         bool _promptingInProgress = false;
         
         IEFRepository _repository;
-        IDateHelper _helper;
 
         public Action<Func<LogEntry, bool>> QueryViewRecords { get; set; }
         public Action OnQueryViewRecordsCompletion { get; set; }
@@ -29,6 +28,8 @@ namespace MainApp
         public Action<LogEntry> SaveViewRecord { get; set; }
         public Action<IEnumerable<LogEntry>, DateTime> GetLogStatistics { get; set; }
         public Action<int, int, int, int, int, int, int> OnGetLogStatisticsCompletion { get; set; }
+        public Action<IEnumerable<LogEntry>, DateTime> GetCalendarData { get; set; }
+        public Action<dynamic, DateTime> OnGetCalendarDataCompletion { get; set; }
         public IEnumerable<LogEntry> ViewQueryResult { get; set; }
 
         public frmMain(IEFRepository repository)
@@ -40,10 +41,10 @@ namespace MainApp
 
             RegisterController();
 
-            this._helper = DateHelper.GetInstance();
             this._repository = repository;
             this.OnQueryViewRecordsCompletion = this.RefreshGridData;
             this.OnGetLogStatisticsCompletion = this.UpdateDashboard;
+            this.OnGetCalendarDataCompletion = this.UpdateCalendarData;
 
             InitializeComponent();
             this.InitializeRequiredData();
@@ -65,36 +66,15 @@ namespace MainApp
         {
             IEnumerable<LogEntry> log = this.ViewQueryResult;
             DateTime selectedMonth = this.dateTimeMonth.Value;
-            IList<LogEntry> availableLogEntries = this._helper.GetMonthLogs(log, selectedMonth);
-            IList<LogEntry> missingLogEntries = this._helper.GenerateMissingEntriesForMissingDates(availableLogEntries, selectedMonth);
-            List<LogEntry> logEntries = new List<LogEntry>();
 
-            logEntries.AddRange(availableLogEntries);
-            logEntries.AddRange(missingLogEntries);
+            this.GetCalendarData(log, selectedMonth);
+        }
 
-            var displayColumns = logEntries
-                .Select(x => new {
-                    x.Id,
-                    x.Created,
-                    Time = x.Created,
-                    Day = x.Created,
-                    x.Category,
-                    x.Description,
-                    x.System_Created,
-                    x.SystemUpdateDateTime,
-                })
-                .OrderByDescending(x => x.Created)
-                .ToList();
-
+        void UpdateCalendarData(dynamic displayColumns, DateTime lastUpdatedDate)
+        {
             this.dGridLogs.DataSource = displayColumns;
 
             this.dGridLogs.Refresh();
-
-            DateTime lastUpdatedDate = availableLogEntries
-                .Select(x => x.SystemUpdateDateTime)
-                .OrderByDescending(x => x)
-                .FirstOrDefault();
-
             this.HighlightRecordByDate(lastUpdatedDate);
         }
 
@@ -379,7 +359,7 @@ namespace MainApp
                 string description = row.Cells[LogEntriesController.DESCRIPTION_INDEX].Value.ToString();
                 string category = row.Cells[LogEntriesController.CATEGORY_INDEX].Value.ToString();
 
-                if (this._helper.WeekendDate(created))
+                if (DateHelper.GetInstance().WeekendDate(created))
                 {
                     row.DefaultCellStyle.BackColor = Color.Red;
                     row.Cells[LogEntriesController.DESCRIPTION_INDEX].Value = (string.IsNullOrEmpty(description)) ? LogEntriesController.WEEKEND : description;

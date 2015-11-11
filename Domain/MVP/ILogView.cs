@@ -10,5 +10,7 @@ namespace Domain.MVP
     {
         Action<IEnumerable<LogEntry>, DateTime> GetLogStatistics { get; set; }
         Action<int,int,int,int,int,int,int> OnGetLogStatisticsCompletion { get; set; }
+        Action<IEnumerable<LogEntry>, DateTime> GetCalendarData { get; set; }
+        Action<dynamic, DateTime> OnGetCalendarDataCompletion { get; set; }
     }
 }
