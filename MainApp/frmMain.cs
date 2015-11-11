@@ -27,19 +27,15 @@ namespace MainApp
         public Action OnQueryViewRecordsCompletion { get; set; }
         public Action<Func<LogEntry, bool>> DeleteViewRecords { get; set; }
         public Action<LogEntry> SaveViewRecord { get; set; }
+        public Action<IEnumerable<LogEntry>, DateTime> GetLogStatistics { get; set; }
+        public Action<int, int, int, int, int, int, int> OnGetLogStatisticsCompletion { get; set; }
         public IEnumerable<LogEntry> ViewQueryResult { get; set; }
-
-        Func<Func<Holiday, bool>, IEnumerable<Holiday>> _getHolidaysFunc { get; set; }
-        Func<Func<Leave, bool>, IEnumerable<Leave>> _getLeavesFunc { get; set; }
 
         public frmMain(IEFRepository repository)
         {
             Action RegisterController = () =>
                 {
                    LogEntriesController controller =new LogEntriesController(repository, this);
-
-                   this._getHolidaysFunc = controller.GetHolidays;
-                   this._getLeavesFunc = controller.GetLeaves;
                 };
 
             RegisterController();
@@ -47,6 +43,7 @@ namespace MainApp
             this._helper = DateHelper.GetInstance();
             this._repository = repository;
             this.OnQueryViewRecordsCompletion = this.RefreshGridData;
+            this.OnGetLogStatisticsCompletion = this.UpdateDashboard;
 
             InitializeComponent();
             this.InitializeRequiredData();
@@ -350,32 +347,13 @@ namespace MainApp
 
         void RefreshDashboardData()
         {
-            IEnumerable<LogEntry> logs = this.ViewQueryResult;
             DateTime selectedMonth = this.dateTimeMonth.Value;
-            int year = DateTime.Now.Year;
-            int month = selectedMonth.Month;
-            IList<LogEntry> logEntries = this._helper.GetMonthLogs(logs, selectedMonth);
-            int uniqueLogEntriesPerDate = logEntries.GroupBy(x => x.Created.Date).Distinct().Count();
-            int daysInMonth = DateTime.DaysInMonth(year, month);
-            DateTime startDate = this._helper.GetStartDate(selectedMonth);
-            DateTime endDate = this._helper.GetEndDate(startDate);
-            int saturdayCount = this._helper.CountDaysByDayName(DayOfWeek.Saturday, startDate, endDate);
-            int sundayCount = this._helper.CountDaysByDayName(DayOfWeek.Sunday, startDate, endDate);
+            IEnumerable<LogEntry> logs = this.ViewQueryResult;
+            this.GetLogStatistics(logs, selectedMonth);
+        }
 
-            Func<DateTime, bool> betweenMonthDates = (currentDate) => ((currentDate.Ticks > startDate.Ticks) && (currentDate.Ticks < endDate.AddDays(1).Ticks));
-
-            //Excluding Saturdays/Sundays
-            int holidayCount = this._getHolidaysFunc(holiday =>
-                betweenMonthDates(holiday.Date) && (!this._helper.WeekendDate(holiday.Date))
-                )
-                .Count();
-            
-            int leaveCount = this._getLeavesFunc(leave =>
-                betweenMonthDates(leave.Date) && (!this._helper.WeekendDate(leave.Date))
-                )
-                .Count();
-            int workdaysCount = (daysInMonth - (saturdayCount + sundayCount + holidayCount + leaveCount));
-
+        void UpdateDashboard(int holidayCount, int leaveCount, int saturdayCount, int sundayCount, int workdaysCount, int daysInMonth, int uniqueLogEntriesPerDate)
+        {
             this.lblHolidaysCount.Text = string.Format("Holidays Count (Weekdays): {0}", holidayCount.ToString());
             this.lblLeavesCount.Text = string.Format("Leaves Count (Weekdays): {0}", leaveCount.ToString());
             this.lblSaturdaysCount.Text = string.Format("Saturday Days Count: {0}", saturdayCount.ToString());

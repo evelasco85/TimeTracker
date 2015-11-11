@@ -23,14 +23,44 @@ namespace Domain.MVP
         public const string NO_DESCRIPTION = "No Description";
         public const string WEEKEND = "Weekend";
 
-        public Func<Func<Holiday, bool>, IEnumerable<Holiday>> GetHolidays { get; set; }
-        public Func<Func<Leave, bool>, IEnumerable<Leave>> GetLeaves { get; set; }
+        ILogView _logView;
+        IDateHelper _helper;
 
         public LogEntriesController(IEFRepository repository, ILogView view)
             : base(repository, view)
         {
-            this.GetHolidays = this.QueryHolidays;
-            this.GetLeaves = this.QueryLeaves;
+            this._helper = DateHelper.GetInstance();
+            this._logView = (ILogView)this._view;
+            this._logView.GetLogStatistics = this.GetLogStatistics;
+        }
+
+        void GetLogStatistics(IEnumerable<LogEntry> logs, DateTime selectedMonth)
+        {
+            int year = selectedMonth.Year;
+            int month = selectedMonth.Month;
+            IList<LogEntry> logEntries = this._helper.GetMonthLogs(logs, selectedMonth);
+            int uniqueLogEntriesPerDate = logEntries.GroupBy(x => x.Created.Date).Distinct().Count();
+            int daysInMonth = DateTime.DaysInMonth(year, month);
+            DateTime startDate = this._helper.GetStartDate(selectedMonth);
+            DateTime endDate = this._helper.GetEndDate(startDate);
+            int saturdayCount = this._helper.CountDaysByDayName(DayOfWeek.Saturday, startDate, endDate);
+            int sundayCount = this._helper.CountDaysByDayName(DayOfWeek.Sunday, startDate, endDate);
+
+            Func<DateTime, bool> betweenMonthDates = (currentDate) => ((currentDate.Ticks > startDate.Ticks) && (currentDate.Ticks < endDate.AddDays(1).Ticks));
+
+            //Excluding Saturdays/Sundays
+            int holidayCount = this.QueryHolidays(holiday =>
+                betweenMonthDates(holiday.Date) && (!this._helper.WeekendDate(holiday.Date))
+                )
+                .Count();
+
+            int leaveCount = this.QueryLeaves(leave =>
+                betweenMonthDates(leave.Date) && (!this._helper.WeekendDate(leave.Date))
+                )
+                .Count();
+            int workdaysCount = (daysInMonth - (saturdayCount + sundayCount + holidayCount + leaveCount));
+
+            this._logView.OnGetLogStatisticsCompletion(holidayCount, leaveCount, saturdayCount, sundayCount, workdaysCount, daysInMonth, uniqueLogEntriesPerDate);
         }
 
         public override void GetData(Func<LogEntry, bool> criteria)
@@ -73,7 +103,7 @@ namespace Domain.MVP
 
             return results;
         }
-
+ 
         public override void SaveData(LogEntry data)
         {
             this._repository.Save<LogEntry>(item => item.Id, data);
