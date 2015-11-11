@@ -18,7 +18,17 @@ namespace Domain.MVP
             set { this._view = value; }
         }
 
+        //public BaseController(IEFRepository repository, object view)
+        //{
+        //    this.Map(repository, (IView<TEntity>)view);
+        //}
+
         public BaseController(IEFRepository repository, IView<TEntity> view)
+        {
+            this.Map(repository, view);
+        }
+
+        void Map(IEFRepository repository, IView<TEntity> view)
         {
             this._view = view;
             this._view.QueryViewRecords = GetData;

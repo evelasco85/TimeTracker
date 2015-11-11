@@ -13,15 +13,16 @@ using System.Linq.Expressions;
 
 namespace MainApp
 {
-    public partial class frmMain : Form, IView<LogEntry>
+    public partial class frmMain : Form, ILogView
     {
         System.Timers.Timer _timerNotification;
         bool _rememberSetting = true;
         DateTime _rememberedCreatedDateTime;
         bool _promptingInProgress = false;
         
-        IEFRepository _repo;
+        IEFRepository _repository;
         IDateHelper _helper;
+
         public Action<Func<LogEntry, bool>> QueryViewRecords { get; set; }
         public Action<Func<LogEntry, bool>> DeleteViewRecords { get; set; }
         public Action<LogEntry> SaveViewRecord { get; set; }
@@ -43,7 +44,7 @@ namespace MainApp
             RegisterController();
 
             this._helper = DateHelper.GetInstance();
-            this._repo = repository;
+            this._repository = repository;
 
             InitializeComponent();
             this.InitializeRequiredData();
@@ -362,15 +363,24 @@ namespace MainApp
             int saturdayCount = this._helper.CountDaysByDayName(DayOfWeek.Saturday, startDate, endDate);
             int sundayCount = this._helper.CountDaysByDayName(DayOfWeek.Sunday, startDate, endDate);
 
-            Func<DateTime, bool> betweenDates = (currentDate) => ((currentDate.Ticks > startDate.Ticks) && (currentDate.Ticks < endDate.AddDays(1).Ticks));
+            Func<DateTime, bool> betweenMonthDates = (currentDate) => ((currentDate.Ticks > startDate.Ticks) && (currentDate.Ticks < endDate.AddDays(1).Ticks));
 
-            int holidayCount = this._getHolidaysFunc(holiday => betweenDates(holiday.Date)).Count();
-            int leaveCount = this._getLeavesFunc(leave => betweenDates(leave.Date)).Count();
+            //int holidayCount = this._getHolidaysFunc(holiday => betweenDates(holiday.Date)).Count();        //Including Saturdays/Sundays
 
+            //Excluding Saturdays/Sundays
+            int holidayCount = this._getHolidaysFunc(holiday =>
+                betweenMonthDates(holiday.Date) && (!this._helper.WeekendDate(holiday.Date))
+                )
+                .Count();
+            
+            int leaveCount = this._getLeavesFunc(leave =>
+                betweenMonthDates(leave.Date) && (!this._helper.WeekendDate(leave.Date))
+                )
+                .Count();
             int workdaysCount = (daysInMonth - (saturdayCount + sundayCount + holidayCount + leaveCount));
 
-            this.lblHolidaysCount.Text = string.Format("Holidays Count: {0}", holidayCount.ToString());
-            this.lblLeavesCount.Text = string.Format("Leaves Count: {0}", leaveCount.ToString());
+            this.lblHolidaysCount.Text = string.Format("Holidays Count (Weekdays): {0}", holidayCount.ToString());
+            this.lblLeavesCount.Text = string.Format("Leaves Count (Weekdays): {0}", leaveCount.ToString());
             this.lblSaturdaysCount.Text = string.Format("Saturday Days Count: {0}", saturdayCount.ToString());
             this.lblSundayDaysCount.Text = string.Format("Sunday Days Count: {0}", sundayCount.ToString());
             this.lblWorkdaysCount.Text = string.Format("Workdays Count: {0}", workdaysCount.ToString());
@@ -491,7 +501,7 @@ namespace MainApp
                {
                    try
                    {
-                       using (frmSummarizeLogs logs = new frmSummarizeLogs(_repo, selectedMonth))
+                       using (frmSummarizeLogs logs = new frmSummarizeLogs(_repository, selectedMonth))
                        {
                            logs.ShowDialog(this);
                            logs.Dispose();
@@ -520,7 +530,7 @@ namespace MainApp
             MethodInvoker invokeFromUI = new MethodInvoker(
                () =>
                {
-                   using (frmHolidays holiday = new frmHolidays(this._repo))
+                   using (frmHolidays holiday = new frmHolidays(this._repository))
                    {
                        holiday.ShowDialog(this);
                        holiday.Dispose();
@@ -546,7 +556,7 @@ namespace MainApp
             MethodInvoker invokeFromUI = new MethodInvoker(
                () =>
                {
-                   using (frmLeaves leave = new frmLeaves(this._repo))
+                   using (frmLeaves leave = new frmLeaves(this._repository))
                    {
                        leave.ShowDialog(this);
                        leave.Dispose();

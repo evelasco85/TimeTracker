@@ -77,6 +77,7 @@
     <Compile Include="MVP\Base\IController.cs" />
     <Compile Include="MVP\Base\IView.cs" />
     <Compile Include="MVP\LogEntriesController.cs" />
+    <Compile Include="MVP\LogView.cs" />
     <Compile Include="MVP\SummaryLogsController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorkDbEf.Context.cs">

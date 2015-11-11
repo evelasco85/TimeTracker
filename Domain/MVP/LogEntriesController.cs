@@ -26,7 +26,8 @@ namespace Domain.MVP
         public Func<Func<Holiday, bool>, IEnumerable<Holiday>> GetHolidays { get; set; }
         public Func<Func<Leave, bool>, IEnumerable<Leave>> GetLeaves { get; set; }
 
-        public LogEntriesController(IEFRepository repository, IView<LogEntry> view) : base(repository, view)
+        public LogEntriesController(IEFRepository repository, ILogView view)
+            : base(repository, view)
         {
             this.GetHolidays = this.QueryHolidays;
             this.GetLeaves = this.QueryLeaves;
