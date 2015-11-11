@@ -30,7 +30,7 @@ namespace Domain.MVP
             : base(repository, view)
         {
             this._helper = DateHelper.GetInstance();
-            this._logView = (ILogView)this._view;
+            this._logView = view;
             this._logView.GetLogStatistics = this.GetLogStatistics;
             this._logView.GetCalendarData = this.GetCalendarData;
         }

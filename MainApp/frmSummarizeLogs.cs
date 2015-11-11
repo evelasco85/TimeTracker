@@ -11,15 +11,15 @@ using System.Windows.Forms;
 
 namespace MainApp
 {
-    public partial class frmSummarizeLogs : Form, IView<LogEntry>
+    public partial class frmSummarizeLogs : Form, ISummaryLogsView
     {
-        IDateHelper _helper;
-
         public Action<Func<LogEntry, bool>> QueryViewRecords { get; set; }
         public Action OnQueryViewRecordsCompletion { get; set; }
         public Action<Func<LogEntry, bool>> DeleteViewRecords { get; set; }
         public Action<LogEntry> SaveViewRecord { get; set; }
-        public IEnumerable<LogEntry> ViewQueryResult { get; set; } 
+        public IEnumerable<LogEntry> ViewQueryResult { get; set; }
+        public Action<IEnumerable<LogEntry>, DateTime> GetLogEntries { get; set; }
+        public Action<dynamic> OnGetLogEntriesCompletion { get; set; }
 
         public frmSummarizeLogs(IEFRepository repository, DateTime selectedMonth)
         {
@@ -28,7 +28,7 @@ namespace MainApp
             RegisterController();
 
             this.OnQueryViewRecordsCompletion = () => DisplayLogEntries(selectedMonth);
-            this._helper = DateHelper.GetInstance();
+            this.OnGetLogEntriesCompletion = this.UpdateSummaryLogs;
             
             InitializeComponent();
             this.QueryViewRecords(null);
@@ -37,52 +37,12 @@ namespace MainApp
         void DisplayLogEntries(DateTime selectedMonth)
         {
             IEnumerable<LogEntry> logs = this.ViewQueryResult;
-            IList<LogEntry> logEntries = this._helper.GetMonthSummaryLogs(logs, selectedMonth);
-            IEnumerable<IGrouping<string, string>> perDateLogs =
-                logEntries
-                .Where(x => !(x.Category.ToLower() == "others"))
-                .GroupBy(log => log.Created.ToString("yyyy-MM-dd"), log => log.Description);
 
-            var officialLogEntries =
-                perDateLogs
-                .Select(x => new
-                {
-                    Created = DateTime.Parse(x.Key),
-                    Description = string.Join(Environment.NewLine, x.ToList())
-                })
-                .ToList();
+            this.GetLogEntries(logs, selectedMonth);
+        }
 
-            IList<DateTime> allDates = logEntries
-                .Select(x => x.Created)
-                .Distinct()
-                .ToList();
-            IList<DateTime> officialWorkDates = officialLogEntries
-                .Select(x => x.Created).ToList();
-            IList<DateTime> unofficialDates = allDates
-                .Where(x => !(officialWorkDates.Any(y => y.Date == x.Date)))
-                .ToList();
-
-            Func<DateTime, string> getDescription = (date) =>
-                {
-                    return (unofficialDates.Any( x => x.Date == date)) ? "N/A" : 
-                        string.Join(Environment.NewLine,
-                        officialLogEntries
-                            .Where(x => x.Created == date)
-                            .Select(x => x.Description)
-                            .ToList()
-                            )
-                        ;
-                };
-
-            var summarizedLogEntries = allDates
-                .Select(x => new
-                {
-                    Created = x,
-                    @Day = x,
-                    Description = getDescription(x)
-                })
-                .ToList();
-
+        void UpdateSummaryLogs(dynamic summarizedLogEntries)
+        {
             this.dGridLogs.DataSource = summarizedLogEntries;
         }
 
