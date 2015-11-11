@@ -37,6 +37,7 @@ namespace Domain.MVP
 
             this._leaveView.OnGetLeaveDataCompletion(displayColumns, lastUpdatedDate);
         }
+
         public override void GetData(Func<Leave, bool> criteria)
         {
             IQueryable<Leave> holidayQuery = this._repository

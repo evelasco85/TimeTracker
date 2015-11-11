@@ -11,7 +11,7 @@ using Domain.Helpers;
 
 namespace MainApp
 {
-    public partial class frmHolidays : Form, IView<Holiday>
+    public partial class frmHolidays : Form, IHolidayView
     {
         enum ModifierState
         {
@@ -22,12 +22,13 @@ namespace MainApp
             Cancel
         };
 
-        IDateHelper _helper;
         public Action<Func<Holiday, bool>> QueryViewRecords { get; set; }
         public Action OnQueryViewRecordsCompletion { get; set; }
         public Action<Holiday> SaveViewRecord { get; set; }
         public Action<Func<Holiday, bool>> DeleteViewRecords { get; set; }
-        public IEnumerable<Holiday> ViewQueryResult { get; set; } 
+        public IEnumerable<Holiday> ViewQueryResult { get; set; }
+        public Action<IEnumerable<Holiday>> GetHolidayData { get; set; }
+        public Action<dynamic, DateTime> OnGetHolidayDataCompletion { get; set; }
 
         public frmHolidays(IEFRepository repository)
         {
@@ -36,7 +37,7 @@ namespace MainApp
             RegisterController();
 
             this.OnQueryViewRecordsCompletion = this.RefreshGridData;
-            this._helper = DateHelper.GetInstance();
+            this.OnGetHolidayDataCompletion = this.UpdateHolidayData;
 
             InitializeComponent();
 
@@ -49,16 +50,15 @@ namespace MainApp
         void RefreshGridData()
         {
             IEnumerable<Holiday> holidays = this.ViewQueryResult;
-            var displayColumns = this._helper.GetHolidays(holidays);
+
+            this.GetHolidayData(holidays);
+        }
+
+        void UpdateHolidayData(dynamic displayColumns, DateTime lastUpdatedDate)
+        {
             this.dGridHolidays.DataSource = displayColumns;
 
             this.dGridHolidays.Refresh();
-
-            DateTime lastUpdatedDate = displayColumns
-                .Select(x => x.SystemUpdated)
-                .OrderByDescending(x => x)
-                .FirstOrDefault();
-
             this.HighlightRecordByDate(lastUpdatedDate);
         }
 
@@ -99,7 +99,7 @@ namespace MainApp
             try
             {
                 int id = int.Parse(this.dGridHolidays.Rows[rowIndex].Cells[HolidayController.ID_INDEX].Value.ToString());
-                Holiday holiday = this._helper.GetHoliday(this.ViewQueryResult, id);
+                Holiday holiday = DateHelper.GetInstance().GetHoliday(this.ViewQueryResult, id);
 
                 this.lblId.Text = holiday.Id.ToString();
                 this.holidayDate.Value = holiday.Date;
@@ -225,7 +225,7 @@ namespace MainApp
             };
 
             if (!string.IsNullOrEmpty(this.lblId.Text))
-                holiday = this._helper.GetHoliday(this.ViewQueryResult, int.Parse(this.lblId.Text));
+                holiday = DateHelper.GetInstance().GetHoliday(this.ViewQueryResult, int.Parse(this.lblId.Text));
 
             holiday.Date = this.holidayDate.Value;
             holiday.Description = this.txtHolidayDescription.Text;

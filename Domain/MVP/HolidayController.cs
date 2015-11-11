@@ -16,8 +16,25 @@ namespace Domain.MVP
         public const int SYSTEM_CREATED_INDEX = 3;
         public const int SYSTEM_UPDATED_INDEX = 4;
 
-        public HolidayController(IEFRepository repository, IView<Holiday> view) : base(repository, view)
+        IHolidayView _holidayView;
+        IDateHelper _helper;
+
+        public HolidayController(IEFRepository repository, IHolidayView view)
+            : base(repository, view)
         {
+            this._helper = DateHelper.GetInstance();
+            this._holidayView = view;
+            this._holidayView.GetHolidayData = this.GetHolidayData;
+        }
+        void GetHolidayData(IEnumerable<Holiday> holidays)
+        {
+            var displayColumns = this._helper.GetHolidays(holidays);
+            DateTime lastUpdatedDate = displayColumns
+                .Select(x => x.SystemUpdated)
+                .OrderByDescending(x => x)
+                .FirstOrDefault();
+
+            this._holidayView.OnGetHolidayDataCompletion(displayColumns, lastUpdatedDate);
         }
 
         public override void GetData(Func<Holiday, bool> criteria)

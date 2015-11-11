@@ -72,6 +72,7 @@
       <DependentUpon>WorkDbEf.tt</DependentUpon>
     </Compile>
     <Compile Include="MVP\Base\BaseController.cs" />
+    <Compile Include="MVP\IHolidayView.cs" />
     <Compile Include="MVP\ILeaveView.cs" />
     <Compile Include="MVP\ISummaryLogsView.cs" />
     <Compile Include="MVP\LeaveController.cs" />
