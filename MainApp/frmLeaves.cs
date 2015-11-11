@@ -99,9 +99,6 @@ namespace MainApp
             try
             {
                 int id = int.Parse(this.dGridLeaves.Rows[rowIndex].Cells[LeaveController.ID_INDEX].Value.ToString());
-
-                this.QueryViewRecords(null);
-
                 Leave leave = this._helper.GetLeave(this.ViewQueryResult, id);
 
                 this.lblId.Text = leave.Id.ToString();
@@ -228,11 +225,7 @@ namespace MainApp
             };
 
             if (!string.IsNullOrEmpty(this.lblId.Text))
-            {
-                this.QueryViewRecords(null);
-
                 leave = this._helper.GetLeave(this.ViewQueryResult, int.Parse(this.lblId.Text));
-            }
 
             leave.Date = this.leaveDate.Value;
             leave.Description = this.txtLeaveDescription.Text;

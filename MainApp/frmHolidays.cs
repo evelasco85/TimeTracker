@@ -99,9 +99,6 @@ namespace MainApp
             try
             {
                 int id = int.Parse(this.dGridHolidays.Rows[rowIndex].Cells[HolidayController.ID_INDEX].Value.ToString());
-
-                this.QueryViewRecords(null);
-
                 Holiday holiday = this._helper.GetHoliday(this.ViewQueryResult, id);
 
                 this.lblId.Text = holiday.Id.ToString();
@@ -113,18 +110,6 @@ namespace MainApp
             {
                 throw ex;
             }
-        }
-
-        Holiday GetSelectedHoliday()
-        {
-            DataGridViewRow row = this.dGridHolidays.CurrentRow;
-            int id = int.Parse(row.Cells[HolidayController.ID_INDEX].Value.ToString());
-
-            this.QueryViewRecords(null);
-
-            Holiday holiday = this._helper.GetHoliday(this.ViewQueryResult, id);
-
-            return holiday;
         }
 
         void EnableInputWindow(bool enable)
@@ -240,11 +225,7 @@ namespace MainApp
             };
 
             if (!string.IsNullOrEmpty(this.lblId.Text))
-            {
-                this.QueryViewRecords(null);
-
                 holiday = this._helper.GetHoliday(this.ViewQueryResult, int.Parse(this.lblId.Text));
-            }
 
             holiday.Date = this.holidayDate.Value;
             holiday.Description = this.txtHolidayDescription.Text;

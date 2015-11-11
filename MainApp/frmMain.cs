@@ -50,8 +50,8 @@ namespace MainApp
 
             InitializeComponent();
             this.InitializeRequiredData();
-            this.RefreshDashboardData();
             this.QueryViewRecords(null);
+            this.RefreshDashboardData();
             this.StartTimer();
         }
 
@@ -348,15 +348,13 @@ namespace MainApp
             this.AddEntry();
         }
 
-
         void RefreshDashboardData()
         {
-            this.QueryViewRecords(null);        //Query the controller
-
+            IEnumerable<LogEntry> logs = this.ViewQueryResult;
             DateTime selectedMonth = this.dateTimeMonth.Value;
             int year = DateTime.Now.Year;
             int month = selectedMonth.Month;
-            IList<LogEntry> logEntries = this._helper.GetMonthLogs(this.ViewQueryResult, selectedMonth);
+            IList<LogEntry> logEntries = this._helper.GetMonthLogs(logs, selectedMonth);
             int uniqueLogEntriesPerDate = logEntries.GroupBy(x => x.Created.Date).Distinct().Count();
             int daysInMonth = DateTime.DaysInMonth(year, month);
             DateTime startDate = this._helper.GetStartDate(selectedMonth);
