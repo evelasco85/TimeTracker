@@ -1,0 +1,8 @@
+[To Do]
+*Amend Task tables in conformance with 'Personal Software Process' time tracking
+*Common/Reusable form for Holiday and Leave entries(generic as opposed with specific form creation)
+--Adjust underlying controllers
+*Add FrontController and Controller Manager
+--Inversion of control for Controllers and Forms (e.g.: 'new Controller(repository, new Form())')
+*Replaced Timer implementation with 'Running Time with event interrupts/triggers'
+--Added alarms/notifications
