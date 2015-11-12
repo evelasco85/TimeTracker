@@ -71,6 +71,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmCommonDataEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCommonDataEditor.Designer.cs">
+      <DependentUpon>frmCommonDataEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmLeaves.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,6 +114,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="frmCommonDataEditor.resx">
+      <DependentUpon>frmCommonDataEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmLeaves.resx">
       <DependentUpon>frmLeaves.cs</DependentUpon>
     </EmbeddedResource>
@@ -160,6 +169,10 @@
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{fc118e93-7b98-46de-846b-4b79a334c299}</Project>
       <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ModelViewPresenter\Domain.Controller.csproj">
+      <Project>{42779bec-c2aa-42b3-9b91-27b237dcad1f}</Project>
+      <Name>Domain.Controller</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

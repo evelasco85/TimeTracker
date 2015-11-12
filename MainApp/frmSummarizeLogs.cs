@@ -1,7 +1,6 @@
 ﻿using Domain;
-using Domain.Helpers;
+using Domain.Controller;
 using Domain.Infrastructure;
-using Domain.MVP;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

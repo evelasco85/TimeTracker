@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="22fe5f12-38bb-44fd-ab81-f8a55e709e91" ChangeDateTime="11/12/2015 05:24:02">
+    <Property Name="ElementName" Value="[dbo].[Activity].[ActivityName]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Activity]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Name" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="de1a18e4-1b03-4140-8196-90772dff6325" ChangeDateTime="11/12/2015 05:31:36">
+    <Property Name="ElementName" Value="[dbo].[TimeLogAttribute].[Attribute_Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TimeLogAttribute]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Attribute_Name" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="cfb816fe-37ee-4625-941e-97ea76807703" ChangeDateTime="11/12/2015 05:33:24">
+    <Property Name="ElementName" Value="[dbo].[TimeTrackingLog].[Activity]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TimeTrackingLog]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Activity_Name" />
+  </Operation>
+</Operations>

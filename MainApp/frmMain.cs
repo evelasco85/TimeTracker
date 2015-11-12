@@ -1,15 +1,12 @@
 ﻿using Domain;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using System.Data.Entity.Migrations;
 using Domain.Infrastructure;
-using Domain.MVP;
 using Domain.Helpers;
-using System.Linq.Expressions;
+using Domain.Controller;
 
 namespace MainApp
 {

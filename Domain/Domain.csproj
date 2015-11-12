@@ -59,7 +59,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\DateHelper.cs" />
     <Compile Include="Holiday.cs">
       <DependentUpon>WorkDbEf.tt</DependentUpon>
     </Compile>
@@ -71,17 +70,6 @@
     <Compile Include="LogEntry.cs">
       <DependentUpon>WorkDbEf.tt</DependentUpon>
     </Compile>
-    <Compile Include="MVP\Base\BaseController.cs" />
-    <Compile Include="MVP\IHolidayView.cs" />
-    <Compile Include="MVP\ILeaveView.cs" />
-    <Compile Include="MVP\ISummaryLogsView.cs" />
-    <Compile Include="MVP\LeaveController.cs" />
-    <Compile Include="MVP\HolidayController.cs" />
-    <Compile Include="MVP\Base\IController.cs" />
-    <Compile Include="MVP\Base\IView.cs" />
-    <Compile Include="MVP\LogEntriesController.cs" />
-    <Compile Include="MVP\ILogView.cs" />
-    <Compile Include="MVP\SummaryLogsController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorkDbEf.Context.cs">
       <AutoGen>True</AutoGen>

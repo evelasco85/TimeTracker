@@ -63,8 +63,15 @@
     <Build Include="LogEntry.sql" />
     <Build Include="Holiday.sql" />
     <Build Include="Leave.sql" />
+    <Build Include="TimeTrackingLog.sql" />
+    <Build Include="Activity.sql" />
+    <Build Include="TimeLogAttribute.sql" />
+    <Build Include="Attribute.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="WorklogDB.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="WorklogDB.refactorlog" />
   </ItemGroup>
 </Project>

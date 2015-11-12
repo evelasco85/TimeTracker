@@ -3,15 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using System.Data.Entity;
-using System.Data.Entity.Migrations;
 using Domain.Infrastructure;
 using Domain.Helpers;
 using Domain.Controller;
 
 namespace MainApp
 {
-    public partial class frmLeaves : Form, ILeaveView
+    public partial class frmCommonDataEditor : Form, IHolidayView
     {
         enum ModifierState
         {
@@ -22,26 +20,26 @@ namespace MainApp
             Cancel
         };
 
-        public Action<Func<Leave, bool>> QueryViewRecords { get; set; }
+        public Action<Func<Holiday, bool>> QueryViewRecords { get; set; }
         public Action OnQueryViewRecordsCompletion { get; set; }
-        public Action<Leave> SaveViewRecord { get; set; }
-        public Action<Func<Leave, bool>> DeleteViewRecords { get; set; }
-        public IEnumerable<Leave> ViewQueryResult { get; set; }
-        public Action<IEnumerable<Leave>> GetLeaveData { get; set; }
-        public Action<dynamic, DateTime> OnGetLeaveDataCompletion { get; set; }
+        public Action<Holiday> SaveViewRecord { get; set; }
+        public Action<Func<Holiday, bool>> DeleteViewRecords { get; set; }
+        public IEnumerable<Holiday> ViewQueryResult { get; set; }
+        public Action<IEnumerable<Holiday>> GetHolidayData { get; set; }
+        public Action<dynamic, DateTime> OnGetHolidayDataCompletion { get; set; }
 
-        public frmLeaves(IEFRepository repository)
+        public frmCommonDataEditor(IEFRepository repository)
         {
-            Action RegisterController = () => new LeaveController(repository, this);
+            Action RegisterController = () => new HolidayController(repository, this);
 
             RegisterController();
 
-            this.OnQueryViewRecordsCompletion = RefreshGridData;
-            this.OnGetLeaveDataCompletion = UpdateLeaveData;
+            this.OnQueryViewRecordsCompletion = this.RefreshGridData;
+            this.OnGetHolidayDataCompletion = this.UpdateHolidayData;
 
             InitializeComponent();
 
-            this.leaveDate.Value = DateTime.Now;
+            this.holidayDate.Value = DateTime.Now;
 
             this.QueryViewRecords(null);
             this.WindowInputChanges(ModifierState.Cancel);
@@ -49,36 +47,36 @@ namespace MainApp
 
         void RefreshGridData()
         {
-            IEnumerable<Leave> leaves = this.ViewQueryResult;
+            IEnumerable<Holiday> holidays = this.ViewQueryResult;
 
-            this.GetLeaveData(leaves);
+            this.GetHolidayData(holidays);
         }
 
-        void UpdateLeaveData(dynamic displayColumns, DateTime lastUpdatedDate)
+        void UpdateHolidayData(dynamic displayColumns, DateTime lastUpdatedDate)
         {
-            this.dGridLeaves.DataSource = displayColumns;
+            this.dGridHolidays.DataSource = displayColumns;
 
-            this.dGridLeaves.Refresh();
+            this.dGridHolidays.Refresh();
             this.HighlightRecordByDate(lastUpdatedDate);
         }
 
         void HighlightRecordByDate(DateTime recordDate)
         {
-            for (int index = 0; index < this.dGridLeaves.Rows.Count; index++)
+            for (int index = 0; index < this.dGridHolidays.Rows.Count; index++)
             {
                 try
                 {
-                    DateTime systemDate = DateTime.Parse(this.dGridLeaves.Rows[index].Cells[LeaveController.SYSTEM_UPDATED_INDEX].Value.ToString());
+                    DateTime systemDate = DateTime.Parse(this.dGridHolidays.Rows[index].Cells[HolidayController.SYSTEM_UPDATED_INDEX].Value.ToString());
                     bool identicalTime = recordDate.ToLongTimeString() == systemDate.ToLongTimeString();
 
                     if ((recordDate.Date == systemDate.Date) && identicalTime)
                     {
-                        this.dGridLeaves.CurrentCell = this.dGridLeaves[LeaveController.ID_INDEX, index];
-                        this.dGridLeaves.Rows[index].Selected = true;
-                        this.dGridLeaves.Rows[index].Cells[LeaveController.ID_INDEX].Selected = true;
-                        this.dGridLeaves.FirstDisplayedScrollingRowIndex = index;
+                        this.dGridHolidays.CurrentCell = this.dGridHolidays[HolidayController.ID_INDEX, index];
+                        this.dGridHolidays.Rows[index].Selected = true;
+                        this.dGridHolidays.Rows[index].Cells[HolidayController.ID_INDEX].Selected = true;
+                        this.dGridHolidays.FirstDisplayedScrollingRowIndex = index;
 
-                        this.dGridLeaves.Update();
+                        this.dGridHolidays.Update();
                         break;
                     }
                 }
@@ -89,7 +87,7 @@ namespace MainApp
             }
         }
 
-        private void dGridLeaves_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dGridHolidays_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             this.UpdateWindow(e.RowIndex);
         }
@@ -98,12 +96,12 @@ namespace MainApp
         {
             try
             {
-                int id = int.Parse(this.dGridLeaves.Rows[rowIndex].Cells[LeaveController.ID_INDEX].Value.ToString());
-                Leave leave = DateHelper.GetInstance().GetLeave(this.ViewQueryResult, id);
+                int id = int.Parse(this.dGridHolidays.Rows[rowIndex].Cells[HolidayController.ID_INDEX].Value.ToString());
+                Holiday holiday = DateHelper.GetInstance().GetHoliday(this.ViewQueryResult, id);
 
-                this.lblId.Text = leave.Id.ToString();
-                this.leaveDate.Value = leave.Date;
-                this.txtLeaveDescription.Text = leave.Description;
+                this.lblId.Text = holiday.Id.ToString();
+                this.holidayDate.Value = holiday.Date;
+                this.txtHolidayDescription.Text = holiday.Description;
             }
             catch (ArgumentOutOfRangeException) { /*Skip*/}
             catch (Exception ex)
@@ -114,15 +112,15 @@ namespace MainApp
 
         void EnableInputWindow(bool enable)
         {
-            this.leaveDate.Enabled = enable;
-            this.txtLeaveDescription.Enabled = enable;
+            this.holidayDate.Enabled = enable;
+            this.txtHolidayDescription.Enabled = enable;
         }
 
         void ResetInputWindow()
         {
             this.lblId.Text = string.Empty;
-            this.leaveDate.Value = DateTime.Now;
-            this.txtLeaveDescription.Clear();
+            this.holidayDate.Value = DateTime.Now;
+            this.txtHolidayDescription.Clear();
         }
 
         void WindowInputChanges(ModifierState modifierState)
@@ -163,7 +161,7 @@ namespace MainApp
 
         void EnableDataGridNavigation(bool enable)
         {
-            this.dGridLeaves.Enabled = enable;
+            this.dGridHolidays.Enabled = enable;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -219,19 +217,19 @@ namespace MainApp
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Leave leave = new Leave
+            Holiday holiday = new Holiday
             {
                 SystemCreated = DateTime.Now,
             };
 
             if (!string.IsNullOrEmpty(this.lblId.Text))
-                leave = DateHelper.GetInstance().GetLeave(this.ViewQueryResult, int.Parse(this.lblId.Text));
+                holiday = DateHelper.GetInstance().GetHoliday(this.ViewQueryResult, int.Parse(this.lblId.Text));
 
-            leave.Date = this.leaveDate.Value;
-            leave.Description = this.txtLeaveDescription.Text;
-            leave.SystemUpdated = DateTime.Now;
+            holiday.Date = this.holidayDate.Value;
+            holiday.Description = this.txtHolidayDescription.Text;
+            holiday.SystemUpdated = DateTime.Now;
 
-            this.SaveViewRecord(leave);
+            this.SaveViewRecord(holiday);
             this.WindowInputChanges(ModifierState.Save);
             this.QueryViewRecords(null);
             this.ResetInputWindow();
