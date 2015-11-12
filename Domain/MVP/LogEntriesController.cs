@@ -25,6 +25,8 @@ namespace Domain.MVP
 
         ILogView _logView;
         IDateHelper _helper;
+        bool _rememberSetting = true;
+        DateTime _rememberedCreatedDateTime;
 
         public LogEntriesController(IEFRepository repository, ILogView view)
             : base(repository, view)
@@ -33,8 +35,18 @@ namespace Domain.MVP
             this._logView = view;
             this._logView.GetLogStatistics = this.GetLogStatistics;
             this._logView.GetCalendarData = this.GetCalendarData;
+            this._logView.GetRememberedSetting = this.GetRememberedSetting;
+            this._logView.SetRememberedSetting = this.SetRememberedSetting;
+            this._logView.GetRememberedDate = this.GetRememberedDate;
+            this._logView.SetRememberedDate = this.SetRememberedDate;
         }
 
+        bool GetRememberedSetting() { return this._rememberSetting; }
+        void SetRememberedSetting(bool rememberSetting) { this._rememberSetting = rememberSetting; }
+
+        DateTime GetRememberedDate() { return this._rememberedCreatedDateTime; }
+        void SetRememberedDate(DateTime date) { this._rememberedCreatedDateTime = date; }        
+        
         void GetCalendarData(IEnumerable<LogEntry> logs, DateTime selectedMonth)
         {
             IList<LogEntry> availableLogEntries = this._helper.GetMonthLogs(logs, selectedMonth);

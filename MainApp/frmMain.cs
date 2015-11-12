@@ -16,8 +16,6 @@ namespace MainApp
     public partial class frmMain : Form, ILogView
     {
         System.Timers.Timer _timerNotification;
-        bool _rememberSetting = true;
-        DateTime _rememberedCreatedDateTime;
         bool _promptingInProgress = false;
         
         IEFRepository _repository;
@@ -31,6 +29,11 @@ namespace MainApp
         public Action<IEnumerable<LogEntry>, DateTime> GetCalendarData { get; set; }
         public Action<dynamic, DateTime> OnGetCalendarDataCompletion { get; set; }
         public IEnumerable<LogEntry> ViewQueryResult { get; set; }
+        public Func<bool> GetRememberedSetting { get; set; }
+        public Action<bool> SetRememberedSetting { get; set; }
+
+        public Func<DateTime> GetRememberedDate { get; set; }
+        public Action<DateTime> SetRememberedDate { get; set; }
 
         public frmMain(IEFRepository repository)
         {
@@ -257,7 +260,7 @@ namespace MainApp
 
                 this._promptingInProgress = true;
 
-                using (frmTaskMonitoringEntry monitoring = new frmTaskMonitoringEntry(this._rememberSetting, this._rememberedCreatedDateTime))
+                using (frmTaskMonitoringEntry monitoring = new frmTaskMonitoringEntry(this.GetRememberedSetting(), this.GetRememberedDate()))
                 {
                     DialogResult result = monitoring.ShowDialog(this);
 
@@ -297,8 +300,8 @@ namespace MainApp
             if ((logEntry == null) || (string.IsNullOrEmpty(logEntry.Description)))
                 return success;
 
-            this._rememberSetting = monitoring.RememberSetting;
-            this._rememberedCreatedDateTime = logEntry.Created;
+            this.SetRememberedSetting(monitoring.RememberSetting);
+            this.SetRememberedDate(logEntry.Created);
 
             try
             {
@@ -394,8 +397,8 @@ namespace MainApp
                 DateTime systemCreatedDate = DateTime.Parse(row.Cells[LogEntriesController.SYSTEM_CREATED_INDEX].Value.ToString());
                 string description = row.Cells[LogEntriesController.DESCRIPTION_INDEX].Value.ToString();
                 string category = row.Cells[LogEntriesController.CATEGORY_INDEX].Value.ToString();
-                bool rememberSetting = this._rememberSetting;
-                DateTime rememberedCreatedDateTime = this._rememberedCreatedDateTime;
+                bool rememberSetting = this.GetRememberedSetting();
+                DateTime rememberedCreatedDateTime = this.GetRememberedDate();
 
                 this.SafeEditEntry(primaryKey, category, description, rememberSetting, createdDate, systemCreatedDate, rememberedCreatedDateTime);
             }
