@@ -9,7 +9,7 @@ using Domain.Controller;
 
 namespace MainApp
 {
-    public abstract partial class frmCommonDataEditor : Form 
+    public partial class frmCommonDataEditor : Form 
     {
         enum ModifierState
         {
@@ -20,11 +20,9 @@ namespace MainApp
             Cancel
         };
 
-        public frmCommonDataEditor(IEFRepository repository)
+        public frmCommonDataEditor()
         {
             InitializeComponent();
-
-            this.WindowInputChanges(ModifierState.Cancel);
         }
 
         public virtual void dGrid_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -32,22 +30,28 @@ namespace MainApp
             this.UpdateWindow(e.RowIndex);
         }
 
-        public abstract void UpdateWindow(int rowIndex);
+        public virtual void UpdateWindow(int rowIndex)
+        {
+            throw new NotImplementedException("Derived forms must implement this function");
+        }
 
-        public abstract void EnableInputWindow(bool enable);
+        public virtual void EnableInputWindow(bool enable)
+        {
+            throw new NotImplementedException("Derived forms must implement this function");
+        }
 
-        public abstract void ResetInputWindow();
+        public virtual void ResetInputWindow() { }
 
         void WindowInputChanges(ModifierState modifierState)
         {
             switch (modifierState)
             {
                 case ModifierState.Add:
-                    this.ResetInputWindow();
                     this.EnableInputWindow(true);
                     this.EnablePersistButtons(true);
                     this.EnableModifierButtons(false);
                     this.EnableDataGridNavigation(false);
+                    this.ResetInputWindow();
                     break;
                 case ModifierState.Edit:
                     this.EnableInputWindow(true);
@@ -59,11 +63,11 @@ namespace MainApp
                     this.ResetInputWindow();
                     break;
                 case ModifierState.Save:
-                    this.ResetInputWindow();
                     this.EnableInputWindow(false);
                     this.EnablePersistButtons(false);
                     this.EnableModifierButtons(true);
                     this.EnableDataGridNavigation(true);
+                    this.ResetInputWindow();
                     break;
                 case ModifierState.Cancel:
                     this.EnableInputWindow(false);
@@ -92,27 +96,32 @@ namespace MainApp
             this.dGrid.Enabled = enable;
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        public void btnAdd_Click(object sender, EventArgs e)
         {
             this.WindowInputChanges(ModifierState.Add);
         }
 
-        private void btnEdit_Click(object sender, EventArgs e)
+        public void btnEdit_Click(object sender, EventArgs e)
         {
             this.WindowInputChanges(ModifierState.Edit);
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        public void btnDelete_Click(object sender, EventArgs e)
         {
             this.WindowInputChanges(ModifierState.Delete);
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        public void btnSave_Click(object sender, EventArgs e)
         {
             this.WindowInputChanges(ModifierState.Save);
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        public void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.WindowInputChanges(ModifierState.Cancel);
+        }
+
+        private void frmCommonDataEditor_Load(object sender, EventArgs e)
         {
             this.WindowInputChanges(ModifierState.Cancel);
         }

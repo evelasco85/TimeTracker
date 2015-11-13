@@ -1,6 +1,6 @@
 ﻿namespace MainApp
 {
-    abstract partial class frmCommonDataEditor
+    public partial class frmCommonDataEditor
     {
         /// <summary>
         /// Required designer variable.
@@ -79,6 +79,7 @@
             this.btnCancel.TabIndex = 16;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnSave
             // 
@@ -88,6 +89,7 @@
             this.btnSave.TabIndex = 15;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnDelete
             // 
@@ -97,6 +99,7 @@
             this.btnDelete.TabIndex = 14;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnEdit
             // 
@@ -106,6 +109,7 @@
             this.btnEdit.TabIndex = 13;
             this.btnEdit.Text = "Edit";
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnAdd
             // 
@@ -115,6 +119,7 @@
             this.btnAdd.TabIndex = 12;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // frmCommonDataEditor
             // 
@@ -125,6 +130,7 @@
             this.Controls.Add(this.dGrid);
             this.Name = "frmCommonDataEditor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.frmCommonDataEditor_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dGrid)).EndInit();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -133,12 +139,14 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dGrid;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnEdit;
-        private System.Windows.Forms.Button btnAdd;
+        public System.Windows.Forms.DataGridView dGrid;
+        public System.Windows.Forms.Panel panel1;
+        public System.Windows.Forms.Button btnCancel;
+        public System.Windows.Forms.Button btnSave;
+        public System.Windows.Forms.Button btnDelete;
+        public System.Windows.Forms.Button btnEdit;
+        public System.Windows.Forms.Button btnAdd;
+
+
     }
 }

@@ -9,17 +9,8 @@ using Domain.Controller;
 
 namespace MainApp
 {
-    public partial class frmHolidays : Form, IHolidayView
+    public partial class frmHolidays : frmCommonDataEditor, IHolidayView
     {
-        enum ModifierState
-        {
-            Add,
-            Edit,
-            Delete,
-            Save,
-            Cancel
-        };
-
         public Action<Func<Holiday, bool>> QueryViewRecords { get; set; }
         public Action OnQueryViewRecordsCompletion { get; set; }
         public Action<Holiday> SaveViewRecord { get; set; }
@@ -28,21 +19,19 @@ namespace MainApp
         public Action<IEnumerable<Holiday>> GetHolidayData { get; set; }
         public Action<dynamic, DateTime> OnGetHolidayDataCompletion { get; set; }
 
-        public frmHolidays(IEFRepository repository)
+        public frmHolidays(IEFRepository repository) : base()
         {
+            InitializeComponent();
+
             Action RegisterController = () => new HolidayController(repository, this);
 
             RegisterController();
 
             this.OnQueryViewRecordsCompletion = this.RefreshGridData;
             this.OnGetHolidayDataCompletion = this.UpdateHolidayData;
-
-            InitializeComponent();
-
             this.holidayDate.Value = DateTime.Now;
 
             this.QueryViewRecords(null);
-            this.WindowInputChanges(ModifierState.Cancel);
         }
 
         void RefreshGridData()
@@ -54,29 +43,27 @@ namespace MainApp
 
         void UpdateHolidayData(dynamic displayColumns, DateTime lastUpdatedDate)
         {
-            this.dGridHolidays.DataSource = displayColumns;
+            this.dGrid.DataSource = displayColumns;
 
-            this.dGridHolidays.Refresh();
+            this.dGrid.Refresh();
             this.HighlightRecordByDate(lastUpdatedDate);
         }
 
         void HighlightRecordByDate(DateTime recordDate)
         {
-            for (int index = 0; index < this.dGridHolidays.Rows.Count; index++)
+            for (int index = 0; index < this.dGrid.Rows.Count; index++)
             {
                 try
                 {
-                    DateTime systemDate = DateTime.Parse(this.dGridHolidays.Rows[index].Cells[HolidayController.SYSTEM_UPDATED_INDEX].Value.ToString());
+                    DateTime systemDate = DateTime.Parse(this.dGrid.Rows[index].Cells[HolidayController.SYSTEM_UPDATED_INDEX].Value.ToString());
                     bool identicalTime = recordDate.ToLongTimeString() == systemDate.ToLongTimeString();
 
                     if ((recordDate.Date == systemDate.Date) && identicalTime)
                     {
-                        this.dGridHolidays.CurrentCell = this.dGridHolidays[HolidayController.ID_INDEX, index];
-                        this.dGridHolidays.Rows[index].Selected = true;
-                        this.dGridHolidays.Rows[index].Cells[HolidayController.ID_INDEX].Selected = true;
-                        this.dGridHolidays.FirstDisplayedScrollingRowIndex = index;
-
-                        this.dGridHolidays.Update();
+                        this.dGrid.CurrentCell = this.dGrid[HolidayController.ID_INDEX, index];
+                        this.dGrid.Rows[index].Selected = true;
+                        this.dGrid.Rows[index].Cells[HolidayController.ID_INDEX].Selected = true;
+                        this.dGrid.FirstDisplayedScrollingRowIndex = index;
                         break;
                     }
                 }
@@ -85,18 +72,15 @@ namespace MainApp
                     throw ex;
                 }
             }
+
+            this.dGrid.Update();
         }
 
-        private void dGridHolidays_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            this.UpdateWindow(e.RowIndex);
-        }
-
-        void UpdateWindow(int rowIndex)
+        public override void UpdateWindow(int rowIndex)
         {
             try
             {
-                int id = int.Parse(this.dGridHolidays.Rows[rowIndex].Cells[HolidayController.ID_INDEX].Value.ToString());
+                int id = int.Parse(this.dGrid.Rows[rowIndex].Cells[HolidayController.ID_INDEX].Value.ToString());
                 Holiday holiday = DateHelper.GetInstance().GetHoliday(this.ViewQueryResult, id);
 
                 this.lblId.Text = holiday.Id.ToString();
@@ -110,64 +94,17 @@ namespace MainApp
             }
         }
 
-        void EnableInputWindow(bool enable)
+        public override void EnableInputWindow(bool enable)
         {
             this.holidayDate.Enabled = enable;
             this.txtHolidayDescription.Enabled = enable;
         }
 
-        void ResetInputWindow()
+        public override void ResetInputWindow()
         {
             this.lblId.Text = string.Empty;
             this.holidayDate.Value = DateTime.Now;
             this.txtHolidayDescription.Clear();
-        }
-
-        void WindowInputChanges(ModifierState modifierState)
-        {
-            switch (modifierState)
-            {
-                case ModifierState.Add:
-                case ModifierState.Edit:
-                    this.EnableInputWindow(true);
-                    this.EnablePersistButtons(true);
-                    this.EnableModifierButtons(false);
-                    this.EnableDataGridNavigation(false);
-                    break;
-                case ModifierState.Delete:
-                    break;
-                case ModifierState.Save:
-                case ModifierState.Cancel:
-                    this.EnableInputWindow(false);
-                    this.EnablePersistButtons(false);
-                    this.EnableModifierButtons(true);
-                    this.EnableDataGridNavigation(true);
-                    break;
-            }
-        }
-
-        void EnablePersistButtons(bool enable)
-        {
-            this.btnSave.Enabled = enable;
-            this.btnCancel.Enabled = enable;
-        }
-
-        void EnableModifierButtons(bool enable)
-        {
-            this.btnAdd.Enabled = enable;
-            this.btnEdit.Enabled = enable;
-            this.btnDelete.Enabled = enable;
-        }
-
-        void EnableDataGridNavigation(bool enable)
-        {
-            this.dGridHolidays.Enabled = enable;
-        }
-
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            this.WindowInputChanges(ModifierState.Add);
-            this.ResetInputWindow();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -178,14 +115,11 @@ namespace MainApp
 
                 if (id == 0)
                     throw new FormatException();
-
-                this.WindowInputChanges(ModifierState.Edit);
             }
             catch (FormatException)
             {
                 MessageBox.Show("A record selection is required for editing");
             }
-            
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -203,16 +137,12 @@ namespace MainApp
                 {
                     this.DeleteViewRecords(x => x.Id == id);
                     this.QueryViewRecords(null);
-                    this.ResetInputWindow();
-
                 }
             }
             catch (FormatException)
             {
                 MessageBox.Show("A record selection is required for deletion");
             }
-
-            this.WindowInputChanges(ModifierState.Delete);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -230,14 +160,8 @@ namespace MainApp
             holiday.SystemUpdated = DateTime.Now;
 
             this.SaveViewRecord(holiday);
-            this.WindowInputChanges(ModifierState.Save);
             this.QueryViewRecords(null);
             this.ResetInputWindow();
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            this.WindowInputChanges(ModifierState.Cancel);
         }
     }
 }
