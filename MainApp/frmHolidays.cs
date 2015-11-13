@@ -165,7 +165,6 @@ namespace MainApp
 
             this.SaveViewRecord(holiday);
             this.QueryViewRecords(null);
-
             this.WindowInputChanges(ModifierState.Save);
         }
 
