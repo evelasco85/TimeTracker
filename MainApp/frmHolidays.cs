@@ -115,6 +115,8 @@ namespace MainApp
 
                 if (id == 0)
                     throw new FormatException();
+
+                this.WindowInputChanges(ModifierState.Edit);
             }
             catch (FormatException)
             {
@@ -143,6 +145,8 @@ namespace MainApp
             {
                 MessageBox.Show("A record selection is required for deletion");
             }
+
+            this.WindowInputChanges(ModifierState.Delete);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -161,7 +165,18 @@ namespace MainApp
 
             this.SaveViewRecord(holiday);
             this.QueryViewRecords(null);
-            this.ResetInputWindow();
+
+            this.WindowInputChanges(ModifierState.Save);
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            this.WindowInputChanges(ModifierState.Add);
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.WindowInputChanges(ModifierState.Cancel);
         }
     }
 }

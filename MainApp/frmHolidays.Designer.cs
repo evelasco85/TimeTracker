@@ -35,6 +35,10 @@
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
+            // btnCancel
+            // 
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
             // btnSave
             // 
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -45,7 +49,11 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.ClientSizeChanged += new System.EventHandler(this.btnEdit_Click);
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // label1
             // 
