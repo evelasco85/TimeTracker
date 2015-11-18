@@ -22,6 +22,8 @@ namespace Domain.Controller
         public const string NO_CATEGORY = "No Category";
         public const string NO_DESCRIPTION = "No Description";
         public const string WEEKEND = "Weekend";
+        public const string LEAVE = "LEAVE";
+        public const string HOLIDAY = "HOLIDAY";
 
         ILogView _logView;
         IDateHelper _helper;
@@ -49,6 +51,36 @@ namespace Domain.Controller
         
         void GetCalendarData(IEnumerable<LogEntry> logs, DateTime selectedMonth)
         {
+            IEnumerable<Leave> leaves = this._repository
+                .GetEntityQuery<Leave>()
+                .Where(x => x.Date.Month == selectedMonth.Month);
+            IEnumerable<Holiday> holidays = this._repository
+                .GetEntityQuery<Holiday>()
+                .Where(x => x.Date.Month == selectedMonth.Month);
+
+            IList<LogEntry> leaveLogEntries = leaves.Select(x =>
+                new LogEntry
+                {
+                    Category = LogEntriesController.LEAVE,
+                    Created = x.Date,
+                    System_Created = x.SystemCreated,
+                    SystemUpdateDateTime = x.SystemUpdated,
+                    Id = 0,
+                    Description = x.Description
+                })
+                .ToList();
+            IList<LogEntry> holidayLogEntries = holidays.Select(x =>
+                new LogEntry
+                {
+                    Category = LogEntriesController.HOLIDAY,
+                    Created = x.Date,
+                    System_Created = x.SystemCreated,
+                    SystemUpdateDateTime = x.SystemUpdated,
+                    Id = 0,
+                    Description = x.Description
+                })
+                .ToList();
+
             IList<LogEntry> availableLogEntries = this._helper.GetMonthLogs(logs, selectedMonth);
             IList<LogEntry> missingLogEntries = this._helper.GenerateMissingEntriesForMissingDates(availableLogEntries, selectedMonth);
 
@@ -56,6 +88,8 @@ namespace Domain.Controller
 
             logEntries.AddRange(availableLogEntries);
             logEntries.AddRange(missingLogEntries);
+            logEntries.AddRange(leaveLogEntries);
+            logEntries.AddRange(holidayLogEntries);
 
             var displayColumns = logEntries
                 .Select(x => new

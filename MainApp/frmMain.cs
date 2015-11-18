@@ -359,7 +359,11 @@ namespace MainApp
                 string description = row.Cells[LogEntriesController.DESCRIPTION_INDEX].Value.ToString();
                 string category = row.Cells[LogEntriesController.CATEGORY_INDEX].Value.ToString();
 
-                if (DateHelper.GetInstance().WeekendDate(created))
+                if((category == LogEntriesController.HOLIDAY) || (category == LogEntriesController.LEAVE))
+                {
+                    row.DefaultCellStyle.BackColor = Color.Gold;
+                }
+                else if (DateHelper.GetInstance().WeekendDate(created))
                 {
                     row.DefaultCellStyle.BackColor = Color.Red;
                     row.Cells[LogEntriesController.DESCRIPTION_INDEX].Value = (string.IsNullOrEmpty(description)) ? LogEntriesController.WEEKEND : description;
@@ -389,11 +393,15 @@ namespace MainApp
 
                 DataGridViewRow row = this.dGridLogs.Rows[index];
 
+                string category = row.Cells[LogEntriesController.CATEGORY_INDEX].Value.ToString();
+
+                if ((category == LogEntriesController.HOLIDAY) || (category == LogEntriesController.LEAVE))
+                    return;
+
                 int primaryKey = int.Parse(row.Cells[LogEntriesController.ID_INDEX].Value.ToString());
                 DateTime createdDate = DateTime.Parse(row.Cells[LogEntriesController.CREATED_INDEX].Value.ToString());
                 DateTime systemCreatedDate = DateTime.Parse(row.Cells[LogEntriesController.SYSTEM_CREATED_INDEX].Value.ToString());
                 string description = row.Cells[LogEntriesController.DESCRIPTION_INDEX].Value.ToString();
-                string category = row.Cells[LogEntriesController.CATEGORY_INDEX].Value.ToString();
                 bool rememberSetting = this.GetRememberedSetting();
                 DateTime rememberedCreatedDateTime = this.GetRememberedDate();
 
