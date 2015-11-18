@@ -9,7 +9,7 @@ using Domain.Controller;
 
 namespace MainApp
 {
-    public partial class frmHolidays : frmCommonDataEditor, IHolidayView
+    public partial class frmHolidays : frmCommonDataEditor, IHolidayView, IFormCommonOperation
     {
         public Action<Func<Holiday, bool>> QueryViewRecords { get; set; }
         public Action OnQueryViewRecordsCompletion { get; set; }
@@ -19,13 +19,14 @@ namespace MainApp
         public Action<IEnumerable<Holiday>> GetHolidayData { get; set; }
         public Action<dynamic, DateTime> OnGetHolidayDataCompletion { get; set; }
 
-        public frmHolidays(IEFRepository repository) : base()
+        public frmHolidays(IEFRepository repository)
         {
             InitializeComponent();
 
             Action RegisterController = () => new HolidayController(repository, this);
 
             RegisterController();
+            this.RegisterCommonOperation(this);
 
             this.OnQueryViewRecordsCompletion = this.RefreshGridData;
             this.OnGetHolidayDataCompletion = this.UpdateHolidayData;
@@ -76,7 +77,7 @@ namespace MainApp
             this.dGrid.Update();
         }
 
-        public override void UpdateWindow(int rowIndex)
+        public void UpdateWindow(int rowIndex)
         {
             try
             {
@@ -94,13 +95,13 @@ namespace MainApp
             }
         }
 
-        public override void EnableInputWindow(bool enable)
+        public void EnableInputWindow(bool enable)
         {
             this.holidayDate.Enabled = enable;
             this.txtHolidayDescription.Enabled = enable;
         }
 
-        public override void ResetInputWindow()
+        public void ResetInputWindow()
         {
             this.lblId.Text = string.Empty;
             this.holidayDate.Value = DateTime.Now;

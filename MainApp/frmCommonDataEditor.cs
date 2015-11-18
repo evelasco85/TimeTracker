@@ -9,8 +9,19 @@ using Domain.Controller;
 
 namespace MainApp
 {
+    public interface IFormCommonOperation
+    {
+        void UpdateWindow(int rowIndex);
+        void EnableInputWindow(bool enable);
+        void ResetInputWindow();
+
+        //IFormCommonOperation CommonImplementor { get; }
+    }
+
     public partial class frmCommonDataEditor : Form 
     {
+        IFormCommonOperation _formCommonOperation;
+
         public enum ModifierState
         {
             Add,
@@ -25,50 +36,54 @@ namespace MainApp
             InitializeComponent();
         }
 
+        public virtual void RegisterCommonOperation(IFormCommonOperation formCommonOperation)
+        {
+            this._formCommonOperation = formCommonOperation;
+        }
+
         public virtual void dGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            this.UpdateWindow(e.RowIndex);
+            this._formCommonOperation.UpdateWindow(e.RowIndex);
         }
-
-        public virtual void UpdateWindow(int rowIndex)
-        {
-        }
-
-        public virtual void EnableInputWindow(bool enable)
-        {
-        }
-
-        public virtual void ResetInputWindow() { }
 
         public void WindowInputChanges(ModifierState modifierState)
         {
+            if (this._formCommonOperation == null)
+            {
+                MessageBox.Show("Must implement/inherit IFormCommonOperation",
+                    "Implementation Required", MessageBoxButtons.OK, MessageBoxIcon.Information
+                    );
+
+                return;
+            }
+
             switch (modifierState)
             {
                 case ModifierState.Add:
-                    this.EnableInputWindow(true);
+                    this._formCommonOperation.EnableInputWindow(true);
                     this.EnablePersistButtons(true);
                     this.EnableModifierButtons(false);
                     this.EnableDataGridNavigation(false);
-                    this.ResetInputWindow();
+                    this._formCommonOperation.ResetInputWindow();
                     break;
                 case ModifierState.Edit:
-                    this.EnableInputWindow(true);
+                    this._formCommonOperation.EnableInputWindow(true);
                     this.EnablePersistButtons(true);
                     this.EnableModifierButtons(false);
                     this.EnableDataGridNavigation(false);
                     break;
                 case ModifierState.Delete:
-                    this.ResetInputWindow();
+                    this._formCommonOperation.ResetInputWindow();
                     break;
                 case ModifierState.Save:
-                    this.EnableInputWindow(false);
+                    this._formCommonOperation.EnableInputWindow(false);
                     this.EnablePersistButtons(false);
                     this.EnableModifierButtons(true);
                     this.EnableDataGridNavigation(true);
-                    this.ResetInputWindow();
+                    this._formCommonOperation.ResetInputWindow();
                     break;
                 case ModifierState.Cancel:
-                    this.EnableInputWindow(false);
+                    this._formCommonOperation.EnableInputWindow(false);
                     this.EnablePersistButtons(false);
                     this.EnableModifierButtons(true);
                     this.EnableDataGridNavigation(true);

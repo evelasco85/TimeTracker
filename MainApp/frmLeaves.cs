@@ -11,7 +11,7 @@ using Domain.Controller;
 
 namespace MainApp
 {
-    public partial class frmLeaves : frmCommonDataEditor, ILeaveView
+    public partial class frmLeaves : frmCommonDataEditor, ILeaveView, IFormCommonOperation
     {
         public Action<Func<Leave, bool>> QueryViewRecords { get; set; }
         public Action OnQueryViewRecordsCompletion { get; set; }
@@ -26,6 +26,7 @@ namespace MainApp
             Action RegisterController = () => new LeaveController(repository, this);
 
             RegisterController();
+            this.RegisterCommonOperation(this);
 
             this.OnQueryViewRecordsCompletion = RefreshGridData;
             this.OnGetLeaveDataCompletion = UpdateLeaveData;
@@ -80,7 +81,7 @@ namespace MainApp
             this.dGrid.Update();
         }
 
-        public override void UpdateWindow(int rowIndex)
+        public void UpdateWindow(int rowIndex)
         {
             try
             {
@@ -98,13 +99,13 @@ namespace MainApp
             }
         }
 
-        public override void EnableInputWindow(bool enable)
+        public void EnableInputWindow(bool enable)
         {
             this.leaveDate.Enabled = enable;
             this.txtLeaveDescription.Enabled = enable;
         }
 
-        public override void ResetInputWindow()
+        public void ResetInputWindow()
         {
             this.lblId.Text = string.Empty;
             this.leaveDate.Value = DateTime.Now;
