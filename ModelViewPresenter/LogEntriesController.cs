@@ -53,10 +53,10 @@ namespace Domain.Controller
         {
             IEnumerable<Leave> leaves = this._repository
                 .GetEntityQuery<Leave>()
-                .Where(x => x.Date.Month == selectedMonth.Month);
+                .Where(x => (x.Date.Month == selectedMonth.Month) && (x.Date.Year == selectedMonth.Year));
             IEnumerable<Holiday> holidays = this._repository
                 .GetEntityQuery<Holiday>()
-                .Where(x => x.Date.Month == selectedMonth.Month);
+                .Where(x => (x.Date.Month == selectedMonth.Month) && (x.Date.Year == selectedMonth.Year));
 
             IList<LogEntry> leaveLogEntries = leaves.Select(x =>
                 new LogEntry
@@ -81,8 +81,11 @@ namespace Domain.Controller
                 })
                 .ToList();
 
-            IList<LogEntry> availableLogEntries = this._helper.GetMonthLogs(logs, selectedMonth);
-            IList<LogEntry> missingLogEntries = this._helper.GenerateMissingEntriesForMissingDates(availableLogEntries, selectedMonth);
+            IList<LogEntry> availableLogEntries = this._helper
+                .GetMonthLogs(logs, selectedMonth);
+
+            IList<LogEntry> missingLogEntries = this._helper
+                .GenerateMissingEntriesForMissingDates(availableLogEntries, selectedMonth, holidayLogEntries, leaveLogEntries);
 
             List<LogEntry> logEntries = new List<LogEntry>();
 

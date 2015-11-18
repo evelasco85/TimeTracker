@@ -20,7 +20,8 @@ namespace Domain.Helpers
         Leave GetLeave(IEnumerable<Leave> entries, int id);
         IList<LogEntry> GetMonthLogs(IEnumerable<LogEntry> logEntries, DateTime selectedMonth);
         IList<LogEntry> GetMonthSummaryLogs(IEnumerable<LogEntry> logEntries, DateTime selectedMonth);
-        IList<LogEntry> GenerateMissingEntriesForMissingDates(IEnumerable<LogEntry> entries, DateTime selectedMonth);
+        IList<LogEntry> GenerateMissingEntriesForMissingDates(IEnumerable<LogEntry> entries, DateTime selectedMonth,
+            IList<LogEntry> holidayLogEntries, IList<LogEntry> leaveLogEntries);
     }
 
     public class DateHelper : IDateHelper
@@ -151,15 +152,32 @@ namespace Domain.Helpers
             return availableEntries;
         }
 
-        public IList<LogEntry> GenerateMissingEntriesForMissingDates(IEnumerable<LogEntry> entries, DateTime selectedMonth)
+        public IList<LogEntry> GenerateMissingEntriesForMissingDates(IEnumerable<LogEntry> availableLogEntries, DateTime selectedMonth,
+            IList<LogEntry> holidayLogEntries, IList<LogEntry> leaveLogEntries)
         {
             DateTime startDate = this.GetStartDate(selectedMonth);
             DateTime endDate = this.GetEndDate(startDate);
             IList<DateTime> dateRange = this.GetDateRange(startDate, endDate);
 
+            Func<DateTime, DateTime, bool> DateEquivalent = (date1, date2) =>
+                (
+                    (date1.Day == date2.Day) &&
+                    (date1.Month == date2.Month) &&
+                    (date1.Year == date2.Year)
+                );
+
+            List<LogEntry> entries = new List<LogEntry>();
+
+            entries.AddRange(availableLogEntries);
+            entries.AddRange(holidayLogEntries);
+            entries.AddRange(leaveLogEntries);
 
             IList<DateTime> missingDates = dateRange
-                .Where(x => !entries.Any(entry => entry.Created.Date == x.Date))
+                .Where(x => !entries.Any(entry =>
+                    (entry.Created.Date.Day == x.Date.Day) &&
+                    (entry.Created.Date.Month == x.Date.Month) &&
+                    (entry.Created.Date.Year == x.Date.Year)
+                    ))
                 .ToList();
 
             IList<LogEntry> missingLogEntries = missingDates
