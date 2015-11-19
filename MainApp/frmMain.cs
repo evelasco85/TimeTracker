@@ -22,7 +22,7 @@ namespace MainApp
         public Action<Func<LogEntry, bool>> DeleteViewRecords { get; set; }
         public Action<LogEntry> SaveViewRecord { get; set; }
         public Action<IEnumerable<LogEntry>, DateTime> GetLogStatistics { get; set; }
-        public Action<int, int, int, int, int, int, int> OnGetLogStatisticsCompletion { get; set; }
+        public Action<int, int, int, int, int, int, int, int> OnGetLogStatisticsCompletion { get; set; }
         public Action<IEnumerable<LogEntry>, DateTime> GetCalendarData { get; set; }
         public Action<dynamic, DateTime> OnGetCalendarDataCompletion { get; set; }
         public IEnumerable<LogEntry> ViewQueryResult { get; set; }
@@ -332,7 +332,7 @@ namespace MainApp
             this.GetLogStatistics(logs, selectedMonth);
         }
 
-        void UpdateDashboard(int holidayCount, int leaveCount, int saturdayCount, int sundayCount, int workdaysCount, int daysInMonth, int uniqueLogEntriesPerDate)
+        void UpdateDashboard(int holidayCount, int leaveCount, int saturdayCount, int sundayCount, int workdaysCount, int daysInMonth, int uniqueLogEntriesPerDate, int daysCountWithoutLogs)
         {
             this.lblHolidaysCount.Text = string.Format("Holidays Count (Weekdays): {0}", holidayCount.ToString());
             this.lblLeavesCount.Text = string.Format("Leaves Count (Weekdays): {0}", leaveCount.ToString());
@@ -341,7 +341,7 @@ namespace MainApp
             this.lblWorkdaysCount.Text = string.Format("Workdays Count: {0}", workdaysCount.ToString());
             this.lblMonthDaysCount.Text = string.Format("Month Days Count: {0}", daysInMonth.ToString());
             this.lblLogCountsPerMonth.Text = string.Format("Unique Month Logs Count: {0}", uniqueLogEntriesPerDate.ToString());
-            this.lblDaysCountWithNoLogs.Text = string.Format("Days Count Without Logs: {0}", (workdaysCount - uniqueLogEntriesPerDate).ToString());
+            this.lblDaysCountWithNoLogs.Text = string.Format("Days Count Without Logs: {0}", daysCountWithoutLogs.ToString());
         }
 
         private void dateTimeMonth_ValueChanged(object sender, EventArgs e)

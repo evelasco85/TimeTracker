@@ -69,6 +69,7 @@ namespace Domain.Controller
                     Description = x.Description
                 })
                 .ToList();
+
             IList<LogEntry> holidayLogEntries = holidays.Select(x =>
                 new LogEntry
                 {
@@ -122,7 +123,6 @@ namespace Domain.Controller
             int year = selectedMonth.Year;
             int month = selectedMonth.Month;
             IList<LogEntry> logEntries = this._helper.GetMonthLogs(logs, selectedMonth);
-            int uniqueLogEntriesPerDate = logEntries.GroupBy(x => x.Created.Date).Distinct().Count();
             int daysInMonth = DateTime.DaysInMonth(year, month);
             DateTime startDate = this._helper.GetStartDate(selectedMonth);
             DateTime endDate = this._helper.GetEndDate(startDate);
@@ -130,20 +130,35 @@ namespace Domain.Controller
             int sundayCount = this._helper.CountDaysByDayName(DayOfWeek.Sunday, startDate, endDate);
 
             Func<DateTime, bool> betweenMonthDates = (currentDate) => ((currentDate.Ticks > startDate.Ticks) && (currentDate.Ticks < endDate.AddDays(1).Ticks));
+            IEnumerable<Holiday> holidays = this.QueryHolidays(holiday => betweenMonthDates(holiday.Date));
+            IEnumerable<Leave> leaves = this.QueryLeaves(leave => betweenMonthDates(leave.Date));
 
             //Excluding Saturdays/Sundays
-            int holidayCount = this.QueryHolidays(holiday =>
-                betweenMonthDates(holiday.Date) && (!this._helper.WeekendDate(holiday.Date))
-                )
+            int holidayCountExcludingWeekend = holidays.Where(holiday => !this._helper.WeekendDate(holiday.Date)).Count();
+            int leaveCountExcludingWeekend = leaves.Where(leave => !this._helper.WeekendDate(leave.Date)).Count();
+            IEnumerable<DateTime> uniqueLogDates = logEntries
+                .GroupBy(x => x.Created.Date)
+                .Distinct()
+                .Select(x => x.Key);
+            Func<DateTime, DateTime, bool> DateEquivalent = (dateTime, dateTime2) => (
+                (dateTime.Date.Day == dateTime2.Date.Day) &&
+                (dateTime.Date.Month == dateTime2.Date.Month) &&
+                (dateTime.Date.Year == dateTime2.Date.Year)
+                );
+
+            int uniqueLogEntriesPerDate = uniqueLogDates
+                .Where(x =>
+                    //Remove collisions (exclude partial or half-day log messages from counting)
+                    !(
+                        (holidays.Any(holiday => DateEquivalent(holiday.Date, x.Date))) ||
+                        (leaves.Any(leave => DateEquivalent(leave.Date, x.Date))))
+                    )
                 .Count();
 
-            int leaveCount = this.QueryLeaves(leave =>
-                betweenMonthDates(leave.Date) && (!this._helper.WeekendDate(leave.Date))
-                )
-                .Count();
-            int workdaysCount = (daysInMonth - (saturdayCount + sundayCount + holidayCount + leaveCount));
-
-            this._logView.OnGetLogStatisticsCompletion(holidayCount, leaveCount, saturdayCount, sundayCount, workdaysCount, daysInMonth, uniqueLogEntriesPerDate);
+            int workdaysCount = (daysInMonth - (saturdayCount + sundayCount + holidayCountExcludingWeekend + leaveCountExcludingWeekend));
+            int daysCountWithoutLogs = workdaysCount - uniqueLogEntriesPerDate;
+            
+            this._logView.OnGetLogStatisticsCompletion(holidayCountExcludingWeekend, leaveCountExcludingWeekend, saturdayCount, sundayCount, workdaysCount, daysInMonth, uniqueLogEntriesPerDate, daysCountWithoutLogs);
         }
 
         public override void GetData(Func<LogEntry, bool> criteria)
