@@ -41,7 +41,12 @@ namespace MainApp
             this._rememberSetting = rememberSetting;
 
             if (rememberSetting)
-                _rememberedCreatedDateTime = rememberedCreatedDateTime;
+            {
+                DateTime rememberDate = rememberedCreatedDateTime.Date;
+
+                rememberDate = rememberDate.Add(DateTime.Now.TimeOfDay);
+                _rememberedCreatedDateTime = rememberDate;
+            }
 
             this.SetDayOfWeek();
         }
