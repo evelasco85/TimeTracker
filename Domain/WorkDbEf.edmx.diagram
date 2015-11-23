@@ -5,9 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="66055a1f94c1467aaf34697c1227c0cc" Name="Diagram1">
-        <EntityTypeShape EntityType="WorklogDBModel.Holiday" Width="1.5" PointX="3.375" PointY="0.75" />
-        <EntityTypeShape EntityType="WorklogDBModel.LogEntry" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="WorklogDBModel.Leave" Width="2.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="WorklogDBModel.C__RefactorLog" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WorklogDBModel.Activity" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WorklogDBModel.Attribute" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="WorklogDBModel.Category" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="WorklogDBModel.DayActivity" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WorklogDBModel.DayAttribute" Width="1.5" PointX="4.75" PointY="3.75" />
+        <EntityTypeShape EntityType="WorklogDBModel.Holiday" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WorklogDBModel.Leave" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="WorklogDBModel.LogEntry" Width="1.5" PointX="2.75" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

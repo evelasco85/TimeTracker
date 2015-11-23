@@ -65,7 +65,7 @@
     <Build Include="Leave.sql" />
     <Build Include="Activity.sql" />
     <Build Include="Attribute.sql" />
-    <Build Include="SummarizedLogCategory.sql" />
+    <Build Include="Category.sql" />
     <Build Include="DayActivity.sql" />
     <Build Include="DayAttribute.sql" />
   </ItemGroup>

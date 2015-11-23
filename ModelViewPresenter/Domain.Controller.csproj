@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,11 +43,13 @@
     <Compile Include="Base\BaseController.cs" />
     <Compile Include="Base\IController.cs" />
     <Compile Include="Base\IView.cs" />
+    <Compile Include="CategoryController.cs" />
     <Compile Include="Helpers\DateHelper.cs" />
     <Compile Include="HolidayController.cs" />
     <Compile Include="IHolidayView.cs" />
     <Compile Include="ILeaveView.cs" />
     <Compile Include="ILogView.cs" />
+    <Compile Include="ICategoryView.cs" />
     <Compile Include="ISummaryLogsView.cs" />
     <Compile Include="LeaveController.cs" />
     <Compile Include="LogEntriesController.cs" />

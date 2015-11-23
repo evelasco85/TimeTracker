@@ -50,7 +50,7 @@ namespace MainApp
         {
             if (this._formCommonOperation == null)
             {
-                MessageBox.Show("Must implement/inherit IFormCommonOperation",
+                MessageBox.Show("Must implement/inherit IFormCommonOperation, call in constructor: 'this.RegisterCommonOperation(this)'",
                     "Implementation Required", MessageBoxButtons.OK, MessageBoxIcon.Information
                     );
 

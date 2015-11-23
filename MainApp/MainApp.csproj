@@ -101,6 +101,12 @@
     <Compile Include="frmSummarizeLogs.Designer.cs">
       <DependentUpon>frmSummarizeLogs.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmCategory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCategory.Designer.cs">
+      <DependentUpon>frmCategory.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmTaskMonitoringEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +120,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="frmCategory.resx">
+      <DependentUpon>frmCategory.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmCommonDataEditor.resx">
       <DependentUpon>frmCommonDataEditor.cs</DependentUpon>
     </EmbeddedResource>

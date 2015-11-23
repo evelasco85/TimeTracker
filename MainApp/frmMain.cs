@@ -509,6 +509,27 @@ namespace MainApp
             this.RefreshDashboardData();
         }
 
+        void OpenCategories()
+        {
+            MethodInvoker invokeFromUI = new MethodInvoker(
+               () =>
+               {
+                   using (frmCategory holiday = new frmCategory(this._repository))
+                   {
+                       holiday.ShowDialog(this);
+                       holiday.Dispose();
+                   }
+               }
+           );
+
+            if (this.InvokeRequired)
+                this.Invoke(invokeFromUI);
+            else
+                invokeFromUI.Invoke();
+
+            this.RefreshDashboardData();
+        }
+
         private void btnLeave_Click(object sender, EventArgs e)
         {
             this.OpenLeaves();
@@ -533,6 +554,11 @@ namespace MainApp
                 invokeFromUI.Invoke();
 
             this.RefreshDashboardData();
+        }
+
+        private void btnCategory_Click(object sender, EventArgs e)
+        {
+            this.OpenCategories();
         }
     }
 }

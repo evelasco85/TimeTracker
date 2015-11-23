@@ -42,9 +42,9 @@
             this.lblLogCountsPerMonth = new System.Windows.Forms.Label();
             this.lblMonthDaysCount = new System.Windows.Forms.Label();
             this.lblWorkdaysCount = new System.Windows.Forms.Label();
-            this.lblHolidaysCount = new System.Windows.Forms.Label();
             this.lblSundayDaysCount = new System.Windows.Forms.Label();
             this.lblSaturdaysCount = new System.Windows.Forms.Label();
+            this.lblHolidaysCount = new System.Windows.Forms.Label();
             this.lblCategory = new System.Windows.Forms.Label();
             this.txtCategory = new System.Windows.Forms.TextBox();
             this.txtDescription = new System.Windows.Forms.TextBox();
@@ -52,6 +52,7 @@
             this.btnSummarizeLogs = new System.Windows.Forms.Button();
             this.btnHoliday = new System.Windows.Forms.Button();
             this.btnLeave = new System.Windows.Forms.Button();
+            this.btnCategory = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dGridLogs)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -84,7 +85,7 @@
             // btnManuaTrackerEntry
             // 
             this.btnManuaTrackerEntry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnManuaTrackerEntry.Location = new System.Drawing.Point(392, 528);
+            this.btnManuaTrackerEntry.Location = new System.Drawing.Point(197, 528);
             this.btnManuaTrackerEntry.Name = "btnManuaTrackerEntry";
             this.btnManuaTrackerEntry.Size = new System.Drawing.Size(151, 30);
             this.btnManuaTrackerEntry.TabIndex = 1;
@@ -202,16 +203,6 @@
             this.lblWorkdaysCount.TabIndex = 15;
             this.lblWorkdaysCount.Text = "Workdays Count:";
             // 
-            // lblHolidaysCount
-            // 
-            this.lblHolidaysCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblHolidaysCount.AutoSize = true;
-            this.lblHolidaysCount.Location = new System.Drawing.Point(12, 9);
-            this.lblHolidaysCount.Name = "lblHolidaysCount";
-            this.lblHolidaysCount.Size = new System.Drawing.Size(164, 13);
-            this.lblHolidaysCount.TabIndex = 14;
-            this.lblHolidaysCount.Text = "Holidays Count (Weekdays): N/A";
-            // 
             // lblSundayDaysCount
             // 
             this.lblSundayDaysCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -231,6 +222,16 @@
             this.lblSaturdaysCount.Size = new System.Drawing.Size(110, 13);
             this.lblSaturdaysCount.TabIndex = 12;
             this.lblSaturdaysCount.Text = "Saturday Days Count:";
+            // 
+            // lblHolidaysCount
+            // 
+            this.lblHolidaysCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblHolidaysCount.AutoSize = true;
+            this.lblHolidaysCount.Location = new System.Drawing.Point(12, 9);
+            this.lblHolidaysCount.Name = "lblHolidaysCount";
+            this.lblHolidaysCount.Size = new System.Drawing.Size(164, 13);
+            this.lblHolidaysCount.TabIndex = 14;
+            this.lblHolidaysCount.Text = "Holidays Count (Weekdays): N/A";
             // 
             // lblCategory
             // 
@@ -305,10 +306,22 @@
             this.btnLeave.UseVisualStyleBackColor = true;
             this.btnLeave.Click += new System.EventHandler(this.btnLeave_Click);
             // 
+            // btnCategory
+            // 
+            this.btnCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnCategory.Location = new System.Drawing.Point(392, 528);
+            this.btnCategory.Name = "btnCategory";
+            this.btnCategory.Size = new System.Drawing.Size(151, 30);
+            this.btnCategory.TabIndex = 21;
+            this.btnCategory.Text = "Category";
+            this.btnCategory.UseVisualStyleBackColor = true;
+            this.btnCategory.Click += new System.EventHandler(this.btnCategory_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(1249, 649);
+            this.Controls.Add(this.btnCategory);
             this.Controls.Add(this.btnLeave);
             this.Controls.Add(this.btnHoliday);
             this.Controls.Add(this.btnSummarizeLogs);
@@ -359,6 +372,7 @@
         private System.Windows.Forms.Button btnHoliday;
         private System.Windows.Forms.Button btnLeave;
         private System.Windows.Forms.Label lblLeavesCount;
+        private System.Windows.Forms.Button btnCategory;
     }
 }
 

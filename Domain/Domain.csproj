@@ -59,6 +59,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activity.cs">
+      <DependentUpon>WorkDbEf.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Attribute.cs">
+      <DependentUpon>WorkDbEf.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Category.cs">
+      <DependentUpon>WorkDbEf.tt</DependentUpon>
+    </Compile>
+    <Compile Include="C__RefactorLog.cs">
+      <DependentUpon>WorkDbEf.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DayActivity.cs">
+      <DependentUpon>WorkDbEf.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DayAttribute.cs">
+      <DependentUpon>WorkDbEf.tt</DependentUpon>
+    </Compile>
     <Compile Include="Holiday.cs">
       <DependentUpon>WorkDbEf.tt</DependentUpon>
     </Compile>
