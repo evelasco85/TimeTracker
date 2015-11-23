@@ -19,5 +19,6 @@ namespace Domain.Controller
 
         Func<DateTime> GetRememberedDate { get; set; }
         Action<DateTime> SetRememberedDate { get; set; }
+        Func<IEnumerable<Category>> GetCategories { get; set; }
     }
 }

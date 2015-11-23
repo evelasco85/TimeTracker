@@ -34,8 +34,9 @@ namespace MainApp
             InitializeComponent();
         }
 
-        public frmTaskMonitoringEntry(bool rememberSetting, DateTime rememberedCreatedDateTime) : this()
+        public frmTaskMonitoringEntry(IEnumerable<string> Categories, bool rememberSetting, DateTime rememberedCreatedDateTime) : this()
         {
+            this.cboCategory.DataSource =  Categories.ToList();
             this.dateTimeManualEntry.Format = DateTimePickerFormat.Custom;
             this.dateTimeManualEntry.CustomFormat = @"MM'/'dd'/'yyyy hh':'mm tt";
             this._rememberSetting = rememberSetting;
@@ -52,10 +53,11 @@ namespace MainApp
         }
 
         public frmTaskMonitoringEntry(
+            IEnumerable<string> Categories,
             int primaryKey, string category,
             string description, bool rememberSetting,
             DateTime createdDate, DateTime systemCreatedDate)
-            : this(rememberSetting, createdDate)
+            : this(Categories, rememberSetting, createdDate)
         {
             this._logEntry = new LogEntry
             {
@@ -93,7 +95,7 @@ namespace MainApp
         private void frmTaskMonitoringEntry_Load(object sender, EventArgs e)
         {
             this.chkRememberSettings.Checked = _rememberSetting;
-            this.dateTimeManualEntry.Value = (this._rememberedCreatedDateTime == DateTime.MinValue) ? DateTime.Now : _rememberedCreatedDateTime;
+            this.dateTimeManualEntry.Value = (this._rememberedCreatedDateTime.Date == DateTime.MinValue.Date) ? DateTime.Now : _rememberedCreatedDateTime;
         }
 
         void SetDayOfWeek()

@@ -12,3 +12,4 @@
 	-Adjust underlying controllers
 *Fix missing date scenarios for holidays and leaves
 *Fix day count computations
+*Configurable category and log summary display

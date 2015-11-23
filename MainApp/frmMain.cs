@@ -31,6 +31,7 @@ namespace MainApp
 
         public Func<DateTime> GetRememberedDate { get; set; }
         public Action<DateTime> SetRememberedDate { get; set; }
+        public Func<IEnumerable<Category>> GetCategories { get; set; }
 
         public frmMain(IEFRepository repository)
         {
@@ -217,6 +218,8 @@ namespace MainApp
                         this._promptingInProgress = true;
 
                         using (frmTaskMonitoringEntry monitoring = new frmTaskMonitoringEntry(
+                            this.GetCategories()
+                                .Select(x => x.Name),
                             primaryKey, category, description, rememberSetting, createdDate, systemCreatedDate))
                         {
                             DialogResult result = monitoring.ShowDialog(this);
@@ -257,7 +260,12 @@ namespace MainApp
 
                 this._promptingInProgress = true;
 
-                using (frmTaskMonitoringEntry monitoring = new frmTaskMonitoringEntry(this.GetRememberedSetting(), this.GetRememberedDate()))
+                using (frmTaskMonitoringEntry monitoring = new frmTaskMonitoringEntry(
+                    this.GetCategories()
+                        .Select(x => x.Name),
+                    this.GetRememberedSetting(),
+                    this.GetRememberedDate())
+                    )
                 {
                     DialogResult result = monitoring.ShowDialog(this);
 
@@ -514,10 +522,10 @@ namespace MainApp
             MethodInvoker invokeFromUI = new MethodInvoker(
                () =>
                {
-                   using (frmCategory holiday = new frmCategory(this._repository))
+                   using (frmCategory category = new frmCategory(this._repository))
                    {
-                       holiday.ShowDialog(this);
-                       holiday.Dispose();
+                       category.ShowDialog(this);
+                       category.Dispose();
                    }
                }
            );

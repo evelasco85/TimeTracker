@@ -14,8 +14,6 @@ namespace MainApp
         void UpdateWindow(int rowIndex);
         void EnableInputWindow(bool enable);
         void ResetInputWindow();
-
-        //IFormCommonOperation CommonImplementor { get; }
     }
 
     public partial class frmCommonDataEditor : Form 

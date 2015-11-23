@@ -28,9 +28,12 @@ namespace Domain.Controller
         void GetLogEntries(IEnumerable<LogEntry> logs, DateTime selectedMonth)
         {
             IList<LogEntry> logEntries = this._helper.GetMonthSummaryLogs(logs, selectedMonth);
+            IEnumerable<Category> categories = this._repository
+                .GetEntityQuery<Category>()
+                .Where(x => x.ShowInSummary == true);
             IEnumerable<IGrouping<string, string>> perDateLogs =
                 logEntries
-                .Where(x => !(x.Category.ToLower() == "others"))
+                .Where(x => (categories.Any(category => category.Name.ToLower() == x.Category.ToLower())))
                 .GroupBy(log => log.Created.ToString("yyyy-MM-dd"), log => log.Description);
 
             var officialLogEntries =

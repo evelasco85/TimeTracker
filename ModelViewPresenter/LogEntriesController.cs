@@ -37,12 +37,19 @@ namespace Domain.Controller
             this._logView = view;
             this._logView.GetLogStatistics = this.GetLogStatistics;
             this._logView.GetCalendarData = this.GetCalendarData;
+            this._logView.GetCategories = this.GetCategories;
             this._logView.GetRememberedSetting = this.GetRememberedSetting;
             this._logView.SetRememberedSetting = this.SetRememberedSetting;
             this._logView.GetRememberedDate = this.GetRememberedDate;
             this._logView.SetRememberedDate = this.SetRememberedDate;
         }
 
+        IEnumerable<Category> GetCategories()
+        {
+            IQueryable<Category> categoryQuery = this._repository.GetEntityQuery<Category>();
+
+            return categoryQuery;
+        }
         bool GetRememberedSetting() { return this._rememberSetting; }
         void SetRememberedSetting(bool rememberSetting) { this._rememberSetting = rememberSetting; }
 

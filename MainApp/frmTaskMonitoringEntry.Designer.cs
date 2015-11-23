@@ -109,18 +109,6 @@
             // cboCategory
             // 
             this.cboCategory.FormattingEnabled = true;
-            this.cboCategory.Items.AddRange(new object[] {
-            "Others",
-            "Customer Portal",
-            "BvCrmApi",
-            "CRM",
-            "Web Portal",
-            "Collaboration",
-            "Research",
-            "Meetings",
-            "Holiday",
-            "Leave",
-            "Leave (Half-day)"});
             this.cboCategory.Location = new System.Drawing.Point(103, 12);
             this.cboCategory.Name = "cboCategory";
             this.cboCategory.Size = new System.Drawing.Size(173, 21);
