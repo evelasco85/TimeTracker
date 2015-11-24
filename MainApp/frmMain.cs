@@ -564,9 +564,35 @@ namespace MainApp
             this.RefreshDashboardData();
         }
 
+        void OpenAttributes()
+        {
+            MethodInvoker invokeFromUI = new MethodInvoker(
+               () =>
+               {
+                   using (frmAttribute leave = new frmAttribute(this._repository))
+                   {
+                       leave.ShowDialog(this);
+                       leave.Dispose();
+                   }
+               }
+           );
+
+            if (this.InvokeRequired)
+                this.Invoke(invokeFromUI);
+            else
+                invokeFromUI.Invoke();
+
+            this.RefreshDashboardData();
+        }
+
         private void btnCategory_Click(object sender, EventArgs e)
         {
             this.OpenCategories();
+        }
+
+        private void btnAttribute_Click(object sender, EventArgs e)
+        {
+            this.OpenAttributes();
         }
     }
 }

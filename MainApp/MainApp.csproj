@@ -71,6 +71,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmAttribute.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAttribute.Designer.cs">
+      <DependentUpon>frmAttribute.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmCommonDataEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,6 +126,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="frmAttribute.resx">
+      <DependentUpon>frmAttribute.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmCategory.resx">
       <DependentUpon>frmCategory.cs</DependentUpon>
     </EmbeddedResource>

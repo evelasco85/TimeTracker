@@ -53,6 +53,7 @@
             this.btnHoliday = new System.Windows.Forms.Button();
             this.btnLeave = new System.Windows.Forms.Button();
             this.btnCategory = new System.Windows.Forms.Button();
+            this.btnAttribute = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dGridLogs)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -287,7 +288,7 @@
             // btnHoliday
             // 
             this.btnHoliday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnHoliday.Location = new System.Drawing.Point(392, 564);
+            this.btnHoliday.Location = new System.Drawing.Point(364, 564);
             this.btnHoliday.Name = "btnHoliday";
             this.btnHoliday.Size = new System.Drawing.Size(151, 30);
             this.btnHoliday.TabIndex = 19;
@@ -298,7 +299,7 @@
             // btnLeave
             // 
             this.btnLeave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnLeave.Location = new System.Drawing.Point(392, 600);
+            this.btnLeave.Location = new System.Drawing.Point(364, 600);
             this.btnLeave.Name = "btnLeave";
             this.btnLeave.Size = new System.Drawing.Size(151, 30);
             this.btnLeave.TabIndex = 20;
@@ -309,7 +310,7 @@
             // btnCategory
             // 
             this.btnCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCategory.Location = new System.Drawing.Point(392, 528);
+            this.btnCategory.Location = new System.Drawing.Point(364, 528);
             this.btnCategory.Name = "btnCategory";
             this.btnCategory.Size = new System.Drawing.Size(151, 30);
             this.btnCategory.TabIndex = 21;
@@ -317,10 +318,22 @@
             this.btnCategory.UseVisualStyleBackColor = true;
             this.btnCategory.Click += new System.EventHandler(this.btnCategory_Click);
             // 
+            // btnAttribute
+            // 
+            this.btnAttribute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAttribute.Location = new System.Drawing.Point(535, 528);
+            this.btnAttribute.Name = "btnAttribute";
+            this.btnAttribute.Size = new System.Drawing.Size(151, 30);
+            this.btnAttribute.TabIndex = 22;
+            this.btnAttribute.Text = "Attribute";
+            this.btnAttribute.UseVisualStyleBackColor = true;
+            this.btnAttribute.Click += new System.EventHandler(this.btnAttribute_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(1249, 649);
+            this.Controls.Add(this.btnAttribute);
             this.Controls.Add(this.btnCategory);
             this.Controls.Add(this.btnLeave);
             this.Controls.Add(this.btnHoliday);
@@ -373,6 +386,7 @@
         private System.Windows.Forms.Button btnLeave;
         private System.Windows.Forms.Label lblLeavesCount;
         private System.Windows.Forms.Button btnCategory;
+        private System.Windows.Forms.Button btnAttribute;
     }
 }
 

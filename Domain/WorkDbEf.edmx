@@ -28,7 +28,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Link" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Link" Type="nvarchar" MaxLength="150" />
           <Property Name="System_Created" Type="datetime" Nullable="false" />
           <Property Name="SystemUpdateDateTime" Type="datetime" Nullable="false" />
         </EntityType>
@@ -108,13 +108,13 @@
         <EntityContainer Name="WorklogDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__RefactorLog" EntityType="WorklogDBModel.C__RefactorLog" />
           <EntitySet Name="Activities" EntityType="WorklogDBModel.Activity" />
-          <EntitySet Name="Attributes" EntityType="WorklogDBModel.Attribute" />
           <EntitySet Name="Categories" EntityType="WorklogDBModel.Category" />
           <EntitySet Name="DayActivities" EntityType="WorklogDBModel.DayActivity" />
           <EntitySet Name="DayAttributes" EntityType="WorklogDBModel.DayAttribute" />
           <EntitySet Name="Holidays" EntityType="WorklogDBModel.Holiday" />
           <EntitySet Name="Leaves" EntityType="WorklogDBModel.Leave" />
           <EntitySet Name="LogEntries" EntityType="WorklogDBModel.LogEntry" />
+          <EntitySet Name="Attributes" EntityType="WorklogDBModel.Attribute" />
         </EntityContainer>
         <EntityType Name="C__RefactorLog">
           <Key>
@@ -129,17 +129,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="System_Created" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="SystemUpdateDateTime" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="Attribute">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Link" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="System_Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="SystemUpdateDateTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
@@ -201,6 +190,17 @@
           <Property Name="Category" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SystemUpdateDateTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
+        <EntityType Name="Attribute">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Link" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="System_Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SystemUpdateDateTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -219,18 +219,6 @@
               <MappingFragment StoreEntitySet="Activity">
                 <ScalarProperty Name="SystemUpdateDateTime" ColumnName="SystemUpdateDateTime" />
                 <ScalarProperty Name="System_Created" ColumnName="System_Created" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Attributes">
-            <EntityTypeMapping TypeName="WorklogDBModel.Attribute">
-              <MappingFragment StoreEntitySet="Attribute">
-                <ScalarProperty Name="SystemUpdateDateTime" ColumnName="SystemUpdateDateTime" />
-                <ScalarProperty Name="System_Created" ColumnName="System_Created" />
-                <ScalarProperty Name="Link" ColumnName="Link" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -295,6 +283,18 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="System_Created" ColumnName="System_Created" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Attributes">
+            <EntityTypeMapping TypeName="WorklogDBModel.Attribute">
+              <MappingFragment StoreEntitySet="Attribute">
+                <ScalarProperty Name="SystemUpdateDateTime" ColumnName="SystemUpdateDateTime" />
+                <ScalarProperty Name="System_Created" ColumnName="System_Created" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
