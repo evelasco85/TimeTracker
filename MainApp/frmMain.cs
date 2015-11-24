@@ -514,6 +514,7 @@ namespace MainApp
             else
                 invokeFromUI.Invoke();
 
+            this.QueryViewRecords(null);
             this.RefreshDashboardData();
         }
 
@@ -561,6 +562,7 @@ namespace MainApp
             else
                 invokeFromUI.Invoke();
 
+            this.QueryViewRecords(null);
             this.RefreshDashboardData();
         }
 
