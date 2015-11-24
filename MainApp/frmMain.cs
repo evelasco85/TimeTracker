@@ -585,6 +585,27 @@ namespace MainApp
             this.RefreshDashboardData();
         }
 
+        void OpenActivities()
+        {
+            MethodInvoker invokeFromUI = new MethodInvoker(
+               () =>
+               {
+                   using (frmActivity leave = new frmActivity(this._repository))
+                   {
+                       leave.ShowDialog(this);
+                       leave.Dispose();
+                   }
+               }
+           );
+
+            if (this.InvokeRequired)
+                this.Invoke(invokeFromUI);
+            else
+                invokeFromUI.Invoke();
+
+            this.RefreshDashboardData();
+        }
+
         private void btnCategory_Click(object sender, EventArgs e)
         {
             this.OpenCategories();
@@ -593,6 +614,11 @@ namespace MainApp
         private void btnAttribute_Click(object sender, EventArgs e)
         {
             this.OpenAttributes();
+        }
+
+        private void btnActivity_Click(object sender, EventArgs e)
+        {
+            this.OpenActivities();
         }
     }
 }

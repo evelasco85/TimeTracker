@@ -54,6 +54,7 @@
             this.btnLeave = new System.Windows.Forms.Button();
             this.btnCategory = new System.Windows.Forms.Button();
             this.btnAttribute = new System.Windows.Forms.Button();
+            this.btnActivity = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dGridLogs)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -329,10 +330,22 @@
             this.btnAttribute.UseVisualStyleBackColor = true;
             this.btnAttribute.Click += new System.EventHandler(this.btnAttribute_Click);
             // 
+            // btnActivity
+            // 
+            this.btnActivity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnActivity.Location = new System.Drawing.Point(535, 564);
+            this.btnActivity.Name = "btnActivity";
+            this.btnActivity.Size = new System.Drawing.Size(151, 30);
+            this.btnActivity.TabIndex = 23;
+            this.btnActivity.Text = "Activity";
+            this.btnActivity.UseVisualStyleBackColor = true;
+            this.btnActivity.Click += new System.EventHandler(this.btnActivity_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(1249, 649);
+            this.Controls.Add(this.btnActivity);
             this.Controls.Add(this.btnAttribute);
             this.Controls.Add(this.btnCategory);
             this.Controls.Add(this.btnLeave);
@@ -387,6 +400,7 @@
         private System.Windows.Forms.Label lblLeavesCount;
         private System.Windows.Forms.Button btnCategory;
         private System.Windows.Forms.Button btnAttribute;
+        private System.Windows.Forms.Button btnActivity;
     }
 }
 
