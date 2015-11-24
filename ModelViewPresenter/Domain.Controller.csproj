@@ -46,10 +46,12 @@
     <Compile Include="Base\IController.cs" />
     <Compile Include="Base\IView.cs" />
     <Compile Include="CategoryController.cs" />
+    <Compile Include="DailyAttributeController.cs" />
     <Compile Include="Helpers\DateHelper.cs" />
     <Compile Include="HolidayController.cs" />
     <Compile Include="IActivityView.cs" />
     <Compile Include="IAttributeView.cs" />
+    <Compile Include="IDailyAttributeView.cs" />
     <Compile Include="IHolidayView.cs" />
     <Compile Include="ILeaveView.cs" />
     <Compile Include="ILogView.cs" />

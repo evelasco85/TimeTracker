@@ -83,11 +83,23 @@
     <Compile Include="frmAttribute.Designer.cs">
       <DependentUpon>frmAttribute.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmCommonByDateDataEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCommonByDateDataEditor.Designer.cs">
+      <DependentUpon>frmCommonByDateDataEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmCommonDataEditor.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmCommonDataEditor.Designer.cs">
       <DependentUpon>frmCommonDataEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDailyAttribute.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDailyAttribute.Designer.cs">
+      <DependentUpon>frmDailyAttribute.cs</DependentUpon>
     </Compile>
     <Compile Include="frmLeaves.cs">
       <SubType>Form</SubType>
@@ -140,6 +152,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmCategory.resx">
       <DependentUpon>frmCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCommonByDateDataEditor.resx">
+      <DependentUpon>frmCommonByDateDataEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCommonDataEditor.resx">
       <DependentUpon>frmCommonDataEditor.cs</DependentUpon>

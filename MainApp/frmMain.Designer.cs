@@ -55,6 +55,7 @@
             this.btnCategory = new System.Windows.Forms.Button();
             this.btnAttribute = new System.Windows.Forms.Button();
             this.btnActivity = new System.Windows.Forms.Button();
+            this.btnDailyAttribute = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dGridLogs)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -341,10 +342,22 @@
             this.btnActivity.UseVisualStyleBackColor = true;
             this.btnActivity.Click += new System.EventHandler(this.btnActivity_Click);
             // 
+            // btnDailyAttribute
+            // 
+            this.btnDailyAttribute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDailyAttribute.Location = new System.Drawing.Point(197, 564);
+            this.btnDailyAttribute.Name = "btnDailyAttribute";
+            this.btnDailyAttribute.Size = new System.Drawing.Size(151, 30);
+            this.btnDailyAttribute.TabIndex = 24;
+            this.btnDailyAttribute.Text = "Daily Attributes";
+            this.btnDailyAttribute.UseVisualStyleBackColor = true;
+            this.btnDailyAttribute.Click += new System.EventHandler(this.btnDailyAttribute_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(1249, 649);
+            this.Controls.Add(this.btnDailyAttribute);
             this.Controls.Add(this.btnActivity);
             this.Controls.Add(this.btnAttribute);
             this.Controls.Add(this.btnCategory);
@@ -401,6 +414,7 @@
         private System.Windows.Forms.Button btnCategory;
         private System.Windows.Forms.Button btnAttribute;
         private System.Windows.Forms.Button btnActivity;
+        private System.Windows.Forms.Button btnDailyAttribute;
     }
 }
 

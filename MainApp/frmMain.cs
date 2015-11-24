@@ -608,6 +608,25 @@ namespace MainApp
             this.RefreshDashboardData();
         }
 
+        void OpenDailyAttributes()
+        {
+            MethodInvoker invokeFromUI = new MethodInvoker(
+               () =>
+               {
+                   using (frmDailyAttribute leave = new frmDailyAttribute(this._repository))
+                   {
+                       leave.ShowDialog(this);
+                       leave.Dispose();
+                   }
+               }
+           );
+
+            if (this.InvokeRequired)
+                this.Invoke(invokeFromUI);
+            else
+                invokeFromUI.Invoke();
+        }
+
         private void btnCategory_Click(object sender, EventArgs e)
         {
             this.OpenCategories();
@@ -621,6 +640,11 @@ namespace MainApp
         private void btnActivity_Click(object sender, EventArgs e)
         {
             this.OpenActivities();
+        }
+
+        private void btnDailyAttribute_Click(object sender, EventArgs e)
+        {
+            this.OpenDailyAttributes();
         }
     }
 }
