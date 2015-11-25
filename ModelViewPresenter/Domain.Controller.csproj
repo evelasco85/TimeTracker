@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivityController.cs" />
+    <Compile Include="PersonalNoteController.cs" />
     <Compile Include="AttributeController.cs" />
     <Compile Include="Base\BaseController.cs" />
     <Compile Include="Base\IController.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="Helpers\DateHelper.cs" />
     <Compile Include="HolidayController.cs" />
     <Compile Include="IActivityView.cs" />
+    <Compile Include="IPersonalNoteView.cs" />
     <Compile Include="IAttributeView.cs" />
     <Compile Include="IDailyAttributeView.cs" />
     <Compile Include="IHolidayView.cs" />

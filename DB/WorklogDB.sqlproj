@@ -68,6 +68,7 @@
     <Build Include="Category.sql" />
     <Build Include="DayActivity.sql" />
     <Build Include="DayAttribute.sql" />
+    <Build Include="PersonalNote.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="WorklogDB.publish.xml" />

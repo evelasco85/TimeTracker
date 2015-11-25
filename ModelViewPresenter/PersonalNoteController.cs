@@ -1,4 +1,5 @@
-﻿using Domain.Controller;
+﻿using Domain;
+using Domain.Controller;
 using Domain.Helpers;
 using Domain.Infrastructure;
 using System;
@@ -9,34 +10,32 @@ using System.Threading.Tasks;
 
 namespace ModelViewPresenter
 {
-    public class AttributeController : BaseController<Domain.Attribute>
+    public class PersonalNoteController : BaseController<PersonalNote>
     {
         public const int ID_INDEX = 0;
-        public const int NAME_INDEX = 1;
-        public const int DESCRIPTION_INDEX = 2;
-        public const int LINK_INDEX = 3;
-        public const int SYSTEM_CREATED_INDEX = 4;
-        public const int SYSTEM_UPDATED_INDEX = 5;
+        public const int DESCRIPTION_INDEX = 1;
+        public const int SYSTEM_CREATED_INDEX = 2;
+        public const int SYSTEM_UPDATED_INDEX = 3;
 
-        IAttributeView _view;
+        IPersonalNoteView _view;
         IDateHelper _helper;
 
-        public AttributeController(IEFRepository repository, IAttributeView view)
+        public PersonalNoteController(IEFRepository repository, IPersonalNoteView view)
             : base(repository, view)
         {
             this._helper = DateHelper.GetInstance();
             this._view = view;
-            this._view.GetAttributeData = this.GetAttributeData;
+            this._view.GetPersonalNoteData = this.GetPersonalNoteData;
         }
 
-        void GetAttributeData(IEnumerable<Domain.Attribute> attributes)
+        void GetPersonalNoteData(IEnumerable<PersonalNote> attributes)
         {
             DateTime lastUpdatedDate = attributes
                 .Select(x => x.SystemUpdateDateTime)
                 .OrderByDescending(x => x)
                 .FirstOrDefault();
 
-            this._view.OnGetAttributeDataCompletion(
+            this._view.OnGetPersonalNoteDataCompletion(
                 attributes
                 .OrderBy(x => x.Id)
                 .ToList()
@@ -44,10 +43,10 @@ namespace ModelViewPresenter
                 lastUpdatedDate);
         }
 
-        public override void GetData(Func<Domain.Attribute, bool> criteria)
+        public override void GetData(Func<PersonalNote, bool> criteria)
         {
-            IQueryable<Domain.Attribute> attributeQuery = this._repository
-                .GetEntityQuery<Domain.Attribute>();
+            IQueryable<PersonalNote> attributeQuery = this._repository
+                .GetEntityQuery<PersonalNote>();
 
             if (criteria == null)
                 this._view.ViewQueryResult = attributeQuery.Select(x => x);
@@ -57,12 +56,12 @@ namespace ModelViewPresenter
             this._view.OnQueryViewRecordsCompletion();
         }
 
-        public override void SaveData(Domain.Attribute data)
+        public override void SaveData(PersonalNote data)
         {
-            this._repository.Save<Domain.Attribute>(item => item.Id, data);
+            this._repository.Save<PersonalNote>(item => item.Id, data);
         }
 
-        public override void DeleteData(Func<Domain.Attribute, bool> criteria)
+        public override void DeleteData(Func<PersonalNote, bool> criteria)
         {
             this._repository.Delete(criteria);
         }

@@ -12,6 +12,12 @@ namespace ModelViewPresenter
 {
     public class ActivityController : BaseController<Activity>
     {
+        public const int ID_INDEX = 0;
+        public const int NAME_INDEX = 1;
+        public const int DESCRIPTION_INDEX = 2;
+        public const int SYSTEM_CREATED_INDEX = 3;
+        public const int SYSTEM_UPDATED_INDEX = 4;
+
         IActivityView _view;
         IDateHelper _helper;
 

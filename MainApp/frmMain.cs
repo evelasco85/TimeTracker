@@ -627,6 +627,25 @@ namespace MainApp
                 invokeFromUI.Invoke();
         }
 
+        void OpenPersonalNote()
+        {
+            MethodInvoker invokeFromUI = new MethodInvoker(
+               () =>
+               {
+                   using (frmPersonalNotes personalNote = new frmPersonalNotes(this._repository))
+                   {
+                       personalNote.ShowDialog(this);
+                       personalNote.Dispose();
+                   }
+               }
+           );
+
+            if (this.InvokeRequired)
+                this.Invoke(invokeFromUI);
+            else
+                invokeFromUI.Invoke();
+        }
+
         private void btnCategory_Click(object sender, EventArgs e)
         {
             this.OpenCategories();
@@ -645,6 +664,11 @@ namespace MainApp
         private void btnDailyAttribute_Click(object sender, EventArgs e)
         {
             this.OpenDailyAttributes();
+        }
+
+        private void btnPersonalNote_Click(object sender, EventArgs e)
+        {
+            this.OpenPersonalNote();
         }
     }
 }

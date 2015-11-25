@@ -14,36 +14,36 @@ using System.Windows.Forms;
 
 namespace MainApp
 {
-    public partial class frmActivity : frmCommonDataEditor, IActivityView, IFormCommonOperation
+    public partial class frmPersonalNotes : frmCommonDataEditor, IPersonalNoteView, IFormCommonOperation
     {
-        public Action<Func<Activity, bool>> QueryViewRecords { get; set; }
+        public Action<Func<PersonalNote, bool>> QueryViewRecords { get; set; }
         public Action OnQueryViewRecordsCompletion { get; set; }
-        public Action<Activity> SaveViewRecord { get; set; }
-        public Action<Func<Activity, bool>> DeleteViewRecords { get; set; }
-        public IEnumerable<Activity> ViewQueryResult { get; set; }
-        public Action<IEnumerable<Activity>> GetActivityData { get; set; }
-        public Action<dynamic, DateTime> OnGetActivityDataCompletion { get; set; }
+        public Action<PersonalNote> SaveViewRecord { get; set; }
+        public Action<Func<PersonalNote, bool>> DeleteViewRecords { get; set; }
+        public IEnumerable<PersonalNote> ViewQueryResult { get; set; }
+        public Action<IEnumerable<PersonalNote>> GetPersonalNoteData { get; set; }
+        public Action<dynamic, DateTime> OnGetPersonalNoteDataCompletion { get; set; }
 
-        public frmActivity(IEFRepository repository)
+        public frmPersonalNotes(IEFRepository repository)
         {
             InitializeComponent();
 
-            Action RegisterController = () => new ActivityController(repository, this);
+            Action RegisterController = () => new PersonalNoteController(repository, this);
 
             RegisterController();
             this.RegisterCommonOperation(this);
 
             this.OnQueryViewRecordsCompletion = this.RefreshGridData;
-            this.OnGetActivityDataCompletion = this.UpdateCategoryData;
+            this.OnGetPersonalNoteDataCompletion = this.UpdateCategoryData;
 
             this.QueryViewRecords(null);
         }
 
         void RefreshGridData()
         {
-            IEnumerable<Activity> categories = this.ViewQueryResult;
+            IEnumerable<PersonalNote> personalNotes = this.ViewQueryResult;
 
-            this.GetActivityData(categories);
+            this.GetPersonalNoteData(personalNotes);
         }
 
         void UpdateCategoryData(dynamic displayColumns, DateTime lastUpdatedDate)
@@ -60,14 +60,14 @@ namespace MainApp
             {
                 try
                 {
-                    DateTime systemDate = DateTime.Parse(this.dGrid.Rows[index].Cells[ActivityController.SYSTEM_UPDATED_INDEX].Value.ToString());
+                    DateTime systemDate = DateTime.Parse(this.dGrid.Rows[index].Cells[PersonalNoteController.SYSTEM_UPDATED_INDEX].Value.ToString());
                     bool identicalTime = recordDate.ToLongTimeString() == systemDate.ToLongTimeString();
 
                     if ((recordDate.Date == systemDate.Date) && identicalTime)
                     {
-                        this.dGrid.CurrentCell = this.dGrid[ActivityController.ID_INDEX, index];
+                        this.dGrid.CurrentCell = this.dGrid[PersonalNoteController.ID_INDEX, index];
                         this.dGrid.Rows[index].Selected = true;
-                        this.dGrid.Rows[index].Cells[ActivityController.ID_INDEX].Selected = true;
+                        this.dGrid.Rows[index].Cells[PersonalNoteController.ID_INDEX].Selected = true;
                         this.dGrid.FirstDisplayedScrollingRowIndex = index;
                         break;
                     }
@@ -85,14 +85,13 @@ namespace MainApp
         {
             try
             {
-                int id = int.Parse(this.dGrid.Rows[rowIndex].Cells[ActivityController.ID_INDEX].Value.ToString());
-                Activity activity = this.ViewQueryResult
+                int id = int.Parse(this.dGrid.Rows[rowIndex].Cells[PersonalNoteController.ID_INDEX].Value.ToString());
+                PersonalNote note = this.ViewQueryResult
                     .Where(x => x.Id == id)
                     .FirstOrDefault();
 
-                this.lblId.Text = activity.Id.ToString();
-                this.txtActivityName.Text = activity.Name;
-                this.txtDescription.Text = activity.Description;
+                this.lblId.Text = note.Id.ToString();
+                this.txtDescription.Text = note.Description;
             }
             catch (ArgumentOutOfRangeException) { /*Skip*/}
             catch (Exception ex)
@@ -103,14 +102,12 @@ namespace MainApp
 
         public void EnableInputWindow(bool enable)
         {
-            this.txtActivityName.Enabled = enable;
             this.txtDescription.Enabled = enable;
         }
 
         public void ResetInputWindow()
         {
             this.lblId.Text = string.Empty;
-            this.txtActivityName.Clear();
             this.txtDescription.Clear();
         }
 
@@ -158,21 +155,20 @@ namespace MainApp
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Activity attribute = new Activity
+            PersonalNote note = new PersonalNote
             {
                 System_Created = DateTime.Now,
             };
 
             if (!string.IsNullOrEmpty(this.lblId.Text))
-                attribute = this.ViewQueryResult
+                note = this.ViewQueryResult
                     .Where(x => x.Id == int.Parse(this.lblId.Text))
                     .FirstOrDefault();
 
-            attribute.Name = this.txtActivityName.Text;
-            attribute.Description = this.txtDescription.Text;
-            attribute.SystemUpdateDateTime = DateTime.Now;
+            note.Description = this.txtDescription.Text;
+            note.SystemUpdateDateTime = DateTime.Now;
 
-            this.SaveViewRecord(attribute);
+            this.SaveViewRecord(note);
             this.QueryViewRecords(null);
             this.WindowInputChanges(ModifierState.Save);
         }

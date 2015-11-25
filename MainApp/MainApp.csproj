@@ -77,6 +77,12 @@
     <Compile Include="frmActivity.Designer.cs">
       <DependentUpon>frmActivity.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmPersonalNotes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPersonalNotes.Designer.cs">
+      <DependentUpon>frmPersonalNotes.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAttribute.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +152,9 @@
     </Compile>
     <EmbeddedResource Include="frmActivity.resx">
       <DependentUpon>frmActivity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPersonalNotes.resx">
+      <DependentUpon>frmPersonalNotes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmAttribute.resx">
       <DependentUpon>frmAttribute.cs</DependentUpon>

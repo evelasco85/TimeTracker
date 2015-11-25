@@ -56,6 +56,7 @@
             this.btnAttribute = new System.Windows.Forms.Button();
             this.btnActivity = new System.Windows.Forms.Button();
             this.btnDailyAttribute = new System.Windows.Forms.Button();
+            this.btnPersonalNote = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dGridLogs)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -353,10 +354,22 @@
             this.btnDailyAttribute.UseVisualStyleBackColor = true;
             this.btnDailyAttribute.Click += new System.EventHandler(this.btnDailyAttribute_Click);
             // 
+            // btnPersonalNote
+            // 
+            this.btnPersonalNote.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnPersonalNote.Location = new System.Drawing.Point(535, 600);
+            this.btnPersonalNote.Name = "btnPersonalNote";
+            this.btnPersonalNote.Size = new System.Drawing.Size(151, 30);
+            this.btnPersonalNote.TabIndex = 25;
+            this.btnPersonalNote.Text = "Note";
+            this.btnPersonalNote.UseVisualStyleBackColor = true;
+            this.btnPersonalNote.Click += new System.EventHandler(this.btnPersonalNote_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(1249, 649);
+            this.Controls.Add(this.btnPersonalNote);
             this.Controls.Add(this.btnDailyAttribute);
             this.Controls.Add(this.btnActivity);
             this.Controls.Add(this.btnAttribute);
@@ -415,6 +428,7 @@
         private System.Windows.Forms.Button btnAttribute;
         private System.Windows.Forms.Button btnActivity;
         private System.Windows.Forms.Button btnDailyAttribute;
+        private System.Windows.Forms.Button btnPersonalNote;
     }
 }
 

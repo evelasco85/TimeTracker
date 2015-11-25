@@ -34,5 +34,6 @@ namespace Domain
         public virtual DbSet<LogEntry> LogEntries { get; set; }
         public virtual DbSet<Attribute> Attributes { get; set; }
         public virtual DbSet<DayAttribute> DayAttributes { get; set; }
+        public virtual DbSet<PersonalNote> PersonalNotes { get; set; }
     }
 }

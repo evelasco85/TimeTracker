@@ -60,14 +60,14 @@ namespace MainApp
             {
                 try
                 {
-                    DateTime systemDate = DateTime.Parse(this.dGrid.Rows[index].Cells[HolidayController.SYSTEM_UPDATED_INDEX].Value.ToString());
+                    DateTime systemDate = DateTime.Parse(this.dGrid.Rows[index].Cells[AttributeController .SYSTEM_UPDATED_INDEX].Value.ToString());
                     bool identicalTime = recordDate.ToLongTimeString() == systemDate.ToLongTimeString();
 
                     if ((recordDate.Date == systemDate.Date) && identicalTime)
                     {
-                        this.dGrid.CurrentCell = this.dGrid[HolidayController.ID_INDEX, index];
+                        this.dGrid.CurrentCell = this.dGrid[AttributeController.ID_INDEX, index];
                         this.dGrid.Rows[index].Selected = true;
-                        this.dGrid.Rows[index].Cells[HolidayController.ID_INDEX].Selected = true;
+                        this.dGrid.Rows[index].Cells[AttributeController.ID_INDEX].Selected = true;
                         this.dGrid.FirstDisplayedScrollingRowIndex = index;
                         break;
                     }
@@ -85,7 +85,7 @@ namespace MainApp
         {
             try
             {
-                int id = int.Parse(this.dGrid.Rows[rowIndex].Cells[CategoryController.ID_INDEX].Value.ToString());
+                int id = int.Parse(this.dGrid.Rows[rowIndex].Cells[AttributeController.ID_INDEX].Value.ToString());
                 Domain.Attribute attribute = this.ViewQueryResult
                     .Where(x => x.Id == id)
                     .FirstOrDefault();
