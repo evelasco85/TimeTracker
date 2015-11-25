@@ -40,7 +40,7 @@ namespace MainApp
             this._formCommonOperation = formCommonOperation;
         }
 
-        public virtual void dGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        public virtual void recordGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             this._formCommonOperation.UpdateWindow(e.RowIndex);
         }
@@ -105,7 +105,7 @@ namespace MainApp
 
         void EnableDataGridNavigation(bool enable)
         {
-            this.dataGrid.Enabled = enable;
+            this.recordGrid.Enabled = enable;
         }
 
         private void frmCommonDataEditor_Load(object sender, EventArgs e)

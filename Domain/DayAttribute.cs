@@ -14,7 +14,11 @@ namespace Domain
     
     public partial class DayAttribute
     {
-        public int Attribute_Id { get; set; }
+        public int Id { get; set; }
         public System.DateTime Date { get; set; }
+        public string Description { get; set; }
+        public string Link { get; set; }
+        public System.DateTime System_Created { get; set; }
+        public System.DateTime SystemUpdateDateTime { get; set; }
     }
 }

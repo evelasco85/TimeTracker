@@ -1,6 +1,9 @@
 ﻿CREATE TABLE [dbo].[DayAttribute]
 (
-	[Attribute_Id] INT NOT NULL,
-    [Date] DATETIME NOT NULL, 
-    CONSTRAINT [PK_DayAttribute] PRIMARY KEY ([Attribute_Id], [Date]) 
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [Date] DATETIME NOT NULL ,
+	[Description] NVARCHAR(MAX) NOT NULL, 
+    [Link] NVARCHAR(150) NULL,
+	[System_Created] DATETIME NOT NULL,
+	[SystemUpdateDateTime] DATETIME NOT NULL DEFAULT GetDate()
 )

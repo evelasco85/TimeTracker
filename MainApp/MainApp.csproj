@@ -159,6 +159,9 @@
     <EmbeddedResource Include="frmCommonDataEditor.resx">
       <DependentUpon>frmCommonDataEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmDailyAttribute.resx">
+      <DependentUpon>frmDailyAttribute.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmLeaves.resx">
       <DependentUpon>frmLeaves.cs</DependentUpon>
     </EmbeddedResource>

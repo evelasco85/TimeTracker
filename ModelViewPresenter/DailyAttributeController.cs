@@ -12,29 +12,64 @@ namespace ModelViewPresenter
 {
     public class DailyAttributeController : BaseController<DayAttribute>
     {
-        IDailyAttributeView _view;
+        public const int ID_INDEX = 0;
+        public const int DATE_INDEX = 1;
+        public const int DESCRIPTION_INDEX = 2;
+        public const int LINK_INDEX = 3;
+        public const int SYSTEM_CREATED_INDEX = 4;
+        public const int SYSTEM_UPDATED_INDEX = 5;
+
+        IDailyAttributeView _dayAttributeView;
         IDateHelper _helper;
 
         public DailyAttributeController(IEFRepository repository, IDailyAttributeView view)
             : base(repository, view)
         {
             this._helper = DateHelper.GetInstance();
-            this._view = view;
+            this._dayAttributeView = view;
+            this._dayAttributeView.GetPresetAttributeData = GetPresetAttributeData;
+            this._dayAttributeView.GetDailyAttributeData = GetDailyAttributeData;
+        }
+
+        void GetDailyAttributeData(IEnumerable<DayAttribute> dailyAttribute)
+        {
+            DateTime lastUpdatedDate = dailyAttribute
+                .Select(x => x.SystemUpdateDateTime)
+                .OrderByDescending(x => x)
+                .FirstOrDefault();
+
+            this._dayAttributeView.OnGetDailyAttributeDataCompletion(dailyAttribute.ToList(), lastUpdatedDate);
+        }
+
+        void GetPresetAttributeData()
+        {
+            IEnumerable<Domain.Attribute> attributes = this._repository
+                .GetEntityQuery<Domain.Attribute>();
+
+            this._dayAttributeView.OnGetPresetAttributeDataCompletion(attributes);
         }
 
         public override void DeleteData(Func<DayAttribute, bool> criteria)
         {
-            throw new NotImplementedException();
+            this._repository.Delete<DayAttribute>(criteria);
         }
 
         public override void GetData(Func<DayAttribute, bool> criteria)
         {
-            throw new NotImplementedException();
+            IQueryable<DayAttribute> dayAttributeQuery = this._repository
+                .GetEntityQuery<DayAttribute>();
+
+            if (criteria == null)
+                this._view.ViewQueryResult = dayAttributeQuery.Select(x => x);
+            else
+                this._view.ViewQueryResult = dayAttributeQuery.Where(criteria);
+
+            this._view.OnQueryViewRecordsCompletion();
         }
 
         public override void SaveData(DayAttribute data)
         {
-            throw new NotImplementedException();
+            this._repository.Save<DayAttribute>(item => item.Id, data);
         }
     }
 }

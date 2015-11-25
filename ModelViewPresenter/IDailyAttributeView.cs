@@ -10,5 +10,9 @@ namespace ModelViewPresenter
 {
     public  interface IDailyAttributeView: IView<DayAttribute>
     {
+        Action GetPresetAttributeData { get; set; }
+        Action<IEnumerable<Domain.Attribute>> OnGetPresetAttributeDataCompletion { get; set; }
+        Action<IEnumerable<DayAttribute>> GetDailyAttributeData { get; set; }
+        Action<dynamic, DateTime> OnGetDailyAttributeDataCompletion { get; set; }
     }
 }
