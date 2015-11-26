@@ -57,6 +57,7 @@
             this.btnActivity = new System.Windows.Forms.Button();
             this.btnDailyAttribute = new System.Windows.Forms.Button();
             this.btnPersonalNote = new System.Windows.Forms.Button();
+            this.lblCountdown = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dGridLogs)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -75,11 +76,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dGridLogs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGridLogs.Location = new System.Drawing.Point(12, 12);
+            this.dGridLogs.Location = new System.Drawing.Point(12, 28);
             this.dGridLogs.Name = "dGridLogs";
             this.dGridLogs.RowTemplate.ReadOnly = true;
             this.dGridLogs.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dGridLogs.Size = new System.Drawing.Size(895, 443);
+            this.dGridLogs.Size = new System.Drawing.Size(895, 427);
             this.dGridLogs.TabIndex = 0;
             this.dGridLogs.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGridLogs_CellClick);
             this.dGridLogs.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGridLogs_CellDoubleClick);
@@ -365,10 +366,21 @@
             this.btnPersonalNote.UseVisualStyleBackColor = true;
             this.btnPersonalNote.Click += new System.EventHandler(this.btnPersonalNote_Click);
             // 
+            // lblCountdown
+            // 
+            this.lblCountdown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCountdown.AutoSize = true;
+            this.lblCountdown.Location = new System.Drawing.Point(9, 9);
+            this.lblCountdown.Name = "lblCountdown";
+            this.lblCountdown.Size = new System.Drawing.Size(106, 13);
+            this.lblCountdown.TabIndex = 26;
+            this.lblCountdown.Text = "Next Tracker Popup:";
+            // 
             // frmMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(1249, 649);
+            this.Controls.Add(this.lblCountdown);
             this.Controls.Add(this.btnPersonalNote);
             this.Controls.Add(this.btnDailyAttribute);
             this.Controls.Add(this.btnActivity);
@@ -429,6 +441,7 @@
         private System.Windows.Forms.Button btnActivity;
         private System.Windows.Forms.Button btnDailyAttribute;
         private System.Windows.Forms.Button btnPersonalNote;
+        private System.Windows.Forms.Label lblCountdown;
     }
 }
 

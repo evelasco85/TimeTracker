@@ -15,7 +15,8 @@ namespace MainApp
     {
         System.Timers.Timer _timerNotification;
         bool _promptingInProgress = false;
-        
+        int _secondsRemaining;
+
         IEFRepository _repository;
 
         public Action<Func<LogEntry, bool>> View_QueryRecords { get; set; }
@@ -52,6 +53,7 @@ namespace MainApp
             this.InitializeRequiredData();
             this.View_QueryRecords(null);
             this.RefreshDashboardData();
+            this.SetTimer();
             this.StartTimer();
         }
 
@@ -60,8 +62,6 @@ namespace MainApp
             this.tryIcon.BalloonTipIcon = ToolTipIcon.Info;
             this.tryIcon.Icon = Resource1.MSN;
             this.dateTimeMonth.CustomFormat = "MMMM";
-
-            this.SetTimer();
         }
 
         void RefreshGridData()
@@ -161,7 +161,9 @@ namespace MainApp
             this.tryIcon.Visible = false;
         }
 
-        void SetTimer()
+        #region Timer Configuration and Setup
+
+        int GetMillisecondCountDown()
         {
             Properties.Settings settings = MainApp.Properties.Settings.Default;
 
@@ -170,18 +172,32 @@ namespace MainApp
 
             int milliSeconds = (seconds * 1000) + settings.timerMillisecond;
 
-            this._timerNotification = new System.Timers.Timer(milliSeconds);
+            return milliSeconds;
+        }
+
+        int GetSeconds(int milliseconds)
+        {
+            return milliseconds / 1000;
+        }
+
+        void SetTimer()
+        {
+            this._timerNotification = new System.Timers.Timer(1000);    //Per second update
             this._timerNotification.Elapsed += TimerNotification_Elapsed;
-            this._timerNotification.AutoReset = false;
+            this._timerNotification.AutoReset = true;
         }
 
         void StartTimer()
         {
+            this._secondsRemaining = this.GetSeconds(this.GetMillisecondCountDown());
+
             this._timerNotification.Start();
         }
 
         void StopTimer()
         {
+            this._secondsRemaining = 0;
+
             this._timerNotification.Stop();
         }
 
@@ -191,10 +207,38 @@ namespace MainApp
             this.StartTimer();
         }
 
+        void UpdateTimerCountdown()
+        {
+            MethodInvoker invokeFromUI = new MethodInvoker(
+               () =>
+               {
+                   this.lblCountdown.Text = string.Format(
+                         "Next Tracker Popup: {0}",
+                         TimeSpan
+                             .FromSeconds(Convert.ToDouble(this._secondsRemaining))
+                             .ToString(@"hh\:mm\:ss")
+                         );
+
+                   this._secondsRemaining -= 1;
+               }
+           );
+
+            if (this.InvokeRequired)
+                this.Invoke(invokeFromUI);
+            else
+                invokeFromUI.Invoke();
+        }
+
         void TimerNotification_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            this.AddEntry();
+            if (this._secondsRemaining > 0)
+                this.UpdateTimerCountdown();
+            else
+                this.AddEntry();
         }
+
+        #endregion
+
 
         void AddEntry()
         {
@@ -347,7 +391,12 @@ namespace MainApp
             this.lblLeavesCount.Text = string.Format("Leaves Count (Weekdays): {0}", leaveCount.ToString());
             this.lblSaturdaysCount.Text = string.Format("Saturday Days Count: {0}", saturdayCount.ToString());
             this.lblSundayDaysCount.Text = string.Format("Sunday Days Count: {0}", sundayCount.ToString());
-            this.lblWorkdaysCount.Text = string.Format("Workdays Count: {0}", workdaysCount.ToString());
+            this.lblWorkdaysCount.Text = string.Format("Workdays Count: {0} = {1} - ({2} + {3})",
+                workdaysCount.ToString(),
+                workdaysCount + (leaveCount + holidayCount),
+                leaveCount,
+                holidayCount
+                );
             this.lblMonthDaysCount.Text = string.Format("Month Days Count: {0}", daysInMonth.ToString());
             this.lblLogCountsPerMonth.Text = string.Format("Unique Month Logs Count: {0}", uniqueLogEntriesPerDate.ToString());
             this.lblDaysCountWithNoLogs.Text = string.Format("Days Count Without Logs: {0}", daysCountWithoutLogs.ToString());
