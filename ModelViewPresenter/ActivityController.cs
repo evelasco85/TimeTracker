@@ -1,14 +1,14 @@
 ﻿using Domain;
-using Domain.Controller;
 using Domain.Helpers;
 using Domain.Infrastructure;
+using Domain.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModelViewPresenter
+namespace Domain.Controllers
 {
     public class ActivityController : BaseController<Activity>
     {

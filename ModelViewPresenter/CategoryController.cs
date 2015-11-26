@@ -1,5 +1,4 @@
 ﻿using Domain;
-using Domain.Controller;
 using Domain.Helpers;
 using Domain.Infrastructure;
 using System;
@@ -8,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using Domain.Views;
 
-namespace ModelViewPresenter
+namespace Domain.Controllers
 {
     public class CategoryController : BaseController<Category>
     {

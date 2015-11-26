@@ -220,13 +220,17 @@
     <None Include="Resources\MSN.ICO" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Domain.View\Domain.Views.csproj">
+      <Project>{aed76b2d-19eb-4fff-8761-3fd06cae8b43}</Project>
+      <Name>Domain.Views</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{fc118e93-7b98-46de-846b-4b79a334c299}</Project>
       <Name>Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ModelViewPresenter\Domain.Controller.csproj">
+    <ProjectReference Include="..\ModelViewPresenter\Domain.Controllers.csproj">
       <Project>{42779bec-c2aa-42b3-9b91-27b237dcad1f}</Project>
-      <Name>Domain.Controller</Name>
+      <Name>Domain.Controllers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Domain.Controller
+namespace Domain.Views
 {
     public interface ISummaryLogsView : IView<LogEntry>
     {

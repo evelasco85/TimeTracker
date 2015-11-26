@@ -105,7 +105,7 @@
             this.Controls.Add(this.lblId);
             this.Controls.Add(this.label3);
             this.Name = "frmPersonalNotes";
-            this.Text = "Personal Notes:";
+            this.Text = "Personal Notes";
             this.Controls.SetChildIndex(this.panel1, 0);
             this.Controls.SetChildIndex(this.label3, 0);
             this.Controls.SetChildIndex(this.lblId, 0);

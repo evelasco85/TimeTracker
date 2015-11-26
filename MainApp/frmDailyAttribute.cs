@@ -1,6 +1,7 @@
 ﻿using Domain;
+using Domain.Controllers;
 using Domain.Infrastructure;
-using ModelViewPresenter;
+using Domain.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -206,6 +207,9 @@ namespace MainApp
 
         void SetControlValues(Domain.Attribute attribute)
         {
+            if (attribute == null)
+                return;
+
             this.txtLink.Text = attribute.Link;
             this.txtDescription.Text = attribute.Description;
         }

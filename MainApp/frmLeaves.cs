@@ -7,7 +7,8 @@ using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using Domain.Infrastructure;
 using Domain.Helpers;
-using Domain.Controller;
+using Domain.Controllers;
+using Domain.Views;
 
 namespace MainApp
 {

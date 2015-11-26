@@ -1,7 +1,7 @@
 ﻿using Domain;
-using Domain.Controller;
+using Domain.Controllers;
 using Domain.Infrastructure;
-using ModelViewPresenter;
+using Domain.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

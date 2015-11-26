@@ -1,6 +1,7 @@
 ﻿using Domain;
-using Domain.Controller;
+using Domain.Controllers;
 using Domain.Infrastructure;
+using Domain.Views;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

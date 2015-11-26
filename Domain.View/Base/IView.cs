@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
 
-namespace Domain.Controller
+namespace Domain.Views
 {
     //Operations available to views (and Forms)
     public interface IView<TModel>
