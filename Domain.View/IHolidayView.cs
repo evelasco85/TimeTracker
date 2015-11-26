@@ -8,7 +8,7 @@ namespace Domain.Views
 {
     public interface IHolidayView : IView<Holiday>
     {
-        Action<IEnumerable<Holiday>> GetHolidayData { get; set; }
-        Action<dynamic, DateTime> OnGetHolidayDataCompletion { get; set; }
+        Action<IEnumerable<Holiday>> View_GetHolidayData { get; set; }
+        Action<dynamic, DateTime> View_OnGetHolidayDataCompletion { get; set; }
     }
 }

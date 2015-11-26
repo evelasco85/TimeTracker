@@ -8,17 +8,17 @@ namespace Domain.Views
 {
     public interface ILogView : IView<LogEntry>
     {
-        Action<IEnumerable<LogEntry>, DateTime> GetLogStatistics { get; set; }
-        Action<int,int,int,int,int,int,int, int> OnGetLogStatisticsCompletion { get; set; }
+        Action<IEnumerable<LogEntry>, DateTime> View_GetLogStatistics { get; set; }
+        Action<int,int,int,int,int,int,int, int> View_OnGetLogStatisticsCompletion { get; set; }
 
-        Action<IEnumerable<LogEntry>, DateTime> GetCalendarData { get; set; }
-        Action<dynamic, DateTime> OnGetCalendarDataCompletion { get; set; }
+        Action<IEnumerable<LogEntry>, DateTime> View_GetCalendarData { get; set; }
+        Action<dynamic, DateTime> View_OnGetCalendarDataCompletion { get; set; }
 
-        Func<bool> GetRememberedSetting { get; set; }
-        Action<bool> SetRememberedSetting { get; set; }
+        Func<bool> View_GetRememberedSetting { get; set; }
+        Action<bool> View_SetRememberedSetting { get; set; }
 
-        Func<DateTime> GetRememberedDate { get; set; }
-        Action<DateTime> SetRememberedDate { get; set; }
-        Func<IEnumerable<Category>> GetCategories { get; set; }
+        Func<DateTime> View_GetRememberedDate { get; set; }
+        Action<DateTime> View_SetRememberedDate { get; set; }
+        Func<IEnumerable<Category>> View_GetCategories { get; set; }
     }
 }

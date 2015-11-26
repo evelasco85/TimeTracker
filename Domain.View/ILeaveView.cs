@@ -8,7 +8,7 @@ namespace Domain.Views
 {
     public interface ILeaveView : IView<Leave>
     {
-        Action<IEnumerable<Leave>> GetLeaveData { get; set; }
-        Action<dynamic, DateTime> OnGetLeaveDataCompletion { get; set; }
+        Action<IEnumerable<Leave>> View_GetLeaveData { get; set; }
+        Action<dynamic, DateTime> View_OnGetLeaveDataCompletion { get; set; }
     }
 }

@@ -13,13 +13,13 @@ namespace MainApp
 {
     public partial class frmSummarizeLogs : Form, ISummaryLogsView
     {
-        public Action<Func<LogEntry, bool>> QueryViewRecords { get; set; }
-        public Action OnQueryViewRecordsCompletion { get; set; }
-        public Action<Func<LogEntry, bool>> DeleteViewRecords { get; set; }
-        public Action<LogEntry> SaveViewRecord { get; set; }
-        public IEnumerable<LogEntry> ViewQueryResult { get; set; }
-        public Action<IEnumerable<LogEntry>, DateTime> GetLogEntries { get; set; }
-        public Action<dynamic> OnGetLogEntriesCompletion { get; set; }
+        public Action<Func<LogEntry, bool>> View_QueryRecords { get; set; }
+        public Action View_OnQueryRecordsCompletion { get; set; }
+        public Action<Func<LogEntry, bool>> View_DeleteRecords { get; set; }
+        public Action<LogEntry> View_SaveRecord { get; set; }
+        public IEnumerable<LogEntry> View_QueryResults { get; set; }
+        public Action<IEnumerable<LogEntry>, DateTime> View_GetLogEntries { get; set; }
+        public Action<dynamic> View_OnGetLogEntriesCompletion { get; set; }
 
         public frmSummarizeLogs(IEFRepository repository, DateTime selectedMonth)
         {
@@ -27,18 +27,18 @@ namespace MainApp
 
             RegisterController();
 
-            this.OnQueryViewRecordsCompletion = () => DisplayLogEntries(selectedMonth);
-            this.OnGetLogEntriesCompletion = this.UpdateSummaryLogs;
+            this.View_OnQueryRecordsCompletion = () => DisplayLogEntries(selectedMonth);
+            this.View_OnGetLogEntriesCompletion = this.UpdateSummaryLogs;
             
             InitializeComponent();
-            this.QueryViewRecords(null);
+            this.View_QueryRecords(null);
         }
 
         void DisplayLogEntries(DateTime selectedMonth)
         {
-            IEnumerable<LogEntry> logs = this.ViewQueryResult;
+            IEnumerable<LogEntry> logs = this.View_QueryResults;
 
-            this.GetLogEntries(logs, selectedMonth);
+            this.View_GetLogEntries(logs, selectedMonth);
         }
 
         void UpdateSummaryLogs(dynamic summarizedLogEntries)

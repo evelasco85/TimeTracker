@@ -26,7 +26,7 @@ namespace Domain.Controllers
         {
             this._helper = DateHelper.GetInstance();
             this._view = view;
-            this._view.GetActivityData = this.GetActivityData;
+            this._view.View_GetActivityData = this.GetActivityData;
         }
 
         void GetActivityData(IEnumerable<Activity> attributes)
@@ -36,7 +36,7 @@ namespace Domain.Controllers
                 .OrderByDescending(x => x)
                 .FirstOrDefault();
 
-            this._view.OnGetActivityDataCompletion(
+            this._view.View_OnGetActivityDataCompletion(
                 attributes
                 .OrderBy(x => x.Id)
                 .ToList()
@@ -50,11 +50,11 @@ namespace Domain.Controllers
                 .GetEntityQuery<Activity>();
 
             if (criteria == null)
-                this._view.ViewQueryResult = activityQuery.Select(x => x);
+                this._view.View_QueryResults = activityQuery.Select(x => x);
             else
-                this._view.ViewQueryResult = activityQuery.Where(criteria);
+                this._view.View_QueryResults = activityQuery.Where(criteria);
 
-            this._view.OnQueryViewRecordsCompletion();
+            this._view.View_OnQueryRecordsCompletion();
         }
 
         public override void SaveData(Activity data)

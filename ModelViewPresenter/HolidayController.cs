@@ -25,7 +25,7 @@ namespace Domain.Controllers
         {
             this._helper = DateHelper.GetInstance();
             this._holidayView = view;
-            this._holidayView.GetHolidayData = this.GetHolidayData;
+            this._holidayView.View_GetHolidayData = this.GetHolidayData;
         }
         void GetHolidayData(IEnumerable<Holiday> holidays)
         {
@@ -35,7 +35,7 @@ namespace Domain.Controllers
                 .OrderByDescending(x => x)
                 .FirstOrDefault();
 
-            this._holidayView.OnGetHolidayDataCompletion(displayColumns, lastUpdatedDate);
+            this._holidayView.View_OnGetHolidayDataCompletion(displayColumns, lastUpdatedDate);
         }
 
         public override void GetData(Func<Holiday, bool> criteria)
@@ -44,11 +44,11 @@ namespace Domain.Controllers
                 .GetEntityQuery<Holiday>();
 
             if (criteria == null)
-                this._view.ViewQueryResult = holidayQuery.Select(x => x);
+                this._view.View_QueryResults = holidayQuery.Select(x => x);
             else
-                this._view.ViewQueryResult = holidayQuery.Where(criteria);
+                this._view.View_QueryResults = holidayQuery.Where(criteria);
 
-            this._view.OnQueryViewRecordsCompletion();
+            this._view.View_OnQueryRecordsCompletion();
         }
 
         public override void SaveData(Holiday data)

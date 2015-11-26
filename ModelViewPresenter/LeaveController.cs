@@ -25,7 +25,7 @@ namespace Domain.Controllers
         {
             this._helper = DateHelper.GetInstance();
             this._leaveView = view;
-            this._leaveView.GetLeaveData = this.GetLeaveData;
+            this._leaveView.View_GetLeaveData = this.GetLeaveData;
         }
 
         void GetLeaveData(IEnumerable<Leave> leaves)
@@ -36,7 +36,7 @@ namespace Domain.Controllers
                 .OrderByDescending(x => x)
                 .FirstOrDefault();
 
-            this._leaveView.OnGetLeaveDataCompletion(displayColumns, lastUpdatedDate);
+            this._leaveView.View_OnGetLeaveDataCompletion(displayColumns, lastUpdatedDate);
         }
 
         public override void GetData(Func<Leave, bool> criteria)
@@ -45,11 +45,11 @@ namespace Domain.Controllers
                 .GetEntityQuery<Leave>();
 
             if (criteria == null)
-                this._view.ViewQueryResult = holidayQuery.Select(x => x);
+                this._view.View_QueryResults = holidayQuery.Select(x => x);
             else
-                this._view.ViewQueryResult = holidayQuery.Where(criteria);
+                this._view.View_QueryResults = holidayQuery.Where(criteria);
 
-            this._view.OnQueryViewRecordsCompletion();
+            this._view.View_OnQueryRecordsCompletion();
         }
 
         public override void SaveData(Leave data)

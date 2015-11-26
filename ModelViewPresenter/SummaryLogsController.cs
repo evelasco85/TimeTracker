@@ -23,7 +23,7 @@ namespace Domain.Controllers
         {
             this._helper = DateHelper.GetInstance();
             this._summaryView = view;
-            this._summaryView.GetLogEntries = this.GetLogEntries;
+            this._summaryView.View_GetLogEntries = this.GetLogEntries;
         }
         
         void GetLogEntries(IEnumerable<LogEntry> logs, DateTime selectedMonth)
@@ -77,7 +77,7 @@ namespace Domain.Controllers
                 })
                 .ToList();
 
-            this._summaryView.OnGetLogEntriesCompletion(summarizedLogEntries);
+            this._summaryView.View_OnGetLogEntriesCompletion(summarizedLogEntries);
         }
 
         public override void GetData(Func<LogEntry, bool> criteria)
@@ -86,11 +86,11 @@ namespace Domain.Controllers
                 .GetEntityQuery<LogEntry>();
 
             if (criteria == null)
-                this._view.ViewQueryResult = logQuery.Select(x => x);
+                this._view.View_QueryResults = logQuery.Select(x => x);
             else
-                this._view.ViewQueryResult = logQuery.Where(criteria);
+                this._view.View_QueryResults = logQuery.Where(criteria);
 
-            this._view.OnQueryViewRecordsCompletion();
+            this._view.View_OnQueryRecordsCompletion();
         }
 
         public override void SaveData(LogEntry data)

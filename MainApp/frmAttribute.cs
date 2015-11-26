@@ -16,13 +16,13 @@ namespace MainApp
 {
     public partial class frmAttribute : frmCommonDataEditor, IAttributeView, IFormCommonOperation
     {
-        public Action<Func<Domain.Attribute, bool>> QueryViewRecords { get; set; }
-        public Action OnQueryViewRecordsCompletion { get; set; }
-        public Action<Domain.Attribute> SaveViewRecord { get; set; }
-        public Action<Func<Domain.Attribute, bool>> DeleteViewRecords { get; set; }
-        public IEnumerable<Domain.Attribute> ViewQueryResult { get; set; }
-        public Action<IEnumerable<Domain.Attribute>> GetAttributeData { get; set; }
-        public Action<dynamic, DateTime> OnGetAttributeDataCompletion { get; set; }
+        public Action<Func<Domain.Attribute, bool>> View_QueryRecords { get; set; }
+        public Action View_OnQueryRecordsCompletion { get; set; }
+        public Action<Domain.Attribute> View_SaveRecord { get; set; }
+        public Action<Func<Domain.Attribute, bool>> View_DeleteRecords { get; set; }
+        public IEnumerable<Domain.Attribute> View_QueryResults { get; set; }
+        public Action<IEnumerable<Domain.Attribute>> View_GetAttributeData { get; set; }
+        public Action<dynamic, DateTime> View_OnGetAttributeDataCompletion { get; set; }
 
         public frmAttribute(IEFRepository repository)
         {
@@ -33,17 +33,17 @@ namespace MainApp
             RegisterController();
             this.RegisterCommonOperation(this);
 
-            this.OnQueryViewRecordsCompletion = this.RefreshGridData;
-            this.OnGetAttributeDataCompletion = this.UpdateCategoryData;
+            this.View_OnQueryRecordsCompletion = this.RefreshGridData;
+            this.View_OnGetAttributeDataCompletion = this.UpdateCategoryData;
 
-            this.QueryViewRecords(null);
+            this.View_QueryRecords(null);
         }
 
         void RefreshGridData()
         {
-            IEnumerable<Domain.Attribute> categories = this.ViewQueryResult;
+            IEnumerable<Domain.Attribute> categories = this.View_QueryResults;
 
-            this.GetAttributeData(categories);
+            this.View_GetAttributeData(categories);
         }
 
         void UpdateCategoryData(dynamic displayColumns, DateTime lastUpdatedDate)
@@ -86,7 +86,7 @@ namespace MainApp
             try
             {
                 int id = int.Parse(this.dGrid.Rows[rowIndex].Cells[AttributeController.ID_INDEX].Value.ToString());
-                Domain.Attribute attribute = this.ViewQueryResult
+                Domain.Attribute attribute = this.View_QueryResults
                     .Where(x => x.Id == id)
                     .FirstOrDefault();
 
@@ -147,8 +147,8 @@ namespace MainApp
 
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
-                    this.DeleteViewRecords(x => x.Id == id);
-                    this.QueryViewRecords(null);
+                    this.View_DeleteRecords(x => x.Id == id);
+                    this.View_QueryRecords(null);
                 }
             }
             catch (FormatException)
@@ -167,7 +167,7 @@ namespace MainApp
             };
 
             if (!string.IsNullOrEmpty(this.lblId.Text))
-                attribute = this.ViewQueryResult
+                attribute = this.View_QueryResults
                     .Where(x => x.Id == int.Parse(this.lblId.Text))
                     .FirstOrDefault();
 
@@ -176,8 +176,8 @@ namespace MainApp
             attribute.Link = this.txtLink.Text;
             attribute.SystemUpdateDateTime = DateTime.Now;
 
-            this.SaveViewRecord(attribute);
-            this.QueryViewRecords(null);
+            this.View_SaveRecord(attribute);
+            this.View_QueryRecords(null);
             this.WindowInputChanges(ModifierState.Save);
         }
 

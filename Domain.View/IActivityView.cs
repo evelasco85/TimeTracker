@@ -9,7 +9,7 @@ namespace Domain.Views
 {
     public interface IActivityView : IView<Activity>
     {
-        Action<IEnumerable<Activity>> GetActivityData { get; set; }
-        Action<dynamic, DateTime> OnGetActivityDataCompletion { get; set; }
+        Action<IEnumerable<Activity>> View_GetActivityData { get; set; }
+        Action<dynamic, DateTime> View_OnGetActivityDataCompletion { get; set; }
     }
 }

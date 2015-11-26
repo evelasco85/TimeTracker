@@ -6,7 +6,7 @@ namespace Domain.Views
 {
     public interface ISummaryLogsView : IView<LogEntry>
     {
-        Action<IEnumerable<LogEntry>, DateTime> GetLogEntries { get; set; }
-        Action<dynamic> OnGetLogEntriesCompletion { get; set; }
+        Action<IEnumerable<LogEntry>, DateTime> View_GetLogEntries { get; set; }
+        Action<dynamic> View_OnGetLogEntriesCompletion { get; set; }
     }
 }

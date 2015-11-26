@@ -25,7 +25,7 @@ namespace Domain.Controllers
         {
             this._helper = DateHelper.GetInstance();
             this._view = view;
-            this._view.GetPersonalNoteData = this.GetPersonalNoteData;
+            this._view.View_GetPersonalNotes = this.GetPersonalNoteData;
         }
 
         void GetPersonalNoteData(IEnumerable<PersonalNote> attributes)
@@ -35,7 +35,7 @@ namespace Domain.Controllers
                 .OrderByDescending(x => x)
                 .FirstOrDefault();
 
-            this._view.OnGetPersonalNoteDataCompletion(
+            this._view.View_OnGetPersonalNotesCompletion(
                 attributes
                 .OrderBy(x => x.Id)
                 .ToList()
@@ -49,11 +49,11 @@ namespace Domain.Controllers
                 .GetEntityQuery<PersonalNote>();
 
             if (criteria == null)
-                this._view.ViewQueryResult = attributeQuery.Select(x => x);
+                this._view.View_QueryResults = attributeQuery.Select(x => x);
             else
-                this._view.ViewQueryResult = attributeQuery.Where(criteria);
+                this._view.View_QueryResults = attributeQuery.Where(criteria);
 
-            this._view.OnQueryViewRecordsCompletion();
+            this._view.View_OnQueryRecordsCompletion();
         }
 
         public override void SaveData(PersonalNote data)

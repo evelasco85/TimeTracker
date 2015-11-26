@@ -9,9 +9,9 @@ namespace Domain.Views
 {
     public  interface IDailyAttributeView: IView<DayAttribute>
     {
-        Action GetPresetAttributeData { get; set; }
-        Action<IEnumerable<Domain.Attribute>> OnGetPresetAttributeDataCompletion { get; set; }
-        Action<IEnumerable<DayAttribute>> GetDailyAttributeData { get; set; }
-        Action<dynamic, DateTime> OnGetDailyAttributeDataCompletion { get; set; }
+        Action View_GetPresetAttributeData { get; set; }
+        Action<IEnumerable<Domain.Attribute>> View_OnGetPresetAttributeDataCompletion { get; set; }
+        Action<IEnumerable<DayAttribute>> View_GetDailyAttributeData { get; set; }
+        Action<dynamic, DateTime> View_OnGetDailyAttributeDataCompletion { get; set; }
     }
 }

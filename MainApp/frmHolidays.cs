@@ -12,13 +12,13 @@ namespace MainApp
 {
     public partial class frmHolidays : frmCommonDataEditor, IHolidayView, IFormCommonOperation
     {
-        public Action<Func<Holiday, bool>> QueryViewRecords { get; set; }
-        public Action OnQueryViewRecordsCompletion { get; set; }
-        public Action<Holiday> SaveViewRecord { get; set; }
-        public Action<Func<Holiday, bool>> DeleteViewRecords { get; set; }
-        public IEnumerable<Holiday> ViewQueryResult { get; set; }
-        public Action<IEnumerable<Holiday>> GetHolidayData { get; set; }
-        public Action<dynamic, DateTime> OnGetHolidayDataCompletion { get; set; }
+        public Action<Func<Holiday, bool>> View_QueryRecords { get; set; }
+        public Action View_OnQueryRecordsCompletion { get; set; }
+        public Action<Holiday> View_SaveRecord { get; set; }
+        public Action<Func<Holiday, bool>> View_DeleteRecords { get; set; }
+        public IEnumerable<Holiday> View_QueryResults { get; set; }
+        public Action<IEnumerable<Holiday>> View_GetHolidayData { get; set; }
+        public Action<dynamic, DateTime> View_OnGetHolidayDataCompletion { get; set; }
 
         public frmHolidays(IEFRepository repository)
         {
@@ -29,18 +29,18 @@ namespace MainApp
             RegisterController();
             this.RegisterCommonOperation(this);
 
-            this.OnQueryViewRecordsCompletion = this.RefreshGridData;
-            this.OnGetHolidayDataCompletion = this.UpdateHolidayData;
+            this.View_OnQueryRecordsCompletion = this.RefreshGridData;
+            this.View_OnGetHolidayDataCompletion = this.UpdateHolidayData;
             this.holidayDate.Value = DateTime.Now;
 
-            this.QueryViewRecords(null);
+            this.View_QueryRecords(null);
         }
 
         void RefreshGridData()
         {
-            IEnumerable<Holiday> holidays = this.ViewQueryResult;
+            IEnumerable<Holiday> holidays = this.View_QueryResults;
 
-            this.GetHolidayData(holidays);
+            this.View_GetHolidayData(holidays);
         }
 
         void UpdateHolidayData(dynamic displayColumns, DateTime lastUpdatedDate)
@@ -83,7 +83,7 @@ namespace MainApp
             try
             {
                 int id = int.Parse(this.dGrid.Rows[rowIndex].Cells[HolidayController.ID_INDEX].Value.ToString());
-                Holiday holiday = DateHelper.GetInstance().GetHoliday(this.ViewQueryResult, id);
+                Holiday holiday = DateHelper.GetInstance().GetHoliday(this.View_QueryResults, id);
 
                 this.lblId.Text = holiday.Id.ToString();
                 this.holidayDate.Value = holiday.Date;
@@ -139,8 +139,8 @@ namespace MainApp
 
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
-                    this.DeleteViewRecords(x => x.Id == id);
-                    this.QueryViewRecords(null);
+                    this.View_DeleteRecords(x => x.Id == id);
+                    this.View_QueryRecords(null);
                 }
             }
             catch (FormatException)
@@ -159,14 +159,14 @@ namespace MainApp
             };
 
             if (!string.IsNullOrEmpty(this.lblId.Text))
-                holiday = DateHelper.GetInstance().GetHoliday(this.ViewQueryResult, int.Parse(this.lblId.Text));
+                holiday = DateHelper.GetInstance().GetHoliday(this.View_QueryResults, int.Parse(this.lblId.Text));
 
             holiday.Date = this.holidayDate.Value;
             holiday.Description = this.txtHolidayDescription.Text;
             holiday.SystemUpdated = DateTime.Now;
 
-            this.SaveViewRecord(holiday);
-            this.QueryViewRecords(null);
+            this.View_SaveRecord(holiday);
+            this.View_QueryRecords(null);
             this.WindowInputChanges(ModifierState.Save);
         }
 

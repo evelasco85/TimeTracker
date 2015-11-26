@@ -27,7 +27,7 @@ namespace Domain.Controllers
         {
             this._helper = DateHelper.GetInstance();
             this._categoryView = view;
-            this._categoryView.GetCategoryData = this.GetCategoryData;
+            this._categoryView.View_GetCategoryData = this.GetCategoryData;
         }
 
         void GetCategoryData(IEnumerable<Category> categories)
@@ -37,7 +37,7 @@ namespace Domain.Controllers
                 .OrderByDescending(x => x)
                 .FirstOrDefault();
 
-            this._categoryView.OnGetCategoryDataCompletion(
+            this._categoryView.View_OnGetCategoryDataCompletion(
                 categories
                 .OrderBy(x => x.Id)
                 .ToList()
@@ -51,11 +51,11 @@ namespace Domain.Controllers
                 .GetEntityQuery<Category>();
 
             if (criteria == null)
-                this._view.ViewQueryResult = categoryQuery.Select(x => x);
+                this._view.View_QueryResults = categoryQuery.Select(x => x);
             else
-                this._view.ViewQueryResult = categoryQuery.Where(criteria);
+                this._view.View_QueryResults = categoryQuery.Where(criteria);
 
-            this._view.OnQueryViewRecordsCompletion();
+            this._view.View_OnQueryRecordsCompletion();
         }
 
         public override void SaveData(Category data)

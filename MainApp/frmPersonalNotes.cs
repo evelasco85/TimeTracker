@@ -11,13 +11,13 @@ namespace MainApp
 {
     public partial class frmPersonalNotes : frmCommonDataEditor, IPersonalNoteView, IFormCommonOperation
     {
-        public Action<Func<PersonalNote, bool>> QueryViewRecords { get; set; }
-        public Action OnQueryViewRecordsCompletion { get; set; }
-        public Action<PersonalNote> SaveViewRecord { get; set; }
-        public Action<Func<PersonalNote, bool>> DeleteViewRecords { get; set; }
-        public IEnumerable<PersonalNote> ViewQueryResult { get; set; }
-        public Action<IEnumerable<PersonalNote>> GetPersonalNoteData { get; set; }
-        public Action<dynamic, DateTime> OnGetPersonalNoteDataCompletion { get; set; }
+        public Action<Func<PersonalNote, bool>> View_QueryRecords { get; set; }
+        public Action View_OnQueryRecordsCompletion { get; set; }
+        public Action<PersonalNote> View_SaveRecord { get; set; }
+        public Action<Func<PersonalNote, bool>> View_DeleteRecords { get; set; }
+        public IEnumerable<PersonalNote> View_QueryResults { get; set; }
+        public Action<IEnumerable<PersonalNote>> View_GetPersonalNotes { get; set; }
+        public Action<dynamic, DateTime> View_OnGetPersonalNotesCompletion { get; set; }
 
         public frmPersonalNotes(IEFRepository repository)
         {
@@ -28,17 +28,17 @@ namespace MainApp
             RegisterController();
             this.RegisterCommonOperation(this);
 
-            this.OnQueryViewRecordsCompletion = this.RefreshGridData;
-            this.OnGetPersonalNoteDataCompletion = this.UpdateCategoryData;
+            this.View_OnQueryRecordsCompletion = this.RefreshGridData;
+            this.View_OnGetPersonalNotesCompletion = this.UpdateCategoryData;
 
-            this.QueryViewRecords(null);
+            this.View_QueryRecords(null);
         }
 
         void RefreshGridData()
         {
-            IEnumerable<PersonalNote> personalNotes = this.ViewQueryResult;
+            IEnumerable<PersonalNote> personalNotes = this.View_QueryResults;
 
-            this.GetPersonalNoteData(personalNotes);
+            this.View_GetPersonalNotes(personalNotes);
         }
 
         void UpdateCategoryData(dynamic displayColumns, DateTime lastUpdatedDate)
@@ -81,7 +81,7 @@ namespace MainApp
             try
             {
                 int id = int.Parse(this.dGrid.Rows[rowIndex].Cells[PersonalNoteController.ID_INDEX].Value.ToString());
-                PersonalNote note = this.ViewQueryResult
+                PersonalNote note = this.View_QueryResults
                     .Where(x => x.Id == id)
                     .FirstOrDefault();
 
@@ -136,8 +136,8 @@ namespace MainApp
 
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
-                    this.DeleteViewRecords(x => x.Id == id);
-                    this.QueryViewRecords(null);
+                    this.View_DeleteRecords(x => x.Id == id);
+                    this.View_QueryRecords(null);
                 }
             }
             catch (FormatException)
@@ -156,15 +156,15 @@ namespace MainApp
             };
 
             if (!string.IsNullOrEmpty(this.lblId.Text))
-                note = this.ViewQueryResult
+                note = this.View_QueryResults
                     .Where(x => x.Id == int.Parse(this.lblId.Text))
                     .FirstOrDefault();
 
             note.Description = this.txtDescription.Text;
             note.SystemUpdateDateTime = DateTime.Now;
 
-            this.SaveViewRecord(note);
-            this.QueryViewRecords(null);
+            this.View_SaveRecord(note);
+            this.View_QueryRecords(null);
             this.WindowInputChanges(ModifierState.Save);
         }
 

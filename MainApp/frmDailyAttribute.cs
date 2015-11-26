@@ -16,15 +16,15 @@ namespace MainApp
 {
     public partial class frmDailyAttribute : frmCommonByDateDataEditor, IFormCommonOperation, IDailyAttributeView
     {
-        public Action<Func<DayAttribute, bool>> QueryViewRecords { get; set; }
-        public Action OnQueryViewRecordsCompletion { get; set; }
-        public Action<DayAttribute> SaveViewRecord { get; set; }
-        public Action<Func<DayAttribute, bool>> DeleteViewRecords { get; set; }
-        public IEnumerable<DayAttribute> ViewQueryResult { get; set; }
-        public Action GetPresetAttributeData { get; set; }
-        public Action<IEnumerable<Domain.Attribute>> OnGetPresetAttributeDataCompletion { get; set; }
-        public Action<IEnumerable<DayAttribute>> GetDailyAttributeData { get; set; }
-        public Action<dynamic, DateTime> OnGetDailyAttributeDataCompletion { get; set; }
+        public Action<Func<DayAttribute, bool>> View_QueryRecords { get; set; }
+        public Action View_OnQueryRecordsCompletion { get; set; }
+        public Action<DayAttribute> View_SaveRecord { get; set; }
+        public Action<Func<DayAttribute, bool>> View_DeleteRecords { get; set; }
+        public IEnumerable<DayAttribute> View_QueryResults { get; set; }
+        public Action View_GetPresetAttributeData { get; set; }
+        public Action<IEnumerable<Domain.Attribute>> View_OnGetPresetAttributeDataCompletion { get; set; }
+        public Action<IEnumerable<DayAttribute>> View_GetDailyAttributeData { get; set; }
+        public Action<dynamic, DateTime> View_OnGetDailyAttributeDataCompletion { get; set; }
 
         IEnumerable<Domain.Attribute> _presetAttributes;
 
@@ -36,12 +36,12 @@ namespace MainApp
             RegisterController();
             this.RegisterCommonOperation(this);
 
-            this.OnQueryViewRecordsCompletion = this.RefreshGridData;
-            this.OnGetPresetAttributeDataCompletion = this.PopulateAttributePresets;
-            this.OnGetDailyAttributeDataCompletion = this.UpdateDailyAttributeData;
+            this.View_OnQueryRecordsCompletion = this.RefreshGridData;
+            this.View_OnGetPresetAttributeDataCompletion = this.PopulateAttributePresets;
+            this.View_OnGetDailyAttributeDataCompletion = this.UpdateDailyAttributeData;
 
-            this.QueryViewRecords(null);
-            this.GetPresetAttributeData();
+            this.View_QueryRecords(null);
+            this.View_GetPresetAttributeData();
         }
 
         void PopulateAttributePresets(IEnumerable<Domain.Attribute> attributes)
@@ -58,9 +58,9 @@ namespace MainApp
 
         void RefreshGridData()
         {
-            IEnumerable<DayAttribute> dailyAttributes = this.ViewQueryResult;
+            IEnumerable<DayAttribute> dailyAttributes = this.View_QueryResults;
 
-            this.GetDailyAttributeData(dailyAttributes);
+            this.View_GetDailyAttributeData(dailyAttributes);
         }
 
         public void UpdateWindow(int rowIndex)
@@ -68,7 +68,7 @@ namespace MainApp
             try
             {
                 int id = int.Parse(this.recordGrid.Rows[rowIndex].Cells[DailyAttributeController.ID_INDEX].Value.ToString());
-                DayAttribute dailyAttribute = this.ViewQueryResult
+                DayAttribute dailyAttribute = this.View_QueryResults
                     .Where(x => x.Id == id)
                     .FirstOrDefault();
 
@@ -166,8 +166,8 @@ namespace MainApp
 
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
-                    this.DeleteViewRecords(x => x.Id == id);
-                    this.QueryViewRecords(null);
+                    this.View_DeleteRecords(x => x.Id == id);
+                    this.View_QueryRecords(null);
                 }
             }
             catch (FormatException)
@@ -186,7 +186,7 @@ namespace MainApp
             };
 
             if (!string.IsNullOrEmpty(this.lblId.Text))
-                attribute = this.ViewQueryResult
+                attribute = this.View_QueryResults
                     .Where(x => x.Id == int.Parse(this.lblId.Text))
                     .FirstOrDefault();
 
@@ -195,8 +195,8 @@ namespace MainApp
             attribute.Link = this.txtLink.Text;
             attribute.SystemUpdateDateTime = DateTime.Now;
 
-            this.SaveViewRecord(attribute);
-            this.QueryViewRecords(null);
+            this.View_SaveRecord(attribute);
+            this.View_QueryRecords(null);
             this.WindowInputChanges(ModifierState.Save);
         }
 

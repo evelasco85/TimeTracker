@@ -14,13 +14,13 @@ namespace MainApp
 {
     public partial class frmLeaves : frmCommonDataEditor, ILeaveView, IFormCommonOperation
     {
-        public Action<Func<Leave, bool>> QueryViewRecords { get; set; }
-        public Action OnQueryViewRecordsCompletion { get; set; }
-        public Action<Leave> SaveViewRecord { get; set; }
-        public Action<Func<Leave, bool>> DeleteViewRecords { get; set; }
-        public IEnumerable<Leave> ViewQueryResult { get; set; }
-        public Action<IEnumerable<Leave>> GetLeaveData { get; set; }
-        public Action<dynamic, DateTime> OnGetLeaveDataCompletion { get; set; }
+        public Action<Func<Leave, bool>> View_QueryRecords { get; set; }
+        public Action View_OnQueryRecordsCompletion { get; set; }
+        public Action<Leave> View_SaveRecord { get; set; }
+        public Action<Func<Leave, bool>> View_DeleteRecords { get; set; }
+        public IEnumerable<Leave> View_QueryResults { get; set; }
+        public Action<IEnumerable<Leave>> View_GetLeaveData { get; set; }
+        public Action<dynamic, DateTime> View_OnGetLeaveDataCompletion { get; set; }
 
         public frmLeaves(IEFRepository repository)
         {
@@ -29,21 +29,21 @@ namespace MainApp
             RegisterController();
             this.RegisterCommonOperation(this);
 
-            this.OnQueryViewRecordsCompletion = RefreshGridData;
-            this.OnGetLeaveDataCompletion = UpdateLeaveData;
+            this.View_OnQueryRecordsCompletion = RefreshGridData;
+            this.View_OnGetLeaveDataCompletion = UpdateLeaveData;
 
             InitializeComponent();
 
             this.leaveDate.Value = DateTime.Now;
 
-            this.QueryViewRecords(null);
+            this.View_QueryRecords(null);
         }
 
         void RefreshGridData()
         {
-            IEnumerable<Leave> leaves = this.ViewQueryResult;
+            IEnumerable<Leave> leaves = this.View_QueryResults;
 
-            this.GetLeaveData(leaves);
+            this.View_GetLeaveData(leaves);
         }
 
         void UpdateLeaveData(dynamic displayColumns, DateTime lastUpdatedDate)
@@ -87,7 +87,7 @@ namespace MainApp
             try
             {
                 int id = int.Parse(this.dGrid.Rows[rowIndex].Cells[LeaveController.ID_INDEX].Value.ToString());
-                Leave leave = DateHelper.GetInstance().GetLeave(this.ViewQueryResult, id);
+                Leave leave = DateHelper.GetInstance().GetLeave(this.View_QueryResults, id);
 
                 this.lblId.Text = leave.Id.ToString();
                 this.leaveDate.Value = leave.Date;
@@ -149,8 +149,8 @@ namespace MainApp
 
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
-                    this.DeleteViewRecords(x => x.Id == id);
-                    this.QueryViewRecords(null);
+                    this.View_DeleteRecords(x => x.Id == id);
+                    this.View_QueryRecords(null);
                 }
             }
             catch (FormatException)
@@ -169,14 +169,14 @@ namespace MainApp
             };
 
             if (!string.IsNullOrEmpty(this.lblId.Text))
-                leave = DateHelper.GetInstance().GetLeave(this.ViewQueryResult, int.Parse(this.lblId.Text));
+                leave = DateHelper.GetInstance().GetLeave(this.View_QueryResults, int.Parse(this.lblId.Text));
 
             leave.Date = this.leaveDate.Value;
             leave.Description = this.txtLeaveDescription.Text;
             leave.SystemUpdated = DateTime.Now;
 
-            this.SaveViewRecord(leave);
-            this.QueryViewRecords(null);
+            this.View_SaveRecord(leave);
+            this.View_QueryRecords(null);
             this.WindowInputChanges(ModifierState.Save);
         }
 

@@ -10,10 +10,10 @@ namespace Domain.Views
     //Operations available to views (and Forms)
     public interface IView<TModel>
     {
-        Action<Func<TModel, bool>> QueryViewRecords { get; set; }
-        Action OnQueryViewRecordsCompletion { get; set; }
-        Action<TModel> SaveViewRecord { get; set; }
-        Action<Func<TModel, bool>> DeleteViewRecords { get; set; }
-        IEnumerable<TModel> ViewQueryResult { get; set; }
+        Action<Func<TModel, bool>> View_QueryRecords { get; set; }
+        Action View_OnQueryRecordsCompletion { get; set; }
+        Action<TModel> View_SaveRecord { get; set; }
+        Action<Func<TModel, bool>> View_DeleteRecords { get; set; }
+        IEnumerable<TModel> View_QueryResults { get; set; }
     } 
 }

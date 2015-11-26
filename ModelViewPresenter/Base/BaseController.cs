@@ -27,9 +27,9 @@ namespace Domain.Controllers
         void Map(IEFRepository repository, IView<TEntity> view)
         {
             this._view = view;
-            this._view.QueryViewRecords = GetData;
-            this._view.SaveViewRecord = SaveData;
-            this._view.DeleteViewRecords = DeleteData;
+            this._view.View_QueryRecords = GetData;
+            this._view.View_SaveRecord = SaveData;
+            this._view.View_DeleteRecords = DeleteData;
             this._repository = repository;
         }
 

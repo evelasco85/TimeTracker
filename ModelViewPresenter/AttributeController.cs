@@ -26,7 +26,7 @@ namespace Domain.Controllers
         {
             this._helper = DateHelper.GetInstance();
             this._view = view;
-            this._view.GetAttributeData = this.GetAttributeData;
+            this._view.View_GetAttributeData = this.GetAttributeData;
         }
 
         void GetAttributeData(IEnumerable<Domain.Attribute> attributes)
@@ -36,7 +36,7 @@ namespace Domain.Controllers
                 .OrderByDescending(x => x)
                 .FirstOrDefault();
 
-            this._view.OnGetAttributeDataCompletion(
+            this._view.View_OnGetAttributeDataCompletion(
                 attributes
                 .OrderBy(x => x.Id)
                 .ToList()
@@ -50,11 +50,11 @@ namespace Domain.Controllers
                 .GetEntityQuery<Domain.Attribute>();
 
             if (criteria == null)
-                this._view.ViewQueryResult = attributeQuery.Select(x => x);
+                this._view.View_QueryResults = attributeQuery.Select(x => x);
             else
-                this._view.ViewQueryResult = attributeQuery.Where(criteria);
+                this._view.View_QueryResults = attributeQuery.Where(criteria);
 
-            this._view.OnQueryViewRecordsCompletion();
+            this._view.View_OnQueryRecordsCompletion();
         }
 
         public override void SaveData(Domain.Attribute data)

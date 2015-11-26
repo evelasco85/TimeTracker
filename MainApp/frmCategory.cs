@@ -11,13 +11,13 @@ namespace MainApp
 {
     public partial class frmCategory : frmCommonDataEditor, ICategoryView, IFormCommonOperation
     {
-        public Action<Func<Category, bool>> QueryViewRecords { get; set; }
-        public Action OnQueryViewRecordsCompletion { get; set; }
-        public Action<Category> SaveViewRecord { get; set; }
-        public Action<Func<Category, bool>> DeleteViewRecords { get; set; }
-        public IEnumerable<Category> ViewQueryResult { get; set; }
-        public Action<IEnumerable<Category>> GetCategoryData { get; set; }
-        public Action<dynamic, DateTime> OnGetCategoryDataCompletion { get; set; }
+        public Action<Func<Category, bool>> View_QueryRecords { get; set; }
+        public Action View_OnQueryRecordsCompletion { get; set; }
+        public Action<Category> View_SaveRecord { get; set; }
+        public Action<Func<Category, bool>> View_DeleteRecords { get; set; }
+        public IEnumerable<Category> View_QueryResults { get; set; }
+        public Action<IEnumerable<Category>> View_GetCategoryData { get; set; }
+        public Action<dynamic, DateTime> View_OnGetCategoryDataCompletion { get; set; }
 
         public frmCategory(IEFRepository repository)
         {
@@ -28,17 +28,17 @@ namespace MainApp
             RegisterController();
             this.RegisterCommonOperation(this);
 
-            this.OnQueryViewRecordsCompletion = this.RefreshGridData;
-            this.OnGetCategoryDataCompletion = this.UpdateCategoryData;
+            this.View_OnQueryRecordsCompletion = this.RefreshGridData;
+            this.View_OnGetCategoryDataCompletion = this.UpdateCategoryData;
 
-            this.QueryViewRecords(null);
+            this.View_QueryRecords(null);
         }
 
         void RefreshGridData()
         {
-            IEnumerable<Category> categories = this.ViewQueryResult;
+            IEnumerable<Category> categories = this.View_QueryResults;
 
-            this.GetCategoryData(categories);
+            this.View_GetCategoryData(categories);
         }
 
         void UpdateCategoryData(dynamic displayColumns, DateTime lastUpdatedDate)
@@ -81,7 +81,7 @@ namespace MainApp
             try
             {
                 int id = int.Parse(this.dGrid.Rows[rowIndex].Cells[CategoryController.ID_INDEX].Value.ToString());
-                Category category = this.ViewQueryResult
+                Category category = this.View_QueryResults
                     .Where(x => x.Id == id)
                     .FirstOrDefault();
 
@@ -139,8 +139,8 @@ namespace MainApp
 
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
-                    this.DeleteViewRecords(x => x.Id == id);
-                    this.QueryViewRecords(null);
+                    this.View_DeleteRecords(x => x.Id == id);
+                    this.View_QueryRecords(null);
                 }
             }
             catch (FormatException)
@@ -159,7 +159,7 @@ namespace MainApp
             };
 
             if (!string.IsNullOrEmpty(this.lblId.Text))
-                category = this.ViewQueryResult
+                category = this.View_QueryResults
                     .Where(x => x.Id == int.Parse(this.lblId.Text))
                     .FirstOrDefault();
 
@@ -167,8 +167,8 @@ namespace MainApp
             category.ShowInSummary = this.chkShowInSummary.Checked;
             category.SystemUpdateDateTime = DateTime.Now;
 
-            this.SaveViewRecord(category);
-            this.QueryViewRecords(null);
+            this.View_SaveRecord(category);
+            this.View_QueryRecords(null);
             this.WindowInputChanges(ModifierState.Save);
         }
 

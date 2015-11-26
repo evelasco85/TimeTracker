@@ -8,7 +8,7 @@ namespace Domain.Views
 {
     public interface IAttributeView : IView<Domain.Attribute>
     {
-        Action<IEnumerable<Domain.Attribute>> GetAttributeData { get; set; }
-        Action<dynamic, DateTime> OnGetAttributeDataCompletion { get; set; }
+        Action<IEnumerable<Domain.Attribute>> View_GetAttributeData { get; set; }
+        Action<dynamic, DateTime> View_OnGetAttributeDataCompletion { get; set; }
     }
 }

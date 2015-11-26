@@ -7,7 +7,7 @@ namespace Domain.Views
 {
     public interface ICategoryView : IView<Category>
     {
-        Action<IEnumerable<Category>> GetCategoryData { get; set; }
-        Action<dynamic, DateTime> OnGetCategoryDataCompletion { get; set; }
+        Action<IEnumerable<Category>> View_GetCategoryData { get; set; }
+        Action<dynamic, DateTime> View_OnGetCategoryDataCompletion { get; set; }
     }
 }
