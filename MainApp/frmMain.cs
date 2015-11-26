@@ -696,6 +696,26 @@ namespace MainApp
                 invokeFromUI.Invoke();
         }
 
+
+        void OpenDailyActivity()
+        {
+            MethodInvoker invokeFromUI = new MethodInvoker(
+               () =>
+               {
+                   using (frmDailyActivity dailyActivity = new frmDailyActivity(this._repository))
+                   {
+                       dailyActivity.ShowDialog(this);
+                       dailyActivity.Dispose();
+                   }
+               }
+           );
+
+            if (this.InvokeRequired)
+                this.Invoke(invokeFromUI);
+            else
+                invokeFromUI.Invoke();
+        }
+
         private void btnCategory_Click(object sender, EventArgs e)
         {
             this.OpenCategories();
@@ -719,6 +739,11 @@ namespace MainApp
         private void btnPersonalNote_Click(object sender, EventArgs e)
         {
             this.OpenPersonalNote();
+        }
+
+        private void btnDailyActivity_Click(object sender, EventArgs e)
+        {
+            this.OpenDailyActivity();
         }
     }
 }

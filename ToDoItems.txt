@@ -5,7 +5,7 @@
 *Replaced Timer implementation with 'Running Time with event interrupts/triggers'
 	-Added alarms/notifications/reminders
 *Clickable links window
-*Addition Log_Activity, Log_Attribute, Reminder, Daily Notes
+*Addition Log_Attribute, Reminder
 
 [Done]
 *Common/Reusable form for Holiday and Leave entries(generic as opposed with specific form creation)
@@ -15,3 +15,5 @@
 *Configurable category and log summary display
 *Added Attribute feature
 *Added Activity feature
+*Added Daily Activity
+*Added Daily Notes

@@ -1,6 +1,6 @@
 ﻿namespace MainApp
 {
-    partial class frmDailyAttribute
+    partial class frmDailyActivity
     {
         /// <summary>
         /// Required designer variable.
@@ -29,15 +29,18 @@
         private void InitializeComponent()
         {
             this.label2 = new System.Windows.Forms.Label();
-            this.cboPresetAttributes = new System.Windows.Forms.ComboBox();
+            this.cboPresetActivities = new System.Windows.Forms.ComboBox();
             this.date = new System.Windows.Forms.DateTimePicker();
-            this.txtLink = new System.Windows.Forms.TextBox();
             this.txtDescription = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.lblId = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtName = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtDuration = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,10 +68,23 @@
             // 
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
+            // periodPicker
+            // 
+            this.periodPicker.ValueChanged += new System.EventHandler(this.periodPicker_ValueChanged);
+            // 
             // pnlRecordGrid
             // 
-            this.pnlRecordGrid.Location = new System.Drawing.Point(184, 207);
-            this.pnlRecordGrid.Size = new System.Drawing.Size(661, 287);
+            this.pnlRecordGrid.Location = new System.Drawing.Point(184, 261);
+            this.pnlRecordGrid.Size = new System.Drawing.Size(661, 310);
+            // 
+            // lstUniqueDates
+            // 
+            this.lstUniqueDates.Size = new System.Drawing.Size(154, 498);
+            this.lstUniqueDates.SelectedIndexChanged += new System.EventHandler(this.lstUniqueDates_SelectedIndexChanged);
+            // 
+            // lblSummedDailyActivityHours
+            // 
+            this.lblSummedDailyActivityHours.Location = new System.Drawing.Point(181, 245);
             // 
             // label2
             // 
@@ -79,15 +95,15 @@
             this.label2.TabIndex = 16;
             this.label2.Text = "Preset:";
             // 
-            // cboPresetAttributes
+            // cboPresetActivities
             // 
-            this.cboPresetAttributes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboPresetAttributes.FormattingEnabled = true;
-            this.cboPresetAttributes.Location = new System.Drawing.Point(251, 19);
-            this.cboPresetAttributes.Name = "cboPresetAttributes";
-            this.cboPresetAttributes.Size = new System.Drawing.Size(196, 21);
-            this.cboPresetAttributes.TabIndex = 17;
-            this.cboPresetAttributes.SelectedIndexChanged += new System.EventHandler(this.cboPresetAttributes_SelectedIndexChanged);
+            this.cboPresetActivities.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboPresetActivities.FormattingEnabled = true;
+            this.cboPresetActivities.Location = new System.Drawing.Point(251, 19);
+            this.cboPresetActivities.Name = "cboPresetActivities";
+            this.cboPresetActivities.Size = new System.Drawing.Size(196, 21);
+            this.cboPresetActivities.TabIndex = 17;
+            this.cboPresetActivities.SelectedIndexChanged += new System.EventHandler(this.cboPresetActivities_SelectedIndexChanged);
             // 
             // date
             // 
@@ -97,30 +113,13 @@
             this.date.Size = new System.Drawing.Size(200, 20);
             this.date.TabIndex = 18;
             // 
-            // txtLink
-            // 
-            this.txtLink.Location = new System.Drawing.Point(251, 91);
-            this.txtLink.Multiline = true;
-            this.txtLink.Name = "txtLink";
-            this.txtLink.Size = new System.Drawing.Size(320, 20);
-            this.txtLink.TabIndex = 19;
-            // 
             // txtDescription
             // 
-            this.txtDescription.Location = new System.Drawing.Point(251, 117);
+            this.txtDescription.Location = new System.Drawing.Point(250, 143);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(594, 84);
             this.txtDescription.TabIndex = 20;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(215, 95);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(30, 13);
-            this.label3.TabIndex = 21;
-            this.label3.Text = "Link:";
             // 
             // label4
             // 
@@ -134,7 +133,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(182, 120);
+            this.label5.Location = new System.Drawing.Point(181, 146);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(63, 13);
             this.label5.TabIndex = 23;
@@ -157,37 +156,89 @@
             this.lblId.Size = new System.Drawing.Size(0, 13);
             this.lblId.TabIndex = 25;
             // 
-            // frmDailyAttribute
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(207, 95);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(38, 13);
+            this.label3.TabIndex = 21;
+            this.label3.Text = "Name:";
+            // 
+            // txtName
+            // 
+            this.txtName.Location = new System.Drawing.Point(251, 91);
+            this.txtName.Multiline = true;
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(320, 20);
+            this.txtName.TabIndex = 19;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(195, 121);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(50, 13);
+            this.label7.TabIndex = 27;
+            this.label7.Text = "Duration:";
+            // 
+            // txtDuration
+            // 
+            this.txtDuration.Location = new System.Drawing.Point(250, 118);
+            this.txtDuration.Multiline = true;
+            this.txtDuration.Name = "txtDuration";
+            this.txtDuration.Size = new System.Drawing.Size(127, 20);
+            this.txtDuration.TabIndex = 28;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(383, 121);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(113, 13);
+            this.label8.TabIndex = 29;
+            this.label8.Text = "Example (01:45) - 1.75";
+            // 
+            // frmDailyActivity
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(856, 506);
+            this.ClientSize = new System.Drawing.Size(856, 583);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.txtDuration);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.lblId);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtDescription);
-            this.Controls.Add(this.txtLink);
+            this.Controls.Add(this.txtName);
             this.Controls.Add(this.date);
-            this.Controls.Add(this.cboPresetAttributes);
+            this.Controls.Add(this.cboPresetActivities);
             this.Controls.Add(this.label2);
-            this.Name = "frmDailyAttribute";
-            this.Text = "Daily Attributes";
-            this.Controls.SetChildIndex(this.pnlRecordGrid, 0);
-            this.Controls.SetChildIndex(this.panel1, 0);
-            this.Controls.SetChildIndex(this.label1, 0);
-            this.Controls.SetChildIndex(this.periodPicker, 0);
+            this.Name = "frmDailyActivity";
+            this.Text = "Daily Activities";
+            this.Controls.SetChildIndex(this.lblSummedDailyActivityHours, 0);
+            this.Controls.SetChildIndex(this.lstUniqueDates, 0);
             this.Controls.SetChildIndex(this.label2, 0);
-            this.Controls.SetChildIndex(this.cboPresetAttributes, 0);
+            this.Controls.SetChildIndex(this.cboPresetActivities, 0);
             this.Controls.SetChildIndex(this.date, 0);
-            this.Controls.SetChildIndex(this.txtLink, 0);
+            this.Controls.SetChildIndex(this.txtName, 0);
             this.Controls.SetChildIndex(this.txtDescription, 0);
             this.Controls.SetChildIndex(this.label3, 0);
             this.Controls.SetChildIndex(this.label4, 0);
             this.Controls.SetChildIndex(this.label5, 0);
             this.Controls.SetChildIndex(this.label6, 0);
             this.Controls.SetChildIndex(this.lblId, 0);
+            this.Controls.SetChildIndex(this.pnlRecordGrid, 0);
+            this.Controls.SetChildIndex(this.panel1, 0);
+            this.Controls.SetChildIndex(this.label1, 0);
+            this.Controls.SetChildIndex(this.periodPicker, 0);
+            this.Controls.SetChildIndex(this.label7, 0);
+            this.Controls.SetChildIndex(this.txtDuration, 0);
+            this.Controls.SetChildIndex(this.label8, 0);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -197,14 +248,17 @@
         #endregion
 
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cboPresetAttributes;
+        private System.Windows.Forms.ComboBox cboPresetActivities;
         private System.Windows.Forms.DateTimePicker date;
-        private System.Windows.Forms.TextBox txtLink;
         private System.Windows.Forms.TextBox txtDescription;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblId;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtName;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtDuration;
+        private System.Windows.Forms.Label label8;
     }
 }

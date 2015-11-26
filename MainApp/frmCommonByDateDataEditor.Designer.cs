@@ -38,13 +38,11 @@
             this.periodPicker = new System.Windows.Forms.DateTimePicker();
             this.pnlRecordGrid = new System.Windows.Forms.Panel();
             this.recordGrid = new System.Windows.Forms.DataGridView();
-            this.pnlDateGrid = new System.Windows.Forms.Panel();
-            this.dateGrid = new System.Windows.Forms.DataGridView();
+            this.lstUniqueDates = new System.Windows.Forms.ListBox();
+            this.lblSummedDailyActivityHours = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.pnlRecordGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.recordGrid)).BeginInit();
-            this.pnlDateGrid.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dateGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -148,37 +146,33 @@
             this.recordGrid.TabIndex = 6;
             this.recordGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.recordGrid_CellClick);
             // 
-            // pnlDateGrid
+            // lstUniqueDates
             // 
-            this.pnlDateGrid.Controls.Add(this.dateGrid);
-            this.pnlDateGrid.Location = new System.Drawing.Point(12, 89);
-            this.pnlDateGrid.Name = "pnlDateGrid";
-            this.pnlDateGrid.Size = new System.Drawing.Size(166, 405);
-            this.pnlDateGrid.TabIndex = 17;
+            this.lstUniqueDates.FormattingEnabled = true;
+            this.lstUniqueDates.Location = new System.Drawing.Point(12, 73);
+            this.lstUniqueDates.Name = "lstUniqueDates";
+            this.lstUniqueDates.Size = new System.Drawing.Size(154, 420);
+            this.lstUniqueDates.TabIndex = 17;
             // 
-            // dateGrid
+            // lblSummedDailyActivityHours
             // 
-            this.dateGrid.AllowUserToAddRows = false;
-            this.dateGrid.AllowUserToDeleteRows = false;
-            this.dateGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dateGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dateGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dateGrid.Location = new System.Drawing.Point(0, 0);
-            this.dateGrid.MultiSelect = false;
-            this.dateGrid.Name = "dateGrid";
-            this.dateGrid.ReadOnly = true;
-            this.dateGrid.RowTemplate.ReadOnly = true;
-            this.dateGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dateGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dateGrid.Size = new System.Drawing.Size(166, 405);
-            this.dateGrid.TabIndex = 15;
+            this.lblSummedDailyActivityHours.AutoSize = true;
+            this.lblSummedDailyActivityHours.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSummedDailyActivityHours.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.lblSummedDailyActivityHours.Location = new System.Drawing.Point(181, 270);
+            this.lblSummedDailyActivityHours.Name = "lblSummedDailyActivityHours";
+            this.lblSummedDailyActivityHours.Size = new System.Drawing.Size(193, 13);
+            this.lblSummedDailyActivityHours.TabIndex = 18;
+            this.lblSummedDailyActivityHours.Text = "Summarized Daily Activity Hours:";
+            this.lblSummedDailyActivityHours.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // frmCommonByDateDataEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(739, 506);
-            this.Controls.Add(this.pnlDateGrid);
+            this.Controls.Add(this.lblSummedDailyActivityHours);
+            this.Controls.Add(this.lstUniqueDates);
             this.Controls.Add(this.pnlRecordGrid);
             this.Controls.Add(this.periodPicker);
             this.Controls.Add(this.label1);
@@ -189,8 +183,6 @@
             this.panel1.ResumeLayout(false);
             this.pnlRecordGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.recordGrid)).EndInit();
-            this.pnlDateGrid.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dateGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -208,8 +200,8 @@
         public System.Windows.Forms.DateTimePicker periodPicker;
         public System.Windows.Forms.DataGridView recordGrid;
         public System.Windows.Forms.Panel pnlRecordGrid;
-        public System.Windows.Forms.Panel pnlDateGrid;
-        public System.Windows.Forms.DataGridView dateGrid;
+        public System.Windows.Forms.ListBox lstUniqueDates;
+        public System.Windows.Forms.Label lblSummedDailyActivityHours;
 
 
     }

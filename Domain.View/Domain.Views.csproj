@@ -43,6 +43,7 @@
     <Compile Include="IActivityView.cs" />
     <Compile Include="IAttributeView.cs" />
     <Compile Include="ICategoryView.cs" />
+    <Compile Include="IDailyActivityView.cs" />
     <Compile Include="IDailyAttributeView.cs" />
     <Compile Include="IHolidayView.cs" />
     <Compile Include="ILeaveView.cs" />

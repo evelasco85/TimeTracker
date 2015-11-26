@@ -44,12 +44,15 @@
         </EntityType>
         <EntityType Name="DayActivity">
           <Key>
-            <PropertyRef Name="Activity_Id" />
-            <PropertyRef Name="Date" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Activity_Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
-          <Property Name="Duration" Type="datetime" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Duration_Hours" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="System_Created" Type="datetime" Nullable="false" />
+          <Property Name="SystemUpdateDateTime" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="DayAttribute">
           <Key>
@@ -57,6 +60,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Link" Type="nvarchar" MaxLength="150" />
           <Property Name="System_Created" Type="datetime" Nullable="false" />
@@ -121,14 +125,14 @@
         <EntityContainer Name="WorklogDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__RefactorLog" EntityType="WorklogDBModel.C__RefactorLog" />
           <EntitySet Name="Activities" EntityType="WorklogDBModel.Activity" />
+          <EntitySet Name="Attributes" EntityType="WorklogDBModel.Attribute" />
           <EntitySet Name="Categories" EntityType="WorklogDBModel.Category" />
-          <EntitySet Name="DayActivities" EntityType="WorklogDBModel.DayActivity" />
           <EntitySet Name="Holidays" EntityType="WorklogDBModel.Holiday" />
           <EntitySet Name="Leaves" EntityType="WorklogDBModel.Leave" />
           <EntitySet Name="LogEntries" EntityType="WorklogDBModel.LogEntry" />
-          <EntitySet Name="Attributes" EntityType="WorklogDBModel.Attribute" />
-          <EntitySet Name="DayAttributes" EntityType="WorklogDBModel.DayAttribute" />
           <EntitySet Name="PersonalNotes" EntityType="WorklogDBModel.PersonalNote" />
+          <EntitySet Name="DayActivities" EntityType="WorklogDBModel.DayActivity" />
+          <EntitySet Name="DayAttributes" EntityType="WorklogDBModel.DayAttribute" />
         </EntityContainer>
         <EntityType Name="C__RefactorLog">
           <Key>
@@ -146,6 +150,17 @@
           <Property Name="System_Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="SystemUpdateDateTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
+        <EntityType Name="Attribute">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Link" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="System_Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SystemUpdateDateTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="Id" />
@@ -155,15 +170,6 @@
           <Property Name="ShowInSummary" Type="Boolean" Nullable="false" />
           <Property Name="System_Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="SystemUpdateDateTime" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="DayActivity">
-          <Key>
-            <PropertyRef Name="Activity_Id" />
-            <PropertyRef Name="Date" />
-          </Key>
-          <Property Name="Activity_Id" Type="Int32" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Duration" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Holiday">
           <Key>
@@ -196,14 +202,24 @@
           <Property Name="Category" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SystemUpdateDateTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        <EntityType Name="Attribute">
+        <EntityType Name="PersonalNote">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="System_Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SystemUpdateDateTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="DayActivity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Link" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Duration_Hours" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="System_Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="SystemUpdateDateTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
@@ -213,17 +229,9 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Link" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="System_Created" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="SystemUpdateDateTime" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="PersonalNote">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="System_Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="SystemUpdateDateTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
@@ -251,6 +259,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Attributes">
+            <EntityTypeMapping TypeName="WorklogDBModel.Attribute">
+              <MappingFragment StoreEntitySet="Attribute">
+                <ScalarProperty Name="SystemUpdateDateTime" ColumnName="SystemUpdateDateTime" />
+                <ScalarProperty Name="System_Created" ColumnName="System_Created" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="WorklogDBModel.Category">
               <MappingFragment StoreEntitySet="Category">
@@ -259,15 +279,6 @@
                 <ScalarProperty Name="ShowInSummary" ColumnName="ShowInSummary" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DayActivities">
-            <EntityTypeMapping TypeName="WorklogDBModel.DayActivity">
-              <MappingFragment StoreEntitySet="DayActivity">
-                <ScalarProperty Name="Duration" ColumnName="Duration" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Activity_Id" ColumnName="Activity_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -305,14 +316,25 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Attributes">
-            <EntityTypeMapping TypeName="WorklogDBModel.Attribute">
-              <MappingFragment StoreEntitySet="Attribute">
+          <EntitySetMapping Name="PersonalNotes">
+            <EntityTypeMapping TypeName="WorklogDBModel.PersonalNote">
+              <MappingFragment StoreEntitySet="PersonalNote">
                 <ScalarProperty Name="SystemUpdateDateTime" ColumnName="SystemUpdateDateTime" />
                 <ScalarProperty Name="System_Created" ColumnName="System_Created" />
-                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DayActivities">
+            <EntityTypeMapping TypeName="WorklogDBModel.DayActivity">
+              <MappingFragment StoreEntitySet="DayActivity">
+                <ScalarProperty Name="SystemUpdateDateTime" ColumnName="SystemUpdateDateTime" />
+                <ScalarProperty Name="System_Created" ColumnName="System_Created" />
+                <ScalarProperty Name="Duration_Hours" ColumnName="Duration_Hours" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -324,17 +346,8 @@
                 <ScalarProperty Name="System_Created" ColumnName="System_Created" />
                 <ScalarProperty Name="Link" ColumnName="Link" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PersonalNotes">
-            <EntityTypeMapping TypeName="WorklogDBModel.PersonalNote">
-              <MappingFragment StoreEntitySet="PersonalNote">
-                <ScalarProperty Name="SystemUpdateDateTime" ColumnName="SystemUpdateDateTime" />
-                <ScalarProperty Name="System_Created" ColumnName="System_Created" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

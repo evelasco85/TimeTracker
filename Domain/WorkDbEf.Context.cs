@@ -27,13 +27,13 @@ namespace Domain
     
         public virtual DbSet<C__RefactorLog> C__RefactorLog { get; set; }
         public virtual DbSet<Activity> Activities { get; set; }
+        public virtual DbSet<Attribute> Attributes { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<DayActivity> DayActivities { get; set; }
         public virtual DbSet<Holiday> Holidays { get; set; }
         public virtual DbSet<Leave> Leaves { get; set; }
         public virtual DbSet<LogEntry> LogEntries { get; set; }
-        public virtual DbSet<Attribute> Attributes { get; set; }
-        public virtual DbSet<DayAttribute> DayAttributes { get; set; }
         public virtual DbSet<PersonalNote> PersonalNotes { get; set; }
+        public virtual DbSet<DayActivity> DayActivities { get; set; }
+        public virtual DbSet<DayAttribute> DayAttributes { get; set; }
     }
 }

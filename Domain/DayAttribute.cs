@@ -16,6 +16,7 @@ namespace Domain
     {
         public int Id { get; set; }
         public System.DateTime Date { get; set; }
+        public string Name { get; set; }
         public string Description { get; set; }
         public string Link { get; set; }
         public System.DateTime System_Created { get; set; }

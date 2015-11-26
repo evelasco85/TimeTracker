@@ -35,4 +35,25 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="Description" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="1db84936-fd05-4de8-b395-f02f196c3e85" ChangeDateTime="11/26/2015 05:15:53">
+    <Property Name="ElementName" Value="[dbo].[DayActivity].[Activity_Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[DayActivity]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="451be847-6d47-4bc5-bdec-49dbe240c030" ChangeDateTime="11/26/2015 05:47:11">
+    <Property Name="ElementName" Value="[dbo].[DayActivity].[Duration]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[DayActivity]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Duration_Minutes" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6dd66fdb-692b-42ed-b7a4-07178b5a1ad5" ChangeDateTime="11/26/2015 05:47:20">
+    <Property Name="ElementName" Value="[dbo].[DayActivity].[Duration_Minutes]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[DayActivity]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Duration_Hours" />
+  </Operation>
 </Operations>

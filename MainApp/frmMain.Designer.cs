@@ -58,6 +58,7 @@
             this.btnDailyAttribute = new System.Windows.Forms.Button();
             this.btnPersonalNote = new System.Windows.Forms.Button();
             this.lblCountdown = new System.Windows.Forms.Label();
+            this.btnDailyActivity = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dGridLogs)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -347,7 +348,7 @@
             // btnDailyAttribute
             // 
             this.btnDailyAttribute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDailyAttribute.Location = new System.Drawing.Point(197, 564);
+            this.btnDailyAttribute.Location = new System.Drawing.Point(197, 600);
             this.btnDailyAttribute.Name = "btnDailyAttribute";
             this.btnDailyAttribute.Size = new System.Drawing.Size(151, 30);
             this.btnDailyAttribute.TabIndex = 24;
@@ -376,10 +377,22 @@
             this.lblCountdown.TabIndex = 26;
             this.lblCountdown.Text = "Next Tracker Popup:";
             // 
+            // btnDailyActivity
+            // 
+            this.btnDailyActivity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDailyActivity.Location = new System.Drawing.Point(196, 564);
+            this.btnDailyActivity.Name = "btnDailyActivity";
+            this.btnDailyActivity.Size = new System.Drawing.Size(151, 30);
+            this.btnDailyActivity.TabIndex = 27;
+            this.btnDailyActivity.Text = "Daily Activities";
+            this.btnDailyActivity.UseVisualStyleBackColor = true;
+            this.btnDailyActivity.Click += new System.EventHandler(this.btnDailyActivity_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(1249, 649);
+            this.Controls.Add(this.btnDailyActivity);
             this.Controls.Add(this.lblCountdown);
             this.Controls.Add(this.btnPersonalNote);
             this.Controls.Add(this.btnDailyAttribute);
@@ -442,6 +455,7 @@
         private System.Windows.Forms.Button btnDailyAttribute;
         private System.Windows.Forms.Button btnPersonalNote;
         private System.Windows.Forms.Label lblCountdown;
+        private System.Windows.Forms.Button btnDailyActivity;
     }
 }
 

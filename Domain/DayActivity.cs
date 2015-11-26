@@ -14,8 +14,12 @@ namespace Domain
     
     public partial class DayActivity
     {
-        public int Activity_Id { get; set; }
+        public int Id { get; set; }
         public System.DateTime Date { get; set; }
-        public System.DateTime Duration { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public decimal Duration_Hours { get; set; }
+        public System.DateTime System_Created { get; set; }
+        public System.DateTime SystemUpdateDateTime { get; set; }
     }
 }

@@ -35,6 +35,14 @@ namespace MainApp
             this.periodPicker.CustomFormat = "MM/yyyy";
         }
 
+        public virtual void UpdateSummarizedDailyActivityHours(decimal totalHours)
+        {
+            this.lblSummedDailyActivityHours.Text = string.Format(
+                "Summarized Daily Activity Hours: {0}",
+                totalHours.ToString()
+                );
+        }
+
         public virtual void RegisterCommonOperation(IFormCommonOperation formCommonOperation)
         {
             this._formCommonOperation = formCommonOperation;
