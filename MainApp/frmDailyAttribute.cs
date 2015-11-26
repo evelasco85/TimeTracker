@@ -48,7 +48,12 @@ namespace MainApp
         {
             this._presetAttributes = attributes;
 
-            this.cboPresetAttributes.DataSource = this._presetAttributes.Select(x => x.Name).ToList();
+            List<string> comboBoxItems = new List<string>();
+
+            comboBoxItems.Add("N/A");
+            comboBoxItems.AddRange(this._presetAttributes.Select(x => x.Name).ToList());
+
+            this.cboPresetAttributes.DataSource = comboBoxItems;
         }
 
         void RefreshGridData()
@@ -124,7 +129,7 @@ namespace MainApp
 
         public void ResetInputWindow()
         {
-            this.cboPresetAttributes.Text = string.Empty;
+            this.cboPresetAttributes.SelectedIndex = 0;
             this.lblId.Text = string.Empty;
             this.date.Value = DateTime.Now;
             this.txtDescription.Clear();
