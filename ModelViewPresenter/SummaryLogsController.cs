@@ -68,6 +68,13 @@ namespace Domain.Controllers
                     ;
             };
 
+            IQueryable<Leave> leaveQuery = this._repository.GetEntityQuery<Leave>()
+                .Where(x => (x.Date.Month == selectedMonth.Month) && (x.Date.Year == selectedMonth.Year));
+            IQueryable<Holiday> holidayQuery = this._repository.GetEntityQuery<Holiday>()
+                .Where(x => (x.Date.Month == selectedMonth.Month) && (x.Date.Year == selectedMonth.Year));
+
+
+
             var summarizedLogEntries = allDates
                 .Select(x => new
                 {
@@ -75,9 +82,13 @@ namespace Domain.Controllers
                     @Day = x,
                     Description = getDescription(x)
                 })
-                .ToList();
+                .ToList()
+                ;
 
-            this._summaryView.View_OnGetLogEntriesCompletion(summarizedLogEntries);
+            summarizedLogEntries.AddRange(leaveQuery.Select(x => new { Created = x.Date, @Day = x.Date, Description = "**LEAVE**   " + x.Description }).ToList());
+            summarizedLogEntries.AddRange(holidayQuery.Select(x => new { Created = x.Date, @Day = x.Date, Description = "**HOLIDAY**   " + x.Description }).ToList());
+
+            this._summaryView.View_OnGetLogEntriesCompletion(summarizedLogEntries.OrderByDescending(x => x.Created).ToList());
         }
 
         public override void GetData(Func<LogEntry, bool> criteria)

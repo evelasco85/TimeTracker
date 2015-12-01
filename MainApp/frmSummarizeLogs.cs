@@ -55,7 +55,7 @@ namespace MainApp
 
             helper.SetAutoResizeCells(ref this.dGridLogs);
             helper.SetColumnToDateFormat(this.dGridLogs.Columns[SummaryLogsController.CREATED_INDEX]);
-            helper.SetColumnToTimeFormat(this.dGridLogs.Columns[SummaryLogsController.DAY_INDEX]);
+            helper.SetColumnToDayFormat(this.dGridLogs.Columns[SummaryLogsController.DAY_INDEX]);
 
             this.dGridLogs
                 .Columns[SummaryLogsController.DESCRIPTION_INDEX]
