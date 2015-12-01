@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="ActivityController.cs" />
     <Compile Include="DailyActivityController.cs" />
+    <Compile Include="ObjectiveController.cs" />
     <Compile Include="PersonalNoteController.cs" />
     <Compile Include="AttributeController.cs" />
     <Compile Include="Base\BaseController.cs" />

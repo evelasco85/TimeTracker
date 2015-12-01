@@ -3,6 +3,7 @@ using Domain.Infrastructure;
 using Domain.Views;
 using System;
 using System.Collections.Generic;
+using System.Data.Objects;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -43,6 +44,7 @@ namespace Domain.Controllers
             this._logView.View_SetRememberedSetting = this.SetRememberedSetting;
             this._logView.View_GetRememberedDate = this.GetRememberedDate;
             this._logView.View_SetRememberedDate = this.SetRememberedDate;
+            this._logView.View_GetObjectiveData = this.GetObjectiveData;
         }
 
         IEnumerable<Category> GetCategories()
@@ -57,6 +59,29 @@ namespace Domain.Controllers
         DateTime GetRememberedDate() { return this._rememberedCreatedDateTime; }
         void SetRememberedDate(DateTime date) { this._rememberedCreatedDateTime = date; }        
         
+        void GetObjectiveData(DateTime dateTime)
+        {
+            DateTime dateOnly = dateTime.Date;
+
+            IQueryable<Objective> objectiveQuery = this._repository.GetEntityQuery<Objective>();
+
+            
+            string objectives = string.Join(
+                Environment.NewLine,
+                objectiveQuery
+                .Where(x =>
+                    (x.Date.Day == dateOnly.Day) &&
+                    (x.Date.Month == dateOnly.Month) &&
+                    (x.Date.Year == dateOnly.Year)
+                )
+                .Select(x => x.Description)
+                .ToArray()
+                );
+
+            this._logView.View_OnGetObjectiveDataCompletion(objectives);
+        }
+
+
         void GetCalendarData(IEnumerable<LogEntry> logs, DateTime selectedMonth)
         {
             IEnumerable<Leave> leaves = this._repository
@@ -148,18 +173,14 @@ namespace Domain.Controllers
                 .GroupBy(x => x.Created.Date)
                 .Distinct()
                 .Select(x => x.Key);
-            Func<DateTime, DateTime, bool> DateEquivalent = (dateTime, dateTime2) => (
-                (dateTime.Date.Day == dateTime2.Date.Day) &&
-                (dateTime.Date.Month == dateTime2.Date.Month) &&
-                (dateTime.Date.Year == dateTime2.Date.Year)
-                );
+           
 
             int uniqueLogEntriesPerDate = uniqueLogDates
                 .Where(x =>
                     //Remove collisions (exclude partial or half-day log messages from counting)
                     !(
-                        (holidays.Any(holiday => DateEquivalent(holiday.Date, x.Date))) ||
-                        (leaves.Any(leave => DateEquivalent(leave.Date, x.Date))))
+                        (holidays.Any(holiday => this._helper.DateEquivalent(holiday.Date, x.Date))) ||
+                        (leaves.Any(leave => this._helper.DateEquivalent(leave.Date, x.Date))))
                     )
                 .Count();
 

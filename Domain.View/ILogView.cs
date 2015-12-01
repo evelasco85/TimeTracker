@@ -20,5 +20,8 @@ namespace Domain.Views
         Func<DateTime> View_GetRememberedDate { get; set; }
         Action<DateTime> View_SetRememberedDate { get; set; }
         Func<IEnumerable<Category>> View_GetCategories { get; set; }
+
+        Action<DateTime> View_GetObjectiveData { get; set; }
+        Action<string> View_OnGetObjectiveDataCompletion { get; set; }
     }
 }

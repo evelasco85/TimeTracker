@@ -34,6 +34,8 @@ namespace MainApp
         public Func<DateTime> View_GetRememberedDate { get; set; }
         public Action<DateTime> View_SetRememberedDate { get; set; }
         public Func<IEnumerable<Category>> View_GetCategories { get; set; }
+        public Action<DateTime> View_GetObjectiveData { get; set; }
+        public Action<string> View_OnGetObjectiveDataCompletion { get; set; }
 
         public frmMain(IEFRepository repository)
         {
@@ -48,6 +50,7 @@ namespace MainApp
             this.View_OnQueryRecordsCompletion = this.RefreshGridData;
             this.View_OnGetLogStatisticsCompletion = this.UpdateDashboard;
             this.View_OnGetCalendarDataCompletion = this.UpdateCalendarData;
+            this.View_OnGetObjectiveDataCompletion = this.UpdateObjectiveData;
 
             InitializeComponent();
             this.InitializeRequiredData();
@@ -470,18 +473,26 @@ namespace MainApp
                 DataGridViewRow row = this.dGridLogs.Rows[index];
                 string description = row.Cells[LogEntriesController.DESCRIPTION_INDEX].Value.ToString();
                 string category = row.Cells[LogEntriesController.CATEGORY_INDEX].Value.ToString();
-
+                
+                this.View_GetObjectiveData(DateTime.Parse(row.Cells[LogEntriesController.CREATED_INDEX].Value.ToString()));
                 this.txtCategory.Clear();
                 this.txtDescription.Clear();
-
+                
                 this.txtCategory.Text = category;
                 this.txtDescription.Text = description;
+                
             }
             catch (ArgumentOutOfRangeException) { /*Skip*/}
             catch (Exception ex)
             {
                 throw ex;
             }
+        }
+
+        void UpdateObjectiveData(string objectives)
+        {
+            this.txtObjectives.Clear();
+            this.txtObjectives.Text = objectives;
         }
 
         private void dGridLogs_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
@@ -695,6 +706,26 @@ namespace MainApp
                 invokeFromUI.Invoke();
         }
 
+
+        void OpenObjective()
+        {
+            MethodInvoker invokeFromUI = new MethodInvoker(
+               () =>
+               {
+                   using (frmObjectives objective = new frmObjectives(this._repository))
+                   {
+                       objective.ShowDialog(this);
+                       objective.Dispose();
+                   }
+               }
+           );
+
+            if (this.InvokeRequired)
+                this.Invoke(invokeFromUI);
+            else
+                invokeFromUI.Invoke();
+        }
+
         private void btnCategory_Click(object sender, EventArgs e)
         {
             this.OpenCategories();
@@ -723,6 +754,11 @@ namespace MainApp
         private void btnDailyActivity_Click(object sender, EventArgs e)
         {
             this.OpenDailyActivity();
+        }
+
+        private void btnObjective_Click(object sender, EventArgs e)
+        {
+            this.OpenObjective();
         }
     }
 }

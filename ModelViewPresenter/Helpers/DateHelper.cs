@@ -22,6 +22,7 @@ namespace Domain.Helpers
         IList<LogEntry> GetMonthSummaryLogs(IEnumerable<LogEntry> logEntries, DateTime selectedMonth);
         IList<LogEntry> GenerateMissingEntriesForMissingDates(IEnumerable<LogEntry> entries, DateTime selectedMonth,
             IList<LogEntry> holidayLogEntries, IList<LogEntry> leaveLogEntries);
+        bool DateEquivalent(DateTime date1, DateTime date2);
     }
 
     public class DateHelper : IDateHelper
@@ -37,6 +38,17 @@ namespace Domain.Helpers
 
             return _instance;
         }
+
+        public bool DateEquivalent(DateTime date1, DateTime date2)
+        {
+            return _dateEquivalent(date1, date2);
+        }
+
+        Func<DateTime, DateTime, bool> _dateEquivalent = (dateTime, dateTime2) => (
+               (dateTime.Date.Day == dateTime2.Date.Day) &&
+               (dateTime.Date.Month == dateTime2.Date.Month) &&
+               (dateTime.Date.Year == dateTime2.Date.Year)
+               );
 
         public bool WeekendDate(DateTime date)
         {

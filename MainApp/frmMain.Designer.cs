@@ -59,6 +59,9 @@
             this.btnPersonalNote = new System.Windows.Forms.Button();
             this.lblCountdown = new System.Windows.Forms.Label();
             this.btnDailyActivity = new System.Windows.Forms.Button();
+            this.btnObjective = new System.Windows.Forms.Button();
+            this.txtObjectives = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dGridLogs)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -266,7 +269,7 @@
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.ReadOnly = true;
-            this.txtDescription.Size = new System.Drawing.Size(290, 552);
+            this.txtDescription.Size = new System.Drawing.Size(290, 232);
             this.txtDescription.TabIndex = 17;
             // 
             // label1
@@ -372,6 +375,7 @@
             // 
             this.lblCountdown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCountdown.AutoSize = true;
+            this.lblCountdown.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblCountdown.Location = new System.Drawing.Point(9, 9);
             this.lblCountdown.Name = "lblCountdown";
             this.lblCountdown.Size = new System.Drawing.Size(106, 13);
@@ -389,10 +393,47 @@
             this.btnDailyActivity.UseVisualStyleBackColor = true;
             this.btnDailyActivity.Click += new System.EventHandler(this.btnDailyActivity_Click);
             // 
+            // btnObjective
+            // 
+            this.btnObjective.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnObjective.Location = new System.Drawing.Point(15, 564);
+            this.btnObjective.Name = "btnObjective";
+            this.btnObjective.Size = new System.Drawing.Size(151, 30);
+            this.btnObjective.TabIndex = 28;
+            this.btnObjective.Text = "Objective";
+            this.btnObjective.UseVisualStyleBackColor = true;
+            this.btnObjective.Click += new System.EventHandler(this.btnObjective_Click);
+            // 
+            // txtObjectives
+            // 
+            this.txtObjectives.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtObjectives.Location = new System.Drawing.Point(947, 369);
+            this.txtObjectives.Multiline = true;
+            this.txtObjectives.Name = "txtObjectives";
+            this.txtObjectives.ReadOnly = true;
+            this.txtObjectives.Size = new System.Drawing.Size(290, 268);
+            this.txtObjectives.TabIndex = 30;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label2.Location = new System.Drawing.Point(944, 353);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(71, 13);
+            this.label2.TabIndex = 29;
+            this.label2.Text = "Objectives:";
+            // 
             // frmMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(1249, 649);
+            this.Controls.Add(this.txtObjectives);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.btnObjective);
             this.Controls.Add(this.btnDailyActivity);
             this.Controls.Add(this.lblCountdown);
             this.Controls.Add(this.btnPersonalNote);
@@ -457,6 +498,9 @@
         private System.Windows.Forms.Button btnPersonalNote;
         private System.Windows.Forms.Label lblCountdown;
         private System.Windows.Forms.Button btnDailyActivity;
+        private System.Windows.Forms.Button btnObjective;
+        private System.Windows.Forms.TextBox txtObjectives;
+        private System.Windows.Forms.Label label2;
     }
 }
 

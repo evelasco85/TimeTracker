@@ -97,6 +97,16 @@
           <Property Name="Category" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SystemUpdateDateTime" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="Objective">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="SystemCreated" Type="datetime" Nullable="false" />
+          <Property Name="SystemUpdated" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="PersonalNote">
           <Key>
             <PropertyRef Name="Id" />
@@ -116,6 +126,7 @@
           <EntitySet Name="Holiday" EntityType="Self.Holiday" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Leave" EntityType="Self.Leave" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LogEntry" EntityType="Self.LogEntry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Objective" EntityType="Self.Objective" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonalNote" EntityType="Self.PersonalNote" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -133,6 +144,7 @@
           <EntitySet Name="PersonalNotes" EntityType="WorklogDBModel.PersonalNote" />
           <EntitySet Name="DayActivities" EntityType="WorklogDBModel.DayActivity" />
           <EntitySet Name="DayAttributes" EntityType="WorklogDBModel.DayAttribute" />
+          <EntitySet Name="Objectives" EntityType="WorklogDBModel.Objective" />
         </EntityContainer>
         <EntityType Name="C__RefactorLog">
           <Key>
@@ -234,6 +246,16 @@
           <Property Name="Link" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="System_Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="SystemUpdateDateTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Objective">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="SystemCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SystemUpdated" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -347,6 +369,17 @@
                 <ScalarProperty Name="Link" ColumnName="Link" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Objectives">
+            <EntityTypeMapping TypeName="WorklogDBModel.Objective">
+              <MappingFragment StoreEntitySet="Objective">
+                <ScalarProperty Name="SystemUpdated" ColumnName="SystemUpdated" />
+                <ScalarProperty Name="SystemCreated" ColumnName="SystemCreated" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

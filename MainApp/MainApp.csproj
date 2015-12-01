@@ -91,6 +91,12 @@
     <Compile Include="frmDailyActivity.Designer.cs">
       <DependentUpon>frmDailyActivity.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmObjectives.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmObjectives.Designer.cs">
+      <DependentUpon>frmObjectives.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmPersonalNotes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -169,6 +175,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDailyActivity.resx">
       <DependentUpon>frmDailyActivity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmObjectives.resx">
+      <DependentUpon>frmObjectives.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPersonalNotes.resx">
       <DependentUpon>frmPersonalNotes.cs</DependentUpon>

@@ -46,6 +46,7 @@
     <Compile Include="IDailyActivityView.cs" />
     <Compile Include="IDailyAttributeView.cs" />
     <Compile Include="IHolidayView.cs" />
+    <Compile Include="IObjectiveView.cs" />
     <Compile Include="ILeaveView.cs" />
     <Compile Include="ILogView.cs" />
     <Compile Include="IPersonalNoteView.cs" />
