@@ -55,7 +55,6 @@ namespace MainApp
             InitializeComponent();
             this.InitializeRequiredData();
             this.View_QueryRecords(null);
-            this.View_GetObjectiveData(DateTime.Now);
             this.RefreshDashboardData();
             this.SetTimer();
             this.StartTimer();
@@ -82,6 +81,7 @@ namespace MainApp
 
             this.dGridLogs.Refresh();
             this.HighlightRecordByDate(lastUpdatedDate);
+            this.View_GetObjectiveData(lastUpdatedDate);
         }
 
         void DecorateGrid()
@@ -244,6 +244,8 @@ namespace MainApp
                             return;
 
                         this._promptingInProgress = true;
+
+                        this.View_GetObjectiveData(createdDate);
 
                         using (frmTaskMonitoringEntry monitoring = new frmTaskMonitoringEntry(
                             this.View_GetCategories()
@@ -729,6 +731,8 @@ namespace MainApp
                 this.Invoke(invokeFromUI);
             else
                 invokeFromUI.Invoke();
+
+            this.RefreshGridData();
         }
 
         private void btnCategory_Click(object sender, EventArgs e)
