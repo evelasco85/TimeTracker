@@ -11,6 +11,7 @@ namespace MainApp
     {
         void SetAutoResizeCells(ref DataGridView dataGrid);
         void SetColumnToDateFormat(DataGridViewColumn column);
+        void SetColumnToDateFormat(DataGridViewColumn column, string format);
         void SetColumnToTimeFormat(DataGridViewColumn column);
         void SetColumnToDayFormat(DataGridViewColumn column);
     }
@@ -71,6 +72,13 @@ namespace MainApp
             };
         }
 
+        public void SetColumnToDateFormat(DataGridViewColumn column, string format)
+        {
+            column.DefaultCellStyle = new DataGridViewCellStyle
+            {
+                Format = format
+            };
+        }
         public void SetColumnToDayFormat(DataGridViewColumn column)
         {
             column.DefaultCellStyle = new DataGridViewCellStyle

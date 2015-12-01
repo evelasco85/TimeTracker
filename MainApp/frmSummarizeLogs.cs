@@ -54,7 +54,7 @@ namespace MainApp
             IDataGridHelper helper = DataGridHelper.GetInstance();
 
             helper.SetAutoResizeCells(ref this.dGridLogs);
-            helper.SetColumnToDateFormat(this.dGridLogs.Columns[SummaryLogsController.CREATED_INDEX]);
+            helper.SetColumnToDateFormat(this.dGridLogs.Columns[SummaryLogsController.CREATED_INDEX], "yyyy-MM-dd");
             helper.SetColumnToDayFormat(this.dGridLogs.Columns[SummaryLogsController.DAY_INDEX]);
 
             this.dGridLogs
