@@ -32,41 +32,30 @@ namespace Domain.Controllers
             IEnumerable<Category> categories = this._repository
                 .GetEntityQuery<Category>()
                 .Where(x => x.ShowInSummary == true);
-            IEnumerable<IGrouping<string, string>> perDateLogs =
+            var perDateAndCategoryLogs =
                 logEntries
                 .Where(x => (categories.Any(category => category.Name.ToLower() == x.Category.ToLower())))
-                .GroupBy(log => log.Created.ToString("yyyy-MM-dd"), log => log.Description);
+                .GroupBy(log => new { Created = log.Created.ToString("yyyy-MM-dd"), Category = log.Category }, log => log.Description);
 
-            var officialLogEntries =
-                perDateLogs
+            var datesWithLogEntriesOfValidCategories =
+                perDateAndCategoryLogs
                 .Select(x => new
                 {
-                    Created = DateTime.Parse(x.Key),
+                    Created = DateTime.Parse(x.Key.Created),
+                    Category = x.Key.Category,
                     Description = string.Join(Environment.NewLine, x.ToList())
                 })
                 .ToList();
 
-            IList<DateTime> allDates = logEntries
+            IList<DateTime> allLogDates = logEntries
                 .Select(x => x.Created)
                 .Distinct()
                 .ToList();
-            IList<DateTime> officialWorkDates = officialLogEntries
+            IList<DateTime> workingDates = datesWithLogEntriesOfValidCategories      //Contains only with valid categories
                 .Select(x => x.Created).ToList();
-            IList<DateTime> unofficialDates = allDates
-                .Where(x => !(officialWorkDates.Any(y => y.Date == x.Date)))
+            IList<DateTime> datesWithoutLogs = allLogDates                          //allLogDates contains logs which includes invalid categories
+                .Where(logDate => !(workingDates.Any(workDate => workDate.Date == logDate.Date)))
                 .ToList();
-
-            Func<DateTime, string> getDescription = (date) =>
-            {
-                return (unofficialDates.Any(x => x.Date == date)) ? "N/A" :
-                    string.Join(Environment.NewLine,
-                    officialLogEntries
-                        .Where(x => x.Created == date)
-                        .Select(x => x.Description)
-                        .ToList()
-                        )
-                    ;
-            };
 
             IQueryable<Leave> leaveQuery = this._repository.GetEntityQuery<Leave>()
                 .Where(x => (x.Date.Month == selectedMonth.Month) && (x.Date.Year == selectedMonth.Year));
@@ -74,19 +63,34 @@ namespace Domain.Controllers
                 .Where(x => (x.Date.Month == selectedMonth.Month) && (x.Date.Year == selectedMonth.Year));
 
 
-
-            var summarizedLogEntries = allDates
-                .Select(x => new
-                {
-                    Created = x,
-                    @Day = x,
-                    Description = getDescription(x)
-                })
+            var preparedLogEntries = allLogDates
+                .Select(x =>
+                     datesWithLogEntriesOfValidCategories
+                            .Where(y => y.Created == x)
+                            .Select(y => 
+                                new {
+                                    Created = x,
+                                    @Day = x,
+                                    Category = y.Category,
+                                    Description =  y.Description
+                                })
+                            .ToList()
+                )
                 .ToList()
                 ;
 
-            summarizedLogEntries.AddRange(leaveQuery.Select(x => new { Created = x.Date, @Day = x.Date, Description = "**LEAVE**   " + x.Description }).ToList());
-            summarizedLogEntries.AddRange(holidayQuery.Select(x => new { Created = x.Date, @Day = x.Date, Description = "**HOLIDAY**   " + x.Description }).ToList());
+            preparedLogEntries.Add(
+                allLogDates
+                    .Where(x => (datesWithoutLogs.Any(z => z.Date == x.Date.Date)))
+                    .Select(x => new { Created = x.Date.Date, @Day = x.Date.Date, Category = "N/A", Description = "N/A" })
+                    .ToList()
+                );
+            preparedLogEntries.Add(leaveQuery.Select(x => new { Created = x.Date, @Day = x.Date, Category = "LEAVE", Description = "**LEAVE**   " + x.Description }).ToList());
+            preparedLogEntries.Add(holidayQuery.Select(x => new { Created = x.Date, @Day = x.Date, Category = "HOLIDAY", Description = "**HOLIDAY**   " + x.Description }).ToList());
+
+            var summarizedLogEntries = preparedLogEntries
+                .SelectMany(x => x)
+                .ToList();
 
             this._summaryView.View_OnGetLogEntriesCompletion(summarizedLogEntries.OrderByDescending(x => x.Created).ToList());
         }
