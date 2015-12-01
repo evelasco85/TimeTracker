@@ -39,6 +39,9 @@
             this.lblDay = new System.Windows.Forms.Label();
             this.btnIncementDayByOne = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.splitter1 = new System.Windows.Forms.Splitter();
+            this.txtObjectives = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblTaskDescription
@@ -147,13 +150,50 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // splitter1
+            // 
+            this.splitter1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.splitter1.Location = new System.Drawing.Point(358, 0);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(322, 372);
+            this.splitter1.TabIndex = 11;
+            this.splitter1.TabStop = false;
+            // 
+            // txtObjectives
+            // 
+            this.txtObjectives.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtObjectives.Location = new System.Drawing.Point(378, 30);
+            this.txtObjectives.Multiline = true;
+            this.txtObjectives.Name = "txtObjectives";
+            this.txtObjectives.ReadOnly = true;
+            this.txtObjectives.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtObjectives.Size = new System.Drawing.Size(290, 330);
+            this.txtObjectives.TabIndex = 34;
+            this.txtObjectives.WordWrap = false;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label2.Location = new System.Drawing.Point(375, 14);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(156, 13);
+            this.label2.TabIndex = 33;
+            this.label2.Text = "Selected Date Objectives:";
+            // 
             // frmTaskMonitoringEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(364, 372);
+            this.ClientSize = new System.Drawing.Size(680, 372);
             this.ControlBox = false;
+            this.Controls.Add(this.txtObjectives);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.splitter1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnIncementDayByOne);
             this.Controls.Add(this.lblDay);
@@ -189,5 +229,8 @@
         private System.Windows.Forms.CheckBox chkRememberSettings;
         private System.Windows.Forms.ComboBox cboCategory;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Splitter splitter1;
+        private System.Windows.Forms.TextBox txtObjectives;
+        private System.Windows.Forms.Label label2;
     }
 }

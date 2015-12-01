@@ -34,12 +34,13 @@ namespace MainApp
             InitializeComponent();
         }
 
-        public frmTaskMonitoringEntry(IEnumerable<string> Categories, bool rememberSetting, DateTime rememberedCreatedDateTime) : this()
+        public frmTaskMonitoringEntry(IEnumerable<string> Categories, bool rememberSetting, DateTime rememberedCreatedDateTime, string objectives) : this()
         {
             this.cboCategory.DataSource =  Categories.ToList();
             this.dateTimeManualEntry.Format = DateTimePickerFormat.Custom;
             this.dateTimeManualEntry.CustomFormat = @"MM'/'dd'/'yyyy hh':'mm tt";
             this._rememberSetting = rememberSetting;
+            this.txtObjectives.Text = objectives;
 
             if (rememberSetting)
             {
@@ -56,8 +57,8 @@ namespace MainApp
             IEnumerable<string> Categories,
             int primaryKey, string category,
             string description, bool rememberSetting,
-            DateTime createdDate, DateTime systemCreatedDate)
-            : this(Categories, rememberSetting, createdDate)
+            DateTime createdDate, DateTime systemCreatedDate, string objectives)
+            : this(Categories, rememberSetting, createdDate, objectives)
         {
             this._logEntry = new LogEntry
             {

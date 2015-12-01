@@ -271,6 +271,7 @@
             this.txtDescription.ReadOnly = true;
             this.txtDescription.Size = new System.Drawing.Size(290, 232);
             this.txtDescription.TabIndex = 17;
+            this.txtDescription.WordWrap = false;
             // 
             // label1
             // 
@@ -414,6 +415,7 @@
             this.txtObjectives.ReadOnly = true;
             this.txtObjectives.Size = new System.Drawing.Size(290, 268);
             this.txtObjectives.TabIndex = 30;
+            this.txtObjectives.WordWrap = false;
             // 
             // label2
             // 
@@ -423,9 +425,9 @@
             this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label2.Location = new System.Drawing.Point(944, 353);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 13);
+            this.label2.Size = new System.Drawing.Size(156, 13);
             this.label2.TabIndex = 29;
-            this.label2.Text = "Objectives:";
+            this.label2.Text = "Selected Date Objectives:";
             // 
             // frmMain
             // 

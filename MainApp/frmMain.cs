@@ -55,6 +55,7 @@ namespace MainApp
             InitializeComponent();
             this.InitializeRequiredData();
             this.View_QueryRecords(null);
+            this.View_GetObjectiveData(DateTime.Now);
             this.RefreshDashboardData();
             this.SetTimer();
             this.StartTimer();
@@ -247,7 +248,9 @@ namespace MainApp
                         using (frmTaskMonitoringEntry monitoring = new frmTaskMonitoringEntry(
                             this.View_GetCategories()
                                 .Select(x => x.Name),
-                            primaryKey, category, description, rememberSetting, createdDate, systemCreatedDate))
+                            primaryKey, category, description, rememberSetting, createdDate, systemCreatedDate,
+                            this.txtObjectives.Text
+                            ))
                         {
                             DialogResult result = monitoring.ShowDialog(this);
 
@@ -291,7 +294,9 @@ namespace MainApp
                     this.View_GetCategories()
                         .Select(x => x.Name),
                     this.View_GetRememberedSetting(),
-                    this.View_GetRememberedDate())
+                    this.View_GetRememberedDate(),
+                    this.txtObjectives.Text
+                    )
                     )
                 {
                     DialogResult result = monitoring.ShowDialog(this);
