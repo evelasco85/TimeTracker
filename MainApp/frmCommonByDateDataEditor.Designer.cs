@@ -145,6 +145,7 @@
             this.recordGrid.Size = new System.Drawing.Size(542, 208);
             this.recordGrid.TabIndex = 6;
             this.recordGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.recordGrid_CellClick);
+            this.recordGrid.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.recordGrid_DataBindingComplete);
             // 
             // lstUniqueDates
             // 

@@ -51,25 +51,15 @@ namespace MainApp
             this.dGridLogs.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             this.dGridLogs.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
-            DataGridViewColumn createdColumn = this.dGridLogs.Columns[SummaryLogsController.CREATED_INDEX];
-            createdColumn.DefaultCellStyle = new DataGridViewCellStyle
-            {
-                Format = "MM/dd/yyyy"
-            };
-            createdColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dGridLogs.AutoResizeColumn(SummaryLogsController.CREATED_INDEX);
+            IDataGridHelper helper = DataGridHelper.GetInstance();
 
-            DataGridViewColumn createdDayColumn = this.dGridLogs.Columns[SummaryLogsController.DAY_INDEX];
-            createdDayColumn.DefaultCellStyle = new DataGridViewCellStyle
-            {
-                Format = "dddd"
-            };
-            createdDayColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dGridLogs.AutoResizeColumn(SummaryLogsController.DAY_INDEX);
+            helper.SetAutoResizeCells(ref this.dGridLogs);
+            helper.SetColumnToDateFormat(this.dGridLogs.Columns[SummaryLogsController.CREATED_INDEX]);
+            helper.SetColumnToTimeFormat(this.dGridLogs.Columns[SummaryLogsController.DAY_INDEX]);
 
-            DataGridViewColumn descriptionColumn = this.dGridLogs.Columns[SummaryLogsController.DESCRIPTION_INDEX];
-            descriptionColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            this.dGridLogs.AutoResizeColumn(SummaryLogsController.DESCRIPTION_INDEX);
+            this.dGridLogs
+                .Columns[SummaryLogsController.DESCRIPTION_INDEX]
+                .AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
 
         private void dGridLogs_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)

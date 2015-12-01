@@ -227,5 +227,12 @@ namespace MainApp
 
             this.SetControlValues(attribute);
         }
+
+        public void DecorateGrid()
+        {
+            IDataGridHelper helper = DataGridHelper.GetInstance();
+
+            helper.SetAutoResizeCells(ref this.recordGrid);
+        }
     }
 }

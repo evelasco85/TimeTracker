@@ -5,7 +5,8 @@
 *Replaced Timer implementation with 'Running Time with event interrupts/triggers'
 	-Added alarms/notifications/reminders
 *Clickable links window
-*Addition Log_Attribute, Reminder
+*Addition Log_Attribute, Reminder, Instructions/SOP
+
 
 [Done]
 *Common/Reusable form for Holiday and Leave entries(generic as opposed with specific form creation)
@@ -17,3 +18,7 @@
 *Added Activity feature
 *Added Daily Activity
 *Added Daily Notes
+*Datagrid changes:
+-Place all datagrids into panels
+-Newline and auto-sizing in cells
+*Textboxes with scrollbars and unwrap-mode

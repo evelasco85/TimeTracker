@@ -82,37 +82,16 @@ namespace MainApp
 
         void DecorateGrid()
         {
-            this.dGridLogs.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            this.dGridLogs.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            IDataGridHelper helper = DataGridHelper.GetInstance();
 
-            DataGridViewColumn createdColumn = this.dGridLogs.Columns[LogEntriesController.CREATED_INDEX];
-            createdColumn.DefaultCellStyle = new DataGridViewCellStyle
-            {
-                Format = "MM/dd/yyyy"
-            };
-            createdColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            helper.SetAutoResizeCells(ref this.dGridLogs);
+            helper.SetColumnToDateFormat(this.dGridLogs.Columns[LogEntriesController.CREATED_INDEX]);
+            helper.SetColumnToTimeFormat(this.dGridLogs.Columns[LogEntriesController.TIME_INDEX]);
+            helper.SetColumnToDayFormat(this.dGridLogs.Columns[LogEntriesController.DAY_INDEX]);
 
-            DataGridViewColumn timeColumn = this.dGridLogs.Columns[LogEntriesController.TIME_INDEX];
-            timeColumn.DefaultCellStyle = new DataGridViewCellStyle
-            {
-                Format = "HH:mm"
-            };
-            timeColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-
-            DataGridViewColumn createdDayColumn = this.dGridLogs.Columns[LogEntriesController.DAY_INDEX];
-            createdDayColumn.DefaultCellStyle = new DataGridViewCellStyle
-            {
-                Format = "dddd"
-            };
-            createdDayColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-
-            DataGridViewColumn descriptionColumn = this.dGridLogs.Columns[LogEntriesController.DESCRIPTION_INDEX];
-            descriptionColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-
-            this.dGridLogs.AutoResizeColumn(LogEntriesController.CREATED_INDEX);
-            this.dGridLogs.AutoResizeColumn(LogEntriesController.TIME_INDEX);
-            this.dGridLogs.AutoResizeColumn(LogEntriesController.DAY_INDEX);
-            this.dGridLogs.AutoResizeColumn(LogEntriesController.DESCRIPTION_INDEX);
+            this.dGridLogs
+                .Columns[LogEntriesController.DESCRIPTION_INDEX]
+                .AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
 
         void HighlightRecordByDate(DateTime recordDate)

@@ -120,6 +120,11 @@ namespace MainApp
         {
             this.WindowInputChanges(ModifierState.Cancel);
         }
+
+        private void recordGrid_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            this._formCommonOperation.DecorateGrid();
+        }
     }
 }
        

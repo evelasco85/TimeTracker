@@ -78,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataGridHelper.cs" />
     <Compile Include="frmActivity.cs">
       <SubType>Form</SubType>
     </Compile>

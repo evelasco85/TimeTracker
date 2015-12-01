@@ -179,6 +179,13 @@ namespace MainApp
         {
             this.WindowInputChanges(ModifierState.Cancel);
         }
+
+        public void DecorateGrid()
+        {
+            IDataGridHelper helper = DataGridHelper.GetInstance();
+
+            helper.SetAutoResizeCells(ref this.dGrid);
+        }
     }
 }
        

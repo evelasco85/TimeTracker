@@ -58,6 +58,7 @@
             this.dGrid.Size = new System.Drawing.Size(568, 473);
             this.dGrid.TabIndex = 2;
             this.dGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGrid_CellClick);
+            this.dGrid.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dGrid_DataBindingComplete);
             // 
             // panel1
             // 

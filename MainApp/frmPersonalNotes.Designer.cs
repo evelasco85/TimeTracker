@@ -85,6 +85,7 @@
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(200, 222);
             this.txtDescription.TabIndex = 19;
+            this.txtDescription.WordWrap = false;
             // 
             // label1
             // 

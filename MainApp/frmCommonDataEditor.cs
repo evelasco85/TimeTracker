@@ -14,6 +14,7 @@ namespace MainApp
         void UpdateWindow(int rowIndex);
         void EnableInputWindow(bool enable);
         void ResetInputWindow();
+        void DecorateGrid();
     }
 
     public partial class frmCommonDataEditor : Form 
@@ -110,6 +111,11 @@ namespace MainApp
         private void frmCommonDataEditor_Load(object sender, EventArgs e)
         {
             this.WindowInputChanges(ModifierState.Cancel);
+        }
+
+        private void dGrid_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            this._formCommonOperation.DecorateGrid();
         }
     }
 }

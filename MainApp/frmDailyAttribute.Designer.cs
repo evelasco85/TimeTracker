@@ -112,6 +112,7 @@
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(594, 84);
             this.txtDescription.TabIndex = 20;
+            this.txtDescription.WordWrap = false;
             // 
             // label3
             // 
@@ -174,6 +175,8 @@
             this.Controls.Add(this.label2);
             this.Name = "frmDailyAttribute";
             this.Text = "Daily Attributes";
+            this.Controls.SetChildIndex(this.lstUniqueDates, 0);
+            this.Controls.SetChildIndex(this.lblSummedDailyActivityHours, 0);
             this.Controls.SetChildIndex(this.pnlRecordGrid, 0);
             this.Controls.SetChildIndex(this.panel1, 0);
             this.Controls.SetChildIndex(this.label1, 0);

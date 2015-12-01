@@ -267,5 +267,12 @@ namespace MainApp
         {
             this.View_GetDatesForCurrentPeriod(this.periodPicker.Value.Date);
         }
+
+        public void DecorateGrid()
+        {
+            IDataGridHelper helper = DataGridHelper.GetInstance();
+
+            helper.SetAutoResizeCells(ref this.recordGrid);
+        }
     }
 }
