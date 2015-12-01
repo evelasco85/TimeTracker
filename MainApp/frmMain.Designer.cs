@@ -348,6 +348,7 @@
             // btnDailyAttribute
             // 
             this.btnDailyAttribute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDailyAttribute.Enabled = false;
             this.btnDailyAttribute.Location = new System.Drawing.Point(197, 600);
             this.btnDailyAttribute.Name = "btnDailyAttribute";
             this.btnDailyAttribute.Size = new System.Drawing.Size(151, 30);

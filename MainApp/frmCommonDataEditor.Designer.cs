@@ -55,7 +55,7 @@
             this.dGrid.RowTemplate.ReadOnly = true;
             this.dGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dGrid.Size = new System.Drawing.Size(568, 473);
+            this.dGrid.Size = new System.Drawing.Size(1094, 636);
             this.dGrid.TabIndex = 2;
             this.dGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGrid_CellClick);
             this.dGrid.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dGrid_DataBindingComplete);
@@ -121,7 +121,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(823, 474);
+            this.ClientSize = new System.Drawing.Size(1349, 637);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dGrid);
             this.Name = "frmCommonDataEditor";

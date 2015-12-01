@@ -5,7 +5,7 @@
 *Replaced Timer implementation with 'Running Time with event interrupts/triggers'
 	-Added alarms/notifications/reminders
 *Clickable links window
-*Addition Log_Attribute, Reminder, Instructions/SOP
+*Addition Daily Attribute, Reminder, Instructions/SOP
 
 
 [Done]
