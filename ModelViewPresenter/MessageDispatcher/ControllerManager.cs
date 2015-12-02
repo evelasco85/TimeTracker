@@ -5,11 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModelViewPresenter.FrontBase
+namespace ModelViewPresenter.MessageDispatcher
 {
     public interface IControllerManager
     {
+        void RegisterController(IController controller);
         IController GetControllerFromId(int id);
+        void RemoveController(IController controller);
     }
 
     public class ControllerManager : IControllerManager
@@ -36,7 +38,7 @@ namespace ModelViewPresenter.FrontBase
             this._controllerMap.Add(controller.ID, controller);
         }
 
-        public object GetControllerFromId(int id)
+        public IController GetControllerFromId(int id)
         {
             return this._controllerMap[id];
         }

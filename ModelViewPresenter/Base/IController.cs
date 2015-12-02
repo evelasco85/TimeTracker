@@ -1,5 +1,5 @@
 ﻿using Domain.Views;
-using ModelViewPresenter.FrontBase;
+using ModelViewPresenter.MessageDispatcher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +7,6 @@ using System.Threading.Tasks;
 
 namespace Domain.Controllers
 {
-    public interface IController
-    {
-        int ID { get; set; }
-        bool HandleRequest(Telegram telegram);
-    }
-
     public interface IController<TModel> : IController
     {
         IView<TModel> View { get; set; }

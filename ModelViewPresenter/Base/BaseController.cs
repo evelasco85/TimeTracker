@@ -13,6 +13,8 @@ namespace Domain.Controllers
         protected IView<TEntity> _view;
         protected IEFRepository _repository;
 
+        public abstract int ID { get; set; }
+
         public IView<TEntity> View
         {
             get { return this._view; }
@@ -21,10 +23,10 @@ namespace Domain.Controllers
 
         public BaseController(IEFRepository repository, IView<TEntity> view)
         {
-            this.Map(repository, view);
+            this.BaseMap(repository, view);
         }
 
-        void Map(IEFRepository repository, IView<TEntity> view)
+        void BaseMap(IEFRepository repository, IView<TEntity> view)
         {
             this._view = view;
             this._view.View_QueryRecords = GetData;

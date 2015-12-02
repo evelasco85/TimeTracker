@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModelViewPresenter.FrontBase
+namespace ModelViewPresenter.MessageDispatcher
 {
     public class Telegram
     {
