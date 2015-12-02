@@ -41,6 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivityController.cs" />
+    <Compile Include="FrontBase\ControllerManager.cs" />
+    <Compile Include="FrontBase\FrontCommand.cs" />
+    <Compile Include="FrontBase\FrontController.cs" />
     <Compile Include="DailyActivityController.cs" />
     <Compile Include="ObjectiveController.cs" />
     <Compile Include="PersonalNoteController.cs" />

@@ -28,15 +28,19 @@ namespace Domain.Helpers
     public class DateHelper : IDateHelper
     {
         static IDateHelper _instance;
+        static readonly object _threadsafeLock = new object();
 
         private DateHelper() { }
 
         public static IDateHelper GetInstance()
         {
-            if (_instance == null)
-                _instance = new DateHelper();
+            lock (_threadsafeLock)
+            {
+                if (_instance == null)
+                    _instance = new DateHelper();
 
-            return _instance;
+                return _instance;
+            }
         }
 
         public bool DateEquivalent(DateTime date1, DateTime date2)
