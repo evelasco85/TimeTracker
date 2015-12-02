@@ -64,7 +64,7 @@ namespace MainApp
         {
             this.tryIcon.BalloonTipIcon = ToolTipIcon.Info;
             this.tryIcon.Icon = Resource1.MSN;
-            this.dateTimeMonth.CustomFormat = "MMMM";
+            this.dateTimeMonth.CustomFormat = "MMMM/yyyy";
         }
 
         void RefreshGridData()
