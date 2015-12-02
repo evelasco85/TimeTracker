@@ -23,19 +23,21 @@ namespace MainApp
         public IEnumerable<Domain.Attribute> View_QueryResults { get; set; }
         public Action<IEnumerable<Domain.Attribute>> View_GetAttributeData { get; set; }
         public Action<dynamic, DateTime> View_OnGetAttributeDataCompletion { get; set; }
+        public Action<object> View_ViewReady { get; set; }
+        public Action<object> View_OnViewReady { get; set; }
 
-        public frmAttribute(IEFRepository repository)
+        public frmAttribute()
         {
             InitializeComponent();
-
-            Action RegisterController = () => new AttributeController(repository, this);
-
-            RegisterController();
             this.RegisterCommonOperation(this);
 
             this.View_OnQueryRecordsCompletion = this.RefreshGridData;
             this.View_OnGetAttributeDataCompletion = this.UpdateCategoryData;
+            this.View_OnViewReady = OnViewReady;
+        }
 
+        void OnViewReady(object data)
+        {
             this.View_QueryRecords(null);
         }
 

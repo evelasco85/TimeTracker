@@ -34,8 +34,6 @@ namespace Domain.Controllers
             this._helper = DateHelper.GetInstance();
             this._leaveView = view;
             this._leaveView.View_GetLeaveData = this.GetLeaveData;
-
-            this._manager.RegisterController(this);
         }
 
         void GetLeaveData(IEnumerable<Leave> leaves)

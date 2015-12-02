@@ -23,19 +23,22 @@ namespace MainApp
         public IEnumerable<Activity> View_QueryResults { get; set; }
         public Action<IEnumerable<Activity>> View_GetActivityData { get; set; }
         public Action<dynamic, DateTime> View_OnGetActivityDataCompletion { get; set; }
+        public Action<object> View_ViewReady { get; set; }
+        public Action<object> View_OnViewReady { get; set; }
 
-        public frmActivity(IEFRepository repository)
+
+        public frmActivity()
         {
             InitializeComponent();
-
-            Action RegisterController = () => new ActivityController(repository, this);
-
-            RegisterController();
             this.RegisterCommonOperation(this);
 
             this.View_OnQueryRecordsCompletion = this.RefreshGridData;
             this.View_OnGetActivityDataCompletion = this.UpdateCategoryData;
+            this.View_OnViewReady = OnViewReady;
+        }
 
+        void OnViewReady(object data)
+        {
             this.View_QueryRecords(null);
         }
 

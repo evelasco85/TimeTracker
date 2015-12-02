@@ -20,17 +20,23 @@ namespace MainApp
         public IEnumerable<LogEntry> View_QueryResults { get; set; }
         public Action<IEnumerable<LogEntry>, DateTime> View_GetLogEntries { get; set; }
         public Action<dynamic> View_OnGetLogEntriesCompletion { get; set; }
+        public Action<object> View_ViewReady { get; set; }
+        public Action<object> View_OnViewReady { get; set; }
 
-        public frmSummarizeLogs(IEFRepository repository, DateTime selectedMonth)
+        public frmSummarizeLogs()
         {
-            Action RegisterController = () => new SummaryLogsController(repository, this);
-
-            RegisterController();
-
-            this.View_OnQueryRecordsCompletion = () => DisplayLogEntries(selectedMonth);
             this.View_OnGetLogEntriesCompletion = this.UpdateSummaryLogs;
+            this.View_OnViewReady = OnViewReady;
             
             InitializeComponent();
+        }
+
+        void OnViewReady(object data)
+        {
+             DateTime selectedMonth =(DateTime) data.GetType().GetProperty("selectedMonth").GetValue(data, null);
+
+            this.View_OnQueryRecordsCompletion = () => DisplayLogEntries(selectedMonth);
+
             this.View_QueryRecords(null);
         }
 

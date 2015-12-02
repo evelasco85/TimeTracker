@@ -8,6 +8,7 @@ using Domain.Infrastructure;
 using Domain.Helpers;
 using Domain.Controllers;
 using Domain.Views;
+using ModelViewPresenter.MessageDispatcher;
 
 namespace MainApp
 {
@@ -17,7 +18,7 @@ namespace MainApp
         bool _promptingInProgress = false;
         int _secondsRemaining;
 
-        IEFRepository _repository;
+        IControllerManager _manager;
 
         public Action<Func<LogEntry, bool>> View_QueryRecords { get; set; }
         public Action View_OnQueryRecordsCompletion { get; set; }
@@ -36,28 +37,30 @@ namespace MainApp
         public Func<IEnumerable<Category>> View_GetCategories { get; set; }
         public Action<DateTime> View_GetObjectiveData { get; set; }
         public Action<string> View_OnGetObjectiveDataCompletion { get; set; }
+        public Action<object> View_ViewReady { get; set; }
+        public Action<object> View_OnViewReady { get; set; }
 
-        public frmMain(IEFRepository repository)
+        public frmMain()
         {
-            Action RegisterController = () =>
-                {
-                   LogEntriesController controller =new LogEntriesController(repository, this);
-                };
+            this._manager = ControllerManager.GetInstance();
 
-            RegisterController();
-
-            this._repository = repository;
             this.View_OnQueryRecordsCompletion = this.RefreshGridData;
             this.View_OnGetLogStatisticsCompletion = this.UpdateDashboard;
             this.View_OnGetCalendarDataCompletion = this.UpdateCalendarData;
             this.View_OnGetObjectiveDataCompletion = this.UpdateObjectiveData;
+            this.View_OnViewReady = OnViewReady;
 
             InitializeComponent();
             this.InitializeRequiredData();
-            this.View_QueryRecords(null);
-            this.RefreshDashboardData();
+            this.View_ViewReady(null);
             this.SetTimer();
             this.StartTimer();
+        }
+
+        void OnViewReady(object data)
+        {
+            this.View_QueryRecords(null);
+            this.RefreshDashboardData();
         }
 
         void InitializeRequiredData()

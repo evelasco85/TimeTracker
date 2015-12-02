@@ -18,19 +18,21 @@ namespace MainApp
         public IEnumerable<Category> View_QueryResults { get; set; }
         public Action<IEnumerable<Category>> View_GetCategoryData { get; set; }
         public Action<dynamic, DateTime> View_OnGetCategoryDataCompletion { get; set; }
+        public Action<object> View_ViewReady { get; set; }
+        public Action<object> View_OnViewReady { get; set; }
 
-        public frmCategory(IEFRepository repository)
+        public frmCategory()
         {
             InitializeComponent();
-
-            Action RegisterController = () => new CategoryController(repository, this);
-
-            RegisterController();
             this.RegisterCommonOperation(this);
 
             this.View_OnQueryRecordsCompletion = this.RefreshGridData;
             this.View_OnGetCategoryDataCompletion = this.UpdateCategoryData;
+            this.View_OnViewReady = OnViewReady;
+        }
 
+        void OnViewReady(object data)
+        {
             this.View_QueryRecords(null);
         }
 

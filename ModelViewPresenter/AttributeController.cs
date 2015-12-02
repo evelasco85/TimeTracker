@@ -33,8 +33,6 @@ namespace Domain.Controllers
             this._helper = DateHelper.GetInstance();
             this._view = view;
             this._view.View_GetAttributeData = this.GetAttributeData;
-
-            this._manager.RegisterController(this);
         }
 
         void GetAttributeData(IEnumerable<Domain.Attribute> attributes)

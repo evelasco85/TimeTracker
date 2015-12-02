@@ -25,21 +25,24 @@ namespace MainApp
         public Action<IEnumerable<Domain.Attribute>> View_OnGetPresetAttributeDataCompletion { get; set; }
         public Action<IEnumerable<DayAttribute>> View_GetDailyAttributeData { get; set; }
         public Action<dynamic, DateTime> View_OnGetDailyAttributeDataCompletion { get; set; }
+        public Action<object> View_ViewReady { get; set; }
+        public Action<object> View_OnViewReady { get; set; }
 
         IEnumerable<Domain.Attribute> _presetAttributes;
 
-        public frmDailyAttribute(IEFRepository repository) : base()
+        public frmDailyAttribute() : base()
         {
             InitializeComponent();
-            Action RegisterController = () => new DailyAttributeController(repository, this);
-
-            RegisterController();
             this.RegisterCommonOperation(this);
 
             this.View_OnQueryRecordsCompletion = this.RefreshGridData;
             this.View_OnGetPresetAttributeDataCompletion = this.PopulateAttributePresets;
             this.View_OnGetDailyAttributeDataCompletion = this.UpdateDailyAttributeData;
+            this.View_OnViewReady = OnViewReady;
+        }
 
+        void OnViewReady(object data)
+        {
             this.View_QueryRecords(null);
             this.View_GetPresetAttributeData();
         }

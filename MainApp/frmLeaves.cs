@@ -21,19 +21,22 @@ namespace MainApp
         public IEnumerable<Leave> View_QueryResults { get; set; }
         public Action<IEnumerable<Leave>> View_GetLeaveData { get; set; }
         public Action<dynamic, DateTime> View_OnGetLeaveDataCompletion { get; set; }
+        public Action<object> View_ViewReady { get; set; }
+        public Action<object> View_OnViewReady { get; set; }
 
-        public frmLeaves(IEFRepository repository)
+        public frmLeaves()
         {
-            Action RegisterController = () => new LeaveController(repository, this);
-
-            RegisterController();
             this.RegisterCommonOperation(this);
 
             this.View_OnQueryRecordsCompletion = RefreshGridData;
             this.View_OnGetLeaveDataCompletion = UpdateLeaveData;
+            this.View_OnViewReady = OnViewReady;
 
             InitializeComponent();
+        }
 
+        void OnViewReady(object data)
+        {
             this.leaveDate.Value = DateTime.Now;
 
             this.View_QueryRecords(null);

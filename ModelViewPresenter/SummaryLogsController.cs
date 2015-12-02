@@ -32,8 +32,6 @@ namespace Domain.Controllers
             this._helper = DateHelper.GetInstance();
             this._summaryView = view;
             this._summaryView.View_GetLogEntries = this.GetLogEntries;
-
-            this._manager.RegisterController(this);
         }
         
         void GetLogEntries(IEnumerable<LogEntry> logs, DateTime selectedMonth)

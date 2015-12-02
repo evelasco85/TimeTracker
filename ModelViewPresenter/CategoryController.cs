@@ -35,8 +35,6 @@ namespace Domain.Controllers
             this._helper = DateHelper.GetInstance();
             this._categoryView = view;
             this._categoryView.View_GetCategoryData = this.GetCategoryData;
-
-            this._manager.RegisterController(this);
         }
 
         void GetCategoryData(IEnumerable<Category> categories)

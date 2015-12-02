@@ -27,23 +27,26 @@ namespace MainApp
         public Action<dynamic, DateTime> View_OnGetDailyActivityDataCompletion { get; set; }
         public Action<DateTime> View_GetDatesForCurrentPeriod { get; set; }
         public Action<IEnumerable<DateTime>> View_OnGetDatesForCurrentPeriodCompletion { get; set; }
+        public Action<object> View_ViewReady { get; set; }
+        public Action<object> View_OnViewReady { get; set; }
 
         IEnumerable<Activity> _presetdActivity;
 
-        public frmDailyActivity(IEFRepository repository)
+        public frmDailyActivity()
             : base()
         {
             InitializeComponent();
-            Action RegisterController = () => new DailyActivityController(repository, this);
-
-            RegisterController();
             this.RegisterCommonOperation(this);
 
             this.View_OnQueryRecordsCompletion = this.RefreshGridData;
             this.View_OnGetPresetActivityDataCompletion = this.PopulateActivityPresets;
             this.View_OnGetDailyActivityDataCompletion = this.UpdateDailyActivityData;
             this.View_OnGetDatesForCurrentPeriodCompletion = this.PopulateUniqueDates;
+            this.View_OnViewReady = OnViewReady;
+        }
 
+        void OnViewReady(object data)
+        {
             this.View_QueryRecords(null);
             this.View_GetPresetActivityData();
             this.View_GetDatesForCurrentPeriod(this.periodPicker.Value.Date);

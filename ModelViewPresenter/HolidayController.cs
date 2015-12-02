@@ -34,8 +34,6 @@ namespace Domain.Controllers
             this._helper = DateHelper.GetInstance();
             this._holidayView = view;
             this._holidayView.View_GetHolidayData = this.GetHolidayData;
-
-            this._manager.RegisterController(this);
         }
         void GetHolidayData(IEnumerable<Holiday> holidays)
         {

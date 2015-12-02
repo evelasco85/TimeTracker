@@ -18,19 +18,22 @@ namespace MainApp
         public IEnumerable<PersonalNote> View_QueryResults { get; set; }
         public Action<IEnumerable<PersonalNote>> View_GetPersonalNotes { get; set; }
         public Action<dynamic, DateTime> View_OnGetPersonalNotesCompletion { get; set; }
+        public Action<object> View_ViewReady { get; set; }
+        public Action<object> View_OnViewReady { get; set; }
 
-        public frmPersonalNotes(IEFRepository repository)
+        public frmPersonalNotes()
         {
             InitializeComponent();
 
-            Action RegisterController = () => new PersonalNoteController(repository, this);
-
-            RegisterController();
             this.RegisterCommonOperation(this);
 
             this.View_OnQueryRecordsCompletion = this.RefreshGridData;
             this.View_OnGetPersonalNotesCompletion = this.UpdateCategoryData;
+            this.View_OnViewReady = OnViewReady;
+        }
 
+        void OnViewReady(object data)
+        {
             this.View_QueryRecords(null);
         }
 

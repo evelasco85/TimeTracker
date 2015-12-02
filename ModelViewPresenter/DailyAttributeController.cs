@@ -37,8 +37,6 @@ namespace Domain.Controllers
             this._dayAttributeView = view;
             this._dayAttributeView.View_GetPresetAttributeData = GetPresetAttributeData;
             this._dayAttributeView.View_GetDailyAttributeData = GetDailyAttributeData;
-
-            this._manager.RegisterController(this);
         }
 
         void GetDailyAttributeData(IEnumerable<DayAttribute> dailyAttribute)

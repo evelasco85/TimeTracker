@@ -53,8 +53,6 @@ namespace Domain.Controllers
             this._logView.View_GetRememberedDate = this.GetRememberedDate;
             this._logView.View_SetRememberedDate = this.SetRememberedDate;
             this._logView.View_GetObjectiveData = this.GetObjectiveData;
-
-            this._manager.RegisterController(this);
         }
 
         IEnumerable<Category> GetCategories()

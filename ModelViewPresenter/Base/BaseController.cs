@@ -13,7 +13,6 @@ namespace Domain.Controllers
     {
         protected IView<TEntity> _view;
         protected IEFRepository _repository;
-        protected IControllerManager _manager;
 
         public abstract int ID { get; }
 
@@ -25,8 +24,6 @@ namespace Domain.Controllers
 
         public BaseController(IEFRepository repository, IView<TEntity> view)
         {
-            this._manager = ControllerManager.GetInstance();
-
             this.BaseMap(repository, view);
         }
 

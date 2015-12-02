@@ -21,19 +21,22 @@ namespace MainApp
         public IEnumerable<Objective> View_QueryResults { get; set; }
         public Action<IEnumerable<Objective>> View_GetObjectiveData { get; set; }
         public Action<dynamic, DateTime> View_OnGetObjectiveDataCompletion { get; set; }
+        public Action<object> View_ViewReady { get; set; }
+        public Action<object> View_OnViewReady { get; set; }
 
-        public frmObjectives(IEFRepository repository)
+        public frmObjectives()
         {
-            Action RegisterController = () => new ObjectiveController(repository, this);
-
-            RegisterController();
             this.RegisterCommonOperation(this);
 
             this.View_OnQueryRecordsCompletion = RefreshGridData;
             this.View_OnGetObjectiveDataCompletion = UpdateObjectiveData;
+            this.View_OnViewReady = OnViewReady;
 
             InitializeComponent();
+        }
 
+        void OnViewReady(object data)
+        {
             this.objectiveDate.Value = DateTime.Now;
 
             this.View_QueryRecords(null);

@@ -19,18 +19,21 @@ namespace MainApp
         public IEnumerable<Holiday> View_QueryResults { get; set; }
         public Action<IEnumerable<Holiday>> View_GetHolidayData { get; set; }
         public Action<dynamic, DateTime> View_OnGetHolidayDataCompletion { get; set; }
+        public Action<object> View_ViewReady { get; set; }
+        public Action<object> View_OnViewReady { get; set; }
 
-        public frmHolidays(IEFRepository repository)
+        public frmHolidays()
         {
             InitializeComponent();
-
-            Action RegisterController = () => new HolidayController(repository, this);
-
-            RegisterController();
             this.RegisterCommonOperation(this);
 
             this.View_OnQueryRecordsCompletion = this.RefreshGridData;
             this.View_OnGetHolidayDataCompletion = this.UpdateHolidayData;
+            this.View_OnViewReady = OnViewReady;
+        }
+
+        void OnViewReady(object data)
+        {
             this.holidayDate.Value = DateTime.Now;
 
             this.View_QueryRecords(null);

@@ -36,8 +36,6 @@ namespace Domain.Controllers
             this._helper = DateHelper.GetInstance();
             this._view = view;
             this._view.View_GetActivityData = this.GetActivityData;
-
-            this._manager.RegisterController(this);
         }
 
         void GetActivityData(IEnumerable<Activity> attributes)

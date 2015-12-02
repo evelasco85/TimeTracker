@@ -34,8 +34,6 @@ namespace Domain.Controllers
             this._helper = DateHelper.GetInstance();
             this._view = view;
             this._view.View_GetPersonalNotes = this.GetPersonalNoteData;
-
-            this._manager.RegisterController(this);
         }
 
         void GetPersonalNoteData(IEnumerable<PersonalNote> attributes)

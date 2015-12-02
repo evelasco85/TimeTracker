@@ -34,8 +34,6 @@ namespace Domain.Controllers
             this._helper = DateHelper.GetInstance();
             this._objectiveView = view;
             this._objectiveView.View_GetObjectiveData = this.GetObjectiveData;
-
-            this._manager.RegisterController(this);
         }
 
         void GetObjectiveData(IEnumerable<Objective> objectives)
