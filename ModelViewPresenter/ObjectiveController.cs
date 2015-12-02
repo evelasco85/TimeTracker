@@ -11,6 +11,9 @@ namespace Domain.Controllers
 {
     public class ObjectiveController : BaseController<Objective>
     {
+        public const int cID = 8;
+        public override int ID { get { return cID; } }
+
         public const int ID_INDEX = 0;
         public const int DATE_INDEX = 1;
         public const int DESCRIPTION_INDEX = 2;
@@ -20,12 +23,19 @@ namespace Domain.Controllers
         IObjectiveView _objectiveView;
         IDateHelper _helper;
 
+        public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
+        {
+            throw new NotImplementedException();
+        }
+
         public ObjectiveController(IEFRepository repository, IObjectiveView view)
             : base(repository, view)
         {
             this._helper = DateHelper.GetInstance();
             this._objectiveView = view;
             this._objectiveView.View_GetObjectiveData = this.GetObjectiveData;
+
+            this._manager.RegisterController(this);
         }
 
         void GetObjectiveData(IEnumerable<Objective> objectives)

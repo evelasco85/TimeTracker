@@ -12,6 +12,9 @@ namespace Domain.Controllers
 {
     public class DailyActivityController : BaseController<DayActivity>
     {
+        public const int cID = 256;
+        public override int ID { get { return cID; } }
+
         public const int ID_INDEX = 0;
         public const int DATE_INDEX = 1;
         public const int NAME_INDEX = 2;
@@ -23,6 +26,11 @@ namespace Domain.Controllers
         IDailyActivityView _dayActivityView;
         IDateHelper _helper;
 
+        public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
+        {
+            throw new NotImplementedException();
+        }
+
         public DailyActivityController(IEFRepository repository, IDailyActivityView view)
             : base(repository, view)
         {
@@ -31,6 +39,8 @@ namespace Domain.Controllers
             this._dayActivityView.View_GetPresetActivityData = GetPresetActivityData;
             this._dayActivityView.View_GetDailyActivityData = GetDailyActivityData;
             this._dayActivityView.View_GetDatesForCurrentPeriod = GetDatesForCurrentPeriod;
+
+            this._manager.RegisterController(this);
         }
 
         void GetDatesForCurrentPeriod(DateTime selectedMonth)

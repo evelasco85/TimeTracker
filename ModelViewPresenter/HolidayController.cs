@@ -11,6 +11,9 @@ namespace Domain.Controllers
 {
     public class HolidayController : BaseController<Holiday>
     {
+        public const int cID = 64;
+        public override int ID { get { return cID; } }
+
         public const int ID_INDEX = 0;
         public const int DATE_INDEX = 1;
         public const int DESCRIPTION_INDEX = 2;
@@ -20,12 +23,19 @@ namespace Domain.Controllers
         IHolidayView _holidayView;
         IDateHelper _helper;
 
+        public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
+        {
+            throw new NotImplementedException();
+        }
+
         public HolidayController(IEFRepository repository, IHolidayView view)
             : base(repository, view)
         {
             this._helper = DateHelper.GetInstance();
             this._holidayView = view;
             this._holidayView.View_GetHolidayData = this.GetHolidayData;
+
+            this._manager.RegisterController(this);
         }
         void GetHolidayData(IEnumerable<Holiday> holidays)
         {

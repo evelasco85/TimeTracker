@@ -11,6 +11,9 @@ namespace Domain.Controllers
 {
     public class LeaveController : BaseController<Leave>
     {
+        public const int cID = 32;
+        public override int ID { get { return cID; } }
+
         public const int ID_INDEX = 0;
         public const int DATE_INDEX = 1;
         public const int DESCRIPTION_INDEX = 2;
@@ -20,12 +23,19 @@ namespace Domain.Controllers
         ILeaveView _leaveView;
         IDateHelper _helper;
 
+        public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
+        {
+            throw new NotImplementedException();
+        }
+
         public LeaveController(IEFRepository repository, ILeaveView view)
             : base(repository, view)
         {
             this._helper = DateHelper.GetInstance();
             this._leaveView = view;
             this._leaveView.View_GetLeaveData = this.GetLeaveData;
+
+            this._manager.RegisterController(this);
         }
 
         void GetLeaveData(IEnumerable<Leave> leaves)

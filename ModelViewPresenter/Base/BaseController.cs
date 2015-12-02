@@ -1,5 +1,6 @@
 ﻿using Domain.Infrastructure;
 using Domain.Views;
+using ModelViewPresenter.MessageDispatcher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,9 @@ namespace Domain.Controllers
     {
         protected IView<TEntity> _view;
         protected IEFRepository _repository;
+        protected IControllerManager _manager;
 
-        public abstract int ID { get; set; }
+        public abstract int ID { get; }
 
         public IView<TEntity> View
         {
@@ -23,6 +25,8 @@ namespace Domain.Controllers
 
         public BaseController(IEFRepository repository, IView<TEntity> view)
         {
+            this._manager = ControllerManager.GetInstance();
+
             this.BaseMap(repository, view);
         }
 
@@ -38,5 +42,6 @@ namespace Domain.Controllers
         public abstract void GetData(Func<TEntity, bool> criteria);
         public abstract void SaveData(TEntity data);
         public abstract void DeleteData(Func<TEntity, bool> criteria);
+        public abstract bool HandleRequest(Telegram telegram);
     }
 }

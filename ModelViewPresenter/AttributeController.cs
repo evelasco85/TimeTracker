@@ -11,6 +11,8 @@ namespace Domain.Controllers
 {
     public class AttributeController : BaseController<Domain.Attribute>
     {
+        public const int cID = 1024;
+        public override int ID { get { return cID; } }
         public const int ID_INDEX = 0;
         public const int NAME_INDEX = 1;
         public const int DESCRIPTION_INDEX = 2;
@@ -20,6 +22,10 @@ namespace Domain.Controllers
 
         IAttributeView _view;
         IDateHelper _helper;
+        public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
+        {
+            throw new NotImplementedException();
+        }
 
         public AttributeController(IEFRepository repository, IAttributeView view)
             : base(repository, view)
@@ -27,6 +33,8 @@ namespace Domain.Controllers
             this._helper = DateHelper.GetInstance();
             this._view = view;
             this._view.View_GetAttributeData = this.GetAttributeData;
+
+            this._manager.RegisterController(this);
         }
 
         void GetAttributeData(IEnumerable<Domain.Attribute> attributes)

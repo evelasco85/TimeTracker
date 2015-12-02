@@ -7,15 +7,6 @@ using System.Threading.Tasks;
 
 namespace ModelViewPresenter.MessageDispatcher
 {
-    public class Telegram
-    {
-        public int sender;
-        public int receiver;
-       public dynamic data;
-
-       public Telegram(int sender, int receiver, dynamic data) { }
-    }
-
     public interface IRequestDispatcher
     {
         void Dispatch(int sender, int receiver, object data);

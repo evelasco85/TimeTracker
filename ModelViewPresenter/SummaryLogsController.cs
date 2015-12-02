@@ -11,6 +11,9 @@ namespace Domain.Controllers
 {
     public class SummaryLogsController : BaseController<LogEntry>
     {
+        public const int cID = 2;
+        public override int ID { get { return cID; } }
+
         public const int CREATED_INDEX = 0;
         public const int DAY_INDEX = 1;
         public const int DESCRIPTION_INDEX = 2;
@@ -18,12 +21,19 @@ namespace Domain.Controllers
         ISummaryLogsView _summaryView;
         IDateHelper _helper;
 
+        public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
+        {
+            throw new NotImplementedException();
+        }
+
         public SummaryLogsController(IEFRepository repository, ISummaryLogsView view)
             : base(repository, view)
         {
             this._helper = DateHelper.GetInstance();
             this._summaryView = view;
             this._summaryView.View_GetLogEntries = this.GetLogEntries;
+
+            this._manager.RegisterController(this);
         }
         
         void GetLogEntries(IEnumerable<LogEntry> logs, DateTime selectedMonth)

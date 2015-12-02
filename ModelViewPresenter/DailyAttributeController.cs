@@ -12,6 +12,9 @@ namespace Domain.Controllers
 {
     public class DailyAttributeController : BaseController<DayAttribute>
     {
+        public const int cID = 128;
+        public override int ID { get { return cID; } }
+
         public const int ID_INDEX = 0;
         public const int DATE_INDEX = 1;
         public const int DESCRIPTION_INDEX = 2;
@@ -22,6 +25,11 @@ namespace Domain.Controllers
         IDailyAttributeView _dayAttributeView;
         IDateHelper _helper;
 
+        public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
+        {
+            throw new NotImplementedException();
+        }
+
         public DailyAttributeController(IEFRepository repository, IDailyAttributeView view)
             : base(repository, view)
         {
@@ -29,6 +37,8 @@ namespace Domain.Controllers
             this._dayAttributeView = view;
             this._dayAttributeView.View_GetPresetAttributeData = GetPresetAttributeData;
             this._dayAttributeView.View_GetDailyAttributeData = GetDailyAttributeData;
+
+            this._manager.RegisterController(this);
         }
 
         void GetDailyAttributeData(IEnumerable<DayAttribute> dailyAttribute)

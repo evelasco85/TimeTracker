@@ -13,6 +13,9 @@ namespace Domain.Controllers
 {
     public class LogEntriesController : BaseController<LogEntry>
     {
+        public const int cID = 16;
+        public override int ID { get { return cID; } }
+
         public const int ID_INDEX = 0;
         public const int CREATED_INDEX = 1;
         public const int TIME_INDEX = 2;
@@ -32,6 +35,11 @@ namespace Domain.Controllers
         bool _rememberSetting = true;
         DateTime _rememberedCreatedDateTime;
 
+        public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
+        {
+            throw new NotImplementedException();
+        }
+
         public LogEntriesController(IEFRepository repository, ILogView view)
             : base(repository, view)
         {
@@ -45,6 +53,8 @@ namespace Domain.Controllers
             this._logView.View_GetRememberedDate = this.GetRememberedDate;
             this._logView.View_SetRememberedDate = this.SetRememberedDate;
             this._logView.View_GetObjectiveData = this.GetObjectiveData;
+
+            this._manager.RegisterController(this);
         }
 
         IEnumerable<Category> GetCategories()

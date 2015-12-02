@@ -45,6 +45,7 @@
     <Compile Include="DailyActivityController.cs" />
     <Compile Include="MessageDispatcher\IController.cs" />
     <Compile Include="MessageDispatcher\RequestDispatcher.cs" />
+    <Compile Include="MessageDispatcher\Telegram.cs" />
     <Compile Include="MessageDispatcher\UnknownController.cs" />
     <Compile Include="ObjectiveController.cs" />
     <Compile Include="PersonalNoteController.cs" />

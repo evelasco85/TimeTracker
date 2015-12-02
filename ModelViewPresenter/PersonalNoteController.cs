@@ -12,6 +12,9 @@ namespace Domain.Controllers
 {
     public class PersonalNoteController : BaseController<PersonalNote>
     {
+        public const int cID = 4;
+        public override int ID { get { return cID; } }
+
         public const int ID_INDEX = 0;
         public const int DESCRIPTION_INDEX = 1;
         public const int SYSTEM_CREATED_INDEX = 2;
@@ -20,12 +23,19 @@ namespace Domain.Controllers
         IPersonalNoteView _view;
         IDateHelper _helper;
 
+        public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
+        {
+            throw new NotImplementedException();
+        }
+
         public PersonalNoteController(IEFRepository repository, IPersonalNoteView view)
             : base(repository, view)
         {
             this._helper = DateHelper.GetInstance();
             this._view = view;
             this._view.View_GetPersonalNotes = this.GetPersonalNoteData;
+
+            this._manager.RegisterController(this);
         }
 
         void GetPersonalNoteData(IEnumerable<PersonalNote> attributes)

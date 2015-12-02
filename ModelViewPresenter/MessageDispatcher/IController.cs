@@ -8,7 +8,7 @@ namespace ModelViewPresenter.MessageDispatcher
 {
     public interface IController
     {
-        int ID { get; set; }
+        int ID { get; }
         bool HandleRequest(Telegram telegram);
     }
 }

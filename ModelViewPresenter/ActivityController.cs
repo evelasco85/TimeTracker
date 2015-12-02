@@ -12,6 +12,10 @@ namespace Domain.Controllers
 {
     public class ActivityController : BaseController<Activity>
     {
+
+        public const int cID = 1;
+        public override int ID { get { return cID; } }
+
         public const int ID_INDEX = 0;
         public const int NAME_INDEX = 1;
         public const int DESCRIPTION_INDEX = 2;
@@ -21,12 +25,19 @@ namespace Domain.Controllers
         IActivityView _view;
         IDateHelper _helper;
 
+        public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
+        {
+            throw new NotImplementedException();
+        }
+
         public ActivityController(IEFRepository repository, IActivityView view)
             : base(repository, view)
         {
             this._helper = DateHelper.GetInstance();
             this._view = view;
             this._view.View_GetActivityData = this.GetActivityData;
+
+            this._manager.RegisterController(this);
         }
 
         void GetActivityData(IEnumerable<Activity> attributes)
