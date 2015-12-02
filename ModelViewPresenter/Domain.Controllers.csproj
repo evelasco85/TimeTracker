@@ -45,6 +45,8 @@
     <Compile Include="FrontBase\FrontCommand.cs" />
     <Compile Include="FrontBase\FrontController.cs" />
     <Compile Include="DailyActivityController.cs" />
+    <Compile Include="FrontBase\RequestDispatcher.cs" />
+    <Compile Include="FrontBase\UnknownController.cs" />
     <Compile Include="ObjectiveController.cs" />
     <Compile Include="PersonalNoteController.cs" />
     <Compile Include="AttributeController.cs" />
