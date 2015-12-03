@@ -100,11 +100,11 @@
             // 
             // txtDescription
             // 
-            this.txtDescription.Location = new System.Drawing.Point(49, 130);
+            this.txtDescription.Location = new System.Drawing.Point(15, 130);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtDescription.Size = new System.Drawing.Size(200, 94);
+            this.txtDescription.Size = new System.Drawing.Size(234, 139);
             this.txtDescription.TabIndex = 19;
             this.txtDescription.WordWrap = false;
             // 
@@ -119,7 +119,7 @@
             // 
             // txtLink
             // 
-            this.txtLink.Location = new System.Drawing.Point(49, 272);
+            this.txtLink.Location = new System.Drawing.Point(49, 313);
             this.txtLink.Name = "txtLink";
             this.txtLink.Size = new System.Drawing.Size(200, 20);
             this.txtLink.TabIndex = 21;
@@ -127,7 +127,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 246);
+            this.label4.Location = new System.Drawing.Point(12, 287);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(30, 13);
             this.label4.TabIndex = 20;
