@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using Domain.Views;
+using ModelViewPresenter.MessageDispatcher;
 
 namespace Domain.Controllers
 {
@@ -27,7 +28,13 @@ namespace Domain.Controllers
 
         public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
         {
-            throw new NotImplementedException();
+            if (telegram.Operation == Operation.OpenView)
+            {
+                this._categoryView.View_ViewReady(telegram.Data);
+                this._categoryView.View_OnShow();
+            }
+
+            return true;
         }
         public CategoryController(IEFRepository repository, ICategoryView view)
             :base(repository, view)
@@ -35,6 +42,12 @@ namespace Domain.Controllers
             this._helper = DateHelper.GetInstance();
             this._categoryView = view;
             this._categoryView.View_GetCategoryData = this.GetCategoryData;
+            this._categoryView.View_ViewReady = ViewReady;
+        }
+
+        void ViewReady(dynamic data)
+        {
+            this._categoryView.View_OnViewReady(data);
         }
 
         void GetCategoryData(IEnumerable<Category> categories)

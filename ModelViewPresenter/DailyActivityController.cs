@@ -2,6 +2,7 @@
 using Domain.Helpers;
 using Domain.Infrastructure;
 using Domain.Views;
+using ModelViewPresenter.MessageDispatcher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,13 @@ namespace Domain.Controllers
 
         public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
         {
-            throw new NotImplementedException();
+            if (telegram.Operation == Operation.OpenView)
+            {
+                this._dayActivityView.View_ViewReady(telegram.Data);
+                this._dayActivityView.View_OnShow();
+            }
+
+            return true;
         }
 
         public DailyActivityController(IEFRepository repository, IDailyActivityView view)
@@ -39,6 +46,12 @@ namespace Domain.Controllers
             this._dayActivityView.View_GetPresetActivityData = GetPresetActivityData;
             this._dayActivityView.View_GetDailyActivityData = GetDailyActivityData;
             this._dayActivityView.View_GetDatesForCurrentPeriod = GetDatesForCurrentPeriod;
+            this._dayActivityView.View_ViewReady = ViewReady;
+        }
+
+        void ViewReady(dynamic data)
+        {
+            this._dayActivityView.View_OnViewReady(data);
         }
 
         void GetDatesForCurrentPeriod(DateTime selectedMonth)

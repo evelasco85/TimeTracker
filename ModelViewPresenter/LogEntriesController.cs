@@ -56,7 +56,7 @@ namespace Domain.Controllers
             this._logView.View_ViewReady = ViewReady;
         }
 
-        void ViewReady(object data)
+        void ViewReady(dynamic data)
         {
             this._logView.View_OnViewReady(data);
         }

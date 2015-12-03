@@ -9,7 +9,7 @@ namespace ModelViewPresenter.MessageDispatcher
 {
     public interface IRequestDispatcher
     {
-        void Dispatch(int sender, int receiver, Operation operation, object data);
+        void Dispatch(int sender, int receiver, Operation operation, dynamic data);
 
     }
     public class RequestDispatcher : IRequestDispatcher
@@ -30,11 +30,11 @@ namespace ModelViewPresenter.MessageDispatcher
             }
         }
 
-        public void Dispatch(int sender, int receiver, Operation operation, object data)
+        public void Dispatch(int sender, int receiver, Operation operation, dynamic data)
         {
             IControllerManager manager = ControllerManager.GetInstance();
             IController targetController = manager.GetControllerFromId(receiver);
-            Telegram telegram = new Telegram(sender, receiver, operation, new { param1 = "", param2 ="" });
+            Telegram telegram = new Telegram(sender, receiver, operation, data);
 
             ////Dynamic property retrieval
             //telegram.data.GetType().GetProperty("param1").GetValue(telegram.data, null);

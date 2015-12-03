@@ -1,6 +1,7 @@
 ﻿using Domain.Helpers;
 using Domain.Infrastructure;
 using Domain.Views;
+using ModelViewPresenter.MessageDispatcher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,13 @@ namespace Domain.Controllers
         IDateHelper _helper;
         public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
         {
-            throw new NotImplementedException();
+            if (telegram.Operation == Operation.OpenView)
+            {
+                this._view.View_ViewReady(telegram.Data);
+                this._view.View_OnShow();
+            }
+
+            return true;
         }
 
         public AttributeController(IEFRepository repository, IAttributeView view)
@@ -33,6 +40,12 @@ namespace Domain.Controllers
             this._helper = DateHelper.GetInstance();
             this._view = view;
             this._view.View_GetAttributeData = this.GetAttributeData;
+            this._view.View_ViewReady = ViewReady;
+        }
+
+        void ViewReady(dynamic data)
+        {
+            this._view.View_OnViewReady(data);
         }
 
         void GetAttributeData(IEnumerable<Domain.Attribute> attributes)

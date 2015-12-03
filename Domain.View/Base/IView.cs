@@ -15,8 +15,8 @@ namespace Domain.Views
         Action<TModel> View_SaveRecord { get; set; }
         Action<Func<TModel, bool>> View_DeleteRecords { get; set; }
         IEnumerable<TModel> View_QueryResults { get; set; }
-        Action<object> View_ViewReady { get; set; }
-        Action<object> View_OnViewReady { get; set; }
+        Action<dynamic> View_ViewReady { get; set; }
+        Action<dynamic> View_OnViewReady { get; set; }
         Action View_OnShow { get; set; }
     } 
 }

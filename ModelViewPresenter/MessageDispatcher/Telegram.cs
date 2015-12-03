@@ -14,10 +14,30 @@ namespace ModelViewPresenter.MessageDispatcher
 
     public struct Telegram
     {
-        public int _sender;
-        public int _receiver;
-        public dynamic _data;
-        public Operation _operation;
+        int _sender;
+        int _receiver;
+        dynamic _data;
+        Operation _operation;
+
+        public int Sender
+        {
+            get { return _sender; }
+        }
+
+        public int Receiver
+        {
+            get { return _receiver; }
+        }
+
+        public dynamic Data
+        {
+            get { return _data; }
+        }
+
+        public Operation Operation
+        {
+            get { return _operation; }
+        }
 
         public Telegram(int sender, int receiver, Operation operation, dynamic data)
         {

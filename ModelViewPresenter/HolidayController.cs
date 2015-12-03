@@ -1,6 +1,7 @@
 ﻿using Domain.Helpers;
 using Domain.Infrastructure;
 using Domain.Views;
+using ModelViewPresenter.MessageDispatcher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,13 @@ namespace Domain.Controllers
 
         public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
         {
-            throw new NotImplementedException();
+            if (telegram.Operation == Operation.OpenView)
+            {
+                this._holidayView.View_ViewReady(telegram.Data);
+                this._holidayView.View_OnShow();
+            }
+
+            return true;
         }
 
         public HolidayController(IEFRepository repository, IHolidayView view)
@@ -34,7 +41,14 @@ namespace Domain.Controllers
             this._helper = DateHelper.GetInstance();
             this._holidayView = view;
             this._holidayView.View_GetHolidayData = this.GetHolidayData;
+            this._holidayView.View_ViewReady = ViewReady;
         }
+
+        void ViewReady(dynamic data)
+        {
+            this._holidayView.View_OnViewReady(data);
+        }
+
         void GetHolidayData(IEnumerable<Holiday> holidays)
         {
             var displayColumns = this._helper.GetHolidays(holidays);

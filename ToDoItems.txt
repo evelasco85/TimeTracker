@@ -1,7 +1,4 @@
 [To Do]
-*Amend Task tables in conformance with 'Personal Software Process' time tracking
-*Add FrontController and Controller Manager
-	-Inversion of control for Controllers and Forms (e.g.: 'new Controller(repository, new Form())')
 *Replaced Timer implementation with 'Running Time with event interrupts/triggers'
 	-Added alarms/notifications/reminders
 *Clickable links window
@@ -22,3 +19,5 @@
 -Place all datagrids into panels
 -Newline and auto-sizing in cells
 *Textboxes with scrollbars and unwrap-mode
+*Add FrontController and Controller Manager
+	-Inversion of control for Controllers and Forms (e.g.: 'new Controller(repository, new Form())')

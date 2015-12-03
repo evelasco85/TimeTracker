@@ -2,6 +2,7 @@
 using Domain.Helpers;
 using Domain.Infrastructure;
 using Domain.Views;
+using ModelViewPresenter.MessageDispatcher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,13 @@ namespace Domain.Controllers
 
         public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
         {
-            throw new NotImplementedException();
+            if (telegram.Operation == Operation.OpenView)
+            {
+                this._dayAttributeView.View_ViewReady(telegram.Data);
+                this._dayAttributeView.View_OnShow();
+            }
+
+            return true;
         }
 
         public DailyAttributeController(IEFRepository repository, IDailyAttributeView view)
@@ -37,6 +44,12 @@ namespace Domain.Controllers
             this._dayAttributeView = view;
             this._dayAttributeView.View_GetPresetAttributeData = GetPresetAttributeData;
             this._dayAttributeView.View_GetDailyAttributeData = GetDailyAttributeData;
+            this._dayAttributeView.View_ViewReady = ViewReady;
+        }
+
+        void ViewReady(dynamic data)
+        {
+            this._dayAttributeView.View_OnViewReady(data);
         }
 
         void GetDailyAttributeData(IEnumerable<DayAttribute> dailyAttribute)

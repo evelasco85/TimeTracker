@@ -1,6 +1,7 @@
 ﻿using Domain.Helpers;
 using Domain.Infrastructure;
 using Domain.Views;
+using ModelViewPresenter.MessageDispatcher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,8 +24,11 @@ namespace Domain.Controllers
 
         public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
         {
-            this._summaryView.View_ViewReady(telegram._data);
-            this._summaryView.View_OnShow();
+            if (telegram.Operation == Operation.OpenView)
+            {
+                this._summaryView.View_ViewReady(telegram.Data);
+                this._summaryView.View_OnShow();
+            }
 
             return true;
         }
@@ -35,8 +39,14 @@ namespace Domain.Controllers
             this._helper = DateHelper.GetInstance();
             this._summaryView = view;
             this._summaryView.View_GetLogEntries = this.GetLogEntries;
+            this._summaryView.View_ViewReady = ViewReady;
         }
         
+        void ViewReady(dynamic data)
+        {
+            this._summaryView.View_OnViewReady(data);
+        }
+
         void GetLogEntries(IEnumerable<LogEntry> logs, DateTime selectedMonth)
         {
             IList<LogEntry> logEntries = this._helper.GetMonthSummaryLogs(logs, selectedMonth);
