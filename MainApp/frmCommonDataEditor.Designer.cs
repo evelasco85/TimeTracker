@@ -28,37 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dGrid = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dGrid)).BeginInit();
+            this.pnlDGrid = new System.Windows.Forms.Panel();
+            this.dGrid = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
+            this.pnlDGrid.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGrid)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dGrid
-            // 
-            this.dGrid.AllowUserToAddRows = false;
-            this.dGrid.AllowUserToDeleteRows = false;
-            this.dGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGrid.Location = new System.Drawing.Point(255, 1);
-            this.dGrid.MultiSelect = false;
-            this.dGrid.Name = "dGrid";
-            this.dGrid.ReadOnly = true;
-            this.dGrid.RowTemplate.ReadOnly = true;
-            this.dGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dGrid.Size = new System.Drawing.Size(1094, 636);
-            this.dGrid.TabIndex = 2;
-            this.dGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGrid_CellClick);
-            this.dGrid.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dGrid_DataBindingComplete);
             // 
             // panel1
             // 
@@ -117,31 +98,61 @@
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
             // 
+            // pnlDGrid
+            // 
+            this.pnlDGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlDGrid.Controls.Add(this.dGrid);
+            this.pnlDGrid.Location = new System.Drawing.Point(265, 3);
+            this.pnlDGrid.Name = "pnlDGrid";
+            this.pnlDGrid.Size = new System.Drawing.Size(1081, 632);
+            this.pnlDGrid.TabIndex = 13;
+            // 
+            // dGrid
+            // 
+            this.dGrid.AllowUserToAddRows = false;
+            this.dGrid.AllowUserToDeleteRows = false;
+            this.dGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dGrid.Location = new System.Drawing.Point(0, 0);
+            this.dGrid.MultiSelect = false;
+            this.dGrid.Name = "dGrid";
+            this.dGrid.ReadOnly = true;
+            this.dGrid.RowTemplate.ReadOnly = true;
+            this.dGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dGrid.Size = new System.Drawing.Size(1081, 632);
+            this.dGrid.TabIndex = 4;
+            this.dGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGrid_CellClick);
+            this.dGrid.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dGrid_DataBindingComplete);
+            // 
             // frmCommonDataEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1349, 637);
+            this.Controls.Add(this.pnlDGrid);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.dGrid);
             this.Name = "frmCommonDataEditor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.frmCommonDataEditor_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dGrid)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.pnlDGrid.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        public System.Windows.Forms.DataGridView dGrid;
         public System.Windows.Forms.Panel panel1;
         public System.Windows.Forms.Button btnCancel;
         public System.Windows.Forms.Button btnSave;
         public System.Windows.Forms.Button btnDelete;
         public System.Windows.Forms.Button btnEdit;
         public System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Panel pnlDGrid;
+        public System.Windows.Forms.DataGridView dGrid;
 
 
     }

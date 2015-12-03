@@ -36,8 +36,6 @@ namespace ModelViewPresenter.MessageDispatcher
             IController targetController = manager.GetControllerFromId(receiver);
             Telegram telegram = new Telegram(sender, receiver, operation, data);
 
-            ////Dynamic property retrieval
-            //telegram.data.GetType().GetProperty("param1").GetValue(telegram.data, null);
             this.Discharge(targetController, telegram);
         }
 

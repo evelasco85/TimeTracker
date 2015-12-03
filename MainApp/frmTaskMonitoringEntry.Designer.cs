@@ -58,8 +58,10 @@
             this.txtDescription.Location = new System.Drawing.Point(103, 39);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
+            this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtDescription.Size = new System.Drawing.Size(249, 168);
             this.txtDescription.TabIndex = 2;
+            this.txtDescription.WordWrap = false;
             // 
             // dateTimeManualEntry
             // 

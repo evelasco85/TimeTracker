@@ -14,7 +14,6 @@ namespace ModelViewPresenter.MessageDispatcher
 
     public class FrontCommand : IFrontCommand
     {
-        IController _controller;
         object _data;
         Operation _operation;
         int _sender, _receiver;
@@ -22,7 +21,6 @@ namespace ModelViewPresenter.MessageDispatcher
         public FrontCommand(int receiver)
         {
             this._receiver = receiver;
-            this._controller = ControllerManager.GetInstance().GetControllerFromId(this._receiver);
         }
 
         public void Initialize(int sender, object data, Operation operation)
