@@ -53,6 +53,12 @@ namespace Domain.Controllers
             this._logView.View_GetRememberedDate = this.GetRememberedDate;
             this._logView.View_SetRememberedDate = this.SetRememberedDate;
             this._logView.View_GetObjectiveData = this.GetObjectiveData;
+            this._logView.View_ViewReady = ViewReady;
+        }
+
+        void ViewReady(object data)
+        {
+            this._logView.View_OnViewReady(data);
         }
 
         IEnumerable<Category> GetCategories()

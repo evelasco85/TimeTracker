@@ -23,6 +23,8 @@ namespace MainApp
         public Action<dynamic, DateTime> View_OnGetObjectiveDataCompletion { get; set; }
         public Action<object> View_ViewReady { get; set; }
         public Action<object> View_OnViewReady { get; set; }
+        public Action View_OnShow { get; set; }
+        Form _parentForm;
 
         public frmObjectives()
         {
@@ -31,12 +33,36 @@ namespace MainApp
             this.View_OnQueryRecordsCompletion = RefreshGridData;
             this.View_OnGetObjectiveDataCompletion = UpdateObjectiveData;
             this.View_OnViewReady = OnViewReady;
+            this.View_OnShow = OnShow;
 
             InitializeComponent();
         }
 
+        void OnShow()
+        {
+            MethodInvoker invokeFromUI = new MethodInvoker(
+               () =>
+               {
+                   try
+                   {
+                       this.ShowDialog(this._parentForm);
+                   }
+                   catch (Exception ex)
+                   {
+                       throw ex;
+                   }
+               }
+           );
+
+            if (this.InvokeRequired)
+                this.Invoke(invokeFromUI);
+            else
+                invokeFromUI.Invoke();
+        }
+
         void OnViewReady(object data)
         {
+            this._parentForm = (Form)data.GetType().GetProperty("parentForm").GetValue(data, null);
             this.objectiveDate.Value = DateTime.Now;
 
             this.View_QueryRecords(null);

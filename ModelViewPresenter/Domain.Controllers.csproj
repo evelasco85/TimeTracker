@@ -43,6 +43,8 @@
     <Compile Include="ActivityController.cs" />
     <Compile Include="MessageDispatcher\ControllerManager.cs" />
     <Compile Include="DailyActivityController.cs" />
+    <Compile Include="MessageDispatcher\FrontCommand.cs" />
+    <Compile Include="MessageDispatcher\FrontController.cs" />
     <Compile Include="MessageDispatcher\IController.cs" />
     <Compile Include="MessageDispatcher\RequestDispatcher.cs" />
     <Compile Include="MessageDispatcher\Telegram.cs" />

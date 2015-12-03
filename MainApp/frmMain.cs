@@ -18,8 +18,6 @@ namespace MainApp
         bool _promptingInProgress = false;
         int _secondsRemaining;
 
-        IControllerManager _manager;
-
         public Action<Func<LogEntry, bool>> View_QueryRecords { get; set; }
         public Action View_OnQueryRecordsCompletion { get; set; }
         public Action<Func<LogEntry, bool>> View_DeleteRecords { get; set; }
@@ -39,22 +37,25 @@ namespace MainApp
         public Action<string> View_OnGetObjectiveDataCompletion { get; set; }
         public Action<object> View_ViewReady { get; set; }
         public Action<object> View_OnViewReady { get; set; }
+        public Action View_OnShow { get; set; }
 
         public frmMain()
         {
-            this._manager = ControllerManager.GetInstance();
-
             this.View_OnQueryRecordsCompletion = this.RefreshGridData;
             this.View_OnGetLogStatisticsCompletion = this.UpdateDashboard;
             this.View_OnGetCalendarDataCompletion = this.UpdateCalendarData;
             this.View_OnGetObjectiveDataCompletion = this.UpdateObjectiveData;
             this.View_OnViewReady = OnViewReady;
+            this.View_OnShow = OnShow;
 
             InitializeComponent();
             this.InitializeRequiredData();
-            this.View_ViewReady(null);
             this.SetTimer();
             this.StartTimer();
+        }
+
+        void OnShow()
+        {
         }
 
         void OnViewReady(object data)
@@ -517,28 +518,7 @@ namespace MainApp
 
         void OpenSummarizedLogs(DateTime selectedMonth)
         {
-            MethodInvoker invokeFromUI = new MethodInvoker(
-               () =>
-               {
-                   try
-                   {
-                       using (frmSummarizeLogs logs = new frmSummarizeLogs(_repository, selectedMonth))
-                       {
-                           logs.ShowDialog(this);
-                           logs.Dispose();
-                       }
-                   }
-                   catch (Exception ex)
-                   {
-                       throw ex;
-                   }
-               }
-           );
-
-            if (this.InvokeRequired)
-                this.Invoke(invokeFromUI);
-            else
-                invokeFromUI.Invoke();
+            FrontController.GetInstance().Process(SummaryLogsController.cID, LogEntriesController.cID, Operation.OpenView, new { selectedMonth = selectedMonth, parentForm = this});
         }
 
         private void btnHoliday_Click(object sender, EventArgs e)
@@ -548,21 +528,7 @@ namespace MainApp
 
         void OpenHolidays()
         {
-            MethodInvoker invokeFromUI = new MethodInvoker(
-               () =>
-               {
-                   using (frmHolidays holiday = new frmHolidays(this._repository))
-                   {
-                       holiday.ShowDialog(this);
-                       holiday.Dispose();
-                   }
-               }
-           );
-
-            if (this.InvokeRequired)
-                this.Invoke(invokeFromUI);
-            else
-                invokeFromUI.Invoke();
+            FrontController.GetInstance().Process(HolidayController.cID, LogEntriesController.cID, Operation.OpenView, new { parentForm = this });
 
             this.View_QueryRecords(null);
             this.RefreshDashboardData();
@@ -570,21 +536,7 @@ namespace MainApp
 
         void OpenCategories()
         {
-            MethodInvoker invokeFromUI = new MethodInvoker(
-               () =>
-               {
-                   using (frmCategory category = new frmCategory(this._repository))
-                   {
-                       category.ShowDialog(this);
-                       category.Dispose();
-                   }
-               }
-           );
-
-            if (this.InvokeRequired)
-                this.Invoke(invokeFromUI);
-            else
-                invokeFromUI.Invoke();
+            FrontController.GetInstance().Process(CategoryController.cID, LogEntriesController.cID, Operation.OpenView, new { parentForm = this });
 
             this.RefreshDashboardData();
         }
@@ -596,21 +548,7 @@ namespace MainApp
 
         void OpenLeaves()
         {
-            MethodInvoker invokeFromUI = new MethodInvoker(
-               () =>
-               {
-                   using (frmLeaves leave = new frmLeaves(this._repository))
-                   {
-                       leave.ShowDialog(this);
-                       leave.Dispose();
-                   }
-               }
-           );
-
-            if (this.InvokeRequired)
-                this.Invoke(invokeFromUI);
-            else
-                invokeFromUI.Invoke();
+            FrontController.GetInstance().Process(LeaveController.cID, LogEntriesController.cID, Operation.OpenView, new { parentForm = this });
 
             this.View_QueryRecords(null);
             this.RefreshDashboardData();
@@ -618,122 +556,38 @@ namespace MainApp
 
         void OpenAttributes()
         {
-            MethodInvoker invokeFromUI = new MethodInvoker(
-               () =>
-               {
-                   using (frmAttribute leave = new frmAttribute(this._repository))
-                   {
-                       leave.ShowDialog(this);
-                       leave.Dispose();
-                   }
-               }
-           );
-
-            if (this.InvokeRequired)
-                this.Invoke(invokeFromUI);
-            else
-                invokeFromUI.Invoke();
+            FrontController.GetInstance().Process(AttributeController.cID, LogEntriesController.cID, Operation.OpenView, new { parentForm = this });
 
             this.RefreshDashboardData();
         }
 
         void OpenActivities()
         {
-            MethodInvoker invokeFromUI = new MethodInvoker(
-               () =>
-               {
-                   using (frmActivity leave = new frmActivity(this._repository))
-                   {
-                       leave.ShowDialog(this);
-                       leave.Dispose();
-                   }
-               }
-           );
-
-            if (this.InvokeRequired)
-                this.Invoke(invokeFromUI);
-            else
-                invokeFromUI.Invoke();
+            FrontController.GetInstance().Process(ActivityController.cID, LogEntriesController.cID, Operation.OpenView, new { parentForm = this });
 
             this.RefreshDashboardData();
         }
 
         void OpenDailyAttributes()
         {
-            MethodInvoker invokeFromUI = new MethodInvoker(
-               () =>
-               {
-                   using (frmDailyAttribute leave = new frmDailyAttribute(this._repository))
-                   {
-                       leave.ShowDialog(this);
-                       leave.Dispose();
-                   }
-               }
-           );
-
-            if (this.InvokeRequired)
-                this.Invoke(invokeFromUI);
-            else
-                invokeFromUI.Invoke();
+            FrontController.GetInstance().Process(DailyAttributeController.cID, LogEntriesController.cID, Operation.OpenView, new { parentForm = this });
         }
 
         void OpenPersonalNote()
         {
-            MethodInvoker invokeFromUI = new MethodInvoker(
-               () =>
-               {
-                   using (frmPersonalNotes personalNote = new frmPersonalNotes(this._repository))
-                   {
-                       personalNote.ShowDialog(this);
-                       personalNote.Dispose();
-                   }
-               }
-           );
-
-            if (this.InvokeRequired)
-                this.Invoke(invokeFromUI);
-            else
-                invokeFromUI.Invoke();
+            FrontController.GetInstance().Process(PersonalNoteController.cID, LogEntriesController.cID, Operation.OpenView, new { parentForm = this });
         }
 
 
         void OpenDailyActivity()
         {
-            MethodInvoker invokeFromUI = new MethodInvoker(
-               () =>
-               {
-                   using (frmDailyActivity dailyActivity = new frmDailyActivity(this._repository))
-                   {
-                       dailyActivity.ShowDialog(this);
-                       dailyActivity.Dispose();
-                   }
-               }
-           );
-
-            if (this.InvokeRequired)
-                this.Invoke(invokeFromUI);
-            else
-                invokeFromUI.Invoke();
+            FrontController.GetInstance().Process(DailyActivityController.cID, LogEntriesController.cID, Operation.OpenView, new { parentForm = this });
         }
 
 
         void OpenObjective()
         {
-            MethodInvoker invokeFromUI = new MethodInvoker(
-               () =>
-               {
-                   using (frmObjectives objective = new frmObjectives(this._repository))
-                   {
-                       objective.ShowDialog(this);
-                       objective.Dispose();
-                   }
-               }
-           );
-
-            if (this.InvokeRequired)
-                this.Invoke(invokeFromUI);
-            else
-                invokeFromUI.Invoke();
+            FrontController.GetInstance().Process(ObjectiveController.cID, LogEntriesController.cID, Operation.OpenView, new { parentForm = this });
 
             this.RefreshGridData();
         }

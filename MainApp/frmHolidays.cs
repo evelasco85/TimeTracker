@@ -21,6 +21,9 @@ namespace MainApp
         public Action<dynamic, DateTime> View_OnGetHolidayDataCompletion { get; set; }
         public Action<object> View_ViewReady { get; set; }
         public Action<object> View_OnViewReady { get; set; }
+        public Action View_OnShow { get; set; }
+
+        Form _parentForm;
 
         public frmHolidays()
         {
@@ -30,10 +33,34 @@ namespace MainApp
             this.View_OnQueryRecordsCompletion = this.RefreshGridData;
             this.View_OnGetHolidayDataCompletion = this.UpdateHolidayData;
             this.View_OnViewReady = OnViewReady;
+            this.View_OnShow = OnShow;
+        }
+
+        void OnShow()
+        {
+            MethodInvoker invokeFromUI = new MethodInvoker(
+               () =>
+               {
+                   try
+                   {
+                       this.ShowDialog(this._parentForm);
+                   }
+                   catch (Exception ex)
+                   {
+                       throw ex;
+                   }
+               }
+           );
+
+            if (this.InvokeRequired)
+                this.Invoke(invokeFromUI);
+            else
+                invokeFromUI.Invoke();
         }
 
         void OnViewReady(object data)
         {
+            this._parentForm = (Form)data.GetType().GetProperty("parentForm").GetValue(data, null);
             this.holidayDate.Value = DateTime.Now;
 
             this.View_QueryRecords(null);

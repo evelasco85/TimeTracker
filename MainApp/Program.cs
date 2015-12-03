@@ -17,23 +17,27 @@ namespace MainApp
         [STAThread]
         static void Main()
         {
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
 
-                frmMain main = NinjectManager
-                    .GetInstance()
-                    .GetInjectedInstance<frmMain>();
+            //frmMain main = NinjectManager
+            //    .GetInstance()
+            //    .GetInjectedInstance<frmMain>();
+            frmMain main = new frmMain();
 
-                Application.Run(main);
+            PrepareControllers(main);
+
+            Application.Run(main);
         }
 
-        static void T()
+        static void PrepareControllers(frmMain main)
         {
             IEFRepository repository  = new EFRepository();
             IControllerManager manager = ControllerManager.GetInstance();
 
-            LogEntriesController controller = new LogEntriesController(repository, new frmMain(repository));
+            LogEntriesController controller = new LogEntriesController(repository, main);
             manager.RegisterController(controller);
+            controller.View.View_ViewReady(null);
 
             SummaryLogsController controller2 = new SummaryLogsController(repository, new frmSummarizeLogs());
             manager.RegisterController(controller2);

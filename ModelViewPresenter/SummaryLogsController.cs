@@ -23,7 +23,10 @@ namespace Domain.Controllers
 
         public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
         {
-            throw new NotImplementedException();
+            this._summaryView.View_ViewReady(telegram._data);
+            this._summaryView.View_OnShow();
+
+            return true;
         }
 
         public SummaryLogsController(IEFRepository repository, ISummaryLogsView view)

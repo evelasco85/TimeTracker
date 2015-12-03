@@ -29,6 +29,9 @@ namespace MainApp
         public Action<IEnumerable<DateTime>> View_OnGetDatesForCurrentPeriodCompletion { get; set; }
         public Action<object> View_ViewReady { get; set; }
         public Action<object> View_OnViewReady { get; set; }
+        public Action View_OnShow { get; set; }
+
+        Form _parentForm;
 
         IEnumerable<Activity> _presetdActivity;
 
@@ -43,10 +46,35 @@ namespace MainApp
             this.View_OnGetDailyActivityDataCompletion = this.UpdateDailyActivityData;
             this.View_OnGetDatesForCurrentPeriodCompletion = this.PopulateUniqueDates;
             this.View_OnViewReady = OnViewReady;
+            this.View_OnShow = OnShow;
+        }
+
+        void OnShow()
+        {
+            MethodInvoker invokeFromUI = new MethodInvoker(
+               () =>
+               {
+                   try
+                   {
+                       this.ShowDialog(this._parentForm);
+                   }
+                   catch (Exception ex)
+                   {
+                       throw ex;
+                   }
+               }
+           );
+
+            if (this.InvokeRequired)
+                this.Invoke(invokeFromUI);
+            else
+                invokeFromUI.Invoke();
         }
 
         void OnViewReady(object data)
         {
+            this._parentForm = (Form)data.GetType().GetProperty("parentForm").GetValue(data, null);
+
             this.View_QueryRecords(null);
             this.View_GetPresetActivityData();
             this.View_GetDatesForCurrentPeriod(this.periodPicker.Value.Date);
