@@ -151,8 +151,8 @@
         public System.Windows.Forms.Button btnDelete;
         public System.Windows.Forms.Button btnEdit;
         public System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Panel pnlDGrid;
         public System.Windows.Forms.DataGridView dGrid;
+        public System.Windows.Forms.Panel pnlDGrid;
 
 
     }

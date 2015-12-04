@@ -51,7 +51,7 @@ namespace Domain.Controllers
 
         void GetObjectiveData(IEnumerable<Objective> objectives)
         {
-            var displayColumns = objectives.ToList(); 
+            var displayColumns = objectives.OrderByDescending(x => x.Date).ToList(); 
             DateTime lastUpdatedDate = displayColumns
                 .Select(x => x.SystemUpdated)
                 .OrderByDescending(x => x)

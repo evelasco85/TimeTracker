@@ -39,32 +39,44 @@
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(12, 443);
+            this.panel1.Location = new System.Drawing.Point(214, 12);
+            this.panel1.Size = new System.Drawing.Size(175, 91);
             // 
             // btnCancel
             // 
+            this.btnCancel.Location = new System.Drawing.Point(94, 46);
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnSave
             // 
+            this.btnSave.Location = new System.Drawing.Point(94, 17);
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnDelete
             // 
+            this.btnDelete.Location = new System.Drawing.Point(0, 62);
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnEdit
             // 
+            this.btnEdit.Location = new System.Drawing.Point(0, 33);
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnAdd
             // 
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
+            // pnlDGrid
+            // 
+            this.pnlDGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlDGrid.Location = new System.Drawing.Point(12, 370);
+            this.pnlDGrid.Size = new System.Drawing.Size(738, 402);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 49);
+            this.label1.Location = new System.Drawing.Point(9, 65);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(33, 13);
             this.label1.TabIndex = 3;
@@ -73,7 +85,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 82);
+            this.label2.Location = new System.Drawing.Point(9, 124);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(111, 13);
             this.label2.TabIndex = 4;
@@ -82,25 +94,27 @@
             // objectiveDate
             // 
             this.objectiveDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.objectiveDate.Location = new System.Drawing.Point(49, 45);
+            this.objectiveDate.Location = new System.Drawing.Point(50, 61);
             this.objectiveDate.Name = "objectiveDate";
             this.objectiveDate.Size = new System.Drawing.Size(119, 20);
             this.objectiveDate.TabIndex = 5;
             // 
             // txtObjectives
             // 
-            this.txtObjectives.Location = new System.Drawing.Point(15, 108);
+            this.txtObjectives.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtObjectives.Location = new System.Drawing.Point(12, 140);
             this.txtObjectives.Multiline = true;
             this.txtObjectives.Name = "txtObjectives";
             this.txtObjectives.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtObjectives.Size = new System.Drawing.Size(234, 329);
+            this.txtObjectives.Size = new System.Drawing.Size(738, 224);
             this.txtObjectives.TabIndex = 6;
             this.txtObjectives.WordWrap = false;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 18);
+            this.label3.Location = new System.Drawing.Point(9, 9);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(21, 13);
             this.label3.TabIndex = 12;
@@ -110,7 +124,7 @@
             // 
             this.lblId.AutoSize = true;
             this.lblId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblId.Location = new System.Drawing.Point(49, 18);
+            this.lblId.Location = new System.Drawing.Point(50, 9);
             this.lblId.Name = "lblId";
             this.lblId.Size = new System.Drawing.Size(15, 15);
             this.lblId.TabIndex = 13;
@@ -120,7 +134,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1266, 647);
+            this.ClientSize = new System.Drawing.Size(778, 780);
             this.Controls.Add(this.lblId);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtObjectives);
@@ -129,6 +143,7 @@
             this.Controls.Add(this.label1);
             this.Name = "frmObjectives";
             this.Text = "Objectives";
+            this.Controls.SetChildIndex(this.pnlDGrid, 0);
             this.Controls.SetChildIndex(this.label1, 0);
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.objectiveDate, 0);

@@ -82,7 +82,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="SystemCreated" Type="datetime" Nullable="false" />
           <Property Name="SystemUpdated" Type="datetime" Nullable="false" />
         </EntityType>
@@ -103,7 +103,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="SystemCreated" Type="datetime" Nullable="false" />
           <Property Name="SystemUpdated" Type="datetime" Nullable="false" />
         </EntityType>
@@ -199,7 +199,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SystemCreated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="SystemUpdated" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
@@ -253,7 +253,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SystemCreated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="SystemUpdated" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>

@@ -17,6 +17,7 @@ namespace MainApp
         System.Timers.Timer _timerNotification;
         bool _promptingInProgress = false;
         int _secondsRemaining;
+        IFrontController _frontController;
 
         public Action<Func<LogEntry, bool>> View_QueryRecords { get; set; }
         public Action View_OnQueryRecordsCompletion { get; set; }
@@ -41,6 +42,7 @@ namespace MainApp
 
         public frmMain()
         {
+            this._frontController = FrontController.GetInstance();
             this.View_OnQueryRecordsCompletion = this.RefreshGridData;
             this.View_OnGetLogStatisticsCompletion = this.UpdateDashboard;
             this.View_OnGetCalendarDataCompletion = this.UpdateCalendarData;
@@ -225,7 +227,6 @@ namespace MainApp
         }
 
         #endregion
-
 
         void AddEntry()
         {
@@ -518,7 +519,7 @@ namespace MainApp
 
         void OpenSummarizedLogs(DateTime selectedMonth)
         {
-            FrontController.GetInstance().Process(LogEntriesController.cID, SummaryLogsController.cID, Operation.OpenView, new { selectedMonth = selectedMonth, parentForm = this });
+            this._frontController.Process(LogEntriesController.cID, SummaryLogsController.cID, Operation.OpenView, new { selectedMonth = selectedMonth, parentForm = this });
         }
 
         private void btnHoliday_Click(object sender, EventArgs e)
@@ -528,7 +529,7 @@ namespace MainApp
 
         void OpenHolidays()
         {
-            FrontController.GetInstance().Process(LogEntriesController.cID, HolidayController.cID, Operation.OpenView, new { parentForm = this });
+            this._frontController.Process(LogEntriesController.cID, HolidayController.cID, Operation.OpenView, new { parentForm = this });
 
             this.View_QueryRecords(null);
             this.RefreshDashboardData();
@@ -536,7 +537,7 @@ namespace MainApp
 
         void OpenCategories()
         {
-            FrontController.GetInstance().Process(LogEntriesController.cID, CategoryController.cID, Operation.OpenView, new { parentForm = this });
+            this._frontController.Process(LogEntriesController.cID, CategoryController.cID, Operation.OpenView, new { parentForm = this });
 
             this.RefreshDashboardData();
         }
@@ -548,7 +549,7 @@ namespace MainApp
 
         void OpenLeaves()
         {
-            FrontController.GetInstance().Process(LogEntriesController.cID, LeaveController.cID, Operation.OpenView, new { parentForm = this });
+            this._frontController.Process(LogEntriesController.cID, LeaveController.cID, Operation.OpenView, new { parentForm = this });
 
             this.View_QueryRecords(null);
             this.RefreshDashboardData();
@@ -556,38 +557,38 @@ namespace MainApp
 
         void OpenAttributes()
         {
-            FrontController.GetInstance().Process(LogEntriesController.cID, AttributeController.cID, Operation.OpenView, new { parentForm = this });
+            this._frontController.Process(LogEntriesController.cID, AttributeController.cID, Operation.OpenView, new { parentForm = this });
 
             this.RefreshDashboardData();
         }
 
         void OpenActivities()
         {
-            FrontController.GetInstance().Process(LogEntriesController.cID, ActivityController.cID, Operation.OpenView, new { parentForm = this });
+            this._frontController.Process(LogEntriesController.cID, ActivityController.cID, Operation.OpenView, new { parentForm = this });
 
             this.RefreshDashboardData();
         }
 
         void OpenDailyAttributes()
         {
-            FrontController.GetInstance().Process(LogEntriesController.cID, DailyAttributeController.cID, Operation.OpenView, new { parentForm = this });
+            this._frontController.Process(LogEntriesController.cID, DailyAttributeController.cID, Operation.OpenView, new { parentForm = this });
         }
 
         void OpenPersonalNote()
         {
-            FrontController.GetInstance().Process(LogEntriesController.cID, PersonalNoteController.cID, Operation.OpenView, new { parentForm = this });
+            this._frontController.Process(LogEntriesController.cID, PersonalNoteController.cID, Operation.OpenView, new { parentForm = this });
         }
 
 
         void OpenDailyActivity()
         {
-            FrontController.GetInstance().Process(LogEntriesController.cID, DailyActivityController.cID, Operation.OpenView, new { parentForm = this });
+            this._frontController.Process(LogEntriesController.cID, DailyActivityController.cID, Operation.OpenView, new { parentForm = this });
         }
 
 
         void OpenObjective()
         {
-            FrontController.GetInstance().Process(LogEntriesController.cID, ObjectiveController.cID, Operation.OpenView, new { parentForm = this });
+            this._frontController.Process(LogEntriesController.cID, ObjectiveController.cID, Operation.OpenView, new { parentForm = this });
 
             this.RefreshGridData();
         }
