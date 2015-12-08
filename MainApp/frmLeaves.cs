@@ -133,7 +133,7 @@ namespace MainApp
         public void EnableInputWindow(bool enable)
         {
             this.leaveDate.Enabled = enable;
-            this.txtLeaveDescription.Enabled = enable;
+            this.txtLeaveDescription.ReadOnly = !enable;
         }
 
         public void ResetInputWindow()

@@ -129,7 +129,7 @@ namespace MainApp
         public void EnableInputWindow(bool enable)
         {
             this.holidayDate.Enabled = enable;
-            this.txtHolidayDescription.Enabled = enable;
+            this.txtHolidayDescription.ReadOnly = !enable;
         }
 
         public void ResetInputWindow()

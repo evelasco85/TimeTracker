@@ -127,7 +127,7 @@ namespace MainApp
 
         public void EnableInputWindow(bool enable)
         {
-            this.txtCategoryName.Enabled = enable;
+            this.txtCategoryName.ReadOnly = !enable;
             this.chkShowInSummary.Enabled = enable;
         }
 

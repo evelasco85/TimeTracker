@@ -169,9 +169,9 @@ namespace MainApp
             this.lstUniqueDates.Enabled = !enable;
 
             this.date.Enabled = enable;
-            this.txtName.Enabled = enable;
-            this.txtDescription.Enabled = enable;
-            this.txtDuration.Enabled = enable;
+            this.txtName.ReadOnly = !enable;
+            this.txtDescription.ReadOnly = !enable;
+            this.txtDuration.ReadOnly = !enable;
         }
 
         public void ResetInputWindow()

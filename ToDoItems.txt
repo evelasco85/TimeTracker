@@ -3,6 +3,13 @@
 	-Added alarms/notifications/reminders
 *Clickable links window
 *Addition Daily Attribute, Reminder, Instructions/SOP
+*Personal Note
+	-Sort by Updated date
+	-Add "Subject field"
+*Monitoring Entry
+	-Extend text box
+	-Remove horizontal scroll and enable wordwrap
+
 
 
 [Done]
@@ -21,3 +28,4 @@
 *Textboxes with scrollbars and unwrap-mode
 *Add FrontController and Controller Manager
 	-Inversion of control for Controllers and Forms (e.g.: 'new Controller(repository, new Form())')
+*Changed text box into read-only, instead enable/disable toggling

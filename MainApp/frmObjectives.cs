@@ -134,7 +134,7 @@ namespace MainApp
         public void EnableInputWindow(bool enable)
         {
             this.objectiveDate.Enabled = enable;
-            this.txtObjectives.Enabled = enable;
+            this.txtObjectives.ReadOnly = !enable;
         }
 
         public void ResetInputWindow()

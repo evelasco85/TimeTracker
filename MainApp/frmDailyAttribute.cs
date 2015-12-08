@@ -153,8 +153,8 @@ namespace MainApp
         public void EnableInputWindow(bool enable)
         {
             this.date.Enabled = enable;
-            this.txtDescription.Enabled = enable;
-            this.txtLink.Enabled = enable;
+            this.txtDescription.ReadOnly = !enable;
+            this.txtLink.ReadOnly = !enable;
             this.cboPresetAttributes.Enabled = enable;
         }
 

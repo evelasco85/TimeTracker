@@ -127,7 +127,7 @@ namespace MainApp
 
         public void EnableInputWindow(bool enable)
         {
-            this.txtDescription.Enabled = enable;
+            this.txtDescription.ReadOnly = !enable;
         }
 
         public void ResetInputWindow()

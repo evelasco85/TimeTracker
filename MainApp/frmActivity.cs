@@ -133,8 +133,8 @@ namespace MainApp
 
         public void EnableInputWindow(bool enable)
         {
-            this.txtActivityName.Enabled = enable;
-            this.txtDescription.Enabled = enable;
+            this.txtActivityName.ReadOnly = !enable;
+            this.txtDescription.ReadOnly = !enable;
         }
 
         public void ResetInputWindow()
