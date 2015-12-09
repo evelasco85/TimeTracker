@@ -50,6 +50,7 @@
     <Compile Include="MessageDispatcher\Telegram.cs" />
     <Compile Include="MessageDispatcher\UnknownController.cs" />
     <Compile Include="ObjectiveController.cs" />
+    <Compile Include="StandardOperatingProcedureController.cs" />
     <Compile Include="PersonalNoteController.cs" />
     <Compile Include="AttributeController.cs" />
     <Compile Include="Base\BaseController.cs" />

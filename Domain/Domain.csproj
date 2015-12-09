@@ -95,6 +95,9 @@
       <DependentUpon>WorkDbEf.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StandardOperatingProcedure.cs">
+      <DependentUpon>WorkDbEf.tt</DependentUpon>
+    </Compile>
     <Compile Include="WorkDbEf.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

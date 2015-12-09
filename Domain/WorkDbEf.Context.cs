@@ -36,5 +36,6 @@ namespace Domain
         public virtual DbSet<DayAttribute> DayAttributes { get; set; }
         public virtual DbSet<Objective> Objectives { get; set; }
         public virtual DbSet<PersonalNote> PersonalNotes { get; set; }
+        public virtual DbSet<StandardOperatingProcedure> StandardOperatingProcedures { get; set; }
     }
 }

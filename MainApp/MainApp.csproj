@@ -97,6 +97,12 @@
     <Compile Include="frmObjectives.Designer.cs">
       <DependentUpon>frmObjectives.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmStandardOperatingProcedure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmStandardOperatingProcedure.Designer.cs">
+      <DependentUpon>frmStandardOperatingProcedure.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmPersonalNotes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,6 +184,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmObjectives.resx">
       <DependentUpon>frmObjectives.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmStandardOperatingProcedure.resx">
+      <DependentUpon>frmStandardOperatingProcedure.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPersonalNotes.resx">
       <DependentUpon>frmPersonalNotes.cs</DependentUpon>

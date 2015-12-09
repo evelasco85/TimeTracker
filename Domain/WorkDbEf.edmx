@@ -117,6 +117,16 @@
           <Property Name="System_Created" Type="datetime" Nullable="false" />
           <Property Name="SystemUpdateDateTime" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="StandardOperatingProcedure">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="150" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="System_Created" Type="datetime" Nullable="false" />
+          <Property Name="SystemUpdateDateTime" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityContainer Name="WorklogDBModelStoreContainer">
           <EntitySet Name="__RefactorLog" EntityType="Self.__RefactorLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
@@ -129,6 +139,7 @@
           <EntitySet Name="LogEntry" EntityType="Self.LogEntry" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Objective" EntityType="Self.Objective" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonalNote" EntityType="Self.PersonalNote" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StandardOperatingProcedure" EntityType="Self.StandardOperatingProcedure" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -146,6 +157,7 @@
           <EntitySet Name="DayAttributes" EntityType="WorklogDBModel.DayAttribute" />
           <EntitySet Name="Objectives" EntityType="WorklogDBModel.Objective" />
           <EntitySet Name="PersonalNotes" EntityType="WorklogDBModel.PersonalNote" />
+          <EntitySet Name="StandardOperatingProcedures" EntityType="WorklogDBModel.StandardOperatingProcedure" />
         </EntityContainer>
         <EntityType Name="C__RefactorLog">
           <Key>
@@ -250,6 +262,16 @@
           <Property Name="SystemUpdated" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="PersonalNote">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Subject" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="System_Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SystemUpdateDateTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="StandardOperatingProcedure">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -380,6 +402,17 @@
           <EntitySetMapping Name="PersonalNotes">
             <EntityTypeMapping TypeName="WorklogDBModel.PersonalNote">
               <MappingFragment StoreEntitySet="PersonalNote">
+                <ScalarProperty Name="SystemUpdateDateTime" ColumnName="SystemUpdateDateTime" />
+                <ScalarProperty Name="System_Created" ColumnName="System_Created" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StandardOperatingProcedures">
+            <EntityTypeMapping TypeName="WorklogDBModel.StandardOperatingProcedure">
+              <MappingFragment StoreEntitySet="StandardOperatingProcedure">
                 <ScalarProperty Name="SystemUpdateDateTime" ColumnName="SystemUpdateDateTime" />
                 <ScalarProperty Name="System_Created" ColumnName="System_Created" />
                 <ScalarProperty Name="Description" ColumnName="Description" />

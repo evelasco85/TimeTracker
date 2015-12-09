@@ -9,28 +9,28 @@ using System.Windows.Forms;
 
 namespace MainApp
 {
-    public partial class frmPersonalNotes : frmCommonDataEditor, IPersonalNoteView, IFormCommonOperation
+    public partial class frmStandardOperatingProcedure : frmCommonDataEditor, IStandardOperatingProcedureView, IFormCommonOperation
     {
-        public Action<Func<PersonalNote, bool>> View_QueryRecords { get; set; }
+        public Action<Func<StandardOperatingProcedure, bool>> View_QueryRecords { get; set; }
         public Action View_OnQueryRecordsCompletion { get; set; }
-        public Action<PersonalNote> View_SaveRecord { get; set; }
-        public Action<Func<PersonalNote, bool>> View_DeleteRecords { get; set; }
-        public IEnumerable<PersonalNote> View_QueryResults { get; set; }
-        public Action<IEnumerable<PersonalNote>> View_GetPersonalNotes { get; set; }
-        public Action<dynamic, DateTime> View_OnGetPersonalNotesCompletion { get; set; }
+        public Action<StandardOperatingProcedure> View_SaveRecord { get; set; }
+        public Action<Func<StandardOperatingProcedure, bool>> View_DeleteRecords { get; set; }
+        public IEnumerable<StandardOperatingProcedure> View_QueryResults { get; set; }
+        public Action<IEnumerable<StandardOperatingProcedure>> View_GetSOPs { get; set; }
+        public Action<dynamic, DateTime> View_OnGetSOPsCompletion { get; set; }
         public Action<object> View_ViewReady { get; set; }
         public Action<object> View_OnViewReady { get; set; }
         public Action View_OnShow { get; set; }
         Form _parentForm;
 
-        public frmPersonalNotes()
+        public frmStandardOperatingProcedure()
         {
             InitializeComponent();
 
             this.RegisterCommonOperation(this);
 
             this.View_OnQueryRecordsCompletion = this.RefreshGridData;
-            this.View_OnGetPersonalNotesCompletion = this.UpdateNoteData;
+            this.View_OnGetSOPsCompletion = this.UpdateSOPData;
             this.View_OnViewReady = OnViewReady;
             this.View_OnShow = OnShow;
         }
@@ -66,12 +66,12 @@ namespace MainApp
 
         void RefreshGridData()
         {
-            IEnumerable<PersonalNote> personalNotes = this.View_QueryResults;
+            IEnumerable<StandardOperatingProcedure> sops = this.View_QueryResults;
 
-            this.View_GetPersonalNotes(personalNotes);
+            this.View_GetSOPs(sops);
         }
 
-        void UpdateNoteData(dynamic displayColumns, DateTime lastUpdatedDate)
+        void UpdateSOPData(dynamic displayColumns, DateTime lastUpdatedDate)
         {
             this.dGrid.DataSource = displayColumns;
 
@@ -85,14 +85,14 @@ namespace MainApp
             {
                 try
                 {
-                    DateTime systemDate = DateTime.Parse(this.dGrid.Rows[index].Cells[PersonalNoteController.SYSTEM_UPDATED_INDEX].Value.ToString());
+                    DateTime systemDate = DateTime.Parse(this.dGrid.Rows[index].Cells[StandardOperatingProcedureController.SYSTEM_UPDATED_INDEX].Value.ToString());
                     bool identicalTime = recordDate.ToLongTimeString() == systemDate.ToLongTimeString();
 
                     if ((recordDate.Date == systemDate.Date) && identicalTime)
                     {
-                        this.dGrid.CurrentCell = this.dGrid[PersonalNoteController.ID_INDEX, index];
+                        this.dGrid.CurrentCell = this.dGrid[StandardOperatingProcedureController.ID_INDEX, index];
                         this.dGrid.Rows[index].Selected = true;
-                        this.dGrid.Rows[index].Cells[PersonalNoteController.ID_INDEX].Selected = true;
+                        this.dGrid.Rows[index].Cells[StandardOperatingProcedureController.ID_INDEX].Selected = true;
                         this.dGrid.FirstDisplayedScrollingRowIndex = index;
                         break;
                     }
@@ -110,14 +110,14 @@ namespace MainApp
         {
             try
             {
-                int id = int.Parse(this.dGrid.Rows[rowIndex].Cells[PersonalNoteController.ID_INDEX].Value.ToString());
-                PersonalNote note = this.View_QueryResults
+                int id = int.Parse(this.dGrid.Rows[rowIndex].Cells[StandardOperatingProcedureController.ID_INDEX].Value.ToString());
+                StandardOperatingProcedure sop = this.View_QueryResults
                     .Where(x => x.Id == id)
                     .FirstOrDefault();
 
-                this.lblId.Text = note.Id.ToString();
-                this.txtDescription.Text = note.Description;
-                this.txtSubject.Text = note.Subject;
+                this.lblId.Text = sop.Id.ToString();
+                this.txtDescription.Text = sop.Description;
+                this.txtSubject.Text = sop.Subject;
             }
             catch (ArgumentOutOfRangeException) { /*Skip*/}
             catch (Exception ex)
@@ -183,21 +183,21 @@ namespace MainApp
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            PersonalNote note = new PersonalNote
+            StandardOperatingProcedure sop = new StandardOperatingProcedure
             {
                 System_Created = DateTime.Now,
             };
 
             if (!string.IsNullOrEmpty(this.lblId.Text))
-                note = this.View_QueryResults
+                sop = this.View_QueryResults
                     .Where(x => x.Id == int.Parse(this.lblId.Text))
                     .FirstOrDefault();
 
-            note.Description = this.txtDescription.Text;
-            note.SystemUpdateDateTime = DateTime.Now;
-            note.Subject = this.txtSubject.Text;
+            sop.Description = this.txtDescription.Text;
+            sop.SystemUpdateDateTime = DateTime.Now;
+            sop.Subject = this.txtSubject.Text;
 
-            this.View_SaveRecord(note);
+            this.View_SaveRecord(sop);
             this.View_QueryRecords(null);
             this.WindowInputChanges(ModifierState.Save);
         }

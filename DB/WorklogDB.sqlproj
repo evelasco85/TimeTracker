@@ -70,6 +70,7 @@
     <Build Include="DayAttribute.sql" />
     <Build Include="PersonalNote.sql" />
     <Build Include="Objective.sql" />
+    <Build Include="StandardOperatingProcedure.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="WorklogDB.publish.xml" />
