@@ -12,7 +12,7 @@ namespace Domain.Controllers
 {
     public class SummaryLogsController : BaseController<LogEntry>
     {
-        public const int cID = 2;
+        public const int cID = 1 << 2;
         public override int ID { get { return cID; } }
 
         public const int CREATED_INDEX = 0;

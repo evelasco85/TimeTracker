@@ -14,7 +14,7 @@ namespace Domain.Controllers
     public class ActivityController : BaseController<Activity>
     {
 
-        public const int cID = 1;
+        public const int cID = 1 << 1;
         public override int ID { get { return cID; } }
 
         public const int ID_INDEX = 0;

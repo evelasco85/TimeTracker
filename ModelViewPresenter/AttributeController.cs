@@ -12,7 +12,7 @@ namespace Domain.Controllers
 {
     public class AttributeController : BaseController<Domain.Attribute>
     {
-        public const int cID = 1024;
+        public const int cID = 1 << 11;
         public override int ID { get { return cID; } }
         public const int ID_INDEX = 0;
         public const int NAME_INDEX = 1;

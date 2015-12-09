@@ -12,7 +12,7 @@ namespace Domain.Controllers
 {
     public class ObjectiveController : BaseController<Objective>
     {
-        public const int cID = 8;
+        public const int cID = 1 << 4;
         public override int ID { get { return cID; } }
 
         public const int ID_INDEX = 0;

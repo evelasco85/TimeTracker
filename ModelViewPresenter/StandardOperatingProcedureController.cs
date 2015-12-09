@@ -13,7 +13,7 @@ namespace Domain.Controllers
 {
     public class StandardOperatingProcedureController : BaseController<StandardOperatingProcedure>
     {
-        public const int cID = 4;
+        public const int cID = 1 << 12;
         public override int ID { get { return cID; } }
 
         public const int ID_INDEX = 0;

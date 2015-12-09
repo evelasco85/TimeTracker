@@ -12,7 +12,7 @@ namespace Domain.Controllers
 {
     public class LeaveController : BaseController<Leave>
     {
-        public const int cID = 32;
+        public const int cID = 1 << 6;
         public override int ID { get { return cID; } }
 
         public const int ID_INDEX = 0;

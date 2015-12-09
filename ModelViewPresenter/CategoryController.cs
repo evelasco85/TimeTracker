@@ -17,7 +17,7 @@ namespace Domain.Controllers
         ICategoryView _categoryView;
         IDateHelper _helper;
 
-        public const int cID = 512;
+        public const int cID = 1 << 10;
         public override int ID { get { return cID; } }
 
         public const int ID_INDEX = 0;

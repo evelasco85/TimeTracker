@@ -13,7 +13,7 @@ namespace Domain.Controllers
 {
     public class LogEntriesController : BaseController<LogEntry>
     {
-        public const int cID = 16;
+        public const int cID = 1 << 5;
         public override int ID { get { return cID; } }
 
         public const int ID_INDEX = 0;

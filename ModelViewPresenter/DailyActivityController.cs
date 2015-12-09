@@ -13,7 +13,7 @@ namespace Domain.Controllers
 {
     public class DailyActivityController : BaseController<DayActivity>
     {
-        public const int cID = 256;
+        public const int cID = 1 << 9;
         public override int ID { get { return cID; } }
 
         public const int ID_INDEX = 0;

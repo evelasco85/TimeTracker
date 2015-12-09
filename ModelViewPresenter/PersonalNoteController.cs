@@ -13,7 +13,7 @@ namespace Domain.Controllers
 {
     public class PersonalNoteController : BaseController<PersonalNote>
     {
-        public const int cID = 4;
+        public const int cID = 1 << 3;
         public override int ID { get { return cID; } }
 
         public const int ID_INDEX = 0;

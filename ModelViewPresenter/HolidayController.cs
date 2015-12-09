@@ -12,7 +12,7 @@ namespace Domain.Controllers
 {
     public class HolidayController : BaseController<Holiday>
     {
-        public const int cID = 64;
+        public const int cID = 1 << 7;
         public override int ID { get { return cID; } }
 
         public const int ID_INDEX = 0;
