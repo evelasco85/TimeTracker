@@ -62,6 +62,7 @@
             this.btnObjective = new System.Windows.Forms.Button();
             this.txtObjectives = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnStandardOperatingProcedure = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dGridLogs)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -84,7 +85,7 @@
             this.dGridLogs.Name = "dGridLogs";
             this.dGridLogs.RowTemplate.ReadOnly = true;
             this.dGridLogs.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dGridLogs.Size = new System.Drawing.Size(895, 427);
+            this.dGridLogs.Size = new System.Drawing.Size(1089, 427);
             this.dGridLogs.TabIndex = 0;
             this.dGridLogs.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGridLogs_CellClick);
             this.dGridLogs.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGridLogs_CellDoubleClick);
@@ -155,7 +156,7 @@
             this.panel1.Controls.Add(this.lblSundayDaysCount);
             this.panel1.Controls.Add(this.lblSaturdaysCount);
             this.panel1.Controls.Add(this.lblHolidaysCount);
-            this.panel1.Location = new System.Drawing.Point(692, 461);
+            this.panel1.Location = new System.Drawing.Point(886, 461);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(215, 176);
             this.panel1.TabIndex = 13;
@@ -246,7 +247,7 @@
             // 
             this.lblCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCategory.AutoSize = true;
-            this.lblCategory.Location = new System.Drawing.Point(944, 12);
+            this.lblCategory.Location = new System.Drawing.Point(1138, 12);
             this.lblCategory.Name = "lblCategory";
             this.lblCategory.Size = new System.Drawing.Size(52, 13);
             this.lblCategory.TabIndex = 14;
@@ -255,7 +256,7 @@
             // txtCategory
             // 
             this.txtCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCategory.Location = new System.Drawing.Point(947, 28);
+            this.txtCategory.Location = new System.Drawing.Point(1141, 28);
             this.txtCategory.Name = "txtCategory";
             this.txtCategory.ReadOnly = true;
             this.txtCategory.Size = new System.Drawing.Size(150, 20);
@@ -265,7 +266,7 @@
             // 
             this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescription.Location = new System.Drawing.Point(947, 85);
+            this.txtDescription.Location = new System.Drawing.Point(1141, 85);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.ReadOnly = true;
@@ -277,7 +278,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(944, 69);
+            this.label1.Location = new System.Drawing.Point(1138, 69);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 13);
             this.label1.TabIndex = 16;
@@ -377,7 +378,7 @@
             this.lblCountdown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCountdown.AutoSize = true;
             this.lblCountdown.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblCountdown.Location = new System.Drawing.Point(9, 9);
+            this.lblCountdown.Location = new System.Drawing.Point(203, 9);
             this.lblCountdown.Name = "lblCountdown";
             this.lblCountdown.Size = new System.Drawing.Size(106, 13);
             this.lblCountdown.TabIndex = 26;
@@ -409,7 +410,7 @@
             // 
             this.txtObjectives.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtObjectives.Location = new System.Drawing.Point(947, 369);
+            this.txtObjectives.Location = new System.Drawing.Point(1141, 369);
             this.txtObjectives.Multiline = true;
             this.txtObjectives.Name = "txtObjectives";
             this.txtObjectives.ReadOnly = true;
@@ -423,16 +424,28 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label2.Location = new System.Drawing.Point(944, 353);
+            this.label2.Location = new System.Drawing.Point(1138, 353);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(156, 13);
             this.label2.TabIndex = 29;
             this.label2.Text = "Selected Date Objectives:";
             // 
+            // btnStandardOperatingProcedure
+            // 
+            this.btnStandardOperatingProcedure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnStandardOperatingProcedure.Location = new System.Drawing.Point(704, 564);
+            this.btnStandardOperatingProcedure.Name = "btnStandardOperatingProcedure";
+            this.btnStandardOperatingProcedure.Size = new System.Drawing.Size(151, 30);
+            this.btnStandardOperatingProcedure.TabIndex = 31;
+            this.btnStandardOperatingProcedure.Text = "S.O.P";
+            this.btnStandardOperatingProcedure.UseVisualStyleBackColor = true;
+            this.btnStandardOperatingProcedure.Click += new System.EventHandler(this.btnStandardOperatingProcedure_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.ClientSize = new System.Drawing.Size(1249, 649);
+            this.ClientSize = new System.Drawing.Size(1443, 649);
+            this.Controls.Add(this.btnStandardOperatingProcedure);
             this.Controls.Add(this.txtObjectives);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnObjective);
@@ -503,6 +516,7 @@
         private System.Windows.Forms.Button btnObjective;
         private System.Windows.Forms.TextBox txtObjectives;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnStandardOperatingProcedure;
     }
 }
 

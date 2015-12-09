@@ -122,7 +122,7 @@
             this.txtSubject.Size = new System.Drawing.Size(441, 20);
             this.txtSubject.TabIndex = 21;
             // 
-            // frmPersonalNotes
+            // frmStandardOperatingProcedure
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -133,8 +133,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblId);
             this.Controls.Add(this.label3);
-            this.Name = "frmPersonalNotes";
-            this.Text = "Personal Notes";
+            this.Name = "frmStandardOperatingProcedure";
+            this.Text = "Standard Operating Procedure";
             this.Controls.SetChildIndex(this.pnlDGrid, 0);
             this.Controls.SetChildIndex(this.panel1, 0);
             this.Controls.SetChildIndex(this.label3, 0);

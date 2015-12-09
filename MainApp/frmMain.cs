@@ -593,6 +593,11 @@ namespace MainApp
             this.RefreshGridData();
         }
 
+        void OpenStandardOperatingProcedure()
+        {
+            this._frontController.Process(LogEntriesController.cID, StandardOperatingProcedureController.cID, Operation.OpenView, new { parentForm = this });
+        }
+
         private void btnCategory_Click(object sender, EventArgs e)
         {
             this.OpenCategories();
@@ -626,6 +631,11 @@ namespace MainApp
         private void btnObjective_Click(object sender, EventArgs e)
         {
             this.OpenObjective();
+        }
+
+        private void btnStandardOperatingProcedure_Click(object sender, EventArgs e)
+        {
+            this.OpenStandardOperatingProcedure();
         }
     }
 }

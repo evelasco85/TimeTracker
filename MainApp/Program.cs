@@ -46,6 +46,7 @@ namespace MainApp
             manager.RegisterController(new CategoryController(repository, new frmCategory()));
             manager.RegisterController(new AttributeController(repository, new frmAttribute()));
             manager.RegisterController(new ActivityController(repository, new frmActivity()));
+            manager.RegisterController(new StandardOperatingProcedureController(repository, new frmStandardOperatingProcedure()));
 
             //Prepare data for main window before showing
             ((LogEntriesController)manager.GetControllerFromId(LogEntriesController.cID)).View.View_ViewReady(null);
