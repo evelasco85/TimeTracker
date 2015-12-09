@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.objectiveDate = new System.Windows.Forms.DateTimePicker();
             this.txtObjectives = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.lblId = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(214, 12);
+            this.panel1.Location = new System.Drawing.Point(575, 159);
             this.panel1.Size = new System.Drawing.Size(175, 91);
             // 
             // btnCancel
@@ -76,25 +76,16 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 65);
+            this.label1.Location = new System.Drawing.Point(9, 41);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(33, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "Date:";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 124);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(111, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Objective Description:";
-            // 
             // objectiveDate
             // 
             this.objectiveDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.objectiveDate.Location = new System.Drawing.Point(50, 61);
+            this.objectiveDate.Location = new System.Drawing.Point(50, 37);
             this.objectiveDate.Name = "objectiveDate";
             this.objectiveDate.Size = new System.Drawing.Size(119, 20);
             this.objectiveDate.TabIndex = 5;
@@ -103,13 +94,12 @@
             // 
             this.txtObjectives.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtObjectives.Location = new System.Drawing.Point(12, 140);
+            this.txtObjectives.Location = new System.Drawing.Point(12, 90);
             this.txtObjectives.Multiline = true;
             this.txtObjectives.Name = "txtObjectives";
             this.txtObjectives.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtObjectives.Size = new System.Drawing.Size(738, 224);
+            this.txtObjectives.Size = new System.Drawing.Size(557, 274);
             this.txtObjectives.TabIndex = 6;
-            this.txtObjectives.WordWrap = false;
             // 
             // label3
             // 
@@ -130,27 +120,36 @@
             this.lblId.TabIndex = 13;
             this.lblId.Text = "0";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(9, 74);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(111, 13);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "Objective Description:";
+            // 
             // frmObjectives
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(778, 780);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.lblId);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtObjectives);
             this.Controls.Add(this.objectiveDate);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "frmObjectives";
             this.Text = "Objectives";
             this.Controls.SetChildIndex(this.pnlDGrid, 0);
             this.Controls.SetChildIndex(this.label1, 0);
-            this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.objectiveDate, 0);
             this.Controls.SetChildIndex(this.txtObjectives, 0);
             this.Controls.SetChildIndex(this.label3, 0);
             this.Controls.SetChildIndex(this.lblId, 0);
             this.Controls.SetChildIndex(this.panel1, 0);
+            this.Controls.SetChildIndex(this.label4, 0);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -159,10 +158,10 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker objectiveDate;
         private System.Windows.Forms.TextBox txtObjectives;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblId;
+        private System.Windows.Forms.Label label4;
     }
 }

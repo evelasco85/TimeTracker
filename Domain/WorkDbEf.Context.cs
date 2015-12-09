@@ -32,9 +32,9 @@ namespace Domain
         public virtual DbSet<Holiday> Holidays { get; set; }
         public virtual DbSet<Leave> Leaves { get; set; }
         public virtual DbSet<LogEntry> LogEntries { get; set; }
-        public virtual DbSet<PersonalNote> PersonalNotes { get; set; }
         public virtual DbSet<DayActivity> DayActivities { get; set; }
         public virtual DbSet<DayAttribute> DayAttributes { get; set; }
         public virtual DbSet<Objective> Objectives { get; set; }
+        public virtual DbSet<PersonalNote> PersonalNotes { get; set; }
     }
 }

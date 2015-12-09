@@ -32,12 +32,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtSubject = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(678, 91);
+            this.panel1.Location = new System.Drawing.Point(665, 144);
             // 
             // btnCancel
             // 
@@ -64,8 +66,8 @@
             this.pnlDGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlDGrid.Location = new System.Drawing.Point(15, 244);
-            this.pnlDGrid.Size = new System.Drawing.Size(910, 389);
+            this.pnlDGrid.Location = new System.Drawing.Point(15, 294);
+            this.pnlDGrid.Size = new System.Drawing.Size(910, 419);
             // 
             // lblId
             // 
@@ -88,27 +90,45 @@
             // 
             // txtDescription
             // 
-            this.txtDescription.Location = new System.Drawing.Point(15, 67);
+            this.txtDescription.Location = new System.Drawing.Point(15, 104);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDescription.Size = new System.Drawing.Size(644, 154);
+            this.txtDescription.Size = new System.Drawing.Size(644, 184);
             this.txtDescription.TabIndex = 19;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 41);
+            this.label1.Location = new System.Drawing.Point(12, 78);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 13);
             this.label1.TabIndex = 18;
             this.label1.Text = "Description:";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 40);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(46, 13);
+            this.label2.TabIndex = 20;
+            this.label2.Text = "Subject:";
+            // 
+            // txtSubject
+            // 
+            this.txtSubject.Location = new System.Drawing.Point(75, 37);
+            this.txtSubject.Name = "txtSubject";
+            this.txtSubject.Size = new System.Drawing.Size(441, 20);
+            this.txtSubject.TabIndex = 21;
+            // 
             // frmPersonalNotes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(955, 645);
+            this.ClientSize = new System.Drawing.Size(955, 725);
+            this.Controls.Add(this.txtSubject);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblId);
@@ -121,6 +141,8 @@
             this.Controls.SetChildIndex(this.lblId, 0);
             this.Controls.SetChildIndex(this.label1, 0);
             this.Controls.SetChildIndex(this.txtDescription, 0);
+            this.Controls.SetChildIndex(this.label2, 0);
+            this.Controls.SetChildIndex(this.txtSubject, 0);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -133,5 +155,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtDescription;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtSubject;
     }
 }

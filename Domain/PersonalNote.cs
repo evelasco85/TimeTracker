@@ -15,6 +15,7 @@ namespace Domain
     public partial class PersonalNote
     {
         public int Id { get; set; }
+        public string Subject { get; set; }
         public string Description { get; set; }
         public System.DateTime System_Created { get; set; }
         public System.DateTime SystemUpdateDateTime { get; set; }

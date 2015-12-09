@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Objective]
+﻿CREATE TABLE [dbo].[Leave]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
     [Date] DATETIME NOT NULL, 

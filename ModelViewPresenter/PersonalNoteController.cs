@@ -17,9 +17,10 @@ namespace Domain.Controllers
         public override int ID { get { return cID; } }
 
         public const int ID_INDEX = 0;
-        public const int DESCRIPTION_INDEX = 1;
-        public const int SYSTEM_CREATED_INDEX = 2;
-        public const int SYSTEM_UPDATED_INDEX = 3;
+        public const int SUBJECT_INDEX = 1;
+        public const int DESCRIPTION_INDEX = 2;
+        public const int SYSTEM_CREATED_INDEX = 3;
+        public const int SYSTEM_UPDATED_INDEX = 4;
 
         IPersonalNoteView _view;
         IDateHelper _helper;
@@ -49,16 +50,16 @@ namespace Domain.Controllers
             this._view.View_OnViewReady(data);
         }
 
-        void GetPersonalNoteData(IEnumerable<PersonalNote> attributes)
+        void GetPersonalNoteData(IEnumerable<PersonalNote> notes)
         {
-            DateTime lastUpdatedDate = attributes
+            DateTime lastUpdatedDate = notes
                 .Select(x => x.SystemUpdateDateTime)
                 .OrderByDescending(x => x)
                 .FirstOrDefault();
 
             this._view.View_OnGetPersonalNotesCompletion(
-                attributes
-                .OrderBy(x => x.Id)
+                notes
+                .OrderByDescending(x => x.SystemUpdateDateTime)
                 .ToList()
                 ,
                 lastUpdatedDate);

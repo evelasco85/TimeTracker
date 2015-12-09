@@ -3,9 +3,6 @@
 	-Added alarms/notifications/reminders
 *Clickable links window
 *Addition Daily Attribute, Reminder, Instructions/SOP
-*Personal Note
-	-Sort by Updated date
-	-Add "Subject field"
 *cID = bit assignment
 
 [Done]
@@ -30,3 +27,6 @@
 *Monitoring Entry
 	-Extend text box
 	-Remove horizontal scroll and enable wordwrap
+*Personal Note
+	-Sort by Updated date
+	-Add "Subject field"

@@ -117,6 +117,7 @@ namespace MainApp
 
                 this.lblId.Text = note.Id.ToString();
                 this.txtDescription.Text = note.Description;
+                this.txtSubject.Text = note.Subject;
             }
             catch (ArgumentOutOfRangeException) { /*Skip*/}
             catch (Exception ex)
@@ -128,12 +129,14 @@ namespace MainApp
         public void EnableInputWindow(bool enable)
         {
             this.txtDescription.ReadOnly = !enable;
+            this.txtSubject.ReadOnly = !enable;
         }
 
         public void ResetInputWindow()
         {
             this.lblId.Text = string.Empty;
             this.txtDescription.Clear();
+            this.txtSubject.Clear();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -192,6 +195,7 @@ namespace MainApp
 
             note.Description = this.txtDescription.Text;
             note.SystemUpdateDateTime = DateTime.Now;
+            note.Subject = this.txtSubject.Text;
 
             this.View_SaveRecord(note);
             this.View_QueryRecords(null);
@@ -207,7 +211,6 @@ namespace MainApp
         {
             this.WindowInputChanges(ModifierState.Cancel);
         }
-
 
         public void DecorateGrid()
         {
