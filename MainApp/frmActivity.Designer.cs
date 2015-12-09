@@ -39,7 +39,7 @@
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(15, 277);
+            this.panel1.Location = new System.Drawing.Point(613, 160);
             // 
             // btnCancel
             // 
@@ -60,6 +60,14 @@
             // btnAdd
             // 
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // pnlDGrid
+            // 
+            this.pnlDGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlDGrid.Location = new System.Drawing.Point(15, 289);
+            this.pnlDGrid.Size = new System.Drawing.Size(835, 354);
             // 
             // lblId
             // 
@@ -82,7 +90,7 @@
             // 
             // txtActivityName
             // 
-            this.txtActivityName.Location = new System.Drawing.Point(49, 68);
+            this.txtActivityName.Location = new System.Drawing.Point(49, 74);
             this.txtActivityName.Name = "txtActivityName";
             this.txtActivityName.Size = new System.Drawing.Size(200, 20);
             this.txtActivityName.TabIndex = 15;
@@ -90,7 +98,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 42);
+            this.label2.Location = new System.Drawing.Point(12, 48);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(75, 13);
             this.label2.TabIndex = 14;
@@ -98,18 +106,17 @@
             // 
             // txtDescription
             // 
-            this.txtDescription.Location = new System.Drawing.Point(15, 130);
+            this.txtDescription.Location = new System.Drawing.Point(15, 142);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtDescription.Size = new System.Drawing.Size(237, 141);
+            this.txtDescription.Size = new System.Drawing.Size(555, 141);
             this.txtDescription.TabIndex = 19;
-            this.txtDescription.WordWrap = false;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 104);
+            this.label1.Location = new System.Drawing.Point(12, 116);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 13);
             this.label1.TabIndex = 18;
@@ -119,7 +126,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1329, 648);
+            this.ClientSize = new System.Drawing.Size(874, 648);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblId);
@@ -128,6 +135,7 @@
             this.Controls.Add(this.label2);
             this.Name = "frmActivity";
             this.Text = "Activities";
+            this.Controls.SetChildIndex(this.pnlDGrid, 0);
             this.Controls.SetChildIndex(this.panel1, 0);
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.txtActivityName, 0);

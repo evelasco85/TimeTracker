@@ -110,10 +110,9 @@
             this.txtDescription.Location = new System.Drawing.Point(251, 117);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtDescription.Size = new System.Drawing.Size(594, 84);
             this.txtDescription.TabIndex = 20;
-            this.txtDescription.WordWrap = false;
             // 
             // label3
             // 

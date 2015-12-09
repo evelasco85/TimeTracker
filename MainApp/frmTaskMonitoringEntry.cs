@@ -137,5 +137,10 @@ namespace MainApp
         {
             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

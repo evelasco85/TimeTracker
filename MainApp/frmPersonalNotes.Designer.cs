@@ -37,7 +37,7 @@
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(15, 352);
+            this.panel1.Location = new System.Drawing.Point(678, 91);
             // 
             // btnCancel
             // 
@@ -58,6 +58,14 @@
             // btnAdd
             // 
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // pnlDGrid
+            // 
+            this.pnlDGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlDGrid.Location = new System.Drawing.Point(15, 244);
+            this.pnlDGrid.Size = new System.Drawing.Size(910, 389);
             // 
             // lblId
             // 
@@ -80,18 +88,17 @@
             // 
             // txtDescription
             // 
-            this.txtDescription.Location = new System.Drawing.Point(15, 85);
+            this.txtDescription.Location = new System.Drawing.Point(15, 67);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtDescription.Size = new System.Drawing.Size(237, 261);
+            this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtDescription.Size = new System.Drawing.Size(644, 154);
             this.txtDescription.TabIndex = 19;
-            this.txtDescription.WordWrap = false;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 59);
+            this.label1.Location = new System.Drawing.Point(12, 41);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 13);
             this.label1.TabIndex = 18;
@@ -101,13 +108,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1276, 645);
+            this.ClientSize = new System.Drawing.Size(955, 645);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblId);
             this.Controls.Add(this.label3);
             this.Name = "frmPersonalNotes";
             this.Text = "Personal Notes";
+            this.Controls.SetChildIndex(this.pnlDGrid, 0);
             this.Controls.SetChildIndex(this.panel1, 0);
             this.Controls.SetChildIndex(this.label3, 0);
             this.Controls.SetChildIndex(this.lblId, 0);

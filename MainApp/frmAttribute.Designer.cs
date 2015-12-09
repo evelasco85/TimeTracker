@@ -41,7 +41,7 @@
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(15, 352);
+            this.panel1.Location = new System.Drawing.Point(496, 143);
             // 
             // btnCancel
             // 
@@ -62,6 +62,14 @@
             // btnAdd
             // 
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // pnlDGrid
+            // 
+            this.pnlDGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlDGrid.Location = new System.Drawing.Point(15, 282);
+            this.pnlDGrid.Size = new System.Drawing.Size(718, 367);
             // 
             // lblId
             // 
@@ -84,9 +92,9 @@
             // 
             // txtAttributeName
             // 
-            this.txtAttributeName.Location = new System.Drawing.Point(49, 68);
+            this.txtAttributeName.Location = new System.Drawing.Point(15, 68);
             this.txtAttributeName.Name = "txtAttributeName";
-            this.txtAttributeName.Size = new System.Drawing.Size(200, 20);
+            this.txtAttributeName.Size = new System.Drawing.Size(234, 20);
             this.txtAttributeName.TabIndex = 15;
             // 
             // label2
@@ -103,10 +111,9 @@
             this.txtDescription.Location = new System.Drawing.Point(15, 130);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtDescription.Size = new System.Drawing.Size(234, 139);
+            this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtDescription.Size = new System.Drawing.Size(475, 139);
             this.txtDescription.TabIndex = 19;
-            this.txtDescription.WordWrap = false;
             // 
             // label1
             // 
@@ -119,15 +126,15 @@
             // 
             // txtLink
             // 
-            this.txtLink.Location = new System.Drawing.Point(49, 313);
+            this.txtLink.Location = new System.Drawing.Point(312, 68);
             this.txtLink.Name = "txtLink";
-            this.txtLink.Size = new System.Drawing.Size(200, 20);
+            this.txtLink.Size = new System.Drawing.Size(421, 20);
             this.txtLink.TabIndex = 21;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 287);
+            this.label4.Location = new System.Drawing.Point(309, 42);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(30, 13);
             this.label4.TabIndex = 20;
@@ -137,7 +144,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1255, 652);
+            this.ClientSize = new System.Drawing.Size(774, 661);
             this.Controls.Add(this.txtLink);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtDescription);
@@ -148,7 +155,6 @@
             this.Controls.Add(this.label2);
             this.Name = "frmAttribute";
             this.Text = "Attributes";
-            this.Controls.SetChildIndex(this.panel1, 0);
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.txtAttributeName, 0);
             this.Controls.SetChildIndex(this.label3, 0);
@@ -157,6 +163,8 @@
             this.Controls.SetChildIndex(this.txtDescription, 0);
             this.Controls.SetChildIndex(this.label4, 0);
             this.Controls.SetChildIndex(this.txtLink, 0);
+            this.Controls.SetChildIndex(this.pnlDGrid, 0);
+            this.Controls.SetChildIndex(this.panel1, 0);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

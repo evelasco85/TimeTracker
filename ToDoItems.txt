@@ -6,11 +6,7 @@
 *Personal Note
 	-Sort by Updated date
 	-Add "Subject field"
-*Monitoring Entry
-	-Extend text box
-	-Remove horizontal scroll and enable wordwrap
-
-
+*cID = bit assignment
 
 [Done]
 *Common/Reusable form for Holiday and Leave entries(generic as opposed with specific form creation)
@@ -29,3 +25,8 @@
 *Add FrontController and Controller Manager
 	-Inversion of control for Controllers and Forms (e.g.: 'new Controller(repository, new Form())')
 *Changed text box into read-only, instead enable/disable toggling
+*Remove horizontal scroll, apply word wrap
+*Placement of textbox
+*Monitoring Entry
+	-Extend text box
+	-Remove horizontal scroll and enable wordwrap

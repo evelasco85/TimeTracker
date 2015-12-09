@@ -106,7 +106,7 @@
             this.txtObjectives.Location = new System.Drawing.Point(12, 140);
             this.txtObjectives.Multiline = true;
             this.txtObjectives.Name = "txtObjectives";
-            this.txtObjectives.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtObjectives.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtObjectives.Size = new System.Drawing.Size(738, 224);
             this.txtObjectives.TabIndex = 6;
             this.txtObjectives.WordWrap = false;
