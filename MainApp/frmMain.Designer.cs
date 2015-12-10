@@ -270,9 +270,9 @@
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.ReadOnly = true;
+            this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtDescription.Size = new System.Drawing.Size(290, 232);
             this.txtDescription.TabIndex = 17;
-            this.txtDescription.WordWrap = false;
             // 
             // label1
             // 
@@ -414,9 +414,9 @@
             this.txtObjectives.Multiline = true;
             this.txtObjectives.Name = "txtObjectives";
             this.txtObjectives.ReadOnly = true;
+            this.txtObjectives.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtObjectives.Size = new System.Drawing.Size(290, 268);
             this.txtObjectives.TabIndex = 30;
-            this.txtObjectives.WordWrap = false;
             // 
             // label2
             // 
