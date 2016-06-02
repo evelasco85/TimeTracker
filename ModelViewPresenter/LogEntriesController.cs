@@ -24,6 +24,7 @@ namespace Domain.Controllers
         public const int DESCRIPTION_INDEX = 5;
         public const int SYSTEM_CREATED_INDEX = 6;
         public const int SYSTEM_UPDATED_INDEX = 7;
+        public const int HOURS_RENDERED_INDEX = 8;
         public const string NO_CATEGORY = "No Category";
         public const string NO_DESCRIPTION = "No Description";
         public const string WEEKEND = "Weekend";
@@ -153,6 +154,7 @@ namespace Domain.Controllers
                     x.Description,
                     x.System_Created,
                     x.SystemUpdateDateTime,
+                    x.HoursRendered
                 })
                 .OrderByDescending(x => x.Created)
                 .ToList();
@@ -175,6 +177,7 @@ namespace Domain.Controllers
             DateTime endDate = this._helper.GetEndDate(startDate);
             int saturdayCount = this._helper.CountDaysByDayName(DayOfWeek.Saturday, startDate, endDate);
             int sundayCount = this._helper.CountDaysByDayName(DayOfWeek.Sunday, startDate, endDate);
+            double totalHours = this._helper.GetHours(logs, selectedMonth);
 
             Func<DateTime, bool> betweenMonthDates = (currentDate) => ((currentDate.Ticks > startDate.Ticks) && (currentDate.Ticks < endDate.AddDays(1).Ticks));
             IEnumerable<Holiday> holidays = this.QueryHolidays(holiday => betweenMonthDates(holiday.Date));
@@ -201,7 +204,7 @@ namespace Domain.Controllers
             int workdaysCount = (daysInMonth - (saturdayCount + sundayCount + holidayCountExcludingWeekend + leaveCountExcludingWeekend));
             int daysCountWithoutLogs = workdaysCount - uniqueLogEntriesPerDate;
             
-            this._logView.View_OnGetLogStatisticsCompletion(holidayCountExcludingWeekend, leaveCountExcludingWeekend, saturdayCount, sundayCount, workdaysCount, daysInMonth, uniqueLogEntriesPerDate, daysCountWithoutLogs);
+            this._logView.View_OnGetLogStatisticsCompletion(holidayCountExcludingWeekend, leaveCountExcludingWeekend, saturdayCount, sundayCount, workdaysCount, daysInMonth, uniqueLogEntriesPerDate, daysCountWithoutLogs, totalHours);
         }
 
         public override void GetData(Func<LogEntry, bool> criteria)

@@ -24,7 +24,7 @@ namespace MainApp
         public Action<Func<LogEntry, bool>> View_DeleteRecords { get; set; }
         public Action<LogEntry> View_SaveRecord { get; set; }
         public Action<IEnumerable<LogEntry>, DateTime> View_GetLogStatistics { get; set; }
-        public Action<int, int, int, int, int, int, int, int> View_OnGetLogStatisticsCompletion { get; set; }
+        public Action<int, int, int, int, int, int, int, int, double> View_OnGetLogStatisticsCompletion { get; set; }
         public Action<IEnumerable<LogEntry>, DateTime> View_GetCalendarData { get; set; }
         public Action<dynamic, DateTime> View_OnGetCalendarDataCompletion { get; set; }
         public IEnumerable<LogEntry> View_QueryResults { get; set; }
@@ -236,7 +236,9 @@ namespace MainApp
         }
 
         void SafeEditEntry(int primaryKey, string category, string description, bool rememberSetting,
-            DateTime createdDate, DateTime systemCreatedDate, DateTime rememberedCreatedDateTime)
+            DateTime createdDate, DateTime systemCreatedDate, DateTime rememberedCreatedDateTime,
+            Double hoursRendered
+            )
         {
             this.StopTimer();
 
@@ -256,7 +258,7 @@ namespace MainApp
                             this.View_GetCategories()
                                 .Select(x => x.Name),
                             primaryKey, category, description, rememberSetting, createdDate, systemCreatedDate,
-                            this.txtObjectives.Text
+                            this.txtObjectives.Text, hoursRendered
                             ))
                         {
                             DialogResult result = monitoring.ShowDialog(this);
@@ -379,12 +381,13 @@ namespace MainApp
             this.View_GetLogStatistics(logs, selectedMonth);
         }
 
-        void UpdateDashboard(int holidayCount, int leaveCount, int saturdayCount, int sundayCount, int workdaysCount, int daysInMonth, int uniqueLogEntriesPerDate, int daysCountWithoutLogs)
+        void UpdateDashboard(int holidayCount, int leaveCount, int saturdayCount, int sundayCount, int workdaysCount, int daysInMonth, int uniqueLogEntriesPerDate, int daysCountWithoutLogs, double hoursRendered)
         {
             this.lblHolidaysCount.Text = string.Format("Holidays Count (Weekdays): {0}", holidayCount.ToString());
             this.lblLeavesCount.Text = string.Format("Leaves Count (Weekdays): {0}", leaveCount.ToString());
             this.lblSaturdaysCount.Text = string.Format("Saturday Days Count: {0}", saturdayCount.ToString());
             this.lblSundayDaysCount.Text = string.Format("Sunday Days Count: {0}", sundayCount.ToString());
+            this.lblTotalHours.Text = string.Format("Hours Rendered: {0}", hoursRendered.ToString());
             this.lblWorkdaysCount.Text = string.Format("Workdays Count: {0} = {1} - ({2} + {3})",
                 workdaysCount.ToString(),
                 workdaysCount + (leaveCount + holidayCount),
@@ -456,8 +459,9 @@ namespace MainApp
                 string description = row.Cells[LogEntriesController.DESCRIPTION_INDEX].Value.ToString();
                 bool rememberSetting = this.View_GetRememberedSetting();
                 DateTime rememberedCreatedDateTime = this.View_GetRememberedDate();
+                double hoursRendered = Convert.ToDouble(row.Cells[LogEntriesController.HOURS_RENDERED_INDEX].Value);
 
-                this.SafeEditEntry(primaryKey, category, description, rememberSetting, createdDate, systemCreatedDate, rememberedCreatedDateTime);
+                this.SafeEditEntry(primaryKey, category, description, rememberSetting, createdDate, systemCreatedDate, rememberedCreatedDateTime, hoursRendered);
             }
             catch(ArgumentOutOfRangeException)
             {
@@ -520,6 +524,16 @@ namespace MainApp
         void OpenSummarizedLogs(DateTime selectedMonth)
         {
             this._frontController.Process(LogEntriesController.cID, SummaryLogsController.cID, Operation.OpenView, new { selectedMonth = selectedMonth, parentForm = this });
+        }
+
+        private void btnSummarizeHoursByCategories_Click(object sender, EventArgs e)
+        {
+            this.OpenSummarizedHoursByCategories(this.dateTimeMonth.Value);
+        }
+
+        void OpenSummarizedHoursByCategories(DateTime selectedMonth)
+        {
+            this._frontController.Process(LogEntriesController.cID, SummaryHoursByCategoriesController.cID, Operation.OpenView, new { selectedMonth = selectedMonth, parentForm = this });
         }
 
         private void btnHoliday_Click(object sender, EventArgs e)

@@ -1,9 +1,10 @@
 ﻿CREATE TABLE [dbo].[LogEntry]
 (
-	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
-    [Created] DATETIME NOT NULL, 
-    [System_Created] DATETIME NOT NULL, 
-    [Description] NVARCHAR(MAX) NOT NULL, 
-    [Category] NVARCHAR(50) NOT NULL, 
-    [SystemUpdateDateTime] DATETIME NOT NULL DEFAULT GetDate() 
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Created] [datetime] NOT NULL,
+	[System_Created] [datetime] NOT NULL,
+	[Description] [nvarchar](max) NOT NULL,
+	[Category] [nvarchar](50) NOT NULL,
+	[SystemUpdateDateTime] [datetime] NOT NULL DEFAULT (getdate()),
+	[HoursRendered] [float] NOT NULL CONSTRAINT [DF_LogEntry_HoursRendered]  DEFAULT ((0))
 )

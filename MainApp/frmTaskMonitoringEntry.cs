@@ -57,7 +57,8 @@ namespace MainApp
             IEnumerable<string> Categories,
             int primaryKey, string category,
             string description, bool rememberSetting,
-            DateTime createdDate, DateTime systemCreatedDate, string objectives)
+            DateTime createdDate, DateTime systemCreatedDate, string objectives,
+            double hoursRendered)
             : this(Categories, rememberSetting, createdDate, objectives)
         {
             this._logEntry = new LogEntry
@@ -71,6 +72,7 @@ namespace MainApp
 
             this.cboCategory.Text = category;
             this.txtDescription.Text = description;
+            this.txtHours.Text = hoursRendered.ToString();
             this.dateTimeManualEntry.Value = createdDate;
             this._dateTimeInvoked = systemCreatedDate;
             this._rememberSetting = rememberSetting;
@@ -85,6 +87,7 @@ namespace MainApp
             this._logEntry.Category = this.cboCategory.Text;
             this._logEntry.Created = this.dateTimeManualEntry.Value;
             this._logEntry.Description = this.txtDescription.Text;
+            this._logEntry.HoursRendered = Convert.ToDouble(this.txtHours.Text);
             this._logEntry.System_Created = this._dateTimeInvoked;
             this._logEntry.SystemUpdateDateTime = DateTime.Now;
 
@@ -136,11 +139,6 @@ namespace MainApp
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

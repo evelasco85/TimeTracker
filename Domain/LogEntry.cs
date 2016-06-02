@@ -20,5 +20,6 @@ namespace Domain
         public string Description { get; set; }
         public string Category { get; set; }
         public System.DateTime SystemUpdateDateTime { get; set; }
+        public double HoursRendered { get; set; }
     }
 }

@@ -41,6 +41,8 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.txtObjectives = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtHours = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lblTaskDescription
@@ -63,7 +65,7 @@
             // 
             // dateTimeManualEntry
             // 
-            this.dateTimeManualEntry.Location = new System.Drawing.Point(103, 461);
+            this.dateTimeManualEntry.Location = new System.Drawing.Point(103, 486);
             this.dateTimeManualEntry.Name = "dateTimeManualEntry";
             this.dateTimeManualEntry.Size = new System.Drawing.Size(249, 20);
             this.dateTimeManualEntry.TabIndex = 3;
@@ -72,7 +74,7 @@
             // lblDateTimeEntry
             // 
             this.lblDateTimeEntry.AutoSize = true;
-            this.lblDateTimeEntry.Location = new System.Drawing.Point(7, 465);
+            this.lblDateTimeEntry.Location = new System.Drawing.Point(7, 490);
             this.lblDateTimeEntry.Name = "lblDateTimeEntry";
             this.lblDateTimeEntry.Size = new System.Drawing.Size(88, 13);
             this.lblDateTimeEntry.TabIndex = 3;
@@ -123,7 +125,7 @@
             this.lblDay.AutoSize = true;
             this.lblDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDay.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.lblDay.Location = new System.Drawing.Point(516, 468);
+            this.lblDay.Location = new System.Drawing.Point(516, 493);
             this.lblDay.Name = "lblDay";
             this.lblDay.Size = new System.Drawing.Size(29, 13);
             this.lblDay.TabIndex = 8;
@@ -131,7 +133,7 @@
             // 
             // btnIncementDayByOne
             // 
-            this.btnIncementDayByOne.Location = new System.Drawing.Point(380, 463);
+            this.btnIncementDayByOne.Location = new System.Drawing.Point(380, 488);
             this.btnIncementDayByOne.Name = "btnIncementDayByOne";
             this.btnIncementDayByOne.Size = new System.Drawing.Size(108, 23);
             this.btnIncementDayByOne.TabIndex = 9;
@@ -172,7 +174,23 @@
             this.label2.Size = new System.Drawing.Size(156, 13);
             this.label2.TabIndex = 33;
             this.label2.Text = "Selected Date Objectives:";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(51, 462);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(44, 13);
+            this.label3.TabIndex = 35;
+            this.label3.Text = "Hour(s):";
+            // 
+            // txtHours
+            // 
+            this.txtHours.Location = new System.Drawing.Point(102, 462);
+            this.txtHours.Name = "txtHours";
+            this.txtHours.Size = new System.Drawing.Size(100, 20);
+            this.txtHours.TabIndex = 36;
+            this.txtHours.Text = "0";
             // 
             // frmTaskMonitoringEntry
             // 
@@ -181,6 +199,8 @@
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(596, 648);
             this.ControlBox = false;
+            this.Controls.Add(this.txtHours);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.txtObjectives);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnCancel);
@@ -220,5 +240,7 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.TextBox txtObjectives;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtHours;
     }
 }

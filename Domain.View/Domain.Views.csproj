@@ -51,6 +51,7 @@
     <Compile Include="ILogView.cs" />
     <Compile Include="IStandardOperatingProcedureView.cs" />
     <Compile Include="IPersonalNoteView.cs" />
+    <Compile Include="ISummaryHoursByCategoriesView.cs" />
     <Compile Include="ISummaryLogsView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

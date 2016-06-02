@@ -151,6 +151,12 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSummarizeHoursByCategories.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSummarizeHoursByCategories.Designer.cs">
+      <DependentUpon>frmSummarizeHoursByCategories.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSummarizeLogs.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -214,6 +220,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSummarizeHoursByCategories.resx">
+      <DependentUpon>frmSummarizeHoursByCategories.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSummarizeLogs.resx">
       <DependentUpon>frmSummarizeLogs.cs</DependentUpon>

@@ -19,6 +19,7 @@ namespace Domain.Helpers
         IList<Leave> GetLeaves(IEnumerable<Leave> entries);
         Leave GetLeave(IEnumerable<Leave> entries, int id);
         IList<LogEntry> GetMonthLogs(IEnumerable<LogEntry> logEntries, DateTime selectedMonth);
+        double GetHours(IEnumerable<LogEntry> logEntries, DateTime selectedMonth);
         IList<LogEntry> GetMonthSummaryLogs(IEnumerable<LogEntry> logEntries, DateTime selectedMonth);
         IList<LogEntry> GenerateMissingEntriesForMissingDates(IEnumerable<LogEntry> entries, DateTime selectedMonth,
             IList<LogEntry> holidayLogEntries, IList<LogEntry> leaveLogEntries);
@@ -207,6 +208,15 @@ namespace Domain.Helpers
                 .ToList();
 
             return missingLogEntries;
+        }
+
+
+        public double GetHours(IEnumerable<LogEntry> logEntries, DateTime selectedMonth)
+        {
+            return logEntries
+                .Where(x => (x.Created.Month == selectedMonth.Month) &&
+                            (x.Created.Year == selectedMonth.Year))
+                .Sum(x => x.HoursRendered);
         }
     }
 }

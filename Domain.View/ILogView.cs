@@ -9,7 +9,7 @@ namespace Domain.Views
     public interface ILogView : IView<LogEntry>
     {
         Action<IEnumerable<LogEntry>, DateTime> View_GetLogStatistics { get; set; }
-        Action<int,int,int,int,int,int,int, int> View_OnGetLogStatisticsCompletion { get; set; }
+        Action<int,int,int,int,int,int,int, int, double> View_OnGetLogStatisticsCompletion { get; set; }
 
         Action<IEnumerable<LogEntry>, DateTime> View_GetCalendarData { get; set; }
         Action<dynamic, DateTime> View_OnGetCalendarDataCompletion { get; set; }

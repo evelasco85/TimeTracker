@@ -96,6 +96,7 @@
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Category" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SystemUpdateDateTime" Type="datetime" Nullable="false" />
+          <Property Name="HoursRendered" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="Objective">
           <Key>
@@ -226,6 +227,7 @@
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Category" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SystemUpdateDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="HoursRendered" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="DayActivity">
           <Key>
@@ -353,6 +355,7 @@
           <EntitySetMapping Name="LogEntries">
             <EntityTypeMapping TypeName="WorklogDBModel.LogEntry">
               <MappingFragment StoreEntitySet="LogEntry">
+                <ScalarProperty Name="HoursRendered" ColumnName="HoursRendered" />
                 <ScalarProperty Name="SystemUpdateDateTime" ColumnName="SystemUpdateDateTime" />
                 <ScalarProperty Name="Category" ColumnName="Category" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
