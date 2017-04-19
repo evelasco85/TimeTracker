@@ -5,20 +5,17 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface IActivityView : 
-        //IView<Activity, IActivityRequests, IActivityEvents>
-                IView<Activity>
+    public interface IActivityView : IView<Activity, IActivityRequests, IActivityEvents>, IActivityEvents
     {
-        Action<IEnumerable<Activity>> View_GetActivityData { get; set; }
-        Action<dynamic, DateTime> View_OnGetActivityDataCompletion { get; set; }
     }
 
     public interface IActivityEvents
     {
-
+        void OnGetActivityDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate);
     }
 
     public interface IActivityRequests
     {
+        void GetActivityData(IEnumerable<Activity> attributes);
     }
 }
