@@ -5,12 +5,10 @@ using ModelViewPresenter.MessageDispatcher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Controllers
 {
-    public class AttributeController : BaseController<Domain.Attribute>
+    public class AttributeController : BaseController<Domain.Attribute>, IAttributeRequests
     {
         public const int cID = 1 << 11;
         public override int ID { get { return cID; } }
@@ -23,7 +21,7 @@ namespace Domain.Controllers
 
         IAttributeView _view;
         IDateHelper _helper;
-        public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
+        public override bool HandleRequest(Telegram telegram)
         {
             if (telegram.Operation == Operation.OpenView)
             {
@@ -37,9 +35,10 @@ namespace Domain.Controllers
         public AttributeController(IEFRepository repository, IAttributeView view)
             : base(repository, view)
         {
+            view.ViewRequest = this;
+
             this._helper = DateHelper.GetInstance();
             this._view = view;
-            this._view.View_GetAttributeData = this.GetAttributeData;
             this._view.View_ViewReady = ViewReady;
         }
 
@@ -48,19 +47,20 @@ namespace Domain.Controllers
             this._view.View_OnViewReady(data);
         }
 
-        void GetAttributeData(IEnumerable<Domain.Attribute> attributes)
+        public void GetAttributeData(IEnumerable<Domain.Attribute> attributes)
         {
             DateTime lastUpdatedDate = attributes
                 .Select(x => x.SystemUpdateDateTime)
                 .OrderByDescending(x => x)
                 .FirstOrDefault();
 
-            this._view.View_OnGetAttributeDataCompletion(
-                attributes
-                .OrderBy(x => x.Id)
-                .ToList()
-                ,
-                lastUpdatedDate);
+            this._view
+                .ViewEvents
+                .OnGetAttributeDataCompletion(
+                    attributes
+                    .OrderBy(x => x.Id)
+                    .ToList(),
+                    lastUpdatedDate);
         }
 
         public override void GetData(Func<Domain.Attribute, bool> criteria)

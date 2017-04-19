@@ -16,6 +16,9 @@ namespace MainApp
 {
     public partial class frmAttribute : frmCommonDataEditor, IAttributeView, IFormCommonOperation
     {
+        public IAttributeRequests ViewRequest { get; set; }
+        public IAttributeEvents ViewEvents { get; set; }
+
         public Action<Func<Domain.Attribute, bool>> View_QueryRecords { get; set; }
         public Action View_OnQueryRecordsCompletion { get; set; }
         public Action<Domain.Attribute> View_SaveRecord { get; set; }
@@ -35,7 +38,6 @@ namespace MainApp
             this.RegisterCommonOperation(this);
 
             this.View_OnQueryRecordsCompletion = this.RefreshGridData;
-            this.View_OnGetAttributeDataCompletion = this.UpdateCategoryData;
             this.View_OnViewReady = OnViewReady;
             this.View_OnShow = OnShow;
         }
@@ -76,7 +78,7 @@ namespace MainApp
             this.View_GetAttributeData(categories);
         }
 
-        void UpdateCategoryData(dynamic displayColumns, DateTime lastUpdatedDate)
+        public void OnGetAttributeDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate)
         {
             this.dGrid.DataSource = displayColumns;
 
