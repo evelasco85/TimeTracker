@@ -4,15 +4,12 @@ using Domain.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.Entity;
 using Domain.Views;
 using ModelViewPresenter.MessageDispatcher;
 
 namespace Domain.Controllers
 {
-    public class CategoryController : BaseController<Category>
+    public class CategoryController : BaseController<Category>, ICategoryRequests
     {
         ICategoryView _categoryView;
         IDateHelper _helper;
@@ -26,7 +23,7 @@ namespace Domain.Controllers
         public const int SYSTEMCREATED_INDEX = 0;
         public const int SYSTEMUPDATED_INDEX = 0;
 
-        public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
+        public override bool HandleRequest(Telegram telegram)
         {
             if (telegram.Operation == Operation.OpenView)
             {
@@ -39,9 +36,10 @@ namespace Domain.Controllers
         public CategoryController(IEFRepository repository, ICategoryView view)
             :base(repository, view)
         {
+            view.ViewRequest = this;
+
             this._helper = DateHelper.GetInstance();
             this._categoryView = view;
-            this._categoryView.View_GetCategoryData = this.GetCategoryData;
             this._categoryView.View_ViewReady = ViewReady;
         }
 
@@ -50,19 +48,20 @@ namespace Domain.Controllers
             this._categoryView.View_OnViewReady(data);
         }
 
-        void GetCategoryData(IEnumerable<Category> categories)
+        public void GetCategoryData(IEnumerable<Category> categories)
         {
             DateTime lastUpdatedDate = categories
                 .Select(x => x.SystemUpdateDateTime)
                 .OrderByDescending(x => x)
                 .FirstOrDefault();
 
-            this._categoryView.View_OnGetCategoryDataCompletion(
-                categories
-                .OrderBy(x => x.Id)
-                .ToList()
-                ,
-                lastUpdatedDate);
+            this._categoryView
+                .ViewEvents
+                .OnGetCategoryDataCompletion(
+                    categories
+                        .OrderBy(x => x.Id)
+                        .ToList(),
+                        lastUpdatedDate);
         }
 
         public override void GetData(Func<Category, bool> criteria)

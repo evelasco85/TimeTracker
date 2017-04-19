@@ -1,6 +1,5 @@
 ﻿using Domain;
 using Domain.Controllers;
-using Domain.Infrastructure;
 using Domain.Views;
 using System;
 using System.Collections.Generic;
@@ -11,6 +10,9 @@ namespace MainApp
 {
     public partial class frmCategory : frmCommonDataEditor, ICategoryView, IFormCommonOperation
     {
+        public ICategoryRequests ViewRequest { get; set; }
+        public ICategoryEvents ViewEvents { get; set; }
+
         public Action<Func<Category, bool>> View_QueryRecords { get; set; }
         public Action View_OnQueryRecordsCompletion { get; set; }
         public Action<Category> View_SaveRecord { get; set; }
@@ -29,8 +31,9 @@ namespace MainApp
             InitializeComponent();
             this.RegisterCommonOperation(this);
 
+            this.ViewEvents = this;
+
             this.View_OnQueryRecordsCompletion = this.RefreshGridData;
-            this.View_OnGetCategoryDataCompletion = this.UpdateCategoryData;
             this.View_OnViewReady = OnViewReady;
             this.View_OnShow = OnShow;
         }
@@ -67,10 +70,10 @@ namespace MainApp
         {
             IEnumerable<Category> categories = this.View_QueryResults;
 
-            this.View_GetCategoryData(categories);
+            this.ViewRequest.GetCategoryData(categories);
         }
 
-        void UpdateCategoryData(dynamic displayColumns, DateTime lastUpdatedDate)
+        public void OnGetCategoryDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate)
         {
             this.dGrid.DataSource = displayColumns;
 
