@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Linq.Expressions;
 
 namespace Domain.Views
 {
+    public interface IView<TModel, TRequest, TEvents> : IView<TModel>
+     {
+         TRequest ViewRequest { get; set; }
+         TEvents ViewEvents { get; set; }
+     }
+
     //Operations available to views (and Forms)
     public interface IView<TModel>
     {

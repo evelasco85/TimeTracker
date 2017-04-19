@@ -5,12 +5,10 @@ using ModelViewPresenter.MessageDispatcher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Controllers
 {
-    public class HolidayController : BaseController<Holiday>
+    public class HolidayController : BaseController<Holiday>, IHolidayRequests
     {
         public const int cID = 1 << 7;
         public override int ID { get { return cID; } }
@@ -24,7 +22,7 @@ namespace Domain.Controllers
         IHolidayView _holidayView;
         IDateHelper _helper;
 
-        public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
+        public override bool HandleRequest(Telegram telegram)
         {
             if (telegram.Operation == Operation.OpenView)
             {
@@ -40,7 +38,7 @@ namespace Domain.Controllers
         {
             this._helper = DateHelper.GetInstance();
             this._holidayView = view;
-            this._holidayView.View_GetHolidayData = this.GetHolidayData;
+            this._holidayView.ViewRequest = this;
             this._holidayView.View_ViewReady = ViewReady;
         }
 
@@ -49,7 +47,7 @@ namespace Domain.Controllers
             this._holidayView.View_OnViewReady(data);
         }
 
-        void GetHolidayData(IEnumerable<Holiday> holidays)
+        public void GetHolidayData(IEnumerable<Holiday> holidays)
         {
             var displayColumns = this._helper.GetHolidays(holidays);
             DateTime lastUpdatedDate = displayColumns
@@ -57,7 +55,9 @@ namespace Domain.Controllers
                 .OrderByDescending(x => x)
                 .FirstOrDefault();
 
-            this._holidayView.View_OnGetHolidayDataCompletion(displayColumns, lastUpdatedDate);
+            this._holidayView
+                .ViewEvents
+                .OnGetHolidayDataCompletion(displayColumns, lastUpdatedDate);
         }
 
         public override void GetData(Func<Holiday, bool> criteria)

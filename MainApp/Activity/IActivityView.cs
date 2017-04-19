@@ -2,14 +2,23 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Views
 {
-    public interface IActivityView : IView<Activity>
+    public interface IActivityView : 
+        //IView<Activity, IActivityRequests, IActivityEvents>
+                IView<Activity>
     {
         Action<IEnumerable<Activity>> View_GetActivityData { get; set; }
         Action<dynamic, DateTime> View_OnGetActivityDataCompletion { get; set; }
+    }
+
+    public interface IActivityEvents
+    {
+
+    }
+
+    public interface IActivityRequests
+    {
     }
 }

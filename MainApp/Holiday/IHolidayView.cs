@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Views
 {
-    public interface IHolidayView : IView<Holiday>
+    public interface IHolidayView : IView<Holiday, IHolidayRequests, IHolidayEvents>, IHolidayEvents
     {
-        Action<IEnumerable<Holiday>> View_GetHolidayData { get; set; }
-        Action<dynamic, DateTime> View_OnGetHolidayDataCompletion { get; set; }
+    }
+
+    public interface IHolidayEvents
+    {
+        void OnGetHolidayDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate);
+    }
+
+    public interface IHolidayRequests
+    {
+        void GetHolidayData(IEnumerable<Holiday> holidays);
     }
 }
