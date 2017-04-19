@@ -71,7 +71,7 @@ namespace MainApp
         {
             IEnumerable<Activity> categories = this.View_QueryResults;
 
-            this.View_GetActivityData(categories);
+            this.ViewRequest.GetActivityData(categories);
         }
 
         public void OnGetActivityDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate)

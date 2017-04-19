@@ -37,6 +37,8 @@ namespace MainApp
             InitializeComponent();
             this.RegisterCommonOperation(this);
 
+            this.ViewEvents = this;
+
             this.View_OnQueryRecordsCompletion = this.RefreshGridData;
             this.View_OnViewReady = OnViewReady;
             this.View_OnShow = OnShow;
@@ -75,7 +77,7 @@ namespace MainApp
         {
             IEnumerable<Domain.Attribute> categories = this.View_QueryResults;
 
-            this.View_GetAttributeData(categories);
+            this.ViewRequest.GetAttributeData(categories);
         }
 
         public void OnGetAttributeDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate)
