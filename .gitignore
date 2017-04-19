@@ -21,3 +21,4 @@ bld/
 packages
 
 *.dbmdl
+*.jfm
