@@ -3,11 +3,7 @@ using Domain.Infrastructure;
 using Domain.Views;
 using System;
 using System.Collections.Generic;
-using System.Data.Objects;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Controllers
 {

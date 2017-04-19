@@ -78,41 +78,65 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activity\ActivityController.cs" />
+    <Compile Include="Activity\IActivityView.cs" />
+    <Compile Include="Attribute\AttributeController.cs" />
+    <Compile Include="Attribute\IAttributeView.cs" />
+    <Compile Include="Base\BaseController.cs" />
+    <Compile Include="Base\IController.cs" />
+    <Compile Include="Category\CategoryController.cs" />
+    <Compile Include="Category\ICategoryView.cs" />
+    <Compile Include="DailyActivity\DailyActivityController.cs" />
+    <Compile Include="DailyActivity\IDailyActivityView.cs" />
+    <Compile Include="DailyAttribute\DailyAttributeController.cs" />
+    <Compile Include="DailyAttribute\IDailyAttributeView.cs" />
+    <Compile Include="Helpers\DateHelper.cs" />
+    <Compile Include="Base\IView.cs" />
     <Compile Include="DataGridHelper.cs" />
-    <Compile Include="frmActivity.cs">
+    <Compile Include="Activity\frmActivity.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmActivity.Designer.cs">
+    <Compile Include="Activity\frmActivity.Designer.cs">
       <DependentUpon>frmActivity.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmDailyActivity.cs">
+    <Compile Include="DailyActivity\frmDailyActivity.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmDailyActivity.Designer.cs">
+    <Compile Include="DailyActivity\frmDailyActivity.Designer.cs">
       <DependentUpon>frmDailyActivity.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmObjectives.cs">
+    <Compile Include="Holiday\HolidayController.cs" />
+    <Compile Include="Holiday\IHolidayView.cs" />
+    <Compile Include="Leave\ILeaveView.cs" />
+    <Compile Include="Leave\LeaveController.cs" />
+    <Compile Include="LogEntries\ILogView.cs" />
+    <Compile Include="LogEntries\LogEntriesController.cs" />
+    <Compile Include="Objective\frmObjectives.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmObjectives.Designer.cs">
+    <Compile Include="Objective\frmObjectives.Designer.cs">
       <DependentUpon>frmObjectives.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmStandardOperatingProcedure.cs">
+    <Compile Include="Objective\IObjectiveView.cs" />
+    <Compile Include="Objective\ObjectiveController.cs" />
+    <Compile Include="PersonalNote\IPersonalNoteView.cs" />
+    <Compile Include="PersonalNote\PersonalNoteController.cs" />
+    <Compile Include="StandardOperatingProcedure\frmStandardOperatingProcedure.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmStandardOperatingProcedure.Designer.cs">
+    <Compile Include="StandardOperatingProcedure\frmStandardOperatingProcedure.Designer.cs">
       <DependentUpon>frmStandardOperatingProcedure.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmPersonalNotes.cs">
+    <Compile Include="PersonalNote\frmPersonalNotes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmPersonalNotes.Designer.cs">
+    <Compile Include="PersonalNote\frmPersonalNotes.Designer.cs">
       <DependentUpon>frmPersonalNotes.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmAttribute.cs">
+    <Compile Include="Attribute\frmAttribute.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAttribute.Designer.cs">
+    <Compile Include="Attribute\frmAttribute.Designer.cs">
       <DependentUpon>frmAttribute.cs</DependentUpon>
     </Compile>
     <Compile Include="frmCommonByDateDataEditor.cs">
@@ -127,46 +151,50 @@
     <Compile Include="frmCommonDataEditor.Designer.cs">
       <DependentUpon>frmCommonDataEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmDailyAttribute.cs">
+    <Compile Include="DailyAttribute\frmDailyAttribute.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmDailyAttribute.Designer.cs">
+    <Compile Include="DailyAttribute\frmDailyAttribute.Designer.cs">
       <DependentUpon>frmDailyAttribute.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmLeaves.cs">
+    <Compile Include="Leave\frmLeaves.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmLeaves.Designer.cs">
+    <Compile Include="Leave\frmLeaves.Designer.cs">
       <DependentUpon>frmLeaves.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmHolidays.cs">
+    <Compile Include="Holiday\frmHolidays.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmHolidays.Designer.cs">
+    <Compile Include="Holiday\frmHolidays.Designer.cs">
       <DependentUpon>frmHolidays.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmMain.cs">
+    <Compile Include="LogEntries\frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMain.Designer.cs">
+    <Compile Include="LogEntries\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmSummarizeHoursByCategories.cs">
+    <Compile Include="StandardOperatingProcedure\IStandardOperatingProcedureView.cs" />
+    <Compile Include="StandardOperatingProcedure\StandardOperatingProcedureController.cs" />
+    <Compile Include="SummaryHours\frmSummarizeHoursByCategories.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmSummarizeHoursByCategories.Designer.cs">
+    <Compile Include="SummaryHours\frmSummarizeHoursByCategories.Designer.cs">
       <DependentUpon>frmSummarizeHoursByCategories.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmSummarizeLogs.cs">
+    <Compile Include="SummaryHours\ISummaryHoursByCategoriesView.cs" />
+    <Compile Include="SummaryHours\SummaryHoursByCategoriesController.cs" />
+    <Compile Include="SummaryLogs\frmSummarizeLogs.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmSummarizeLogs.Designer.cs">
+    <Compile Include="SummaryLogs\frmSummarizeLogs.Designer.cs">
       <DependentUpon>frmSummarizeLogs.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmCategory.cs">
+    <Compile Include="Category\frmCategory.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmCategory.Designer.cs">
+    <Compile Include="Category\frmCategory.Designer.cs">
       <DependentUpon>frmCategory.cs</DependentUpon>
     </Compile>
     <Compile Include="frmTaskMonitoringEntry.cs">
@@ -175,6 +203,13 @@
     <Compile Include="frmTaskMonitoringEntry.Designer.cs">
       <DependentUpon>frmTaskMonitoringEntry.cs</DependentUpon>
     </Compile>
+    <Compile Include="MessageDispatcher\ControllerManager.cs" />
+    <Compile Include="MessageDispatcher\FrontCommand.cs" />
+    <Compile Include="MessageDispatcher\FrontController.cs" />
+    <Compile Include="MessageDispatcher\IController.cs" />
+    <Compile Include="MessageDispatcher\RequestDispatcher.cs" />
+    <Compile Include="MessageDispatcher\Telegram.cs" />
+    <Compile Include="MessageDispatcher\UnknownController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resource1.Designer.cs">
@@ -182,25 +217,27 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="frmActivity.resx">
+    <Compile Include="SummaryLogs\ISummaryLogsView.cs" />
+    <Compile Include="SummaryLogs\SummaryLogsController.cs" />
+    <EmbeddedResource Include="Activity\frmActivity.resx">
       <DependentUpon>frmActivity.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmDailyActivity.resx">
+    <EmbeddedResource Include="DailyActivity\frmDailyActivity.resx">
       <DependentUpon>frmDailyActivity.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmObjectives.resx">
+    <EmbeddedResource Include="Objective\frmObjectives.resx">
       <DependentUpon>frmObjectives.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmStandardOperatingProcedure.resx">
+    <EmbeddedResource Include="StandardOperatingProcedure\frmStandardOperatingProcedure.resx">
       <DependentUpon>frmStandardOperatingProcedure.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmPersonalNotes.resx">
+    <EmbeddedResource Include="PersonalNote\frmPersonalNotes.resx">
       <DependentUpon>frmPersonalNotes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmAttribute.resx">
+    <EmbeddedResource Include="Attribute\frmAttribute.resx">
       <DependentUpon>frmAttribute.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmCategory.resx">
+    <EmbeddedResource Include="Category\frmCategory.resx">
       <DependentUpon>frmCategory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCommonByDateDataEditor.resx">
@@ -209,22 +246,22 @@
     <EmbeddedResource Include="frmCommonDataEditor.resx">
       <DependentUpon>frmCommonDataEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmDailyAttribute.resx">
+    <EmbeddedResource Include="DailyAttribute\frmDailyAttribute.resx">
       <DependentUpon>frmDailyAttribute.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmLeaves.resx">
+    <EmbeddedResource Include="Leave\frmLeaves.resx">
       <DependentUpon>frmLeaves.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmHolidays.resx">
+    <EmbeddedResource Include="Holiday\frmHolidays.resx">
       <DependentUpon>frmHolidays.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMain.resx">
+    <EmbeddedResource Include="LogEntries\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmSummarizeHoursByCategories.resx">
+    <EmbeddedResource Include="SummaryHours\frmSummarizeHoursByCategories.resx">
       <DependentUpon>frmSummarizeHoursByCategories.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmSummarizeLogs.resx">
+    <EmbeddedResource Include="SummaryLogs\frmSummarizeLogs.resx">
       <DependentUpon>frmSummarizeLogs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTaskMonitoringEntry.resx">
@@ -264,17 +301,9 @@
     <None Include="Resources\MSN.ICO" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Domain.View\Domain.Views.csproj">
-      <Project>{aed76b2d-19eb-4fff-8761-3fd06cae8b43}</Project>
-      <Name>Domain.Views</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{fc118e93-7b98-46de-846b-4b79a334c299}</Project>
       <Name>Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ModelViewPresenter\Domain.Controllers.csproj">
-      <Project>{42779bec-c2aa-42b3-9b91-27b237dcad1f}</Project>
-      <Name>Domain.Controllers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

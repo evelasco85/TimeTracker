@@ -9,14 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "WorklogDB", "DB\WorklogDB.sqlproj", "{CAB6583C-48DB-4904-AF3B-B2492C521552}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Controllers", "ModelViewPresenter\Domain.Controllers.csproj", "{42779BEC-C2AA-42B3-9B91-27B237DCAD1F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D6C6B12D-BD65-4AA2-85E5-A8F2FE05F925}"
 	ProjectSection(SolutionItems) = preProject
 		ToDoItems.txt = ToDoItems.txt
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Views", "Domain.View\Domain.Views.csproj", "{AED76B2D-19EB-4FFF-8761-3FD06CAE8B43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,14 +34,6 @@ Global
 		{CAB6583C-48DB-4904-AF3B-B2492C521552}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAB6583C-48DB-4904-AF3B-B2492C521552}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CAB6583C-48DB-4904-AF3B-B2492C521552}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{42779BEC-C2AA-42B3-9B91-27B237DCAD1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{42779BEC-C2AA-42B3-9B91-27B237DCAD1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{42779BEC-C2AA-42B3-9B91-27B237DCAD1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{42779BEC-C2AA-42B3-9B91-27B237DCAD1F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AED76B2D-19EB-4FFF-8761-3FD06CAE8B43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AED76B2D-19EB-4FFF-8761-3FD06CAE8B43}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AED76B2D-19EB-4FFF-8761-3FD06CAE8B43}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AED76B2D-19EB-4FFF-8761-3FD06CAE8B43}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
