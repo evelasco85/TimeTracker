@@ -5,12 +5,10 @@ using ModelViewPresenter.MessageDispatcher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Controllers
 {
-    public class SummaryHoursByCategoriesController : BaseController<LogEntry>
+    public class SummaryHoursByCategoriesController : BaseController<LogEntry>, ISummaryHoursByCategoriesRequests
     {
         public const int cID = 1 << 13;
         public override int ID { get { return cID; } }
@@ -21,7 +19,7 @@ namespace Domain.Controllers
         ISummaryHoursByCategoriesView _summaryView;
         IDateHelper _helper;
 
-        public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
+        public override bool HandleRequest(Telegram telegram)
         {
             if (telegram.Operation == Operation.OpenView)
             {
@@ -35,9 +33,10 @@ namespace Domain.Controllers
         public SummaryHoursByCategoriesController(IEFRepository repository, ISummaryHoursByCategoriesView view)
             : base(repository, view)
         {
+            view.ViewRequest = this;
+
             this._helper = DateHelper.GetInstance();
             this._summaryView = view;
-            this._summaryView.View_GetLogEntries = this.GetLogEntries;
             this._summaryView.View_ViewReady = ViewReady;
         }
         
@@ -46,7 +45,7 @@ namespace Domain.Controllers
             this._summaryView.View_OnViewReady(data);
         }
 
-        void GetLogEntries(IEnumerable<LogEntry> logs, DateTime selectedMonth)
+        public void GetLogEntries(IEnumerable<LogEntry> logs, DateTime selectedMonth)
         {
             IList<LogEntry> logEntries = this._helper.GetMonthSummaryLogs(logs, selectedMonth);
 
@@ -59,7 +58,7 @@ namespace Domain.Controllers
                         Total_Hours = x.Sum(entry => entry.HoursRendered)
                     });
 
-            this._summaryView.View_OnGetLogEntriesCompletion(summarizedLogEntries.ToList());
+            this._summaryView.OnGetLogEntriesCompletion(summarizedLogEntries.ToList());
         }
 
         public override void GetData(Func<LogEntry, bool> criteria)
