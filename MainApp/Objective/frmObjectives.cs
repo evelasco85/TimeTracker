@@ -3,10 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using System.Data.Entity;
-using System.Data.Entity.Migrations;
-using Domain.Infrastructure;
-using Domain.Helpers;
 using Domain.Controllers;
 using Domain.Views;
 
@@ -14,13 +10,14 @@ namespace MainApp
 {
     public partial class frmObjectives : frmCommonDataEditor, IObjectiveView, IFormCommonOperation
     {
+        public IObjectiveRequests ViewRequest { get; set; }
+        public IObjectiveEvents ViewEvents { get; set; }
+
         public Action<Func<Objective, bool>> View_QueryRecords { get; set; }
         public Action View_OnQueryRecordsCompletion { get; set; }
         public Action<Objective> View_SaveRecord { get; set; }
         public Action<Func<Objective, bool>> View_DeleteRecords { get; set; }
         public IEnumerable<Objective> View_QueryResults { get; set; }
-        public Action<IEnumerable<Objective>> View_GetObjectiveData { get; set; }
-        public Action<dynamic, DateTime> View_OnGetObjectiveDataCompletion { get; set; }
         public Action<object> View_ViewReady { get; set; }
         public Action<object> View_OnViewReady { get; set; }
         public Action View_OnShow { get; set; }
@@ -30,8 +27,9 @@ namespace MainApp
         {
             this.RegisterCommonOperation(this);
 
+            this.ViewEvents = this;
+
             this.View_OnQueryRecordsCompletion = RefreshGridData;
-            this.View_OnGetObjectiveDataCompletion = UpdateObjectiveData;
             this.View_OnViewReady = OnViewReady;
             this.View_OnShow = OnShow;
 
@@ -72,10 +70,10 @@ namespace MainApp
         {
             IEnumerable<Objective> objectives = this.View_QueryResults;
 
-            this.View_GetObjectiveData(objectives);
+            this.ViewRequest.GetObjectiveData(objectives);
         }
 
-        void UpdateObjectiveData(dynamic displayColumns, DateTime lastUpdatedDate)
+        public void OnGetObjectiveDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate)
         {
             this.dGrid.DataSource = displayColumns;
 

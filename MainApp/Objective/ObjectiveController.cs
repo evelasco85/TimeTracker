@@ -5,12 +5,10 @@ using ModelViewPresenter.MessageDispatcher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Controllers
 {
-    public class ObjectiveController : BaseController<Objective>
+    public class ObjectiveController : BaseController<Objective>, IObjectiveRequests
     {
         public const int cID = 1 << 4;
         public override int ID { get { return cID; } }
@@ -24,7 +22,7 @@ namespace Domain.Controllers
         IObjectiveView _objectiveView;
         IDateHelper _helper;
 
-        public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
+        public override bool HandleRequest(Telegram telegram)
         {
             if (telegram.Operation == Operation.OpenView)
             {
@@ -38,9 +36,10 @@ namespace Domain.Controllers
         public ObjectiveController(IEFRepository repository, IObjectiveView view)
             : base(repository, view)
         {
+            view.ViewRequest = this;
+
             this._helper = DateHelper.GetInstance();
             this._objectiveView = view;
-            this._objectiveView.View_GetObjectiveData = this.GetObjectiveData;
             this._objectiveView.View_ViewReady = ViewReady;
         }
 
@@ -49,7 +48,7 @@ namespace Domain.Controllers
             this._objectiveView.View_OnViewReady(data);
         }
 
-        void GetObjectiveData(IEnumerable<Objective> objectives)
+        public void GetObjectiveData(IEnumerable<Objective> objectives)
         {
             var displayColumns = objectives.OrderByDescending(x => x.Date).ToList(); 
             DateTime lastUpdatedDate = displayColumns
@@ -57,7 +56,7 @@ namespace Domain.Controllers
                 .OrderByDescending(x => x)
                 .FirstOrDefault();
 
-            this._objectiveView.View_OnGetObjectiveDataCompletion(displayColumns, lastUpdatedDate);
+            this._objectiveView.OnGetObjectiveDataCompletion(displayColumns, lastUpdatedDate);
         }
 
         public override void GetData(Func<Objective, bool> criteria)
