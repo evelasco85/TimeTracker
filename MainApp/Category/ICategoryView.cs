@@ -5,11 +5,7 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface ICategoryView : IView<Category, ICategoryRequests>, ICategoryEvents
-    {
-    }
-
-    public interface ICategoryEvents
+    public interface ICategoryView : IView<Category, ICategoryRequests>
     {
         void OnGetCategoryDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate);
     }

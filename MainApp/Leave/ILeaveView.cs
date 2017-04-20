@@ -4,11 +4,7 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface ILeaveView : IView<Leave, ILeaveRequests>, ILeaveEvents
-    {
-    }
-
-    public interface ILeaveEvents
+    public interface ILeaveView : IView<Leave, ILeaveRequests>
     {
         void OnGetLeaveDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate);
     }

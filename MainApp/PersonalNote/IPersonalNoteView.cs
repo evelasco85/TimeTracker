@@ -5,11 +5,7 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface IPersonalNoteView : IView<PersonalNote, IPersonalNoteRequests>, IPersonalNoteEvents
-    {
-    }
-
-    public interface IPersonalNoteEvents
+    public interface IPersonalNoteView : IView<PersonalNote, IPersonalNoteRequests>
     {
         void OnGetPersonalNotesCompletion(dynamic displayColumns, DateTime lastUpdatedDate);
     }

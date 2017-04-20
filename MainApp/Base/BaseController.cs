@@ -4,11 +4,17 @@ using ModelViewPresenter.MessageDispatcher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Controllers
 {
+    public interface IController<TModel> : IController
+    {
+        IView<TModel> View { get; set; }
+        void GetData(Func<TModel, bool> criteria);
+        void SaveData(TModel model);
+        void DeleteData(Func<TModel, bool> criteria);
+    }
+
     public abstract class BaseController<TEntity> : IController<TEntity>
     {
         protected IView<TEntity> _view;

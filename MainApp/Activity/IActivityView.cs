@@ -5,11 +5,7 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface IActivityView : IView<Activity, IActivityRequests>, IActivityEvents
-    {
-    }
-
-    public interface IActivityEvents
+    public interface IActivityView : IView<Activity, IActivityRequests>
     {
         void OnGetActivityDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate);
     }

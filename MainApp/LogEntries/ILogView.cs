@@ -4,11 +4,7 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface ILogView : IView<LogEntry, ILogRequests>, ILogEvents
-    {
-    }
-
-    public interface ILogEvents
+    public interface ILogView : IView<LogEntry, ILogRequests>
     {
         void OnGetLogStatisticsCompletion(int holidayCount, int leaveCount, int saturdayCount, int sundayCount, int workdaysCount, int daysInMonth, int uniqueLogEntriesPerDate, int daysCountWithoutLogs, double hoursRendered);
         void OnGetCalendarDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate);
