@@ -5,9 +5,17 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface IPersonalNoteView : IView<PersonalNote>
+    public interface IPersonalNoteView : IView<PersonalNote, IPersonalNoteRequests, IPersonalNoteEvents>, IPersonalNoteEvents
     {
-        Action<IEnumerable<PersonalNote>> View_GetPersonalNotes { get; set; }
-        Action<dynamic, DateTime> View_OnGetPersonalNotesCompletion { get; set; }
+    }
+
+    public interface IPersonalNoteEvents
+    {
+        void OnGetPersonalNotesCompletion(dynamic displayColumns, DateTime lastUpdatedDate);
+    }
+
+    public interface IPersonalNoteRequests
+    {
+        void GetPersonalNotes(IEnumerable<PersonalNote> notes);
     }
 }

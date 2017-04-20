@@ -6,12 +6,10 @@ using ModelViewPresenter.MessageDispatcher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Controllers
 {
-    public class PersonalNoteController : BaseController<PersonalNote>
+    public class PersonalNoteController : BaseController<PersonalNote>, IPersonalNoteRequests
     {
         public const int cID = 1 << 3;
         public override int ID { get { return cID; } }
@@ -25,7 +23,7 @@ namespace Domain.Controllers
         IPersonalNoteView _view;
         IDateHelper _helper;
 
-        public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
+        public override bool HandleRequest(Telegram telegram)
         {
             if (telegram.Operation == Operation.OpenView)
             {
@@ -39,9 +37,10 @@ namespace Domain.Controllers
         public PersonalNoteController(IEFRepository repository, IPersonalNoteView view)
             : base(repository, view)
         {
+            view.ViewRequest = this;
+
             this._helper = DateHelper.GetInstance();
             this._view = view;
-            this._view.View_GetPersonalNotes = this.GetPersonalNoteData;
             this._view.View_ViewReady = ViewReady;
         }
 
@@ -50,14 +49,14 @@ namespace Domain.Controllers
             this._view.View_OnViewReady(data);
         }
 
-        void GetPersonalNoteData(IEnumerable<PersonalNote> notes)
+        public void GetPersonalNotes(IEnumerable<PersonalNote> notes)
         {
             DateTime lastUpdatedDate = notes
                 .Select(x => x.SystemUpdateDateTime)
                 .OrderByDescending(x => x)
                 .FirstOrDefault();
 
-            this._view.View_OnGetPersonalNotesCompletion(
+            this._view.OnGetPersonalNotesCompletion(
                 notes
                 .OrderByDescending(x => x.SystemUpdateDateTime)
                 .ToList()

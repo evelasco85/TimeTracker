@@ -1,6 +1,5 @@
 ﻿using Domain;
 using Domain.Controllers;
-using Domain.Infrastructure;
 using Domain.Views;
 using System;
 using System.Collections.Generic;
@@ -11,13 +10,13 @@ namespace MainApp
 {
     public partial class frmPersonalNotes : frmCommonDataEditor, IPersonalNoteView, IFormCommonOperation
     {
+        public IPersonalNoteRequests ViewRequest { get; set; }
+
         public Action<Func<PersonalNote, bool>> View_QueryRecords { get; set; }
         public Action View_OnQueryRecordsCompletion { get; set; }
         public Action<PersonalNote> View_SaveRecord { get; set; }
         public Action<Func<PersonalNote, bool>> View_DeleteRecords { get; set; }
         public IEnumerable<PersonalNote> View_QueryResults { get; set; }
-        public Action<IEnumerable<PersonalNote>> View_GetPersonalNotes { get; set; }
-        public Action<dynamic, DateTime> View_OnGetPersonalNotesCompletion { get; set; }
         public Action<object> View_ViewReady { get; set; }
         public Action<object> View_OnViewReady { get; set; }
         public Action View_OnShow { get; set; }
@@ -30,7 +29,6 @@ namespace MainApp
             this.RegisterCommonOperation(this);
 
             this.View_OnQueryRecordsCompletion = this.RefreshGridData;
-            this.View_OnGetPersonalNotesCompletion = this.UpdateNoteData;
             this.View_OnViewReady = OnViewReady;
             this.View_OnShow = OnShow;
         }
@@ -68,10 +66,10 @@ namespace MainApp
         {
             IEnumerable<PersonalNote> personalNotes = this.View_QueryResults;
 
-            this.View_GetPersonalNotes(personalNotes);
+            this.ViewRequest.GetPersonalNotes(personalNotes);
         }
 
-        void UpdateNoteData(dynamic displayColumns, DateTime lastUpdatedDate)
+        public void OnGetPersonalNotesCompletion(dynamic displayColumns, DateTime lastUpdatedDate)
         {
             this.dGrid.DataSource = displayColumns;
 
