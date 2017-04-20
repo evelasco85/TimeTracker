@@ -5,12 +5,12 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface ICategoryView : IViewDeprecated<Category, ICategoryRequests>
+    public interface ICategoryView : IView<Category, ICategoryRequests>, IViewControllerEvents<Category>
     {
         void OnGetCategoryDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate);
     }
 
-    public interface ICategoryRequests
+    public interface ICategoryRequests : IViewControllerRequests<Category>
     {
         void GetCategoryData(IEnumerable<Category> categories);
     }

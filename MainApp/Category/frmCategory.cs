@@ -11,17 +11,7 @@ namespace MainApp
     public partial class frmCategory : frmCommonDataEditor, ICategoryView, IFormCommonOperation
     {
         public ICategoryRequests ViewRequest { get; set; }
-
-        public Action<Func<Category, bool>> View_QueryRecords { get; set; }
-        public Action View_OnQueryRecordsCompletion { get; set; }
-        public Action<Category> View_SaveRecord { get; set; }
-        public Action<Func<Category, bool>> View_DeleteRecords { get; set; }
-        public IEnumerable<Category> View_QueryResults { get; set; }
-        public Action<IEnumerable<Category>> View_GetCategoryData { get; set; }
-        public Action<dynamic, DateTime> View_OnGetCategoryDataCompletion { get; set; }
-        public Action<object> View_ViewReady { get; set; }
-        public Action<object> View_OnViewReady { get; set; }
-        public Action View_OnShow { get; set; }
+        public IEnumerable<Category> QueryResults { get; set; }
 
         Form _parentForm;
 
@@ -29,12 +19,8 @@ namespace MainApp
         {
             InitializeComponent();
             this.RegisterCommonOperation(this);
-
-            this.View_OnQueryRecordsCompletion = this.RefreshGridData;
-            this.View_OnViewReady = OnViewReady;
-            this.View_OnShow = OnShow;
         }
-        void OnShow()
+        public void OnShow()
         {
             MethodInvoker invokeFromUI = new MethodInvoker(
                () =>
@@ -56,16 +42,16 @@ namespace MainApp
                 invokeFromUI.Invoke();
         }
 
-        void OnViewReady(object data)
+        public void OnViewReady(object data)
         {
             this._parentForm = (Form)data.GetType().GetProperty("parentForm").GetValue(data, null);
 
-            this.View_QueryRecords(null);
+            this.ViewRequest.GetData(null);
         }
 
-        void RefreshGridData()
+        public void OnQueryRecordsCompletion()
         {
-            IEnumerable<Category> categories = this.View_QueryResults;
+            IEnumerable<Category> categories = this.QueryResults;
 
             this.ViewRequest.GetCategoryData(categories);
         }
@@ -110,7 +96,7 @@ namespace MainApp
             try
             {
                 int id = int.Parse(this.dGrid.Rows[rowIndex].Cells[CategoryController.ID_INDEX].Value.ToString());
-                Category category = this.View_QueryResults
+                Category category = this.QueryResults
                     .Where(x => x.Id == id)
                     .FirstOrDefault();
 
@@ -168,8 +154,8 @@ namespace MainApp
 
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
-                    this.View_DeleteRecords(x => x.Id == id);
-                    this.View_QueryRecords(null);
+                    this.ViewRequest.DeleteData(x => x.Id == id);
+                    this.ViewRequest.GetData(null);
                 }
             }
             catch (FormatException)
@@ -188,7 +174,7 @@ namespace MainApp
             };
 
             if (!string.IsNullOrEmpty(this.lblId.Text))
-                category = this.View_QueryResults
+                category = this.QueryResults
                     .Where(x => x.Id == int.Parse(this.lblId.Text))
                     .FirstOrDefault();
 
@@ -196,8 +182,8 @@ namespace MainApp
             category.ShowInSummary = this.chkShowInSummary.Checked;
             category.SystemUpdateDateTime = DateTime.Now;
 
-            this.View_SaveRecord(category);
-            this.View_QueryRecords(null);
+            this.ViewRequest.SaveData(category);
+            this.ViewRequest.GetData(null);
             this.WindowInputChanges(ModifierState.Save);
         }
 

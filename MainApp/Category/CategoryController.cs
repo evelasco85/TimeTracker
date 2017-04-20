@@ -9,7 +9,7 @@ using ModelViewPresenter.MessageDispatcher;
 
 namespace Domain.Controllers
 {
-    public class CategoryController : BaseControllerDeprecated<Category>, ICategoryRequests
+    public class CategoryController : BaseController<Category>, ICategoryRequests
     {
         ICategoryView _categoryView;
         IDateHelper _helper;
@@ -27,25 +27,19 @@ namespace Domain.Controllers
         {
             if (telegram.Operation == Operation.OpenView)
             {
-                this._categoryView.View_ViewReady(telegram.Data);
-                this._categoryView.View_OnShow();
+                this._categoryView.OnViewReady(telegram.Data);
+                this._categoryView.OnShow();
             }
 
             return true;
         }
         public CategoryController(IEFRepository repository, ICategoryView view)
-            :base(repository, view)
+            :base(repository)
         {
             view.ViewRequest = this;
 
             this._helper = DateHelper.GetInstance();
             this._categoryView = view;
-            this._categoryView.View_ViewReady = ViewReady;
-        }
-
-        void ViewReady(dynamic data)
-        {
-            this._categoryView.View_OnViewReady(data);
         }
 
         public void GetCategoryData(IEnumerable<Category> categories)
@@ -69,11 +63,11 @@ namespace Domain.Controllers
                 .GetEntityQuery<Category>();
 
             if (criteria == null)
-                this._view.View_QueryResults = categoryQuery.Select(x => x);
+                this._categoryView.QueryResults = categoryQuery.Select(x => x);
             else
-                this._view.View_QueryResults = categoryQuery.Where(criteria);
+                this._categoryView.QueryResults = categoryQuery.Where(criteria);
 
-            this._view.View_OnQueryRecordsCompletion();
+            this._categoryView.OnQueryRecordsCompletion();
         }
 
         public override void SaveData(Category data)
