@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Domain.Controllers
 {
-    public class LeaveController : BaseControllerDeprecated<Leave>, ILeaveRequests
+    public class LeaveController : BaseController<Leave>, ILeaveRequests
     {
         public const int cID = 1 << 6;
         public override int ID { get { return cID; } }
@@ -26,26 +26,20 @@ namespace Domain.Controllers
         {
             if (telegram.Operation == Operation.OpenView)
             {
-                this._leaveView.View_ViewReady(telegram.Data);
-                this._leaveView.View_OnShow();
+                this._leaveView.OnViewReady(telegram.Data);
+                this._leaveView.OnShow();
             }
 
             return true;
         }
 
         public LeaveController(IEFRepository repository, ILeaveView view)
-            : base(repository, view)
+            : base(repository)
         {
             view.ViewRequest = this;
 
             this._helper = DateHelper.GetInstance();
             this._leaveView = view;
-            this._leaveView.View_ViewReady = ViewReady;
-        }
-
-        void ViewReady(dynamic data)
-        {
-            this._leaveView.View_OnViewReady(data);
         }
 
         public void GetLeaveData(IEnumerable<Leave> leaves)
@@ -66,11 +60,11 @@ namespace Domain.Controllers
                 .GetEntityQuery<Leave>();
 
             if (criteria == null)
-                this._view.View_QueryResults = holidayQuery.Select(x => x);
+                this._leaveView.QueryResults = holidayQuery.Select(x => x);
             else
-                this._view.View_QueryResults = holidayQuery.Where(criteria);
+                this._leaveView.QueryResults = holidayQuery.Where(criteria);
 
-            this._view.View_OnQueryRecordsCompletion();
+            this._leaveView.OnQueryRecordsCompletion();
         }
 
         public override void SaveData(Leave data)

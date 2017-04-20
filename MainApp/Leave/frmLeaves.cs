@@ -12,30 +12,17 @@ namespace MainApp
     public partial class frmLeaves : frmCommonDataEditor, ILeaveView, IFormCommonOperation
     {
         public ILeaveRequests ViewRequest { get; set; }
-
-        public Action<Func<Leave, bool>> View_QueryRecords { get; set; }
-        public Action View_OnQueryRecordsCompletion { get; set; }
-        public Action<Leave> View_SaveRecord { get; set; }
-        public Action<Func<Leave, bool>> View_DeleteRecords { get; set; }
-        public IEnumerable<Leave> View_QueryResults { get; set; }
-        public Action<object> View_ViewReady { get; set; }
-        public Action<object> View_OnViewReady { get; set; }
-        public Action View_OnShow { get; set; }
+        public IEnumerable<Leave> QueryResults { get; set; }
 
         Form _parentForm;
 
         public frmLeaves()
         {
-            this.RegisterCommonOperation(this);
-
-            this.View_OnQueryRecordsCompletion = RefreshGridData;
-            this.View_OnViewReady = OnViewReady;
-            this.View_OnShow = OnShow;
-
             InitializeComponent();
+            this.RegisterCommonOperation(this);
         }
 
-        void OnShow()
+        public void OnShow()
         {
             MethodInvoker invokeFromUI = new MethodInvoker(
                () =>
@@ -57,17 +44,17 @@ namespace MainApp
                 invokeFromUI.Invoke();
         }
 
-        void OnViewReady(object data)
+        public void OnViewReady(object data)
         {
             this._parentForm = (Form)data.GetType().GetProperty("parentForm").GetValue(data, null);
             this.leaveDate.Value = DateTime.Now;
 
-            this.View_QueryRecords(null);
+            this.ViewRequest.GetData(null);
         }
 
-        void RefreshGridData()
+        public void OnQueryRecordsCompletion()
         {
-            IEnumerable<Leave> leaves = this.View_QueryResults;
+            IEnumerable<Leave> leaves = this.QueryResults;
 
             this.ViewRequest.GetLeaveData(leaves);
         }
@@ -113,7 +100,7 @@ namespace MainApp
             try
             {
                 int id = int.Parse(this.dGrid.Rows[rowIndex].Cells[LeaveController.ID_INDEX].Value.ToString());
-                Leave leave = DateHelper.GetInstance().GetLeave(this.View_QueryResults, id);
+                Leave leave = DateHelper.GetInstance().GetLeave(this.QueryResults, id);
 
                 this.lblId.Text = leave.Id.ToString();
                 this.leaveDate.Value = leave.Date;
@@ -175,8 +162,8 @@ namespace MainApp
 
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
-                    this.View_DeleteRecords(x => x.Id == id);
-                    this.View_QueryRecords(null);
+                    this.ViewRequest.DeleteData(x => x.Id == id);
+                    this.ViewRequest.GetData(null);
                 }
             }
             catch (FormatException)
@@ -195,14 +182,14 @@ namespace MainApp
             };
 
             if (!string.IsNullOrEmpty(this.lblId.Text))
-                leave = DateHelper.GetInstance().GetLeave(this.View_QueryResults, int.Parse(this.lblId.Text));
+                leave = DateHelper.GetInstance().GetLeave(this.QueryResults, int.Parse(this.lblId.Text));
 
             leave.Date = this.leaveDate.Value;
             leave.Description = this.txtLeaveDescription.Text;
             leave.SystemUpdated = DateTime.Now;
 
-            this.View_SaveRecord(leave);
-            this.View_QueryRecords(null);
+            this.ViewRequest.SaveData(leave);
+            this.ViewRequest.GetData(null);
             this.WindowInputChanges(ModifierState.Save);
         }
 
