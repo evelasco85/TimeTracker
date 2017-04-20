@@ -5,12 +5,10 @@ using ModelViewPresenter.MessageDispatcher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Controllers
 {
-    public class SummaryLogsController : BaseController<LogEntry>
+    public class SummaryLogsController : BaseController<LogEntry>, ISummaryLogsRequests
     {
         public const int cID = 1 << 2;
         public override int ID { get { return cID; } }
@@ -22,7 +20,7 @@ namespace Domain.Controllers
         ISummaryLogsView _summaryView;
         IDateHelper _helper;
 
-        public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
+        public override bool HandleRequest(Telegram telegram)
         {
             if (telegram.Operation == Operation.OpenView)
             {
@@ -36,9 +34,10 @@ namespace Domain.Controllers
         public SummaryLogsController(IEFRepository repository, ISummaryLogsView view)
             : base(repository, view)
         {
+            view.ViewRequest = this;
+
             this._helper = DateHelper.GetInstance();
             this._summaryView = view;
-            this._summaryView.View_GetLogEntries = this.GetLogEntries;
             this._summaryView.View_ViewReady = ViewReady;
         }
         
@@ -47,7 +46,7 @@ namespace Domain.Controllers
             this._summaryView.View_OnViewReady(data);
         }
 
-        void GetLogEntries(IEnumerable<LogEntry> logs, DateTime selectedMonth)
+        public void GetLogEntries(IEnumerable<LogEntry> logs, DateTime selectedMonth)
         {
             IList<LogEntry> logEntries = this._helper.GetMonthSummaryLogs(logs, selectedMonth);
             IEnumerable<Category> categories = this._repository
@@ -113,7 +112,7 @@ namespace Domain.Controllers
                 .SelectMany(x => x)
                 .ToList();
 
-            this._summaryView.View_OnGetLogEntriesCompletion(summarizedLogEntries.OrderByDescending(x => x.Created).ToList());
+            this._summaryView.OnGetLogEntriesCompletion(summarizedLogEntries.OrderByDescending(x => x.Created).ToList());
         }
 
         public override void GetData(Func<LogEntry, bool> criteria)

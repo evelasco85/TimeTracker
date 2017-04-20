@@ -4,9 +4,17 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface ISummaryLogsView : IView<LogEntry>
+    public interface ISummaryLogsView : IView<LogEntry, ISummaryLogsRequests, ISummaryLogsEvents>, ISummaryLogsEvents
     {
-        Action<IEnumerable<LogEntry>, DateTime> View_GetLogEntries { get; set; }
-        Action<dynamic> View_OnGetLogEntriesCompletion { get; set; }
+    }
+
+    public interface ISummaryLogsEvents
+    {
+        void OnGetLogEntriesCompletion(dynamic summarizedLogEntries);
+    }
+
+    public interface ISummaryLogsRequests
+    {
+        void GetLogEntries(IEnumerable<LogEntry> logs, DateTime selectedMonth);
     }
 }
