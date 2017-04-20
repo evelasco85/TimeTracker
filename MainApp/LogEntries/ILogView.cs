@@ -1,27 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Views
 {
-    public interface ILogView : IView<LogEntry>
+    public interface ILogView : IView<LogEntry, ILogRequests, ILogEvents>, ILogEvents
     {
-        Action<IEnumerable<LogEntry>, DateTime> View_GetLogStatistics { get; set; }
-        Action<int,int,int,int,int,int,int, int, double> View_OnGetLogStatisticsCompletion { get; set; }
+    }
 
-        Action<IEnumerable<LogEntry>, DateTime> View_GetCalendarData { get; set; }
-        Action<dynamic, DateTime> View_OnGetCalendarDataCompletion { get; set; }
+    public interface ILogEvents
+    {
+        void OnGetLogStatisticsCompletion(int holidayCount, int leaveCount, int saturdayCount, int sundayCount, int workdaysCount, int daysInMonth, int uniqueLogEntriesPerDate, int daysCountWithoutLogs, double hoursRendered);
+        void OnGetCalendarDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate);
+        void OnGetObjectiveDataCompletion(string objectives);
+    }
 
-        Func<bool> View_GetRememberedSetting { get; set; }
-        Action<bool> View_SetRememberedSetting { get; set; }
-
-        Func<DateTime> View_GetRememberedDate { get; set; }
-        Action<DateTime> View_SetRememberedDate { get; set; }
-        Func<IEnumerable<Category>> View_GetCategories { get; set; }
-
-        Action<DateTime> View_GetObjectiveData { get; set; }
-        Action<string> View_OnGetObjectiveDataCompletion { get; set; }
+    public interface ILogRequests
+    {
+        void GetLogStatistics(IEnumerable<LogEntry> logs, DateTime selectedMonth);
+        void GetCalendarData(IEnumerable<LogEntry> logs, DateTime selectedMonth);
+        bool GetRememberedSetting();
+        void SetRememberedSetting(bool rememberSetting);
+        DateTime GetRememberedDate();
+        void SetRememberedDate(DateTime date);
+        IEnumerable<Category> GetCategories();
+        void GetObjectiveData(DateTime dateTime);
     }
 }

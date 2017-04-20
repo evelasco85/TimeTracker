@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Domain.Infrastructure;
 using Domain.Helpers;
 using Domain.Controllers;
 using Domain.Views;
@@ -14,6 +13,9 @@ namespace MainApp
 {
     public partial class frmMain : Form, ILogView
     {
+        public ILogRequests ViewRequest { get; set; }
+        public ILogEvents ViewEvents { get; set; }
+
         System.Timers.Timer _timerNotification;
         bool _promptingInProgress = false;
         int _secondsRemaining;
@@ -23,30 +25,17 @@ namespace MainApp
         public Action View_OnQueryRecordsCompletion { get; set; }
         public Action<Func<LogEntry, bool>> View_DeleteRecords { get; set; }
         public Action<LogEntry> View_SaveRecord { get; set; }
-        public Action<IEnumerable<LogEntry>, DateTime> View_GetLogStatistics { get; set; }
-        public Action<int, int, int, int, int, int, int, int, double> View_OnGetLogStatisticsCompletion { get; set; }
-        public Action<IEnumerable<LogEntry>, DateTime> View_GetCalendarData { get; set; }
-        public Action<dynamic, DateTime> View_OnGetCalendarDataCompletion { get; set; }
         public IEnumerable<LogEntry> View_QueryResults { get; set; }
-        public Func<bool> View_GetRememberedSetting { get; set; }
-        public Action<bool> View_SetRememberedSetting { get; set; }
-
-        public Func<DateTime> View_GetRememberedDate { get; set; }
-        public Action<DateTime> View_SetRememberedDate { get; set; }
-        public Func<IEnumerable<Category>> View_GetCategories { get; set; }
-        public Action<DateTime> View_GetObjectiveData { get; set; }
-        public Action<string> View_OnGetObjectiveDataCompletion { get; set; }
         public Action<object> View_ViewReady { get; set; }
         public Action<object> View_OnViewReady { get; set; }
         public Action View_OnShow { get; set; }
 
         public frmMain()
         {
+            this.ViewEvents = this;
+
             this._frontController = FrontController.GetInstance();
             this.View_OnQueryRecordsCompletion = this.RefreshGridData;
-            this.View_OnGetLogStatisticsCompletion = this.UpdateDashboard;
-            this.View_OnGetCalendarDataCompletion = this.UpdateCalendarData;
-            this.View_OnGetObjectiveDataCompletion = this.UpdateObjectiveData;
             this.View_OnViewReady = OnViewReady;
             this.View_OnShow = OnShow;
 
@@ -78,16 +67,16 @@ namespace MainApp
             IEnumerable<LogEntry> log = this.View_QueryResults;
             DateTime selectedMonth = this.dateTimeMonth.Value;
 
-            this.View_GetCalendarData(log, selectedMonth);
+            this.ViewRequest.GetCalendarData(log, selectedMonth);
         }
 
-        void UpdateCalendarData(dynamic displayColumns, DateTime lastUpdatedDate)
+        public void OnGetCalendarDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate)
         {
             this.dGridLogs.DataSource = displayColumns;
 
             this.dGridLogs.Refresh();
             this.HighlightRecordByDate(lastUpdatedDate);
-            this.View_GetObjectiveData(lastUpdatedDate);
+            this.ViewRequest.GetObjectiveData(lastUpdatedDate);
         }
 
         void DecorateGrid()
@@ -252,10 +241,10 @@ namespace MainApp
 
                         this._promptingInProgress = true;
 
-                        this.View_GetObjectiveData(createdDate);
+                        this.ViewRequest.GetObjectiveData(createdDate);
 
                         using (frmTaskMonitoringEntry monitoring = new frmTaskMonitoringEntry(
-                            this.View_GetCategories()
+                            this.ViewRequest.GetCategories()
                                 .Select(x => x.Name),
                             primaryKey, category, description, rememberSetting, createdDate, systemCreatedDate,
                             this.txtObjectives.Text, hoursRendered
@@ -300,10 +289,10 @@ namespace MainApp
                 this._promptingInProgress = true;
 
                 using (frmTaskMonitoringEntry monitoring = new frmTaskMonitoringEntry(
-                    this.View_GetCategories()
+                    this.ViewRequest.GetCategories()
                         .Select(x => x.Name),
-                    this.View_GetRememberedSetting(),
-                    this.View_GetRememberedDate(),
+                    this.ViewRequest.GetRememberedSetting(),
+                    this.ViewRequest.GetRememberedDate(),
                     this.txtObjectives.Text
                     )
                     )
@@ -346,8 +335,8 @@ namespace MainApp
             if ((logEntry == null) || (string.IsNullOrEmpty(logEntry.Description)))
                 return success;
 
-            this.View_SetRememberedSetting(monitoring.RememberSetting);
-            this.View_SetRememberedDate(logEntry.Created);
+            this.ViewRequest.SetRememberedSetting(monitoring.RememberSetting);
+            this.ViewRequest.SetRememberedDate(logEntry.Created);
 
             try
             {
@@ -378,10 +367,10 @@ namespace MainApp
         {
             DateTime selectedMonth = this.dateTimeMonth.Value;
             IEnumerable<LogEntry> logs = this.View_QueryResults;
-            this.View_GetLogStatistics(logs, selectedMonth);
+            this.ViewRequest.GetLogStatistics(logs, selectedMonth);
         }
 
-        void UpdateDashboard(int holidayCount, int leaveCount, int saturdayCount, int sundayCount, int workdaysCount, int daysInMonth, int uniqueLogEntriesPerDate, int daysCountWithoutLogs, double hoursRendered)
+        public void OnGetLogStatisticsCompletion(int holidayCount, int leaveCount, int saturdayCount, int sundayCount, int workdaysCount, int daysInMonth, int uniqueLogEntriesPerDate, int daysCountWithoutLogs, double hoursRendered)
         {
             this.lblHolidaysCount.Text = string.Format("Holidays Count (Weekdays): {0}", holidayCount.ToString());
             this.lblLeavesCount.Text = string.Format("Leaves Count (Weekdays): {0}", leaveCount.ToString());
@@ -457,8 +446,8 @@ namespace MainApp
                 DateTime createdDate = DateTime.Parse(row.Cells[LogEntriesController.CREATED_INDEX].Value.ToString());
                 DateTime systemCreatedDate = DateTime.Parse(row.Cells[LogEntriesController.SYSTEM_CREATED_INDEX].Value.ToString());
                 string description = row.Cells[LogEntriesController.DESCRIPTION_INDEX].Value.ToString();
-                bool rememberSetting = this.View_GetRememberedSetting();
-                DateTime rememberedCreatedDateTime = this.View_GetRememberedDate();
+                bool rememberSetting = this.ViewRequest.GetRememberedSetting();
+                DateTime rememberedCreatedDateTime = this.ViewRequest.GetRememberedDate();
                 double hoursRendered = Convert.ToDouble(row.Cells[LogEntriesController.HOURS_RENDERED_INDEX].Value);
 
                 this.SafeEditEntry(primaryKey, category, description, rememberSetting, createdDate, systemCreatedDate, rememberedCreatedDateTime, hoursRendered);
@@ -489,8 +478,8 @@ namespace MainApp
                 DataGridViewRow row = this.dGridLogs.Rows[index];
                 string description = row.Cells[LogEntriesController.DESCRIPTION_INDEX].Value.ToString();
                 string category = row.Cells[LogEntriesController.CATEGORY_INDEX].Value.ToString();
-                
-                this.View_GetObjectiveData(DateTime.Parse(row.Cells[LogEntriesController.CREATED_INDEX].Value.ToString()));
+
+                this.ViewRequest.GetObjectiveData(DateTime.Parse(row.Cells[LogEntriesController.CREATED_INDEX].Value.ToString()));
                 this.txtCategory.Clear();
                 this.txtDescription.Clear();
                 
@@ -505,7 +494,7 @@ namespace MainApp
             }
         }
 
-        void UpdateObjectiveData(string objectives)
+        public void OnGetObjectiveDataCompletion(string objectives)
         {
             this.txtObjectives.Clear();
             this.txtObjectives.Text = objectives;

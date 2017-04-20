@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Domain.Controllers
 {
-    public class LogEntriesController : BaseController<LogEntry>
+    public class LogEntriesController : BaseController<LogEntry>, ILogRequests
     {
         public const int cID = 1 << 5;
         public override int ID { get { return cID; } }
@@ -40,16 +40,10 @@ namespace Domain.Controllers
         public LogEntriesController(IEFRepository repository, ILogView view)
             : base(repository, view)
         {
+            view.ViewRequest = this;
+
             this._helper = DateHelper.GetInstance();
             this._logView = view;
-            this._logView.View_GetLogStatistics = this.GetLogStatistics;
-            this._logView.View_GetCalendarData = this.GetCalendarData;
-            this._logView.View_GetCategories = this.GetCategories;
-            this._logView.View_GetRememberedSetting = this.GetRememberedSetting;
-            this._logView.View_SetRememberedSetting = this.SetRememberedSetting;
-            this._logView.View_GetRememberedDate = this.GetRememberedDate;
-            this._logView.View_SetRememberedDate = this.SetRememberedDate;
-            this._logView.View_GetObjectiveData = this.GetObjectiveData;
             this._logView.View_ViewReady = ViewReady;
         }
 
@@ -58,19 +52,19 @@ namespace Domain.Controllers
             this._logView.View_OnViewReady(data);
         }
 
-        IEnumerable<Category> GetCategories()
+        public IEnumerable<Category> GetCategories()
         {
             IQueryable<Category> categoryQuery = this._repository.GetEntityQuery<Category>();
 
             return categoryQuery;
         }
-        bool GetRememberedSetting() { return this._rememberSetting; }
-        void SetRememberedSetting(bool rememberSetting) { this._rememberSetting = rememberSetting; }
+        public bool GetRememberedSetting() { return this._rememberSetting; }
+        public void SetRememberedSetting(bool rememberSetting) { this._rememberSetting = rememberSetting; }
 
-        DateTime GetRememberedDate() { return this._rememberedCreatedDateTime; }
-        void SetRememberedDate(DateTime date) { this._rememberedCreatedDateTime = date; }        
+        public DateTime GetRememberedDate() { return this._rememberedCreatedDateTime; }
+        public void SetRememberedDate(DateTime date) { this._rememberedCreatedDateTime = date; }        
         
-        void GetObjectiveData(DateTime dateTime)
+        public void GetObjectiveData(DateTime dateTime)
         {
             DateTime dateOnly = dateTime.Date;
 
@@ -89,11 +83,11 @@ namespace Domain.Controllers
                 .ToArray()
                 );
 
-            this._logView.View_OnGetObjectiveDataCompletion(objectives);
+            this._logView.OnGetObjectiveDataCompletion(objectives);
         }
 
 
-        void GetCalendarData(IEnumerable<LogEntry> logs, DateTime selectedMonth)
+        public void GetCalendarData(IEnumerable<LogEntry> logs, DateTime selectedMonth)
         {
             IEnumerable<Leave> leaves = this._repository
                 .GetEntityQuery<Leave>()
@@ -160,10 +154,10 @@ namespace Domain.Controllers
                 .OrderByDescending(x => x)
                 .FirstOrDefault();
 
-            this._logView.View_OnGetCalendarDataCompletion(displayColumns, lastUpdatedDate);
+            this._logView.OnGetCalendarDataCompletion(displayColumns, lastUpdatedDate);
         }
 
-        void GetLogStatistics(IEnumerable<LogEntry> logs, DateTime selectedMonth)
+        public void GetLogStatistics(IEnumerable<LogEntry> logs, DateTime selectedMonth)
         {
             int year = selectedMonth.Year;
             int month = selectedMonth.Month;
@@ -200,7 +194,7 @@ namespace Domain.Controllers
             int workdaysCount = (daysInMonth - (saturdayCount + sundayCount + holidayCountExcludingWeekend + leaveCountExcludingWeekend));
             int daysCountWithoutLogs = workdaysCount - uniqueLogEntriesPerDate;
             
-            this._logView.View_OnGetLogStatisticsCompletion(holidayCountExcludingWeekend, leaveCountExcludingWeekend, saturdayCount, sundayCount, workdaysCount, daysInMonth, uniqueLogEntriesPerDate, daysCountWithoutLogs, totalHours);
+            this._logView.OnGetLogStatisticsCompletion(holidayCountExcludingWeekend, leaveCountExcludingWeekend, saturdayCount, sundayCount, workdaysCount, daysInMonth, uniqueLogEntriesPerDate, daysCountWithoutLogs, totalHours);
         }
 
         public override void GetData(Func<LogEntry, bool> criteria)
