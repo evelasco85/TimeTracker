@@ -16,15 +16,14 @@ namespace MainApp
 {
     public partial class frmDailyAttribute : frmCommonByDateDataEditor, IFormCommonOperation, IDailyAttributeView
     {
+        public IDailyAttributeRequests ViewRequest { get; set; }
+        public IDailyAttributeEvents ViewEvents { get; set; }
+
         public Action<Func<DayAttribute, bool>> View_QueryRecords { get; set; }
         public Action View_OnQueryRecordsCompletion { get; set; }
         public Action<DayAttribute> View_SaveRecord { get; set; }
         public Action<Func<DayAttribute, bool>> View_DeleteRecords { get; set; }
         public IEnumerable<DayAttribute> View_QueryResults { get; set; }
-        public Action View_GetPresetAttributeData { get; set; }
-        public Action<IEnumerable<Domain.Attribute>> View_OnGetPresetAttributeDataCompletion { get; set; }
-        public Action<IEnumerable<DayAttribute>> View_GetDailyAttributeData { get; set; }
-        public Action<dynamic, DateTime> View_OnGetDailyAttributeDataCompletion { get; set; }
         public Action<object> View_ViewReady { get; set; }
         public Action<object> View_OnViewReady { get; set; }
         public Action View_OnShow { get; set; }
@@ -38,9 +37,9 @@ namespace MainApp
             InitializeComponent();
             this.RegisterCommonOperation(this);
 
+            this.ViewEvents = this;
+
             this.View_OnQueryRecordsCompletion = this.RefreshGridData;
-            this.View_OnGetPresetAttributeDataCompletion = this.PopulateAttributePresets;
-            this.View_OnGetDailyAttributeDataCompletion = this.UpdateDailyAttributeData;
             this.View_OnViewReady = OnViewReady;
             this.View_OnShow = OnShow;
         }
@@ -72,10 +71,10 @@ namespace MainApp
             this._parentForm = (Form)data.GetType().GetProperty("parentForm").GetValue(data, null);
 
             this.View_QueryRecords(null);
-            this.View_GetPresetAttributeData();
+            this.ViewRequest.GetPresetAttributeData();
         }
 
-        void PopulateAttributePresets(IEnumerable<Domain.Attribute> attributes)
+        public void OnGetPresetAttributeDataCompletion(IEnumerable<Domain.Attribute> attributes)
         {
             this._presetAttributes = attributes;
 
@@ -91,7 +90,7 @@ namespace MainApp
         {
             IEnumerable<DayAttribute> dailyAttributes = this.View_QueryResults;
 
-            this.View_GetDailyAttributeData(dailyAttributes);
+            this.ViewRequest.GetDailyAttributeData(dailyAttributes);
         }
 
         public void UpdateWindow(int rowIndex)
@@ -115,7 +114,7 @@ namespace MainApp
             }
         }
 
-        void UpdateDailyAttributeData(dynamic displayColumns, DateTime lastUpdatedDate)
+        public void OnGetDailyAttributeDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate)
         {
             this.recordGrid.DataSource = displayColumns;
 

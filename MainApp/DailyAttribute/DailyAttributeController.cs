@@ -6,12 +6,10 @@ using ModelViewPresenter.MessageDispatcher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Controllers
 {
-    public class DailyAttributeController : BaseController<DayAttribute>
+    public class DailyAttributeController : BaseController<DayAttribute>, IDailyAttributeRequests
     {
         public const int cID = 1 << 8;
         public override int ID { get { return cID; } }
@@ -26,7 +24,7 @@ namespace Domain.Controllers
         IDailyAttributeView _dayAttributeView;
         IDateHelper _helper;
 
-        public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
+        public override bool HandleRequest(Telegram telegram)
         {
             if (telegram.Operation == Operation.OpenView)
             {
@@ -40,10 +38,10 @@ namespace Domain.Controllers
         public DailyAttributeController(IEFRepository repository, IDailyAttributeView view)
             : base(repository, view)
         {
+            view.ViewRequest = this;
+
             this._helper = DateHelper.GetInstance();
             this._dayAttributeView = view;
-            this._dayAttributeView.View_GetPresetAttributeData = GetPresetAttributeData;
-            this._dayAttributeView.View_GetDailyAttributeData = GetDailyAttributeData;
             this._dayAttributeView.View_ViewReady = ViewReady;
         }
 
@@ -52,22 +50,24 @@ namespace Domain.Controllers
             this._dayAttributeView.View_OnViewReady(data);
         }
 
-        void GetDailyAttributeData(IEnumerable<DayAttribute> dailyAttribute)
+        public void GetDailyAttributeData(IEnumerable<DayAttribute> dailyAttribute)
         {
             DateTime lastUpdatedDate = dailyAttribute
                 .Select(x => x.SystemUpdateDateTime)
                 .OrderByDescending(x => x)
                 .FirstOrDefault();
 
-            this._dayAttributeView.View_OnGetDailyAttributeDataCompletion(dailyAttribute.ToList(), lastUpdatedDate);
+            this._dayAttributeView.OnGetDailyAttributeDataCompletion(dailyAttribute.ToList(), lastUpdatedDate);
         }
 
-        void GetPresetAttributeData()
+        public void GetPresetAttributeData()
         {
             IEnumerable<Domain.Attribute> attributes = this._repository
                 .GetEntityQuery<Domain.Attribute>();
 
-            this._dayAttributeView.View_OnGetPresetAttributeDataCompletion(attributes);
+            this._dayAttributeView
+                .ViewEvents
+                .OnGetPresetAttributeDataCompletion(attributes);
         }
 
         public override void DeleteData(Func<DayAttribute, bool> criteria)

@@ -2,16 +2,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Views
 {
-    public  interface IDailyAttributeView: IView<DayAttribute>
+    public interface IDailyAttributeView : IView<DayAttribute, IDailyAttributeRequests, IDailyAttributeEvents>, IDailyAttributeEvents
     {
-        Action View_GetPresetAttributeData { get; set; }
-        Action<IEnumerable<Domain.Attribute>> View_OnGetPresetAttributeDataCompletion { get; set; }
-        Action<IEnumerable<DayAttribute>> View_GetDailyAttributeData { get; set; }
-        Action<dynamic, DateTime> View_OnGetDailyAttributeDataCompletion { get; set; }
+    }
+
+    public interface IDailyAttributeEvents
+    {
+        void OnGetPresetAttributeDataCompletion(IEnumerable<Domain.Attribute> attributes);
+        void OnGetDailyAttributeDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate);
+    }
+
+    public interface IDailyAttributeRequests
+    {
+        void GetPresetAttributeData();
+        void GetDailyAttributeData(IEnumerable<DayAttribute> dailyAttribute);
     }
 }
