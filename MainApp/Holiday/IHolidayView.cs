@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface IHolidayView : IView<Holiday, IHolidayRequests, IHolidayEvents>, IHolidayEvents
+    public interface IHolidayView : IView<Holiday, IHolidayRequests>, IHolidayEvents
     {
     }
 

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface IActivityView : IView<Activity, IActivityRequests, IActivityEvents>, IActivityEvents
+    public interface IActivityView : IView<Activity, IActivityRequests>, IActivityEvents
     {
     }
 

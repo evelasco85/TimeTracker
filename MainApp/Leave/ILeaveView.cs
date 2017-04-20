@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface ILeaveView : IView<Leave, ILeaveRequests, ILeaveEvents>, ILeaveEvents
+    public interface ILeaveView : IView<Leave, ILeaveRequests>, ILeaveEvents
     {
     }
 

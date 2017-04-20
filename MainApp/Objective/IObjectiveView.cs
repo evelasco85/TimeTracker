@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface IObjectiveView : IView<Objective, IObjectiveRequests, IObjectiveEvents>, IObjectiveEvents
+    public interface IObjectiveView : IView<Objective, IObjectiveRequests>, IObjectiveEvents
     {
     }
 

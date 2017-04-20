@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface IAttributeView : IView<Domain.Attribute, IAttributeRequests, IAttributeEvents>, IAttributeEvents
+    public interface IAttributeView : IView<Domain.Attribute, IAttributeRequests>, IAttributeEvents
     {
     }
 

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface ILogView : IView<LogEntry, ILogRequests, ILogEvents>, ILogEvents
+    public interface ILogView : IView<LogEntry, ILogRequests>, ILogEvents
     {
     }
 

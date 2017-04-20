@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface IDailyActivityView : IView<DayActivity, IDailyActivityRequests, IDailyActivityEvents>, IDailyActivityEvents
+    public interface IDailyActivityView : IView<DayActivity, IDailyActivityRequests>, IDailyActivityEvents
     {
     }
 

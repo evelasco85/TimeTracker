@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface IStandardOperatingProcedureView : IView<StandardOperatingProcedure, IStandardOperatingProcedureRequests, IStandardOperatingProcedureEvents>, IStandardOperatingProcedureEvents
+    public interface IStandardOperatingProcedureView : IView<StandardOperatingProcedure, IStandardOperatingProcedureRequests>, IStandardOperatingProcedureEvents
     {
     }
 

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface IPersonalNoteView : IView<PersonalNote, IPersonalNoteRequests, IPersonalNoteEvents>, IPersonalNoteEvents
+    public interface IPersonalNoteView : IView<PersonalNote, IPersonalNoteRequests>, IPersonalNoteEvents
     {
     }
 

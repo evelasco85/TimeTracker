@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface ICategoryView : IView<Category, ICategoryRequests, ICategoryEvents>, ICategoryEvents
+    public interface ICategoryView : IView<Category, ICategoryRequests>, ICategoryEvents
     {
     }
 

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface IView<TModel, TRequest, TEvents> : IView<TModel>
+    public interface IView<TModel, TRequest> : IView<TModel>
      {
          TRequest ViewRequest { get; set; }
      }
