@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Views
 {
-    public interface ILeaveView : IView<Leave>
+    public interface ILeaveView : IView<Leave, ILeaveRequests, ILeaveEvents>, ILeaveEvents
     {
-        Action<IEnumerable<Leave>> View_GetLeaveData { get; set; }
-        Action<dynamic, DateTime> View_OnGetLeaveDataCompletion { get; set; }
+    }
+
+    public interface ILeaveEvents
+    {
+        void OnGetLeaveDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate);
+    }
+
+    public interface ILeaveRequests
+    {
+        void GetLeaveData(IEnumerable<Leave> leaves);
     }
 }

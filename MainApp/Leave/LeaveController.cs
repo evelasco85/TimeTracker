@@ -5,12 +5,10 @@ using ModelViewPresenter.MessageDispatcher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Controllers
 {
-    public class LeaveController : BaseController<Leave>
+    public class LeaveController : BaseController<Leave>, ILeaveRequests
     {
         public const int cID = 1 << 6;
         public override int ID { get { return cID; } }
@@ -24,7 +22,7 @@ namespace Domain.Controllers
         ILeaveView _leaveView;
         IDateHelper _helper;
 
-        public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
+        public override bool HandleRequest(Telegram telegram)
         {
             if (telegram.Operation == Operation.OpenView)
             {
@@ -38,9 +36,10 @@ namespace Domain.Controllers
         public LeaveController(IEFRepository repository, ILeaveView view)
             : base(repository, view)
         {
+            view.ViewRequest = this;
+
             this._helper = DateHelper.GetInstance();
             this._leaveView = view;
-            this._leaveView.View_GetLeaveData = this.GetLeaveData;
             this._leaveView.View_ViewReady = ViewReady;
         }
 
@@ -49,7 +48,7 @@ namespace Domain.Controllers
             this._leaveView.View_OnViewReady(data);
         }
 
-        void GetLeaveData(IEnumerable<Leave> leaves)
+        public void GetLeaveData(IEnumerable<Leave> leaves)
         {
             var displayColumns = this._helper.GetLeaves(leaves);
             DateTime lastUpdatedDate = displayColumns
@@ -57,7 +56,9 @@ namespace Domain.Controllers
                 .OrderByDescending(x => x)
                 .FirstOrDefault();
 
-            this._leaveView.View_OnGetLeaveDataCompletion(displayColumns, lastUpdatedDate);
+            this._leaveView
+                .ViewEvents
+                .OnGetLeaveDataCompletion(displayColumns, lastUpdatedDate);
         }
 
         public override void GetData(Func<Leave, bool> criteria)
