@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ModelViewPresenter.MessageDispatcher
 {
@@ -13,35 +11,18 @@ namespace ModelViewPresenter.MessageDispatcher
 
     public class FrontController : IFrontController
     {
-        static IFrontController _instance;
-        static readonly object _threadsafeLock = new object();
+        static IFrontController _instance = new FrontController();
 
         private FrontController() { }
 
         public static IFrontController GetInstance()
         {
-            lock (_threadsafeLock)
-            {
-                if (_instance == null)
-                    _instance = new FrontController();
-
-                return _instance;
-            }
-        }
-
-        IFrontCommand GetCommand(int receiver)
-        {
-            IFrontCommand command = new FrontCommand(receiver);
-
-            return command;
+            return _instance;
         }
 
         public void Process(int sender, int receiver, Operation operation, object data)
         {
-            IFrontCommand command = this.GetCommand(receiver);
-
-            command.Initialize(sender, data, operation);
-            command.Process();
+            RequestDispatcher.GetInstance().Dispatch(sender, receiver, operation, data);
         }
     }
 }

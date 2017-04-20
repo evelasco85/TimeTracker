@@ -1,9 +1,6 @@
-﻿using Domain.Controllers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ModelViewPresenter.MessageDispatcher
 {
@@ -14,20 +11,13 @@ namespace ModelViewPresenter.MessageDispatcher
     }
     public class RequestDispatcher : IRequestDispatcher
     {
-        static IRequestDispatcher _instance;
-        static readonly object _threadsafeLock = new object();
+        static IRequestDispatcher _instance = new RequestDispatcher();
 
         private RequestDispatcher() { }
 
         public static IRequestDispatcher GetInstance()
         {
-            lock (_threadsafeLock)
-            {
-                if (_instance == null)
-                    _instance = new RequestDispatcher();
-
-                return _instance;
-            }
+            return _instance;
         }
 
         public void Dispatch(int sender, int receiver, Operation operation, dynamic data)
@@ -36,12 +26,7 @@ namespace ModelViewPresenter.MessageDispatcher
             IController targetController = manager.GetControllerFromId(receiver);
             Telegram telegram = new Telegram(sender, receiver, operation, data);
 
-            this.Discharge(targetController, telegram);
-        }
-
-        void Discharge(IController receiver, Telegram telegram)
-        {
-            receiver.HandleRequest(telegram);
+            targetController.HandleRequest(telegram);
         }
     }
 }

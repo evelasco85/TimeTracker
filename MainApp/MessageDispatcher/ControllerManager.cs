@@ -1,9 +1,6 @@
-﻿using Domain.Controllers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ModelViewPresenter.MessageDispatcher
 {
@@ -16,21 +13,14 @@ namespace ModelViewPresenter.MessageDispatcher
 
     public class ControllerManager : IControllerManager
     {
-        static IControllerManager _instance;
-        static readonly object _threadsafeLock = new object();
+        static IControllerManager _instance = new ControllerManager();
         Dictionary<int, IController> _controllerMap = new Dictionary<int, IController>();
 
         private ControllerManager() { }
 
         public static IControllerManager GetInstance()
         {
-            lock (_threadsafeLock)
-            {
-                if (_instance == null)
-                    _instance = new ControllerManager();
-
-                return _instance;
-            }
+            return _instance;
         }
 
         public void RegisterController(IController controller)
