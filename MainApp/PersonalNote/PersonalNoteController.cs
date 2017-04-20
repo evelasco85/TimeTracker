@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Domain.Controllers
 {
-    public class PersonalNoteController : BaseControllerDeprecated<PersonalNote>, IPersonalNoteRequests
+    public class PersonalNoteController : BaseController<PersonalNote>, IPersonalNoteRequests
     {
         public const int cID = 1 << 3;
         public override int ID { get { return cID; } }
@@ -27,26 +27,20 @@ namespace Domain.Controllers
         {
             if (telegram.Operation == Operation.OpenView)
             {
-                this._view.View_ViewReady(telegram.Data);
-                this._view.View_OnShow();
+                this._view.OnViewReady(telegram.Data);
+                this._view.OnShow();
             }
 
             return true;
         }
 
         public PersonalNoteController(IEFRepository repository, IPersonalNoteView view)
-            : base(repository, view)
+            : base(repository)
         {
             view.ViewRequest = this;
 
             this._helper = DateHelper.GetInstance();
             this._view = view;
-            this._view.View_ViewReady = ViewReady;
-        }
-
-        void ViewReady(dynamic data)
-        {
-            this._view.View_OnViewReady(data);
         }
 
         public void GetPersonalNotes(IEnumerable<PersonalNote> notes)
@@ -70,11 +64,11 @@ namespace Domain.Controllers
                 .GetEntityQuery<PersonalNote>();
 
             if (criteria == null)
-                this._view.View_QueryResults = attributeQuery.Select(x => x);
+                this._view.QueryResults = attributeQuery.Select(x => x);
             else
-                this._view.View_QueryResults = attributeQuery.Where(criteria);
+                this._view.QueryResults = attributeQuery.Where(criteria);
 
-            this._view.View_OnQueryRecordsCompletion();
+            this._view.OnQueryRecordsCompletion();
         }
 
         public override void SaveData(PersonalNote data)

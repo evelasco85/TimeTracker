@@ -11,29 +11,17 @@ namespace MainApp
     public partial class frmPersonalNotes : frmCommonDataEditor, IPersonalNoteView, IFormCommonOperation
     {
         public IPersonalNoteRequests ViewRequest { get; set; }
+        public IEnumerable<PersonalNote> QueryResults { get; set; }
 
-        public Action<Func<PersonalNote, bool>> View_QueryRecords { get; set; }
-        public Action View_OnQueryRecordsCompletion { get; set; }
-        public Action<PersonalNote> View_SaveRecord { get; set; }
-        public Action<Func<PersonalNote, bool>> View_DeleteRecords { get; set; }
-        public IEnumerable<PersonalNote> View_QueryResults { get; set; }
-        public Action<object> View_ViewReady { get; set; }
-        public Action<object> View_OnViewReady { get; set; }
-        public Action View_OnShow { get; set; }
         Form _parentForm;
 
         public frmPersonalNotes()
         {
             InitializeComponent();
-
             this.RegisterCommonOperation(this);
-
-            this.View_OnQueryRecordsCompletion = this.RefreshGridData;
-            this.View_OnViewReady = OnViewReady;
-            this.View_OnShow = OnShow;
         }
 
-        void OnShow()
+        public void OnShow()
         {
             MethodInvoker invokeFromUI = new MethodInvoker(
                () =>
@@ -55,16 +43,16 @@ namespace MainApp
                 invokeFromUI.Invoke();
         }
 
-        void OnViewReady(object data)
+        public void OnViewReady(object data)
         {
             this._parentForm = (Form)data.GetType().GetProperty("parentForm").GetValue(data, null);
 
-            this.View_QueryRecords(null);
+            this.ViewRequest.GetData(null);
         }
 
-        void RefreshGridData()
+        public void OnQueryRecordsCompletion()
         {
-            IEnumerable<PersonalNote> personalNotes = this.View_QueryResults;
+            IEnumerable<PersonalNote> personalNotes = this.QueryResults;
 
             this.ViewRequest.GetPersonalNotes(personalNotes);
         }
@@ -109,7 +97,7 @@ namespace MainApp
             try
             {
                 int id = int.Parse(this.dGrid.Rows[rowIndex].Cells[PersonalNoteController.ID_INDEX].Value.ToString());
-                PersonalNote note = this.View_QueryResults
+                PersonalNote note = this.QueryResults
                     .Where(x => x.Id == id)
                     .FirstOrDefault();
 
@@ -167,8 +155,8 @@ namespace MainApp
 
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
-                    this.View_DeleteRecords(x => x.Id == id);
-                    this.View_QueryRecords(null);
+                    this.ViewRequest.DeleteData(x => x.Id == id);
+                    this.ViewRequest.GetData(null);
                 }
             }
             catch (FormatException)
@@ -187,7 +175,7 @@ namespace MainApp
             };
 
             if (!string.IsNullOrEmpty(this.lblId.Text))
-                note = this.View_QueryResults
+                note = this.QueryResults
                     .Where(x => x.Id == int.Parse(this.lblId.Text))
                     .FirstOrDefault();
 
@@ -195,8 +183,8 @@ namespace MainApp
             note.SystemUpdateDateTime = DateTime.Now;
             note.Subject = this.txtSubject.Text;
 
-            this.View_SaveRecord(note);
-            this.View_QueryRecords(null);
+            this.ViewRequest.SaveData(note);
+            this.ViewRequest.GetData(null);
             this.WindowInputChanges(ModifierState.Save);
         }
 

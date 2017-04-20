@@ -5,12 +5,12 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface IPersonalNoteView : IViewDeprecated<PersonalNote, IPersonalNoteRequests>
+    public interface IPersonalNoteView : IView<PersonalNote, IPersonalNoteRequests>, IViewControllerEvents<PersonalNote>
     {
         void OnGetPersonalNotesCompletion(dynamic displayColumns, DateTime lastUpdatedDate);
     }
 
-    public interface IPersonalNoteRequests
+    public interface IPersonalNoteRequests : IViewControllerRequests<PersonalNote>
     {
         void GetPersonalNotes(IEnumerable<PersonalNote> notes);
     }
