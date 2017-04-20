@@ -6,12 +6,10 @@ using ModelViewPresenter.MessageDispatcher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Controllers
 {
-    public class StandardOperatingProcedureController : BaseControllerDeprecated<StandardOperatingProcedure>, IStandardOperatingProcedureRequests
+    public class StandardOperatingProcedureController : BaseController<StandardOperatingProcedure>, IStandardOperatingProcedureRequests
     {
         public const int cID = 1 << 12;
         public override int ID { get { return cID; } }
@@ -29,26 +27,20 @@ namespace Domain.Controllers
         {
             if (telegram.Operation == Operation.OpenView)
             {
-                this._view.View_ViewReady(telegram.Data);
-                this._view.View_OnShow();
+                this._view.OnViewReady(telegram.Data);
+                this._view.OnShow();
             }
 
             return true;
         }
 
         public StandardOperatingProcedureController(IEFRepository repository, IStandardOperatingProcedureView view)
-            : base(repository, view)
+            : base(repository)
         {
             view.ViewRequest = this;
 
             this._helper = DateHelper.GetInstance();
             this._view = view;
-            this._view.View_ViewReady = ViewReady;
-        }
-
-        void ViewReady(dynamic data)
-        {
-            this._view.View_OnViewReady(data);
         }
 
         public void GetSOP(IEnumerable<StandardOperatingProcedure> sops)
@@ -72,11 +64,11 @@ namespace Domain.Controllers
                 .GetEntityQuery<StandardOperatingProcedure>();
 
             if (criteria == null)
-                this._view.View_QueryResults = sopQuery.Select(x => x);
+                this._view.QueryResults = sopQuery.Select(x => x);
             else
-                this._view.View_QueryResults = sopQuery.Where(criteria);
+                this._view.QueryResults = sopQuery.Where(criteria);
 
-            this._view.View_OnQueryRecordsCompletion();
+            this._view.OnQueryRecordsCompletion();
         }
 
         public override void SaveData(StandardOperatingProcedure data)

@@ -11,28 +11,17 @@ namespace MainApp
     public partial class frmStandardOperatingProcedure : frmCommonDataEditor, IStandardOperatingProcedureView, IFormCommonOperation
     {
         public IStandardOperatingProcedureRequests ViewRequest { get; set; }
+        public IEnumerable<StandardOperatingProcedure> QueryResults { get; set; }
 
-        public Action<Func<StandardOperatingProcedure, bool>> View_QueryRecords { get; set; }
-        public Action View_OnQueryRecordsCompletion { get; set; }
-        public Action<StandardOperatingProcedure> View_SaveRecord { get; set; }
-        public Action<Func<StandardOperatingProcedure, bool>> View_DeleteRecords { get; set; }
-        public IEnumerable<StandardOperatingProcedure> View_QueryResults { get; set; }
-        public Action<object> View_ViewReady { get; set; }
-        public Action<object> View_OnViewReady { get; set; }
-        public Action View_OnShow { get; set; }
         Form _parentForm;
 
         public frmStandardOperatingProcedure()
         {
             InitializeComponent();
             this.RegisterCommonOperation(this);
-
-            this.View_OnQueryRecordsCompletion = this.RefreshGridData;
-            this.View_OnViewReady = OnViewReady;
-            this.View_OnShow = OnShow;
         }
 
-        void OnShow()
+        public void OnShow()
         {
             MethodInvoker invokeFromUI = new MethodInvoker(
                () =>
@@ -54,16 +43,16 @@ namespace MainApp
                 invokeFromUI.Invoke();
         }
 
-        void OnViewReady(object data)
+        public void OnViewReady(object data)
         {
             this._parentForm = (Form)data.GetType().GetProperty("parentForm").GetValue(data, null);
 
-            this.View_QueryRecords(null);
+            this.ViewRequest.GetData(null);
         }
 
-        void RefreshGridData()
+        public void OnQueryRecordsCompletion()
         {
-            IEnumerable<StandardOperatingProcedure> sops = this.View_QueryResults;
+            IEnumerable<StandardOperatingProcedure> sops = this.QueryResults;
 
             this.ViewRequest.GetSOP(sops);
         }
@@ -108,7 +97,7 @@ namespace MainApp
             try
             {
                 int id = int.Parse(this.dGrid.Rows[rowIndex].Cells[StandardOperatingProcedureController.ID_INDEX].Value.ToString());
-                StandardOperatingProcedure sop = this.View_QueryResults
+                StandardOperatingProcedure sop = this.QueryResults
                     .Where(x => x.Id == id)
                     .FirstOrDefault();
 
@@ -166,8 +155,8 @@ namespace MainApp
 
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
-                    this.View_DeleteRecords(x => x.Id == id);
-                    this.View_QueryRecords(null);
+                    this.ViewRequest.DeleteData(x => x.Id == id);
+                    this.ViewRequest.GetData(null);
                 }
             }
             catch (FormatException)
@@ -186,7 +175,7 @@ namespace MainApp
             };
 
             if (!string.IsNullOrEmpty(this.lblId.Text))
-                sop = this.View_QueryResults
+                sop = this.QueryResults
                     .Where(x => x.Id == int.Parse(this.lblId.Text))
                     .FirstOrDefault();
 
@@ -194,8 +183,8 @@ namespace MainApp
             sop.SystemUpdateDateTime = DateTime.Now;
             sop.Subject = this.txtSubject.Text;
 
-            this.View_SaveRecord(sop);
-            this.View_QueryRecords(null);
+            this.ViewRequest.SaveData(sop);
+            this.ViewRequest.GetData(null);
             this.WindowInputChanges(ModifierState.Save);
         }
 
