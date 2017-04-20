@@ -14,16 +14,6 @@ namespace MainApp
         public IHolidayRequests ViewRequest { get; set; }
         public IEnumerable<Holiday> QueryResults { get; set; }
 
-        public Action<Func<Holiday, bool>> View_QueryRecords { get; set; }
-        public Action View_OnQueryRecordsCompletion { get; set; }
-        public Action<Holiday> View_SaveRecord { get; set; }
-        public Action<Func<Holiday, bool>> View_DeleteRecords { get; set; }
-        public IEnumerable<Holiday> View_QueryResults { get; set; }
-        public Action<IEnumerable<Holiday>> View_GetHolidayData { get; set; }
-        public Action<object> View_ViewReady { get; set; }
-        public Action<object> View_OnViewReady { get; set; }
-        public Action View_OnShow { get; set; }
-
         Form _parentForm;
 
         public frmHolidays()
