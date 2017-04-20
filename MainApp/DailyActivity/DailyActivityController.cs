@@ -6,12 +6,10 @@ using ModelViewPresenter.MessageDispatcher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Controllers
 {
-    public class DailyActivityController : BaseController<DayActivity>
+    public class DailyActivityController : BaseController<DayActivity>, IDailyActivityRequests
     {
         public const int cID = 1 << 9;
         public override int ID { get { return cID; } }
@@ -27,7 +25,7 @@ namespace Domain.Controllers
         IDailyActivityView _dayActivityView;
         IDateHelper _helper;
 
-        public override bool HandleRequest(ModelViewPresenter.MessageDispatcher.Telegram telegram)
+        public override bool HandleRequest(Telegram telegram)
         {
             if (telegram.Operation == Operation.OpenView)
             {
@@ -41,11 +39,10 @@ namespace Domain.Controllers
         public DailyActivityController(IEFRepository repository, IDailyActivityView view)
             : base(repository, view)
         {
+            view.ViewRequest = this;
+
             this._helper = DateHelper.GetInstance();
             this._dayActivityView = view;
-            this._dayActivityView.View_GetPresetActivityData = GetPresetActivityData;
-            this._dayActivityView.View_GetDailyActivityData = GetDailyActivityData;
-            this._dayActivityView.View_GetDatesForCurrentPeriod = GetDatesForCurrentPeriod;
             this._dayActivityView.View_ViewReady = ViewReady;
         }
 
@@ -54,7 +51,7 @@ namespace Domain.Controllers
             this._dayActivityView.View_OnViewReady(data);
         }
 
-        void GetDatesForCurrentPeriod(DateTime selectedMonth)
+        public void GetDatesForCurrentPeriod(DateTime selectedMonth)
         {
             DateTime startDate = this._helper.GetStartDate(selectedMonth);
             DateTime endDate = this._helper.GetEndDate(startDate);
@@ -67,7 +64,9 @@ namespace Domain.Controllers
                 .OrderBy(x => x.Key)
                 .Select(x => x.Key);
 
-            this._dayActivityView.View_OnGetDatesForCurrentPeriodCompletion(uniqueDailyActivityDates);
+            this._dayActivityView
+                .ViewEvents
+                .OnGetDatesForCurrentPeriodCompletion(uniqueDailyActivityDates);
         }
 
         IEnumerable<DayActivity> QueryDailyActivities(Func<DayActivity, bool> criteria)
@@ -84,22 +83,26 @@ namespace Domain.Controllers
             return results;
         }
 
-        void GetDailyActivityData(IEnumerable<DayActivity> dailyActivity)
+        public void GetDailyActivityData(IEnumerable<DayActivity> dailyActivity)
         {
             DateTime lastUpdatedDate = dailyActivity
                 .Select(x => x.SystemUpdateDateTime)
                 .OrderByDescending(x => x)
                 .FirstOrDefault();
 
-            this._dayActivityView.View_OnGetDailyActivityDataCompletion(dailyActivity.ToList(), lastUpdatedDate);
+            this._dayActivityView
+                .ViewEvents
+                .OnGetDailyActivityDataCompletion(dailyActivity.ToList(), lastUpdatedDate);
         }
 
-        void GetPresetActivityData()
+        public void GetPresetActivityData()
         {
             IEnumerable<Activity> attributes = this._repository
                 .GetEntityQuery<Activity>();
 
-            this._dayActivityView.View_OnGetPresetActivityDataCompletion(attributes);
+            this._dayActivityView
+                .ViewEvents
+                .OnGetPresetActivityDataCompletion(attributes);
         }
 
         public override void DeleteData(Func<DayActivity, bool> criteria)

@@ -1,32 +1,24 @@
 ﻿using Domain;
 using Domain.Controllers;
-using Domain.Infrastructure;
 using Domain.Views;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MainApp
 {
     public partial class frmDailyActivity : frmCommonByDateDataEditor, IFormCommonOperation, IDailyActivityView 
     {
+        public IDailyActivityRequests ViewRequest { get; set; }
+        public IDailyActivityEvents ViewEvents { get; set; }
+
         public Action<Func<DayActivity, bool>> View_QueryRecords { get; set; }
         public Action View_OnQueryRecordsCompletion { get; set; }
         public Action<DayActivity> View_SaveRecord { get; set; }
         public Action<Func<DayActivity, bool>> View_DeleteRecords { get; set; }
         public IEnumerable<DayActivity> View_QueryResults { get; set; }
         public Action View_GetPresetActivityData { get; set; }
-        public Action<IEnumerable<Activity>> View_OnGetPresetActivityDataCompletion { get; set; }
-        public Action<IEnumerable<DayActivity>> View_GetDailyActivityData { get; set; }
-        public Action<dynamic, DateTime> View_OnGetDailyActivityDataCompletion { get; set; }
-        public Action<DateTime> View_GetDatesForCurrentPeriod { get; set; }
-        public Action<IEnumerable<DateTime>> View_OnGetDatesForCurrentPeriodCompletion { get; set; }
         public Action<object> View_ViewReady { get; set; }
         public Action<object> View_OnViewReady { get; set; }
         public Action View_OnShow { get; set; }
@@ -41,10 +33,9 @@ namespace MainApp
             InitializeComponent();
             this.RegisterCommonOperation(this);
 
+            this.ViewEvents = this;
+
             this.View_OnQueryRecordsCompletion = this.RefreshGridData;
-            this.View_OnGetPresetActivityDataCompletion = this.PopulateActivityPresets;
-            this.View_OnGetDailyActivityDataCompletion = this.UpdateDailyActivityData;
-            this.View_OnGetDatesForCurrentPeriodCompletion = this.PopulateUniqueDates;
             this.View_OnViewReady = OnViewReady;
             this.View_OnShow = OnShow;
         }
@@ -76,16 +67,16 @@ namespace MainApp
             this._parentForm = (Form)data.GetType().GetProperty("parentForm").GetValue(data, null);
 
             this.View_QueryRecords(null);
-            this.View_GetPresetActivityData();
-            this.View_GetDatesForCurrentPeriod(this.periodPicker.Value.Date);
+            this.ViewRequest.GetPresetActivityData();
+            this.ViewRequest.GetDatesForCurrentPeriod(this.periodPicker.Value.Date);
         }
 
-        void PopulateUniqueDates(IEnumerable<DateTime> uniqueDates)
+        public void OnGetDatesForCurrentPeriodCompletion(IEnumerable<DateTime> uniqueDates)
         {
             this.lstUniqueDates.DataSource = uniqueDates.ToList();
         }
 
-        void PopulateActivityPresets(IEnumerable<Activity> attributes)
+        public void OnGetPresetActivityDataCompletion(IEnumerable<Activity> attributes)
         {
             this._presetdActivity = attributes;
 
@@ -102,7 +93,7 @@ namespace MainApp
             IEnumerable<DayActivity> dailyActivities = this.View_QueryResults;
 
             this.UpdateSummarizedDailyActivityHours(dailyActivities.Sum(x => x.Duration_Hours));
-            this.View_GetDailyActivityData(dailyActivities);
+            this.ViewRequest.GetDailyActivityData(dailyActivities);
         }
 
         public void UpdateWindow(int rowIndex)
@@ -127,7 +118,7 @@ namespace MainApp
             }
         }
 
-        void UpdateDailyActivityData(dynamic displayColumns, DateTime lastUpdatedDate)
+        public void OnGetDailyActivityDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate)
         {
             this.recordGrid.DataSource = displayColumns;
 
@@ -215,7 +206,7 @@ namespace MainApp
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
                     this.View_DeleteRecords(x => x.Id == id);
-                    this.View_GetDatesForCurrentPeriod(this.periodPicker.Value.Date);
+                    this.ViewRequest.GetDatesForCurrentPeriod(this.periodPicker.Value.Date);
                 }
             }
             catch (FormatException)
@@ -248,7 +239,7 @@ namespace MainApp
 
 
                 this.View_SaveRecord(activity);
-                this.View_GetDatesForCurrentPeriod(this.periodPicker.Value.Date);
+                this.ViewRequest.GetDatesForCurrentPeriod(this.periodPicker.Value.Date);
                 this.WindowInputChanges(ModifierState.Save);
             }
             catch(System.FormatException)
@@ -296,7 +287,7 @@ namespace MainApp
 
         private void periodPicker_ValueChanged(object sender, EventArgs e)
         {
-            this.View_GetDatesForCurrentPeriod(this.periodPicker.Value.Date);
+            this.ViewRequest.GetDatesForCurrentPeriod(this.periodPicker.Value.Date);
         }
 
         public void DecorateGrid()
