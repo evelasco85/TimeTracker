@@ -83,7 +83,6 @@
     <Compile Include="Attribute\AttributeController.cs" />
     <Compile Include="Attribute\IAttributeView.cs" />
     <Compile Include="Base\BaseController.cs" />
-    <Compile Include="Base\BaseControllerDeprecated.cs" />
     <Compile Include="Category\CategoryController.cs" />
     <Compile Include="Category\ICategoryView.cs" />
     <Compile Include="DailyActivity\DailyActivityController.cs" />

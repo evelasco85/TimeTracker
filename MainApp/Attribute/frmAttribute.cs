@@ -10,17 +10,7 @@ namespace MainApp
     public partial class frmAttribute : frmCommonDataEditor, IAttributeView, IFormCommonOperation
     {
         public IAttributeRequests ViewRequest { get; set; }
-
-        public Action<Func<Domain.Attribute, bool>> View_QueryRecords { get; set; }
-        public Action View_OnQueryRecordsCompletion { get; set; }
-        public Action<Domain.Attribute> View_SaveRecord { get; set; }
-        public Action<Func<Domain.Attribute, bool>> View_DeleteRecords { get; set; }
-        public IEnumerable<Domain.Attribute> View_QueryResults { get; set; }
-        public Action<IEnumerable<Domain.Attribute>> View_GetAttributeData { get; set; }
-        public Action<dynamic, DateTime> View_OnGetAttributeDataCompletion { get; set; }
-        public Action<object> View_ViewReady { get; set; }
-        public Action<object> View_OnViewReady { get; set; }
-        public Action View_OnShow { get; set; }
+        public IEnumerable<Domain.Attribute> QueryResults { get; set; }
 
         Form _parentForm;
 
@@ -28,13 +18,9 @@ namespace MainApp
         {
             InitializeComponent();
             this.RegisterCommonOperation(this);
-
-            this.View_OnQueryRecordsCompletion = this.RefreshGridData;
-            this.View_OnViewReady = OnViewReady;
-            this.View_OnShow = OnShow;
         }
 
-        void OnShow()
+        public void OnShow()
         {
             MethodInvoker invokeFromUI = new MethodInvoker(
                () =>
@@ -56,16 +42,16 @@ namespace MainApp
                 invokeFromUI.Invoke();
         }
 
-        void OnViewReady(object data)
+        public void OnViewReady(object data)
         {
             this._parentForm = (Form)data.GetType().GetProperty("parentForm").GetValue(data, null);
 
-            this.View_QueryRecords(null);
+            this.ViewRequest.GetData(null);
         }
 
-        void RefreshGridData()
+        public void OnQueryRecordsCompletion()
         {
-            IEnumerable<Domain.Attribute> categories = this.View_QueryResults;
+            IEnumerable<Domain.Attribute> categories = this.QueryResults;
 
             this.ViewRequest.GetAttributeData(categories);
         }
@@ -110,7 +96,7 @@ namespace MainApp
             try
             {
                 int id = int.Parse(this.dGrid.Rows[rowIndex].Cells[AttributeController.ID_INDEX].Value.ToString());
-                Domain.Attribute attribute = this.View_QueryResults
+                Domain.Attribute attribute = this.QueryResults
                     .Where(x => x.Id == id)
                     .FirstOrDefault();
 
@@ -171,8 +157,8 @@ namespace MainApp
 
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
-                    this.View_DeleteRecords(x => x.Id == id);
-                    this.View_QueryRecords(null);
+                    this.ViewRequest.DeleteData(x => x.Id == id);
+                    this.ViewRequest.GetData(null);
                 }
             }
             catch (FormatException)
@@ -191,7 +177,7 @@ namespace MainApp
             };
 
             if (!string.IsNullOrEmpty(this.lblId.Text))
-                attribute = this.View_QueryResults
+                attribute = this.QueryResults
                     .Where(x => x.Id == int.Parse(this.lblId.Text))
                     .FirstOrDefault();
 
@@ -200,8 +186,8 @@ namespace MainApp
             attribute.Link = this.txtLink.Text;
             attribute.SystemUpdateDateTime = DateTime.Now;
 
-            this.View_SaveRecord(attribute);
-            this.View_QueryRecords(null);
+            this.ViewRequest.SaveData(attribute);
+            this.ViewRequest.GetData(null);
             this.WindowInputChanges(ModifierState.Save);
         }
 
