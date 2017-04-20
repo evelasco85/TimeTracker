@@ -14,7 +14,7 @@ namespace ModelViewPresenter.MessageDispatcher
     {
         int _sender;
         int _receiver;
-        dynamic _data;
+        object _data;
         Operation _operation;
 
         public int Sender
@@ -27,7 +27,7 @@ namespace ModelViewPresenter.MessageDispatcher
             get { return _receiver; }
         }
 
-        public dynamic Data
+        public object Data
         {
             get { return _data; }
         }

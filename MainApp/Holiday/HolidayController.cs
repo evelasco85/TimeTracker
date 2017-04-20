@@ -26,7 +26,7 @@ namespace Domain.Controllers
         {
             if (telegram.Operation == Operation.OpenView)
             {
-                this._holidayView.OnViewReady((object)telegram.Data);
+                this._holidayView.OnViewReady(telegram.Data);
                 this._holidayView.OnShow();
             }
 
