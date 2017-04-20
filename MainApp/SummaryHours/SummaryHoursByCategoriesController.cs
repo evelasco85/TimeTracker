@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Domain.Controllers
 {
-    public class SummaryHoursByCategoriesController : BaseControllerDeprecated<LogEntry>, ISummaryHoursByCategoriesRequests
+    public class SummaryHoursByCategoriesController : BaseController<LogEntry>, ISummaryHoursByCategoriesRequests
     {
         public const int cID = 1 << 13;
         public override int ID { get { return cID; } }
@@ -23,26 +23,20 @@ namespace Domain.Controllers
         {
             if (telegram.Operation == Operation.OpenView)
             {
-                this._summaryView.View_ViewReady(telegram.Data);
-                this._summaryView.View_OnShow();
+                this._summaryView.OnViewReady(telegram.Data);
+                this._summaryView.OnShow();
             }
 
             return true;
         }
 
         public SummaryHoursByCategoriesController(IEFRepository repository, ISummaryHoursByCategoriesView view)
-            : base(repository, view)
+            : base(repository)
         {
             view.ViewRequest = this;
 
             this._helper = DateHelper.GetInstance();
             this._summaryView = view;
-            this._summaryView.View_ViewReady = ViewReady;
-        }
-        
-        void ViewReady(dynamic data)
-        {
-            this._summaryView.View_OnViewReady(data);
         }
 
         public void GetLogEntries(IEnumerable<LogEntry> logs, DateTime selectedMonth)
@@ -67,11 +61,11 @@ namespace Domain.Controllers
                 .GetEntityQuery<LogEntry>();
 
             if (criteria == null)
-                this._view.View_QueryResults = logQuery.Select(x => x);
+                this._summaryView.QueryResults = logQuery.Select(x => x);
             else
-                this._view.View_QueryResults = logQuery.Where(criteria);
+                this._summaryView.QueryResults = logQuery.Where(criteria);
 
-            this._view.View_OnQueryRecordsCompletion();
+            this._summaryView.OnQueryRecordsCompletion();
         }
 
         public override void SaveData(LogEntry data)
