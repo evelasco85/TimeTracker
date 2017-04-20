@@ -1,15 +1,9 @@
 ﻿using Domain;
 using Domain.Controllers;
-using Domain.Infrastructure;
 using Domain.Views;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MainApp
@@ -17,15 +11,7 @@ namespace MainApp
     public partial class frmDailyAttribute : frmCommonByDateDataEditor, IFormCommonOperation, IDailyAttributeView
     {
         public IDailyAttributeRequests ViewRequest { get; set; }
-
-        public Action<Func<DayAttribute, bool>> View_QueryRecords { get; set; }
-        public Action View_OnQueryRecordsCompletion { get; set; }
-        public Action<DayAttribute> View_SaveRecord { get; set; }
-        public Action<Func<DayAttribute, bool>> View_DeleteRecords { get; set; }
-        public IEnumerable<DayAttribute> View_QueryResults { get; set; }
-        public Action<object> View_ViewReady { get; set; }
-        public Action<object> View_OnViewReady { get; set; }
-        public Action View_OnShow { get; set; }
+        public IEnumerable<DayAttribute> QueryResults { get; set; }
 
         Form _parentForm;
 
@@ -35,13 +21,9 @@ namespace MainApp
         {
             InitializeComponent();
             this.RegisterCommonOperation(this);
-
-            this.View_OnQueryRecordsCompletion = this.RefreshGridData;
-            this.View_OnViewReady = OnViewReady;
-            this.View_OnShow = OnShow;
         }
 
-        void OnShow()
+        public void OnShow()
         {
             MethodInvoker invokeFromUI = new MethodInvoker(
                () =>
@@ -63,11 +45,11 @@ namespace MainApp
                 invokeFromUI.Invoke();
         }
 
-        void OnViewReady(object data)
+        public void OnViewReady(object data)
         {
             this._parentForm = (Form)data.GetType().GetProperty("parentForm").GetValue(data, null);
 
-            this.View_QueryRecords(null);
+            this.ViewRequest.GetData(null);
             this.ViewRequest.GetPresetAttributeData();
         }
 
@@ -83,9 +65,9 @@ namespace MainApp
             this.cboPresetAttributes.DataSource = comboBoxItems;
         }
 
-        void RefreshGridData()
+        public void OnQueryRecordsCompletion()
         {
-            IEnumerable<DayAttribute> dailyAttributes = this.View_QueryResults;
+            IEnumerable<DayAttribute> dailyAttributes = this.QueryResults;
 
             this.ViewRequest.GetDailyAttributeData(dailyAttributes);
         }
@@ -95,7 +77,7 @@ namespace MainApp
             try
             {
                 int id = int.Parse(this.recordGrid.Rows[rowIndex].Cells[DailyAttributeController.ID_INDEX].Value.ToString());
-                DayAttribute dailyAttribute = this.View_QueryResults
+                DayAttribute dailyAttribute = this.QueryResults
                     .Where(x => x.Id == id)
                     .FirstOrDefault();
 
@@ -193,8 +175,8 @@ namespace MainApp
 
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
-                    this.View_DeleteRecords(x => x.Id == id);
-                    this.View_QueryRecords(null);
+                    this.ViewRequest.DeleteData(x => x.Id == id);
+                    this.ViewRequest.GetData(null);
                 }
             }
             catch (FormatException)
@@ -213,7 +195,7 @@ namespace MainApp
             };
 
             if (!string.IsNullOrEmpty(this.lblId.Text))
-                attribute = this.View_QueryResults
+                attribute = this.QueryResults
                     .Where(x => x.Id == int.Parse(this.lblId.Text))
                     .FirstOrDefault();
 
@@ -222,8 +204,8 @@ namespace MainApp
             attribute.Link = this.txtLink.Text;
             attribute.SystemUpdateDateTime = DateTime.Now;
 
-            this.View_SaveRecord(attribute);
-            this.View_QueryRecords(null);
+            this.ViewRequest.SaveData(attribute);
+            this.ViewRequest.GetData(null);
             this.WindowInputChanges(ModifierState.Save);
         }
 

@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Domain.Controllers
 {
-    public class DailyAttributeController : BaseControllerDeprecated<DayAttribute>, IDailyAttributeRequests
+    public class DailyAttributeController : BaseController<DayAttribute>, IDailyAttributeRequests
     {
         public const int cID = 1 << 8;
         public override int ID { get { return cID; } }
@@ -28,26 +28,20 @@ namespace Domain.Controllers
         {
             if (telegram.Operation == Operation.OpenView)
             {
-                this._dayAttributeView.View_ViewReady(telegram.Data);
-                this._dayAttributeView.View_OnShow();
+                this._dayAttributeView.OnViewReady(telegram.Data);
+                this._dayAttributeView.OnShow();
             }
 
             return true;
         }
 
         public DailyAttributeController(IEFRepository repository, IDailyAttributeView view)
-            : base(repository, view)
+            : base(repository)
         {
             view.ViewRequest = this;
 
             this._helper = DateHelper.GetInstance();
             this._dayAttributeView = view;
-            this._dayAttributeView.View_ViewReady = ViewReady;
-        }
-
-        void ViewReady(dynamic data)
-        {
-            this._dayAttributeView.View_OnViewReady(data);
         }
 
         public void GetDailyAttributeData(IEnumerable<DayAttribute> dailyAttribute)
@@ -80,11 +74,11 @@ namespace Domain.Controllers
                 .GetEntityQuery<DayAttribute>();
 
             if (criteria == null)
-                this._view.View_QueryResults = dayAttributeQuery.Select(x => x);
+                this._dayAttributeView.QueryResults = dayAttributeQuery.Select(x => x);
             else
-                this._view.View_QueryResults = dayAttributeQuery.Where(criteria);
+                this._dayAttributeView.QueryResults = dayAttributeQuery.Where(criteria);
 
-            this._view.View_OnQueryRecordsCompletion();
+            this._dayAttributeView.OnQueryRecordsCompletion();
         }
 
         public override void SaveData(DayAttribute data)
