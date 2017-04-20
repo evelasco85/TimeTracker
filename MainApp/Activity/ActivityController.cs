@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Domain.Controllers
 {
-    public class ActivityController : BaseController<Activity>, IActivityRequests
+    public class ActivityController : BaseControllerDeprecated<Activity>, IActivityRequests
     {
 
         public const int cID = 1 << 1;

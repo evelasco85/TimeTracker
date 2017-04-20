@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Domain.Controllers
 {
-    public class PersonalNoteController : BaseController<PersonalNote>, IPersonalNoteRequests
+    public class PersonalNoteController : BaseControllerDeprecated<PersonalNote>, IPersonalNoteRequests
     {
         public const int cID = 1 << 3;
         public override int ID { get { return cID; } }

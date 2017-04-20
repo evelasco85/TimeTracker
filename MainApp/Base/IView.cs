@@ -4,10 +4,10 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface IView<TModel, TRequest> : IView<TModel>
-     {
-         TRequest ViewRequest { get; set; }
-     }
+    public interface IView<TModel, TRequest>
+    {
+        TRequest ViewRequest { get; set; }
+    }
 
     public interface IViewControllerRequests<TModel>
     {
@@ -24,8 +24,13 @@ namespace Domain.Views
         void OnShow();
     }
 
+    public interface IViewDeprecated<TModel, TRequest> : IViewDeprecated<TModel>
+    {
+        TRequest ViewRequest { get; set; }
+    }
+
 //Operations available to views (and Forms)
-    public interface IView<TModel>
+    public interface IViewDeprecated<TModel>
     {
         Action<Func<TModel, bool>> View_QueryRecords { get; set; }
         Action View_OnQueryRecordsCompletion { get; set; }

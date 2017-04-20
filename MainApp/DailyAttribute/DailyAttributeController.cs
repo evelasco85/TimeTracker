@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Domain.Controllers
 {
-    public class DailyAttributeController : BaseController<DayAttribute>, IDailyAttributeRequests
+    public class DailyAttributeController : BaseControllerDeprecated<DayAttribute>, IDailyAttributeRequests
     {
         public const int cID = 1 << 8;
         public override int ID { get { return cID; } }

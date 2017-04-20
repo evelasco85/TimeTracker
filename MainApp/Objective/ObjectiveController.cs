@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Domain.Controllers
 {
-    public class ObjectiveController : BaseController<Objective>, IObjectiveRequests
+    public class ObjectiveController : BaseControllerDeprecated<Objective>, IObjectiveRequests
     {
         public const int cID = 1 << 4;
         public override int ID { get { return cID; } }

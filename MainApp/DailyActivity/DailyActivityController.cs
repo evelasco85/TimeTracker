@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Domain.Controllers
 {
-    public class DailyActivityController : BaseController<DayActivity>, IDailyActivityRequests
+    public class DailyActivityController : BaseControllerDeprecated<DayActivity>, IDailyActivityRequests
     {
         public const int cID = 1 << 9;
         public override int ID { get { return cID; } }

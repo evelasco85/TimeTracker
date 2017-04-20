@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Domain.Controllers
 {
-    public class AttributeController : BaseController<Domain.Attribute>, IAttributeRequests
+    public class AttributeController : BaseControllerDeprecated<Domain.Attribute>, IAttributeRequests
     {
         public const int cID = 1 << 11;
         public override int ID { get { return cID; } }

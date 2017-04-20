@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface IPersonalNoteView : IView<PersonalNote, IPersonalNoteRequests>
+    public interface IPersonalNoteView : IViewDeprecated<PersonalNote, IPersonalNoteRequests>
     {
         void OnGetPersonalNotesCompletion(dynamic displayColumns, DateTime lastUpdatedDate);
     }

@@ -34,7 +34,7 @@ namespace Domain.Controllers
         }
 
         public HolidayController(IEFRepository repository, IHolidayView view)
-            : base(repository, view)
+            : base(repository)
         {
             view.ViewRequest = this;
 

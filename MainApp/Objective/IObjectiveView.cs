@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface IObjectiveView : IView<Objective, IObjectiveRequests>
+    public interface IObjectiveView : IViewDeprecated<Objective, IObjectiveRequests>
     {
         void OnGetObjectiveDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate);
     }

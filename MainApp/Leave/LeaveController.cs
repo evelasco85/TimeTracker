@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Domain.Controllers
 {
-    public class LeaveController : BaseController<Leave>, ILeaveRequests
+    public class LeaveController : BaseControllerDeprecated<Leave>, ILeaveRequests
     {
         public const int cID = 1 << 6;
         public override int ID { get { return cID; } }

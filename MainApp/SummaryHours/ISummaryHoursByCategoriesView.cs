@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface ISummaryHoursByCategoriesView : IView<LogEntry, ISummaryHoursByCategoriesRequests>
+    public interface ISummaryHoursByCategoriesView : IViewDeprecated<LogEntry, ISummaryHoursByCategoriesRequests>
     {
         void OnGetLogEntriesCompletion(dynamic summarizedLogEntries);
     }

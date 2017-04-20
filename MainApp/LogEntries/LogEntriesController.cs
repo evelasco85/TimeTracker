@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Domain.Controllers
 {
-    public class LogEntriesController : BaseController<LogEntry>, ILogRequests
+    public class LogEntriesController : BaseControllerDeprecated<LogEntry>, ILogRequests
     {
         public const int cID = 1 << 5;
         public override int ID { get { return cID; } }

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface IStandardOperatingProcedureView : IView<StandardOperatingProcedure, IStandardOperatingProcedureRequests>
+    public interface IStandardOperatingProcedureView : IViewDeprecated<StandardOperatingProcedure, IStandardOperatingProcedureRequests>
     {
         void OnGetSOPsCompletion(dynamic displayColumns, DateTime lastUpdatedDate);
     }

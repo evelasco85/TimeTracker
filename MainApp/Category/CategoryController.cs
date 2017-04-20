@@ -9,7 +9,7 @@ using ModelViewPresenter.MessageDispatcher;
 
 namespace Domain.Controllers
 {
-    public class CategoryController : BaseController<Category>, ICategoryRequests
+    public class CategoryController : BaseControllerDeprecated<Category>, ICategoryRequests
     {
         ICategoryView _categoryView;
         IDateHelper _helper;

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface ICategoryView : IView<Category, ICategoryRequests>
+    public interface ICategoryView : IViewDeprecated<Category, ICategoryRequests>
     {
         void OnGetCategoryDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate);
     }

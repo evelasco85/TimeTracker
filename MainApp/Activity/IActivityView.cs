@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface IActivityView : IView<Activity, IActivityRequests>
+    public interface IActivityView : IViewDeprecated<Activity, IActivityRequests>
     {
         void OnGetActivityDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate);
     }

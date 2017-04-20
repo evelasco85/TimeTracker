@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface IDailyAttributeView : IView<DayAttribute, IDailyAttributeRequests>
+    public interface IDailyAttributeView : IViewDeprecated<DayAttribute, IDailyAttributeRequests>
     {
         void OnGetPresetAttributeDataCompletion(IEnumerable<Domain.Attribute> attributes);
         void OnGetDailyAttributeDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate);

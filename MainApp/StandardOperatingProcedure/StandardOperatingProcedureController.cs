@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Controllers
 {
-    public class StandardOperatingProcedureController : BaseController<StandardOperatingProcedure>, IStandardOperatingProcedureRequests
+    public class StandardOperatingProcedureController : BaseControllerDeprecated<StandardOperatingProcedure>, IStandardOperatingProcedureRequests
     {
         public const int cID = 1 << 12;
         public override int ID { get { return cID; } }

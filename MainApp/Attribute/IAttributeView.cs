@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface IAttributeView : IView<Domain.Attribute, IAttributeRequests>
+    public interface IAttributeView : IViewDeprecated<Domain.Attribute, IAttributeRequests>
     {
         void OnGetAttributeDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate);
     }

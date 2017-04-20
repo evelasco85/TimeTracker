@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Domain.Controllers
 {
-    public class SummaryLogsController : BaseController<LogEntry>, ISummaryLogsRequests
+    public class SummaryLogsController : BaseControllerDeprecated<LogEntry>, ISummaryLogsRequests
     {
         public const int cID = 1 << 2;
         public override int ID { get { return cID; } }
