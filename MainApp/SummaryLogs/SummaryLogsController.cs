@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Domain.Controllers
 {
-    public class SummaryLogsController : BaseControllerDeprecated<LogEntry>, ISummaryLogsRequests
+    public class SummaryLogsController : BaseController<LogEntry>, ISummaryLogsRequests
     {
         public const int cID = 1 << 2;
         public override int ID { get { return cID; } }
@@ -24,28 +24,22 @@ namespace Domain.Controllers
         {
             if (telegram.Operation == Operation.OpenView)
             {
-                this._summaryView.View_ViewReady(telegram.Data);
-                this._summaryView.View_OnShow();
+                this._summaryView.OnViewReady(telegram.Data);
+                this._summaryView.OnShow();
             }
 
             return true;
         }
 
         public SummaryLogsController(IEFRepository repository, ISummaryLogsView view)
-            : base(repository, view)
+            : base(repository)
         {
             view.ViewRequest = this;
 
             this._helper = DateHelper.GetInstance();
             this._summaryView = view;
-            this._summaryView.View_ViewReady = ViewReady;
         }
         
-        void ViewReady(dynamic data)
-        {
-            this._summaryView.View_OnViewReady(data);
-        }
-
         public void GetLogEntries(IEnumerable<LogEntry> logs, DateTime selectedMonth)
         {
             IList<LogEntry> logEntries = this._helper.GetMonthSummaryLogs(logs, selectedMonth);
@@ -121,11 +115,11 @@ namespace Domain.Controllers
                 .GetEntityQuery<LogEntry>();
 
             if (criteria == null)
-                this._view.View_QueryResults = logQuery.Select(x => x);
+                this._summaryView.QueryResults = logQuery.Select(x => x);
             else
-                this._view.View_QueryResults = logQuery.Where(criteria);
+                this._summaryView.QueryResults = logQuery.Where(criteria);
 
-            this._view.View_OnQueryRecordsCompletion();
+            this._summaryView.OnQueryRecordsCompletion();
         }
 
         public override void SaveData(LogEntry data)

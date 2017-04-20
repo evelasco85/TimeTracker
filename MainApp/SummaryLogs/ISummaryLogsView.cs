@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface ISummaryLogsView : IViewDeprecated<LogEntry, ISummaryLogsRequests>
+    public interface ISummaryLogsView : IView<LogEntry, ISummaryLogsRequests>, IViewControllerEvents<LogEntry>
     {
         void OnGetLogEntriesCompletion(dynamic summarizedLogEntries);
     }
 
-    public interface ISummaryLogsRequests
+    public interface ISummaryLogsRequests : IViewControllerRequests<LogEntry>
     {
         void GetLogEntries(IEnumerable<LogEntry> logs, DateTime selectedMonth);
     }

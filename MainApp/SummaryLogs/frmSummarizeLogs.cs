@@ -12,26 +12,17 @@ namespace MainApp
     public partial class frmSummarizeLogs : Form, ISummaryLogsView
     {
         public ISummaryLogsRequests ViewRequest { get; set; }
-
-        public Action<Func<LogEntry, bool>> View_QueryRecords { get; set; }
-        public Action View_OnQueryRecordsCompletion { get; set; }
-        public Action<Func<LogEntry, bool>> View_DeleteRecords { get; set; }
-        public Action<LogEntry> View_SaveRecord { get; set; }
-        public IEnumerable<LogEntry> View_QueryResults { get; set; }
-        public Action<object> View_ViewReady { get; set; }
-        public Action<object> View_OnViewReady { get; set; }
-        public Action View_OnShow { get; set; }
+        public IEnumerable<LogEntry> QueryResults { get; set; }
 
         Form _parentForm;
+        DateTime _selectedMonth;
+
         public frmSummarizeLogs()
         {
-            this.View_OnViewReady = OnViewReady;
-            this.View_OnShow = OnShow;
-            
             InitializeComponent();
         }
 
-        void OnShow()
+        public void OnShow()
         {
             MethodInvoker invokeFromUI = new MethodInvoker(
                () =>
@@ -53,18 +44,22 @@ namespace MainApp
                 invokeFromUI.Invoke();
         }
 
-        void OnViewReady(object data)
+        public void OnViewReady(object data)
         {
             this._parentForm = (Form)data.GetType().GetProperty("parentForm").GetValue(data, null);
-            DateTime selectedMonth = (DateTime)data.GetType().GetProperty("selectedMonth").GetValue(data, null);
-            this.View_OnQueryRecordsCompletion = () => DisplayLogEntries(selectedMonth);
+            this._selectedMonth = (DateTime)data.GetType().GetProperty("selectedMonth").GetValue(data, null);
 
-            this.View_QueryRecords(null);
+            this.ViewRequest.GetData(null);
+        }
+
+        public void OnQueryRecordsCompletion()
+        {
+            DisplayLogEntries(_selectedMonth);
         }
 
         void DisplayLogEntries(DateTime selectedMonth)
         {
-            IEnumerable<LogEntry> logs = this.View_QueryResults;
+            IEnumerable<LogEntry> logs = this.QueryResults;
 
             this.ViewRequest.GetLogEntries(logs, selectedMonth);
         }
