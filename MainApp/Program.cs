@@ -50,7 +50,8 @@ namespace MainApp
             manager.RegisterController(new SummaryHoursByCategoriesController(repository, new frmSummarizeHoursByCategories()));
             
             //Prepare data for main window before showing
-            ((LogEntriesController)manager.GetControllerFromId(LogEntriesController.cID)).View.View_ViewReady(null);
+            main.OnViewReady(null);
+            //((LogEntriesController)manager.GetControllerFromId(LogEntriesController.cID)).View.View_ViewReady(null);
         }
     }
 }

@@ -4,14 +4,14 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface ILogView : IViewDeprecated<LogEntry, ILogRequests>
+    public interface ILogView : IView<LogEntry, ILogRequests>, IViewControllerEvents<LogEntry>
     {
         void OnGetLogStatisticsCompletion(int holidayCount, int leaveCount, int saturdayCount, int sundayCount, int workdaysCount, int daysInMonth, int uniqueLogEntriesPerDate, int daysCountWithoutLogs, double hoursRendered);
         void OnGetCalendarDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate);
         void OnGetObjectiveDataCompletion(string objectives);
     }
 
-    public interface ILogRequests
+    public interface ILogRequests : IViewControllerRequests<LogEntry>
     {
         void GetLogStatistics(IEnumerable<LogEntry> logs, DateTime selectedMonth);
         void GetCalendarData(IEnumerable<LogEntry> logs, DateTime selectedMonth);

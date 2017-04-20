@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Domain.Controllers
 {
-    public class LogEntriesController : BaseControllerDeprecated<LogEntry>, ILogRequests
+    public class LogEntriesController : BaseController<LogEntry>, ILogRequests
     {
         public const int cID = 1 << 5;
         public override int ID { get { return cID; } }
@@ -38,18 +38,12 @@ namespace Domain.Controllers
         }
 
         public LogEntriesController(IEFRepository repository, ILogView view)
-            : base(repository, view)
+            : base(repository)
         {
             view.ViewRequest = this;
 
             this._helper = DateHelper.GetInstance();
             this._logView = view;
-            this._logView.View_ViewReady = ViewReady;
-        }
-
-        void ViewReady(dynamic data)
-        {
-            this._logView.View_OnViewReady(data);
         }
 
         public IEnumerable<Category> GetCategories()
@@ -203,11 +197,11 @@ namespace Domain.Controllers
                 .GetEntityQuery<LogEntry>();
 
             if (criteria == null)
-                this._view.View_QueryResults = logQuery.Select(x => x);
+                this._logView.QueryResults = logQuery.Select(x => x);
             else
-                this._view.View_QueryResults = logQuery.Where(criteria);
+                this._logView.QueryResults = logQuery.Where(criteria);
 
-            this._view.View_OnQueryRecordsCompletion();
+            this._logView.OnQueryRecordsCompletion();
         }
 
         IEnumerable<Holiday> QueryHolidays(Func<Holiday, bool> criteria)

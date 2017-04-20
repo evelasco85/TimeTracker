@@ -14,27 +14,16 @@ namespace MainApp
     public partial class frmMain : Form, ILogView
     {
         public ILogRequests ViewRequest { get; set; }
+        public IEnumerable<LogEntry> QueryResults { get; set; }
         
         System.Timers.Timer _timerNotification;
         bool _promptingInProgress = false;
         int _secondsRemaining;
         IFrontController _frontController;
 
-        public Action<Func<LogEntry, bool>> View_QueryRecords { get; set; }
-        public Action View_OnQueryRecordsCompletion { get; set; }
-        public Action<Func<LogEntry, bool>> View_DeleteRecords { get; set; }
-        public Action<LogEntry> View_SaveRecord { get; set; }
-        public IEnumerable<LogEntry> View_QueryResults { get; set; }
-        public Action<object> View_ViewReady { get; set; }
-        public Action<object> View_OnViewReady { get; set; }
-        public Action View_OnShow { get; set; }
-
         public frmMain()
         {
             this._frontController = FrontController.GetInstance();
-            this.View_OnQueryRecordsCompletion = this.RefreshGridData;
-            this.View_OnViewReady = OnViewReady;
-            this.View_OnShow = OnShow;
 
             InitializeComponent();
             this.InitializeRequiredData();
@@ -42,13 +31,13 @@ namespace MainApp
             this.StartTimer();
         }
 
-        void OnShow()
+        public void OnShow()
         {
         }
 
-        void OnViewReady(object data)
+        public void OnViewReady(object data)
         {
-            this.View_QueryRecords(null);
+            this.ViewRequest.GetData(null);
             this.RefreshDashboardData();
         }
 
@@ -59,9 +48,9 @@ namespace MainApp
             this.dateTimeMonth.CustomFormat = "MMMM/yyyy";
         }
 
-        void RefreshGridData()
+        public void OnQueryRecordsCompletion()
         {
-            IEnumerable<LogEntry> log = this.View_QueryResults;
+            IEnumerable<LogEntry> log = this.QueryResults;
             DateTime selectedMonth = this.dateTimeMonth.Value;
 
             this.ViewRequest.GetCalendarData(log, selectedMonth);
@@ -340,14 +329,14 @@ namespace MainApp
                 if (logEntry.System_Created == DateTime.MinValue)
                     logEntry.System_Created = DateTime.Now;
 
-                this.View_SaveRecord(logEntry);
+                this.ViewRequest.SaveData(logEntry);
             }
             catch(Exception ex)
             {
                 throw ex;
             }
 
-            this.View_QueryRecords(null);
+            this.ViewRequest.GetData(null);
             this.RefreshDashboardData();
 
             success = true;
@@ -363,7 +352,7 @@ namespace MainApp
         void RefreshDashboardData()
         {
             DateTime selectedMonth = this.dateTimeMonth.Value;
-            IEnumerable<LogEntry> logs = this.View_QueryResults;
+            IEnumerable<LogEntry> logs = this.QueryResults;
             this.ViewRequest.GetLogStatistics(logs, selectedMonth);
         }
 
@@ -387,7 +376,7 @@ namespace MainApp
 
         private void dateTimeMonth_ValueChanged(object sender, EventArgs e)
         {
-            this.View_QueryRecords(null);
+            this.ViewRequest.GetData(null);
             this.RefreshDashboardData();
         }
 
@@ -457,7 +446,7 @@ namespace MainApp
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            this.View_QueryRecords(null);
+            this.ViewRequest.GetData(null);
             this.RefreshDashboardData();
         }
 
@@ -531,7 +520,7 @@ namespace MainApp
         {
             this._frontController.Process(LogEntriesController.cID, HolidayController.cID, Operation.OpenView, new { parentForm = this });
 
-            this.View_QueryRecords(null);
+            this.ViewRequest.GetData(null);
             this.RefreshDashboardData();
         }
 
@@ -551,7 +540,7 @@ namespace MainApp
         {
             this._frontController.Process(LogEntriesController.cID, LeaveController.cID, Operation.OpenView, new { parentForm = this });
 
-            this.View_QueryRecords(null);
+            this.ViewRequest.GetData(null);
             this.RefreshDashboardData();
         }
 
@@ -590,7 +579,7 @@ namespace MainApp
         {
             this._frontController.Process(LogEntriesController.cID, ObjectiveController.cID, Operation.OpenView, new { parentForm = this });
 
-            this.RefreshGridData();
+            this.OnQueryRecordsCompletion();
         }
 
         void OpenStandardOperatingProcedure()
