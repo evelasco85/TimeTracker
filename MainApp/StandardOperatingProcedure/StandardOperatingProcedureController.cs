@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Controllers
 {
-    public class StandardOperatingProcedureController : BaseController<StandardOperatingProcedure>
+    public class StandardOperatingProcedureController : BaseController<StandardOperatingProcedure>, IStandardOperatingProcedureRequests
     {
         public const int cID = 1 << 12;
         public override int ID { get { return cID; } }
@@ -39,9 +39,10 @@ namespace Domain.Controllers
         public StandardOperatingProcedureController(IEFRepository repository, IStandardOperatingProcedureView view)
             : base(repository, view)
         {
+            view.ViewRequest = this;
+
             this._helper = DateHelper.GetInstance();
             this._view = view;
-            this._view.View_GetSOPs = this.GetSOP;
             this._view.View_ViewReady = ViewReady;
         }
 
@@ -50,14 +51,14 @@ namespace Domain.Controllers
             this._view.View_OnViewReady(data);
         }
 
-        void GetSOP(IEnumerable<StandardOperatingProcedure> sops)
+        public void GetSOP(IEnumerable<StandardOperatingProcedure> sops)
         {
             DateTime lastUpdatedDate = sops
                 .Select(x => x.SystemUpdateDateTime)
                 .OrderByDescending(x => x)
                 .FirstOrDefault();
 
-            this._view.View_OnGetSOPsCompletion(
+            this._view.OnGetSOPsCompletion(
                 sops
                 .OrderByDescending(x => x.SystemUpdateDateTime)
                 .ToList()

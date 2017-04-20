@@ -5,9 +5,17 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface IStandardOperatingProcedureView : IView<StandardOperatingProcedure>
+    public interface IStandardOperatingProcedureView : IView<StandardOperatingProcedure, IStandardOperatingProcedureRequests, IStandardOperatingProcedureEvents>, IStandardOperatingProcedureEvents
     {
-        Action<IEnumerable<StandardOperatingProcedure>> View_GetSOPs { get; set; }
-        Action<dynamic, DateTime> View_OnGetSOPsCompletion { get; set; }
+    }
+
+    public interface IStandardOperatingProcedureEvents
+    {
+        void OnGetSOPsCompletion(dynamic displayColumns, DateTime lastUpdatedDate);
+    }
+
+    public interface IStandardOperatingProcedureRequests
+    {
+        void GetSOP(IEnumerable<StandardOperatingProcedure> sops);
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Domain;
 using Domain.Controllers;
-using Domain.Infrastructure;
 using Domain.Views;
 using System;
 using System.Collections.Generic;
@@ -11,13 +10,13 @@ namespace MainApp
 {
     public partial class frmStandardOperatingProcedure : frmCommonDataEditor, IStandardOperatingProcedureView, IFormCommonOperation
     {
+        public IStandardOperatingProcedureRequests ViewRequest { get; set; }
+
         public Action<Func<StandardOperatingProcedure, bool>> View_QueryRecords { get; set; }
         public Action View_OnQueryRecordsCompletion { get; set; }
         public Action<StandardOperatingProcedure> View_SaveRecord { get; set; }
         public Action<Func<StandardOperatingProcedure, bool>> View_DeleteRecords { get; set; }
         public IEnumerable<StandardOperatingProcedure> View_QueryResults { get; set; }
-        public Action<IEnumerable<StandardOperatingProcedure>> View_GetSOPs { get; set; }
-        public Action<dynamic, DateTime> View_OnGetSOPsCompletion { get; set; }
         public Action<object> View_ViewReady { get; set; }
         public Action<object> View_OnViewReady { get; set; }
         public Action View_OnShow { get; set; }
@@ -26,11 +25,9 @@ namespace MainApp
         public frmStandardOperatingProcedure()
         {
             InitializeComponent();
-
             this.RegisterCommonOperation(this);
 
             this.View_OnQueryRecordsCompletion = this.RefreshGridData;
-            this.View_OnGetSOPsCompletion = this.UpdateSOPData;
             this.View_OnViewReady = OnViewReady;
             this.View_OnShow = OnShow;
         }
@@ -68,10 +65,10 @@ namespace MainApp
         {
             IEnumerable<StandardOperatingProcedure> sops = this.View_QueryResults;
 
-            this.View_GetSOPs(sops);
+            this.ViewRequest.GetSOP(sops);
         }
 
-        void UpdateSOPData(dynamic displayColumns, DateTime lastUpdatedDate)
+        public void OnGetSOPsCompletion(dynamic displayColumns, DateTime lastUpdatedDate)
         {
             this.dGrid.DataSource = displayColumns;
 
