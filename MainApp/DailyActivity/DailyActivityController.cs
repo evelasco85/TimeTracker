@@ -65,7 +65,6 @@ namespace Domain.Controllers
                 .Select(x => x.Key);
 
             this._dayActivityView
-                .ViewEvents
                 .OnGetDatesForCurrentPeriodCompletion(uniqueDailyActivityDates);
         }
 
@@ -91,7 +90,6 @@ namespace Domain.Controllers
                 .FirstOrDefault();
 
             this._dayActivityView
-                .ViewEvents
                 .OnGetDailyActivityDataCompletion(dailyActivity.ToList(), lastUpdatedDate);
         }
 
@@ -101,7 +99,6 @@ namespace Domain.Controllers
                 .GetEntityQuery<Activity>();
 
             this._dayActivityView
-                .ViewEvents
                 .OnGetPresetActivityDataCompletion(attributes);
         }
 

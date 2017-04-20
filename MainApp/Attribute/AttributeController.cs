@@ -55,7 +55,6 @@ namespace Domain.Controllers
                 .FirstOrDefault();
 
             this._view
-                .ViewEvents
                 .OnGetAttributeDataCompletion(
                     attributes
                     .OrderBy(x => x.Id)

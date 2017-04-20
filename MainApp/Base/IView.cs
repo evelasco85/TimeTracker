@@ -7,7 +7,6 @@ namespace Domain.Views
     public interface IView<TModel, TRequest, TEvents> : IView<TModel>
      {
          TRequest ViewRequest { get; set; }
-         TEvents ViewEvents { get; set; }
      }
 
     //Operations available to views (and Forms)

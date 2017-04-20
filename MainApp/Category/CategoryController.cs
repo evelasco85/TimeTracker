@@ -56,7 +56,6 @@ namespace Domain.Controllers
                 .FirstOrDefault();
 
             this._categoryView
-                .ViewEvents
                 .OnGetCategoryDataCompletion(
                     categories
                         .OrderBy(x => x.Id)

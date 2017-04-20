@@ -66,7 +66,6 @@ namespace Domain.Controllers
                 .GetEntityQuery<Domain.Attribute>();
 
             this._dayAttributeView
-                .ViewEvents
                 .OnGetPresetAttributeDataCompletion(attributes);
         }
 

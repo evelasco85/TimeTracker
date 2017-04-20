@@ -57,7 +57,6 @@ namespace Domain.Controllers
                 .FirstOrDefault();
 
             this._holidayView
-                .ViewEvents
                 .OnGetHolidayDataCompletion(displayColumns, lastUpdatedDate);
         }
 

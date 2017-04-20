@@ -57,7 +57,6 @@ namespace Domain.Controllers
                 .FirstOrDefault();
 
             this._leaveView
-                .ViewEvents
                 .OnGetLeaveDataCompletion(displayColumns, lastUpdatedDate);
         }
 
