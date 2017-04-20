@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Domain.Controllers
 {
-    public class ObjectiveController : BaseControllerDeprecated<Objective>, IObjectiveRequests
+    public class ObjectiveController : BaseController<Objective>, IObjectiveRequests
     {
         public const int cID = 1 << 4;
         public override int ID { get { return cID; } }
@@ -26,26 +26,20 @@ namespace Domain.Controllers
         {
             if (telegram.Operation == Operation.OpenView)
             {
-                this._objectiveView.View_ViewReady(telegram.Data);
-                this._objectiveView.View_OnShow();
+                this._objectiveView.OnViewReady(telegram.Data);
+                this._objectiveView.OnShow();
             }
 
             return true;
         }
 
         public ObjectiveController(IEFRepository repository, IObjectiveView view)
-            : base(repository, view)
+            : base(repository)
         {
             view.ViewRequest = this;
 
             this._helper = DateHelper.GetInstance();
             this._objectiveView = view;
-            this._objectiveView.View_ViewReady = ViewReady;
-        }
-
-        void ViewReady(dynamic data)
-        {
-            this._objectiveView.View_OnViewReady(data);
         }
 
         public void GetObjectiveData(IEnumerable<Objective> objectives)
@@ -65,11 +59,11 @@ namespace Domain.Controllers
                 .GetEntityQuery<Objective>();
 
             if (criteria == null)
-                this._view.View_QueryResults = objectiveQuery.Select(x => x);
+                this._objectiveView.QueryResults = objectiveQuery.Select(x => x);
             else
-                this._view.View_QueryResults = objectiveQuery.Where(criteria);
+                this._objectiveView.QueryResults = objectiveQuery.Where(criteria);
 
-            this._view.View_OnQueryRecordsCompletion();
+            this._objectiveView.OnQueryRecordsCompletion();
         }
 
         public override void SaveData(Objective data)

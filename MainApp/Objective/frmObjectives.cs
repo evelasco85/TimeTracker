@@ -11,29 +11,17 @@ namespace MainApp
     public partial class frmObjectives : frmCommonDataEditor, IObjectiveView, IFormCommonOperation
     {
         public IObjectiveRequests ViewRequest { get; set; }
-
-        public Action<Func<Objective, bool>> View_QueryRecords { get; set; }
-        public Action View_OnQueryRecordsCompletion { get; set; }
-        public Action<Objective> View_SaveRecord { get; set; }
-        public Action<Func<Objective, bool>> View_DeleteRecords { get; set; }
-        public IEnumerable<Objective> View_QueryResults { get; set; }
-        public Action<object> View_ViewReady { get; set; }
-        public Action<object> View_OnViewReady { get; set; }
-        public Action View_OnShow { get; set; }
+        public IEnumerable<Objective> QueryResults { get; set; }
+        
         Form _parentForm;
 
         public frmObjectives()
         {
-            this.RegisterCommonOperation(this);
-
-            this.View_OnQueryRecordsCompletion = RefreshGridData;
-            this.View_OnViewReady = OnViewReady;
-            this.View_OnShow = OnShow;
-
             InitializeComponent();
+            this.RegisterCommonOperation(this);
         }
 
-        void OnShow()
+        public void OnShow()
         {
             MethodInvoker invokeFromUI = new MethodInvoker(
                () =>
@@ -55,17 +43,17 @@ namespace MainApp
                 invokeFromUI.Invoke();
         }
 
-        void OnViewReady(object data)
+        public void OnViewReady(object data)
         {
             this._parentForm = (Form)data.GetType().GetProperty("parentForm").GetValue(data, null);
             this.objectiveDate.Value = DateTime.Now;
 
-            this.View_QueryRecords(null);
+            this.ViewRequest.GetData(null);
         }
 
-        void RefreshGridData()
+        public void OnQueryRecordsCompletion()
         {
-            IEnumerable<Objective> objectives = this.View_QueryResults;
+            IEnumerable<Objective> objectives = this.QueryResults;
 
             this.ViewRequest.GetObjectiveData(objectives);
         }
@@ -111,7 +99,7 @@ namespace MainApp
             try
             {
                 int id = int.Parse(this.dGrid.Rows[rowIndex].Cells[ObjectiveController.ID_INDEX].Value.ToString());
-                Objective objective = this.View_QueryResults
+                Objective objective = this.QueryResults
                     .Where(x => x.Id == id)
                     .FirstOrDefault();
 
@@ -175,8 +163,8 @@ namespace MainApp
 
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
-                    this.View_DeleteRecords(x => x.Id == id);
-                    this.View_QueryRecords(null);
+                    this.ViewRequest.DeleteData(x => x.Id == id);
+                    this.ViewRequest.GetData(null);
                 }
             }
             catch (FormatException)
@@ -195,7 +183,7 @@ namespace MainApp
             };
 
             if (!string.IsNullOrEmpty(this.lblId.Text))
-                objective = this.View_QueryResults
+                objective = this.QueryResults
                     .Where(x => x.Id == int.Parse(this.lblId.Text))
                     .FirstOrDefault();
 
@@ -203,8 +191,8 @@ namespace MainApp
             objective.Description = this.txtObjectives.Text;
             objective.SystemUpdated = DateTime.Now;
 
-            this.View_SaveRecord(objective);
-            this.View_QueryRecords(null);
+            this.ViewRequest.SaveData(objective);
+            this.ViewRequest.GetData(null);
             this.WindowInputChanges(ModifierState.Save);
         }
 

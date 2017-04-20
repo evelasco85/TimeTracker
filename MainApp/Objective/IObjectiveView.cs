@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface IObjectiveView : IViewDeprecated<Objective, IObjectiveRequests>
+    public interface IObjectiveView : IView<Objective, IObjectiveRequests>, IViewControllerEvents<Objective>
     {
         void OnGetObjectiveDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate);
     }
 
-    public interface IObjectiveRequests
+    public interface IObjectiveRequests : IViewControllerRequests<Objective>
     {
         void GetObjectiveData(IEnumerable<Objective> objectives);
     }
