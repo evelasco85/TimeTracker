@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Domain.Controllers
 {
-    public class ActivityController : BaseControllerDeprecated<Activity>, IActivityRequests
+    public class ActivityController : BaseController<Activity>, IActivityRequests
     {
 
         public const int cID = 1 << 1;
@@ -28,26 +28,20 @@ namespace Domain.Controllers
         {
             if (telegram.Operation == Operation.OpenView)
             {
-                this._view.View_ViewReady(telegram.Data);
-                this._view.View_OnShow();
+                this._view.OnViewReady(telegram.Data);
+                this._view.OnShow();
             }
 
             return true;
         }
 
         public ActivityController(IEFRepository repository, IActivityView view)
-            : base(repository, view)
+            : base(repository)
         {
             view.ViewRequest = this;
 
             this._helper = DateHelper.GetInstance();
             this._view = view;
-            this._view.View_ViewReady = ViewReady;
-        }
-
-        void ViewReady(dynamic data)
-        {
-            this._view.View_OnViewReady(data);
         }
 
         public void GetActivityData(IEnumerable<Activity> attributes)
@@ -71,11 +65,11 @@ namespace Domain.Controllers
                 .GetEntityQuery<Activity>();
 
             if (criteria == null)
-                this._view.View_QueryResults = activityQuery.Select(x => x);
+                this._view.QueryResults = activityQuery.Select(x => x);
             else
-                this._view.View_QueryResults = activityQuery.Where(criteria);
+                this._view.QueryResults = activityQuery.Where(criteria);
 
-            this._view.View_OnQueryRecordsCompletion();
+            this._view.OnQueryRecordsCompletion();
         }
 
         public override void SaveData(Activity data)
