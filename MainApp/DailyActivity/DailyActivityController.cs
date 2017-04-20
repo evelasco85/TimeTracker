@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Domain.Controllers
 {
-    public class DailyActivityController : BaseControllerDeprecated<DayActivity>, IDailyActivityRequests
+    public class DailyActivityController : BaseController<DayActivity>, IDailyActivityRequests
     {
         public const int cID = 1 << 9;
         public override int ID { get { return cID; } }
@@ -29,26 +29,20 @@ namespace Domain.Controllers
         {
             if (telegram.Operation == Operation.OpenView)
             {
-                this._dayActivityView.View_ViewReady(telegram.Data);
-                this._dayActivityView.View_OnShow();
+                this._dayActivityView.OnViewReady(telegram.Data);
+                this._dayActivityView.OnShow();
             }
 
             return true;
         }
 
         public DailyActivityController(IEFRepository repository, IDailyActivityView view)
-            : base(repository, view)
+            : base(repository)
         {
             view.ViewRequest = this;
 
             this._helper = DateHelper.GetInstance();
             this._dayActivityView = view;
-            this._dayActivityView.View_ViewReady = ViewReady;
-        }
-
-        void ViewReady(dynamic data)
-        {
-            this._dayActivityView.View_OnViewReady(data);
         }
 
         public void GetDatesForCurrentPeriod(DateTime selectedMonth)
@@ -113,11 +107,11 @@ namespace Domain.Controllers
                 .GetEntityQuery<DayActivity>();
 
             if (criteria == null)
-                this._view.View_QueryResults = dayAttributeQuery.Select(x => x);
+                this._dayActivityView.QueryResults = dayAttributeQuery.Select(x => x);
             else
-                this._view.View_QueryResults = dayAttributeQuery.Where(criteria);
+                this._dayActivityView.QueryResults = dayAttributeQuery.Where(criteria);
 
-            this._view.View_OnQueryRecordsCompletion();
+            this._dayActivityView.OnQueryRecordsCompletion();
         }
 
         public override void SaveData(DayActivity data)
