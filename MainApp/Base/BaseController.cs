@@ -7,8 +7,9 @@ using System.Linq;
 
 namespace Domain.Controllers
 {
-    public interface IController<TModel> : IController
+    public interface IController<TModel> : IController, IViewControllerRequests<TModel>
     {
+//For deletion
         IView<TModel> View { get; set; }
         void GetData(Func<TModel, bool> criteria);
         void SaveData(TModel model);
@@ -17,11 +18,14 @@ namespace Domain.Controllers
 
     public abstract class BaseController<TEntity> : IController<TEntity>
     {
+//For deletion
         protected IView<TEntity> _view;
+
         protected IEFRepository _repository;
 
         public abstract int ID { get; }
 
+//For deletion
         public IView<TEntity> View
         {
             get { return this._view; }
@@ -30,17 +34,14 @@ namespace Domain.Controllers
 
         public BaseController(IEFRepository repository, IView<TEntity> view)
         {
-            this.BaseMap(repository, view);
-        }
-
-        void BaseMap(IEFRepository repository, IView<TEntity> view)
-        {
             this._view = view;
             this._view.View_QueryRecords = GetData;
             this._view.View_SaveRecord = SaveData;
             this._view.View_DeleteRecords = DeleteData;
             this._repository = repository;
         }
+
+       
 
         public abstract void GetData(Func<TEntity, bool> criteria);
         public abstract void SaveData(TEntity data);

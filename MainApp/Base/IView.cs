@@ -9,7 +9,22 @@ namespace Domain.Views
          TRequest ViewRequest { get; set; }
      }
 
-    //Operations available to views (and Forms)
+    public interface IViewControllerRequests<TModel>
+    {
+        void GetData(Func<TModel, bool> criteria);
+        void SaveData(TModel data);
+        void DeleteData(Func<TModel, bool> criteria);
+    }
+
+    public interface IViewControllerEvents<TModel>
+    {
+        IEnumerable<TModel> QueryResults { get; set; }
+        void OnQueryRecordsCompletion();
+        void OnViewReady(object data);
+        void OnShow();
+    }
+
+//Operations available to views (and Forms)
     public interface IView<TModel>
     {
         Action<Func<TModel, bool>> View_QueryRecords { get; set; }

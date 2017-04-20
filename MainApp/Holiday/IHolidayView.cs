@@ -4,17 +4,14 @@ using System.Linq;
 
 namespace Domain.Views
 {
-    public interface IHolidayView : IView<Holiday, IHolidayRequests>
+    public interface IHolidayView : 
+        IView<Holiday, IHolidayRequests>,
+        IViewControllerEvents<Holiday>
     {
         void OnGetHolidayDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate);
     }
 
-    public interface IHolidayEvents
-    {
-        
-    }
-
-    public interface IHolidayRequests
+    public interface IHolidayRequests : IViewControllerRequests<Holiday>
     {
         void GetHolidayData(IEnumerable<Holiday> holidays);
     }

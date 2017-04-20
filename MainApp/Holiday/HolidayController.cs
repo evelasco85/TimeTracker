@@ -26,8 +26,8 @@ namespace Domain.Controllers
         {
             if (telegram.Operation == Operation.OpenView)
             {
-                this._holidayView.View_ViewReady(telegram.Data);
-                this._holidayView.View_OnShow();
+                this._holidayView.OnViewReady((object)telegram.Data);
+                this._holidayView.OnShow();
             }
 
             return true;
@@ -40,12 +40,6 @@ namespace Domain.Controllers
 
             this._helper = DateHelper.GetInstance();
             this._holidayView = view;
-            this._holidayView.View_ViewReady = ViewReady;
-        }
-
-        void ViewReady(dynamic data)
-        {
-            this._holidayView.View_OnViewReady(data);
         }
 
         public void GetHolidayData(IEnumerable<Holiday> holidays)
@@ -66,11 +60,11 @@ namespace Domain.Controllers
                 .GetEntityQuery<Holiday>();
 
             if (criteria == null)
-                this._view.View_QueryResults = holidayQuery.Select(x => x);
+                this._holidayView.QueryResults = holidayQuery.Select(x => x);
             else
-                this._view.View_QueryResults = holidayQuery.Where(criteria);
+                this._holidayView.QueryResults = holidayQuery.Where(criteria);
 
-            this._view.View_OnQueryRecordsCompletion();
+            this._holidayView.OnQueryRecordsCompletion();
         }
 
         public override void SaveData(Holiday data)
