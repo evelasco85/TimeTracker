@@ -12,7 +12,6 @@ namespace MainApp
     public partial class frmLeaves : frmCommonDataEditor, ILeaveView, IFormCommonOperation
     {
         public ILeaveRequests ViewRequest { get; set; }
-        public ILeaveEvents ViewEvents { get; set; }
 
         public Action<Func<Leave, bool>> View_QueryRecords { get; set; }
         public Action View_OnQueryRecordsCompletion { get; set; }
@@ -28,8 +27,6 @@ namespace MainApp
         public frmLeaves()
         {
             this.RegisterCommonOperation(this);
-
-            this.ViewEvents = this;
 
             this.View_OnQueryRecordsCompletion = RefreshGridData;
             this.View_OnViewReady = OnViewReady;

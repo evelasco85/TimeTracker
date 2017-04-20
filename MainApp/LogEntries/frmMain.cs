@@ -14,8 +14,7 @@ namespace MainApp
     public partial class frmMain : Form, ILogView
     {
         public ILogRequests ViewRequest { get; set; }
-        public ILogEvents ViewEvents { get; set; }
-
+        
         System.Timers.Timer _timerNotification;
         bool _promptingInProgress = false;
         int _secondsRemaining;
@@ -32,8 +31,6 @@ namespace MainApp
 
         public frmMain()
         {
-            this.ViewEvents = this;
-
             this._frontController = FrontController.GetInstance();
             this.View_OnQueryRecordsCompletion = this.RefreshGridData;
             this.View_OnViewReady = OnViewReady;

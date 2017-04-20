@@ -11,7 +11,6 @@ namespace MainApp
     public partial class frmCategory : frmCommonDataEditor, ICategoryView, IFormCommonOperation
     {
         public ICategoryRequests ViewRequest { get; set; }
-        public ICategoryEvents ViewEvents { get; set; }
 
         public Action<Func<Category, bool>> View_QueryRecords { get; set; }
         public Action View_OnQueryRecordsCompletion { get; set; }
@@ -30,8 +29,6 @@ namespace MainApp
         {
             InitializeComponent();
             this.RegisterCommonOperation(this);
-
-            this.ViewEvents = this;
 
             this.View_OnQueryRecordsCompletion = this.RefreshGridData;
             this.View_OnViewReady = OnViewReady;

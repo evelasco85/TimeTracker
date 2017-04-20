@@ -11,7 +11,6 @@ namespace MainApp
     public partial class frmObjectives : frmCommonDataEditor, IObjectiveView, IFormCommonOperation
     {
         public IObjectiveRequests ViewRequest { get; set; }
-        public IObjectiveEvents ViewEvents { get; set; }
 
         public Action<Func<Objective, bool>> View_QueryRecords { get; set; }
         public Action View_OnQueryRecordsCompletion { get; set; }
@@ -26,8 +25,6 @@ namespace MainApp
         public frmObjectives()
         {
             this.RegisterCommonOperation(this);
-
-            this.ViewEvents = this;
 
             this.View_OnQueryRecordsCompletion = RefreshGridData;
             this.View_OnViewReady = OnViewReady;

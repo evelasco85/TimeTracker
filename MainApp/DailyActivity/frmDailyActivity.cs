@@ -11,7 +11,6 @@ namespace MainApp
     public partial class frmDailyActivity : frmCommonByDateDataEditor, IFormCommonOperation, IDailyActivityView 
     {
         public IDailyActivityRequests ViewRequest { get; set; }
-        public IDailyActivityEvents ViewEvents { get; set; }
 
         public Action<Func<DayActivity, bool>> View_QueryRecords { get; set; }
         public Action View_OnQueryRecordsCompletion { get; set; }
@@ -32,8 +31,6 @@ namespace MainApp
         {
             InitializeComponent();
             this.RegisterCommonOperation(this);
-
-            this.ViewEvents = this;
 
             this.View_OnQueryRecordsCompletion = this.RefreshGridData;
             this.View_OnViewReady = OnViewReady;

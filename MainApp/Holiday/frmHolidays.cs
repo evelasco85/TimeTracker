@@ -12,7 +12,6 @@ namespace MainApp
     public partial class frmHolidays : frmCommonDataEditor, IHolidayView, IFormCommonOperation
     {
         public IHolidayRequests ViewRequest { get; set; }
-        public IHolidayEvents ViewEvents { get; set; }
 
         public Action<Func<Holiday, bool>> View_QueryRecords { get; set; }
         public Action View_OnQueryRecordsCompletion { get; set; }
@@ -30,8 +29,6 @@ namespace MainApp
         {
             InitializeComponent();
             this.RegisterCommonOperation(this);
-
-            this.ViewEvents = this;
 
             this.View_OnQueryRecordsCompletion = this.RefreshGridData;
             this.View_OnViewReady = OnViewReady;
