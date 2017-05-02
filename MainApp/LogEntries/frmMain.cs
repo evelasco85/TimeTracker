@@ -50,16 +50,14 @@ namespace MainApp
 
         public void OnQueryRecordsCompletion()
         {
-            IEnumerable<LogEntry> log = this.QueryResults;
-            DateTime selectedMonth = this.dateTimeMonth.Value;
-
-            this.ViewRequest.GetCalendarData(log, selectedMonth);
+            this.ViewRequest.GetCalendarData(this.QueryResults, this.dateTimeMonth.Value, cboCategory.SelectedText);
         }
 
-        public void OnGetCalendarDataCompletion(dynamic displayColumns, DateTime lastUpdatedDate)
+        public void OnGetCalendarDataCompletion(IList<string> categories, dynamic displayColumns, DateTime lastUpdatedDate)
         {
             this.dGridLogs.DataSource = displayColumns;
 
+            this.SetCategories(categories);
             this.dGridLogs.Refresh();
             this.HighlightRecordByDate(lastUpdatedDate);
             this.ViewRequest.GetObjectiveData(lastUpdatedDate);
@@ -353,7 +351,16 @@ namespace MainApp
         {
             DateTime selectedMonth = this.dateTimeMonth.Value;
             IEnumerable<LogEntry> logs = this.QueryResults;
+
             this.ViewRequest.GetLogStatistics(logs, selectedMonth);
+        }
+
+        void SetCategories(IList<string> categories)
+        {
+            if ((categories == null) || !categories.Any()) return;
+
+            this.cboCategory.Items.Clear();
+            this.cboCategory.Items.AddRange(categories.ToArray());
         }
 
         public void OnGetLogStatisticsCompletion(int holidayCount, int leaveCount, int saturdayCount, int sundayCount, int workdaysCount, int daysInMonth, int uniqueLogEntriesPerDate, int daysCountWithoutLogs, double hoursRendered)
@@ -625,6 +632,11 @@ namespace MainApp
         private void btnStandardOperatingProcedure_Click(object sender, EventArgs e)
         {
             this.OpenStandardOperatingProcedure();
+        }
+
+        private void cboCategory_SelectedValueChanged(object sender, EventArgs e)
+        {
+            this.ViewRequest.GetCalendarData(this.QueryResults, this.dateTimeMonth.Value, (string)cboCategory.SelectedItem);            
         }
     }
 }

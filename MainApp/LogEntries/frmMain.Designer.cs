@@ -37,6 +37,7 @@
             this.dateTimeMonth = new System.Windows.Forms.DateTimePicker();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblTotalHours = new System.Windows.Forms.Label();
             this.lblLeavesCount = new System.Windows.Forms.Label();
             this.lblDaysCountWithNoLogs = new System.Windows.Forms.Label();
             this.lblLogCountsPerMonth = new System.Windows.Forms.Label();
@@ -63,8 +64,9 @@
             this.txtObjectives = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnStandardOperatingProcedure = new System.Windows.Forms.Button();
-            this.lblTotalHours = new System.Windows.Forms.Label();
             this.btnSummarizeHoursByCategories = new System.Windows.Forms.Button();
+            this.cboCategory = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dGridLogs)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -83,11 +85,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dGridLogs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGridLogs.Location = new System.Drawing.Point(12, 28);
+            this.dGridLogs.Location = new System.Drawing.Point(12, 69);
             this.dGridLogs.Name = "dGridLogs";
             this.dGridLogs.RowTemplate.ReadOnly = true;
             this.dGridLogs.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dGridLogs.Size = new System.Drawing.Size(1089, 427);
+            this.dGridLogs.Size = new System.Drawing.Size(1089, 386);
             this.dGridLogs.TabIndex = 0;
             this.dGridLogs.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGridLogs_CellClick);
             this.dGridLogs.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGridLogs_CellDoubleClick);
@@ -139,9 +141,9 @@
             // btnRefresh
             // 
             this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnRefresh.Location = new System.Drawing.Point(16, 528);
+            this.btnRefresh.Location = new System.Drawing.Point(201, 32);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(148, 30);
+            this.btnRefresh.Size = new System.Drawing.Size(58, 33);
             this.btnRefresh.TabIndex = 12;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -163,6 +165,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(215, 189);
             this.panel1.TabIndex = 13;
+            // 
+            // lblTotalHours
+            // 
+            this.lblTotalHours.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTotalHours.AutoSize = true;
+            this.lblTotalHours.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalHours.ForeColor = System.Drawing.Color.Blue;
+            this.lblTotalHours.Location = new System.Drawing.Point(12, 145);
+            this.lblTotalHours.Name = "lblTotalHours";
+            this.lblTotalHours.Size = new System.Drawing.Size(107, 13);
+            this.lblTotalHours.TabIndex = 20;
+            this.lblTotalHours.Text = "Hours Rendered: ";
             // 
             // lblLeavesCount
             // 
@@ -381,7 +395,7 @@
             this.lblCountdown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCountdown.AutoSize = true;
             this.lblCountdown.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblCountdown.Location = new System.Drawing.Point(203, 9);
+            this.lblCountdown.Location = new System.Drawing.Point(13, 12);
             this.lblCountdown.Name = "lblCountdown";
             this.lblCountdown.Size = new System.Drawing.Size(106, 13);
             this.lblCountdown.TabIndex = 26;
@@ -401,7 +415,7 @@
             // btnObjective
             // 
             this.btnObjective.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnObjective.Location = new System.Drawing.Point(15, 564);
+            this.btnObjective.Location = new System.Drawing.Point(16, 528);
             this.btnObjective.Name = "btnObjective";
             this.btnObjective.Size = new System.Drawing.Size(151, 30);
             this.btnObjective.TabIndex = 28;
@@ -444,18 +458,6 @@
             this.btnStandardOperatingProcedure.UseVisualStyleBackColor = true;
             this.btnStandardOperatingProcedure.Click += new System.EventHandler(this.btnStandardOperatingProcedure_Click);
             // 
-            // lblTotalHours
-            // 
-            this.lblTotalHours.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTotalHours.AutoSize = true;
-            this.lblTotalHours.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalHours.ForeColor = System.Drawing.Color.Blue;
-            this.lblTotalHours.Location = new System.Drawing.Point(12, 145);
-            this.lblTotalHours.Name = "lblTotalHours";
-            this.lblTotalHours.Size = new System.Drawing.Size(107, 13);
-            this.lblTotalHours.TabIndex = 20;
-            this.lblTotalHours.Text = "Hours Rendered: ";
-            // 
             // btnSummarizeHoursByCategories
             // 
             this.btnSummarizeHoursByCategories.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -468,10 +470,32 @@
             this.btnSummarizeHoursByCategories.UseVisualStyleBackColor = true;
             this.btnSummarizeHoursByCategories.Click += new System.EventHandler(this.btnSummarizeHoursByCategories_Click);
             // 
+            // cboCategory
+            // 
+            this.cboCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboCategory.FormattingEnabled = true;
+            this.cboCategory.Location = new System.Drawing.Point(74, 39);
+            this.cboCategory.Name = "cboCategory";
+            this.cboCategory.Size = new System.Drawing.Size(121, 21);
+            this.cboCategory.TabIndex = 33;
+            this.cboCategory.SelectedValueChanged += new System.EventHandler(this.cboCategory_SelectedValueChanged);
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(13, 42);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(55, 13);
+            this.label3.TabIndex = 34;
+            this.label3.Text = "Category: ";
+            // 
             // frmMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(1443, 649);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.cboCategory);
             this.Controls.Add(this.btnSummarizeHoursByCategories);
             this.Controls.Add(this.btnStandardOperatingProcedure);
             this.Controls.Add(this.txtObjectives);
@@ -547,6 +571,8 @@
         private System.Windows.Forms.Button btnStandardOperatingProcedure;
         private System.Windows.Forms.Label lblTotalHours;
         private System.Windows.Forms.Button btnSummarizeHoursByCategories;
+        private System.Windows.Forms.ComboBox cboCategory;
+        private System.Windows.Forms.Label label3;
     }
 }
 

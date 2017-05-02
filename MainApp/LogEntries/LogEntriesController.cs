@@ -81,7 +81,7 @@ namespace Domain.Controllers
         }
 
 
-        public void GetCalendarData(IEnumerable<LogEntry> logs, DateTime selectedMonth)
+        public void GetCalendarData(IEnumerable<LogEntry> logs, DateTime selectedMonth, string category)
         {
             IEnumerable<Leave> leaves = this._repository
                 .GetEntityQuery<Leave>()
@@ -127,6 +127,13 @@ namespace Domain.Controllers
             logEntries.AddRange(leaveLogEntries);
             logEntries.AddRange(holidayLogEntries);
 
+            if(!string.IsNullOrEmpty(category))
+            {
+                logEntries = logEntries
+                    .Where(x => x.Category.ToUpper() == category.ToUpper())
+                    .ToList();
+            }
+
             var displayColumns = logEntries
                 .Select(x => new
                 {
@@ -148,7 +155,12 @@ namespace Domain.Controllers
                 .OrderByDescending(x => x)
                 .FirstOrDefault();
 
-            this._logView.OnGetCalendarDataCompletion(displayColumns, lastUpdatedDate);
+            IList<string> categories = logEntries.Select(x => x.Category).Distinct().ToList();
+
+            //categories.Insert(0, "[ALL]");
+
+            this._logView.OnGetCalendarDataCompletion(categories, displayColumns, lastUpdatedDate);
+            this.GetLogStatistics(logEntries, selectedMonth);
         }
 
         public void GetLogStatistics(IEnumerable<LogEntry> logs, DateTime selectedMonth)
@@ -187,7 +199,7 @@ namespace Domain.Controllers
 
             int workdaysCount = (daysInMonth - (saturdayCount + sundayCount + holidayCountExcludingWeekend + leaveCountExcludingWeekend));
             int daysCountWithoutLogs = workdaysCount - uniqueLogEntriesPerDate;
-            
+
             this._logView.OnGetLogStatisticsCompletion(holidayCountExcludingWeekend, leaveCountExcludingWeekend, saturdayCount, sundayCount, workdaysCount, daysInMonth, uniqueLogEntriesPerDate, daysCountWithoutLogs, totalHours);
         }
 
