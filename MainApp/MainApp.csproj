@@ -89,12 +89,14 @@
     <Compile Include="DailyActivity\IDailyActivityView.cs" />
     <Compile Include="DailyAttribute\DailyAttributeController.cs" />
     <Compile Include="DailyAttribute\IDailyAttributeView.cs" />
+    <Compile Include="DailyHours\DailyHoursController.cs" />
     <Compile Include="DailyHours\frmDailyHours.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DailyHours\frmDailyHours.Designer.cs">
       <DependentUpon>frmDailyHours.cs</DependentUpon>
     </Compile>
+    <Compile Include="DailyHours\IDailyHoursView.cs" />
     <Compile Include="Helpers\DateHelper.cs" />
     <Compile Include="Base\IView.cs" />
     <Compile Include="DataGridHelper.cs" />
