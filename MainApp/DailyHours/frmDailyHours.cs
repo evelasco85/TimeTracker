@@ -86,10 +86,14 @@ namespace MainApp.DailyHours
         {
             this.dGridLogs.DataSource = displayColumns;
             _hoursRecorded = hoursRecorded;
-            this.txtHoursRendered.Text = "0";
-
+            
             this.dGridLogs.Refresh();
             UpdateHoursDisplay();
+        }
+
+        void ResetRenderedHoursEntry()
+        {
+            this.txtHoursRendered.Text = "0";
         }
 
         void DecorateGrid()
@@ -125,11 +129,15 @@ namespace MainApp.DailyHours
         void IncrementDayByOne()
         {
             this.dateTimeManualEntry.Value = this.dateTimeManualEntry.Value.AddDays(1);
+
+            ResetRenderedHoursEntry();
         }
 
         void DecrementDayByOne()
         {
             this.dateTimeManualEntry.Value = this.dateTimeManualEntry.Value.AddDays(-1);
+
+            ResetRenderedHoursEntry();
         }
 
         private void btnManuaTrackerEntry_Click(object sender, EventArgs e)
