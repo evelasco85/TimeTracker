@@ -31,7 +31,7 @@
             this.btnIncementDayByOne = new System.Windows.Forms.Button();
             this.lblDateTimeEntry = new System.Windows.Forms.Label();
             this.dateTimeManualEntry = new System.Windows.Forms.DateTimePicker();
-            this.txtHours = new System.Windows.Forms.TextBox();
+            this.txtHoursRendered = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtHoursUnrecorded = new System.Windows.Forms.TextBox();
@@ -39,16 +39,17 @@
             this.btnManuaTrackerEntry = new System.Windows.Forms.Button();
             this.txtHoursRecorded = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnDecrementDayByOne = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dGridLogs)).BeginInit();
             this.SuspendLayout();
             // 
             // btnIncementDayByOne
             // 
-            this.btnIncementDayByOne.Location = new System.Drawing.Point(283, 12);
+            this.btnIncementDayByOne.Location = new System.Drawing.Point(328, 12);
             this.btnIncementDayByOne.Name = "btnIncementDayByOne";
-            this.btnIncementDayByOne.Size = new System.Drawing.Size(108, 23);
+            this.btnIncementDayByOne.Size = new System.Drawing.Size(39, 23);
             this.btnIncementDayByOne.TabIndex = 12;
-            this.btnIncementDayByOne.Text = "Increment Day by 1";
+            this.btnIncementDayByOne.Text = ">>";
             this.btnIncementDayByOne.UseVisualStyleBackColor = true;
             this.btnIncementDayByOne.Click += new System.EventHandler(this.btnIncementDayByOne_Click);
             // 
@@ -70,13 +71,14 @@
             this.dateTimeManualEntry.TabIndex = 11;
             this.dateTimeManualEntry.ValueChanged += new System.EventHandler(this.dateTimeManualEntry_ValueChanged);
             // 
-            // txtHours
+            // txtHoursRendered
             // 
-            this.txtHours.Location = new System.Drawing.Point(177, 39);
-            this.txtHours.Name = "txtHours";
-            this.txtHours.Size = new System.Drawing.Size(100, 20);
-            this.txtHours.TabIndex = 38;
-            this.txtHours.Text = "0";
+            this.txtHoursRendered.Location = new System.Drawing.Point(177, 39);
+            this.txtHoursRendered.Name = "txtHoursRendered";
+            this.txtHoursRendered.Size = new System.Drawing.Size(100, 20);
+            this.txtHoursRendered.TabIndex = 38;
+            this.txtHoursRendered.Text = "0";
+            this.txtHoursRendered.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtHoursRendered_KeyUp);
             // 
             // label3
             // 
@@ -90,7 +92,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 71);
+            this.label1.Location = new System.Drawing.Point(28, 95);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(103, 13);
             this.label1.TabIndex = 39;
@@ -98,13 +100,15 @@
             // 
             // txtHoursUnrecorded
             // 
-            this.txtHoursUnrecorded.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtHoursUnrecorded.Location = new System.Drawing.Point(177, 67);
+            this.txtHoursUnrecorded.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.txtHoursUnrecorded.ForeColor = System.Drawing.Color.Red;
+            this.txtHoursUnrecorded.Location = new System.Drawing.Point(177, 91);
             this.txtHoursUnrecorded.Name = "txtHoursUnrecorded";
             this.txtHoursUnrecorded.ReadOnly = true;
             this.txtHoursUnrecorded.Size = new System.Drawing.Size(100, 20);
             this.txtHoursUnrecorded.TabIndex = 40;
             this.txtHoursUnrecorded.Text = "0";
+            this.txtHoursUnrecorded.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // dGridLogs
             // 
@@ -112,11 +116,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dGridLogs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGridLogs.Location = new System.Drawing.Point(31, 140);
+            this.dGridLogs.Location = new System.Drawing.Point(31, 168);
             this.dGridLogs.Name = "dGridLogs";
             this.dGridLogs.RowTemplate.ReadOnly = true;
             this.dGridLogs.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dGridLogs.Size = new System.Drawing.Size(917, 434);
+            this.dGridLogs.Size = new System.Drawing.Size(917, 406);
             this.dGridLogs.TabIndex = 41;
             this.dGridLogs.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGridLogs_CellDoubleClick);
             this.dGridLogs.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dGridLogs_DataBindingComplete);
@@ -124,7 +128,7 @@
             // btnManuaTrackerEntry
             // 
             this.btnManuaTrackerEntry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnManuaTrackerEntry.Location = new System.Drawing.Point(797, 591);
+            this.btnManuaTrackerEntry.Location = new System.Drawing.Point(31, 132);
             this.btnManuaTrackerEntry.Name = "btnManuaTrackerEntry";
             this.btnManuaTrackerEntry.Size = new System.Drawing.Size(151, 30);
             this.btnManuaTrackerEntry.TabIndex = 42;
@@ -134,7 +138,9 @@
             // 
             // txtHoursRecorded
             // 
-            this.txtHoursRecorded.Location = new System.Drawing.Point(177, 96);
+            this.txtHoursRecorded.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.txtHoursRecorded.ForeColor = System.Drawing.Color.Blue;
+            this.txtHoursRecorded.Location = new System.Drawing.Point(177, 65);
             this.txtHoursRecorded.Name = "txtHoursRecorded";
             this.txtHoursRecorded.ReadOnly = true;
             this.txtHoursRecorded.Size = new System.Drawing.Size(100, 20);
@@ -144,29 +150,41 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(37, 100);
+            this.label2.Location = new System.Drawing.Point(37, 69);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(94, 13);
             this.label2.TabIndex = 43;
             this.label2.Text = "Hour(s) Recorded:";
+            // 
+            // btnDecrementDayByOne
+            // 
+            this.btnDecrementDayByOne.Location = new System.Drawing.Point(283, 12);
+            this.btnDecrementDayByOne.Name = "btnDecrementDayByOne";
+            this.btnDecrementDayByOne.Size = new System.Drawing.Size(39, 23);
+            this.btnDecrementDayByOne.TabIndex = 45;
+            this.btnDecrementDayByOne.Text = "<<";
+            this.btnDecrementDayByOne.UseVisualStyleBackColor = true;
+            this.btnDecrementDayByOne.Click += new System.EventHandler(this.btnDecrementDayByOne_Click);
             // 
             // frmDailyHours
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(990, 633);
+            this.Controls.Add(this.btnDecrementDayByOne);
             this.Controls.Add(this.txtHoursRecorded);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnManuaTrackerEntry);
             this.Controls.Add(this.dGridLogs);
             this.Controls.Add(this.txtHoursUnrecorded);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtHours);
+            this.Controls.Add(this.txtHoursRendered);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnIncementDayByOne);
             this.Controls.Add(this.lblDateTimeEntry);
             this.Controls.Add(this.dateTimeManualEntry);
             this.Name = "frmDailyHours";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Daily Hours";
             ((System.ComponentModel.ISupportInitialize)(this.dGridLogs)).EndInit();
             this.ResumeLayout(false);
@@ -179,7 +197,7 @@
         private System.Windows.Forms.Button btnIncementDayByOne;
         private System.Windows.Forms.Label lblDateTimeEntry;
         private System.Windows.Forms.DateTimePicker dateTimeManualEntry;
-        private System.Windows.Forms.TextBox txtHours;
+        private System.Windows.Forms.TextBox txtHoursRendered;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtHoursUnrecorded;
@@ -187,5 +205,6 @@
         private System.Windows.Forms.Button btnManuaTrackerEntry;
         private System.Windows.Forms.TextBox txtHoursRecorded;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnDecrementDayByOne;
     }
 }

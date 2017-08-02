@@ -60,17 +60,6 @@ namespace MainApp.DailyHours
             throw new System.NotImplementedException();
         }
 
-        public void GetDailyRecordData(IEnumerable<LogEntry> logEntries, DateTime selectedDate)
-        {
-            var displayColumns = logEntries
-                .Select(LogEntriesController.GetDisplayColumns)
-                .Where(log =>DateHelper.GetInstance().DateEquivalent(log.Created, selectedDate) )
-                .OrderBy(x => x.Id)
-                .ToList();
-
-            this._dailyHoursView.OnGetDailyRecordDataCompletion(displayColumns);
-        }
-
         public void GetLogsForDate(IEnumerable<LogEntry> logEntries, DateTime selectedDate)
         {
             var displayColumns = logEntries

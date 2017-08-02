@@ -9,6 +9,7 @@ namespace MainApp.DailyHours
     public partial class frmDailyHours : Form, IDailyHoursView
     {
         frmMain _parentForm;
+        private double _hoursRecorded = 0;
 
         public frmDailyHours()
         {
@@ -21,8 +22,7 @@ namespace MainApp.DailyHours
 
         public void OnQueryRecordsCompletion()
         {
-            this.ViewRequest.GetDailyRecordData(this.QueryResults,
-                this.dateTimeManualEntry.Value.Date);
+            this.ViewRequest.GetLogsForDate(this.QueryResults, dateTimeManualEntry.Value.Date);
         }
 
         public void OnViewReady(object data)
@@ -54,29 +54,35 @@ namespace MainApp.DailyHours
                 invokeFromUI.Invoke();
         }
 
-        public void OnGetDailyRecordDataCompletion(dynamic displayColumns)
-        {
-            this.dGridLogs.DataSource = displayColumns;
-
-            this.dGridLogs.Refresh();
-        }
-
         private void dateTimeManualEntry_ValueChanged(object sender, EventArgs e)
         {
             this.ViewRequest.GetLogsForDate(this.QueryResults, dateTimeManualEntry.Value.Date);
         }
 
-        void UpdateHoursDisplay(double hoursRecorded)
+        void UpdateHoursDisplay()
         {
-            txtHoursRecorded.Text = hoursRecorded.ToString();
+            double hoursRendered = 0;
+
+            double.TryParse(txtHoursRendered.Text, out hoursRendered);
+
+            double hoursUnrecorded = (hoursRendered - _hoursRecorded);
+
+            txtHoursRecorded.Text = _hoursRecorded.ToString();
+
+            if (hoursUnrecorded < 0)
+                txtHoursUnrecorded.Text = "0";
+            else
+                txtHoursUnrecorded.Text = hoursUnrecorded.ToString();
         }
 
         public void OnGetLogsForDateCompletion(dynamic displayColumns, double hoursRecorded)
         {
             this.dGridLogs.DataSource = displayColumns;
+            _hoursRecorded = hoursRecorded;
+            this.txtHoursRendered.Text = "0";
 
             this.dGridLogs.Refresh();
-            UpdateHoursDisplay(hoursRecorded);
+            UpdateHoursDisplay();
         }
 
         void DecorateGrid()
@@ -112,6 +118,11 @@ namespace MainApp.DailyHours
         void IncrementDayByOne()
         {
             this.dateTimeManualEntry.Value = this.dateTimeManualEntry.Value.AddDays(1);
+        }
+
+        void DecrementDayByOne()
+        {
+            this.dateTimeManualEntry.Value = this.dateTimeManualEntry.Value.AddDays(-1);
         }
 
         private void btnManuaTrackerEntry_Click(object sender, EventArgs e)
@@ -154,6 +165,16 @@ namespace MainApp.DailyHours
             {
                 this.ViewRequest.GetLogsForDate(this.QueryResults, dateTimeManualEntry.Value.Date);
             }
+        }
+
+        private void btnDecrementDayByOne_Click(object sender, EventArgs e)
+        {
+            DecrementDayByOne();
+        }
+
+        private void txtHoursRendered_KeyUp(object sender, KeyEventArgs e)
+        {
+            UpdateHoursDisplay();
         }
     }
 }
