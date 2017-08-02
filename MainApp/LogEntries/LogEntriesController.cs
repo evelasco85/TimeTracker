@@ -135,18 +135,7 @@ namespace Domain.Controllers
             }
 
             var displayColumns = logEntries
-                .Select(x => new
-                {
-                    x.Id,
-                    x.Created,
-                    Time = x.Created,
-                    Day = x.Created,
-                    x.Category,
-                    x.Description,
-                    x.System_Created,
-                    x.SystemUpdateDateTime,
-                    x.HoursRendered
-                })
+                .Select(LogEntriesController.GetDisplayColumns)
                 .OrderByDescending(x => x.Created)
                 .ToList();
 
@@ -157,10 +146,24 @@ namespace Domain.Controllers
 
             IList<string> categories = logEntries.Select(x => x.Category).Distinct().ToList();
 
-            //categories.Insert(0, "[ALL]");
-
             this._logView.OnGetCalendarDataCompletion(categories, displayColumns, lastUpdatedDate);
             this.GetLogStatistics(logEntries, selectedMonth);
+        }
+
+        public static dynamic GetDisplayColumns(LogEntry log)
+        {
+            return new
+            {
+                log.Id,
+                log.Created,
+                Time = log.Created,
+                Day = log.Created,
+                log.Category,
+                log.Description,
+                log.System_Created,
+                log.SystemUpdateDateTime,
+                log.HoursRendered
+            };
         }
 
         public void GetLogStatistics(IEnumerable<LogEntry> logs, DateTime selectedMonth)

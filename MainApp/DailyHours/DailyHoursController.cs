@@ -39,10 +39,13 @@ namespace MainApp.DailyHours
 
         public override void GetData(System.Func<LogEntry, bool> criteria)
         {
-            IQueryable<LogEntry> logQuery = this._repository
+            IQueryable<LogEntry> dailyHoursQuery = this._repository
                 .GetEntityQuery<LogEntry>();
 
-            this._dailyHoursView.QueryResults = logQuery;
+            if (criteria == null)
+                this._dailyHoursView.QueryResults = dailyHoursQuery.Select(x => x);
+            else
+                this._dailyHoursView.QueryResults = dailyHoursQuery.Where(criteria);
 
             this._dailyHoursView.OnQueryRecordsCompletion();
         }
@@ -60,7 +63,7 @@ namespace MainApp.DailyHours
         public void GetDailyRecordData(IEnumerable<LogEntry> logEntries, DateTime selectedDate)
         {
             var displayColumns = logEntries
-                .Select(GetDisplayColumns)
+                .Select(LogEntriesController.GetDisplayColumns)
                 .Where(log =>DateHelper.GetInstance().DateEquivalent(log.Created, selectedDate) )
                 .OrderBy(x => x.Id)
                 .ToList();
@@ -68,27 +71,10 @@ namespace MainApp.DailyHours
             this._dailyHoursView.OnGetDailyRecordDataCompletion(displayColumns);
         }
 
-        dynamic GetDisplayColumns(LogEntry log)
-        {
-            return new
-            {
-                log.Id,
-                log.Created,
-                Time = log.Created,
-                Day = log.Created,
-                log.Category,
-                log.Description,
-                log.System_Created,
-                log.SystemUpdateDateTime,
-                log.HoursRendered
-            };
-        }
-
-
         public void GetLogsForDate(IEnumerable<LogEntry> logEntries, DateTime selectedDate)
         {
             var displayColumns = logEntries
-                .Select(GetDisplayColumns)
+                .Select(LogEntriesController.GetDisplayColumns)
                 .Where(log => DateHelper.GetInstance().DateEquivalent(log.Created, selectedDate))
                 .OrderBy(x => x.Id)
                 .ToList();

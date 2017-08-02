@@ -117,6 +117,7 @@
             this.dGridLogs.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dGridLogs.Size = new System.Drawing.Size(917, 434);
             this.dGridLogs.TabIndex = 41;
+            this.dGridLogs.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dGridLogs_DataBindingComplete);
             // 
             // btnManuaTrackerEntry
             // 

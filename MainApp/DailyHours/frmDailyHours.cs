@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Domain.Controllers;
 using Domain.Helpers;
 
 namespace MainApp.DailyHours
@@ -72,5 +73,31 @@ namespace MainApp.DailyHours
 
             this.dGridLogs.Refresh();
         }
+
+        void DecorateGrid()
+        {
+            try
+            {
+                IDataGridHelper helper = DataGridHelper.GetInstance();
+
+                helper.SetAutoResizeCells(ref this.dGridLogs);
+                helper.SetColumnToDateFormat(this.dGridLogs.Columns[LogEntriesController.CREATED_INDEX]);
+                helper.SetColumnToTimeFormat(this.dGridLogs.Columns[LogEntriesController.TIME_INDEX]);
+                helper.SetColumnToDayFormat(this.dGridLogs.Columns[LogEntriesController.DAY_INDEX]);
+
+                this.dGridLogs
+                    .Columns[LogEntriesController.DESCRIPTION_INDEX]
+                    .AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            }
+            catch (Exception e)
+            {
+            }
+        }
+
+        private void dGridLogs_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            DecorateGrid();
+        }
+
     }
 }
