@@ -67,6 +67,7 @@
             this.btnSummarizeHoursByCategories = new System.Windows.Forms.Button();
             this.cboCategory = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnDailyHours = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dGridLogs)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -490,10 +491,22 @@
             this.label3.TabIndex = 34;
             this.label3.Text = "Category: ";
             // 
+            // btnDailyHours
+            // 
+            this.btnDailyHours.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDailyHours.Location = new System.Drawing.Point(364, 471);
+            this.btnDailyHours.Name = "btnDailyHours";
+            this.btnDailyHours.Size = new System.Drawing.Size(151, 30);
+            this.btnDailyHours.TabIndex = 35;
+            this.btnDailyHours.Text = "Daily Hours";
+            this.btnDailyHours.UseVisualStyleBackColor = true;
+            this.btnDailyHours.Click += new System.EventHandler(this.btnDailyHours_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(1443, 649);
+            this.Controls.Add(this.btnDailyHours);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cboCategory);
             this.Controls.Add(this.btnSummarizeHoursByCategories);
@@ -573,6 +586,7 @@
         private System.Windows.Forms.Button btnSummarizeHoursByCategories;
         private System.Windows.Forms.ComboBox cboCategory;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnDailyHours;
     }
 }
 

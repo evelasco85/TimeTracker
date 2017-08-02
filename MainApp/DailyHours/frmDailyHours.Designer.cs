@@ -37,6 +37,8 @@
             this.txtHoursUnrecorded = new System.Windows.Forms.TextBox();
             this.dGridLogs = new System.Windows.Forms.DataGridView();
             this.btnManuaTrackerEntry = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dGridLogs)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,6 +67,7 @@
             this.dateTimeManualEntry.Name = "dateTimeManualEntry";
             this.dateTimeManualEntry.Size = new System.Drawing.Size(100, 20);
             this.dateTimeManualEntry.TabIndex = 11;
+            this.dateTimeManualEntry.ValueChanged += new System.EventHandler(this.dateTimeManualEntry_ValueChanged);
             // 
             // txtHours
             // 
@@ -94,6 +97,7 @@
             // 
             // txtHoursUnrecorded
             // 
+            this.txtHoursUnrecorded.ForeColor = System.Drawing.SystemColors.WindowText;
             this.txtHoursUnrecorded.Location = new System.Drawing.Point(177, 67);
             this.txtHoursUnrecorded.Name = "txtHoursUnrecorded";
             this.txtHoursUnrecorded.ReadOnly = true;
@@ -107,28 +111,48 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dGridLogs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGridLogs.Location = new System.Drawing.Point(31, 105);
+            this.dGridLogs.Location = new System.Drawing.Point(31, 140);
             this.dGridLogs.Name = "dGridLogs";
             this.dGridLogs.RowTemplate.ReadOnly = true;
             this.dGridLogs.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dGridLogs.Size = new System.Drawing.Size(482, 282);
+            this.dGridLogs.Size = new System.Drawing.Size(917, 434);
             this.dGridLogs.TabIndex = 41;
             // 
             // btnManuaTrackerEntry
             // 
-            this.btnManuaTrackerEntry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnManuaTrackerEntry.Location = new System.Drawing.Point(362, 404);
+            this.btnManuaTrackerEntry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnManuaTrackerEntry.Location = new System.Drawing.Point(797, 591);
             this.btnManuaTrackerEntry.Name = "btnManuaTrackerEntry";
             this.btnManuaTrackerEntry.Size = new System.Drawing.Size(151, 30);
             this.btnManuaTrackerEntry.TabIndex = 42;
             this.btnManuaTrackerEntry.Text = "Manual Entry";
             this.btnManuaTrackerEntry.UseVisualStyleBackColor = true;
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(177, 96);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 44;
+            this.textBox1.Text = "0";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(28, 100);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(94, 13);
+            this.label2.TabIndex = 43;
+            this.label2.Text = "Hour(s) Recorded:";
+            // 
             // frmDailyHours
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(555, 446);
+            this.ClientSize = new System.Drawing.Size(990, 633);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnManuaTrackerEntry);
             this.Controls.Add(this.dGridLogs);
             this.Controls.Add(this.txtHoursUnrecorded);
@@ -157,5 +181,7 @@
         private System.Windows.Forms.TextBox txtHoursUnrecorded;
         private System.Windows.Forms.DataGridView dGridLogs;
         private System.Windows.Forms.Button btnManuaTrackerEntry;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label2;
     }
 }

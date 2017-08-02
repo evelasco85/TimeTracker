@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Domain.Helpers;
 using Domain.Controllers;
 using Domain.Views;
+using MainApp.DailyHours;
 using ModelViewPresenter.MessageDispatcher;
 
 namespace MainApp
@@ -531,6 +532,13 @@ namespace MainApp
             this.RefreshDashboardData();
         }
 
+        void OpenDailyHours()
+        {
+            this._frontController.Process(DailyHoursController.cID, DailyHoursController.cID, Operation.OpenView, new { parentForm = this });
+
+            this.RefreshDashboardData();
+        }
+
         void OpenCategories()
         {
             this._frontController.Process(LogEntriesController.cID, CategoryController.cID, Operation.OpenView, new { parentForm = this });
@@ -637,6 +645,11 @@ namespace MainApp
         private void cboCategory_SelectedValueChanged(object sender, EventArgs e)
         {
             this.ViewRequest.GetCalendarData(this.QueryResults, this.dateTimeMonth.Value, (string)cboCategory.SelectedItem);            
+        }
+
+        private void btnDailyHours_Click(object sender, EventArgs e)
+        {
+            OpenDailyHours();
         }
     }
 }

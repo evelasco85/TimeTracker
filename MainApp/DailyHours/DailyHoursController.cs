@@ -1,4 +1,7 @@
-﻿using Domain;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Domain;
 using Domain.Controllers;
 using Domain.Helpers;
 using Domain.Infrastructure;
@@ -36,7 +39,12 @@ namespace MainApp.DailyHours
 
         public override void GetData(System.Func<LogEntry, bool> criteria)
         {
-            throw new System.NotImplementedException();
+            IQueryable<LogEntry> logQuery = this._repository
+                .GetEntityQuery<LogEntry>();
+
+            this._dailyHoursView.QueryResults = logQuery;
+
+            this._dailyHoursView.OnQueryRecordsCompletion();
         }
 
         public override void SaveData(LogEntry data)
@@ -47,6 +55,45 @@ namespace MainApp.DailyHours
         public override void DeleteData(System.Func<LogEntry, bool> criteria)
         {
             throw new System.NotImplementedException();
+        }
+
+        public void GetDailyRecordData(IEnumerable<LogEntry> logEntries, DateTime selectedDate)
+        {
+            var displayColumns = logEntries
+                .Select(GetDisplayColumns)
+                .Where(log =>DateHelper.GetInstance().DateEquivalent(log.Created, selectedDate) )
+                .OrderBy(x => x.Id)
+                .ToList();
+
+            this._dailyHoursView.OnGetDailyRecordDataCompletion(displayColumns);
+        }
+
+        dynamic GetDisplayColumns(LogEntry log)
+        {
+            return new
+            {
+                log.Id,
+                log.Created,
+                Time = log.Created,
+                Day = log.Created,
+                log.Category,
+                log.Description,
+                log.System_Created,
+                log.SystemUpdateDateTime,
+                log.HoursRendered
+            };
+        }
+
+
+        public void GetLogsForDate(IEnumerable<LogEntry> logEntries, DateTime selectedDate)
+        {
+            var displayColumns = logEntries
+                .Select(GetDisplayColumns)
+                .Where(log => DateHelper.GetInstance().DateEquivalent(log.Created, selectedDate))
+                .OrderBy(x => x.Id)
+                .ToList();
+
+            this._dailyHoursView.OnGetLogsForDateCompletion(displayColumns);
         }
     }
 }

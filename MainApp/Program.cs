@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MainApp.DailyHours;
 
 namespace MainApp
 {
@@ -20,9 +21,6 @@ namespace MainApp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            //frmMain main = NinjectManager
-            //    .GetInstance()
-            //    .GetInjectedInstance<frmMain>();
             frmMain main = new frmMain();
 
             PrepareControllers(main);
@@ -48,6 +46,7 @@ namespace MainApp
             manager.RegisterController(new ActivityController(repository, new frmActivity()));
             manager.RegisterController(new StandardOperatingProcedureController(repository, new frmStandardOperatingProcedure()));
             manager.RegisterController(new SummaryHoursByCategoriesController(repository, new frmSummarizeHoursByCategories()));
+            manager.RegisterController(new DailyHoursController(repository, new frmDailyHours()));
             
             //Prepare data for main window before showing
             main.OnViewReady(null);
