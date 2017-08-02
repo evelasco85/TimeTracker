@@ -8,14 +8,11 @@ namespace MainApp.DailyHours
     public interface IDailyHoursView : IView<LogEntry, IDailyHoursRequests>,
         IViewControllerEvents<LogEntry>
     {
-        //void OnGetDailyRecordDataCompletion(dynamic displayColumns);
-        void OnGetLogsForDateCompletion(dynamic displayColumns, double hoursRecorded);
+        void OnGetLogsForDateCompletion(dynamic displayColumns, dynamic categorySummaryColumns, double hoursRecorded);
     }
 
     public interface IDailyHoursRequests : IViewControllerRequests<LogEntry>
     {
-        //void GetDailyRecordData(IEnumerable<LogEntry> logEntries, DateTime selectedDate);
-
         void GetLogsForDate(IEnumerable<LogEntry> logEnumerables, DateTime selectedDate);
     }
 }

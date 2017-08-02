@@ -112,18 +112,30 @@ namespace MainApp.DailyHours
                 });
             }
 
-            var displayColumns = logEntries
+            var displayLogColumns = logEntries
                 .Select(LogEntriesController.GetDisplayColumns)
                 .Where(log => DateHelper.GetInstance().DateEquivalent(log.Created, selectedDate))
                 .OrderBy(x => x.Id)
                 .ToList();
-
-            double hoursRecorded = displayColumns
+            var displayCategorySummaryColumns = logEntries
+                .Select(LogEntriesController.GetDisplayColumns)
+                .Where(log => DateHelper.GetInstance().DateEquivalent(log.Created, selectedDate))
+                .GroupBy(log => log.Category)
+                .Select(groupCategory => new
+                {
+                    @Category = groupCategory.Key,
+                    TotalHoursRendered = groupCategory
+                        .Select(category => (double)category.HoursRendered)
+                        .ToList()
+                        .Sum()
+                })
+                .ToList();
+            double hoursRecorded = displayLogColumns
                 .Select(x => (double) x.HoursRendered)
                 .ToList()
                 .Sum();
 
-            this._dailyHoursView.OnGetLogsForDateCompletion(displayColumns, hoursRecorded);
+            this._dailyHoursView.OnGetLogsForDateCompletion(displayLogColumns, displayCategorySummaryColumns, hoursRecorded);
         }
     }
 }

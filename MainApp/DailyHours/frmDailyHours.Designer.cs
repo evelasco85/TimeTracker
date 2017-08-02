@@ -40,7 +40,9 @@
             this.txtHoursRecorded = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnDecrementDayByOne = new System.Windows.Forms.Button();
+            this.dgdCategorySummary = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dGridLogs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgdCategorySummary)).BeginInit();
             this.SuspendLayout();
             // 
             // btnIncementDayByOne
@@ -116,11 +118,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dGridLogs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGridLogs.Location = new System.Drawing.Point(31, 168);
+            this.dGridLogs.Location = new System.Drawing.Point(373, 168);
             this.dGridLogs.Name = "dGridLogs";
             this.dGridLogs.RowTemplate.ReadOnly = true;
             this.dGridLogs.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dGridLogs.Size = new System.Drawing.Size(1126, 469);
+            this.dGridLogs.Size = new System.Drawing.Size(1047, 469);
             this.dGridLogs.TabIndex = 41;
             this.dGridLogs.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGridLogs_CellDoubleClick);
             this.dGridLogs.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dGridLogs_DataBindingComplete);
@@ -166,11 +168,25 @@
             this.btnDecrementDayByOne.UseVisualStyleBackColor = true;
             this.btnDecrementDayByOne.Click += new System.EventHandler(this.btnDecrementDayByOne_Click);
             // 
+            // dgdCategorySummary
+            // 
+            this.dgdCategorySummary.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dgdCategorySummary.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgdCategorySummary.Location = new System.Drawing.Point(31, 168);
+            this.dgdCategorySummary.Name = "dgdCategorySummary";
+            this.dgdCategorySummary.RowTemplate.ReadOnly = true;
+            this.dgdCategorySummary.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgdCategorySummary.Size = new System.Drawing.Size(336, 469);
+            this.dgdCategorySummary.TabIndex = 46;
+            this.dgdCategorySummary.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgdCategorySummary_DataBindingComplete);
+            // 
             // frmDailyHours
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1169, 649);
+            this.ClientSize = new System.Drawing.Size(1432, 649);
+            this.Controls.Add(this.dgdCategorySummary);
             this.Controls.Add(this.btnDecrementDayByOne);
             this.Controls.Add(this.txtHoursRecorded);
             this.Controls.Add(this.label2);
@@ -187,6 +203,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Daily Hours";
             ((System.ComponentModel.ISupportInitialize)(this.dGridLogs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgdCategorySummary)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -206,5 +223,6 @@
         private System.Windows.Forms.TextBox txtHoursRecorded;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnDecrementDayByOne;
+        private System.Windows.Forms.DataGridView dgdCategorySummary;
     }
 }

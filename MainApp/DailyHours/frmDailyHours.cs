@@ -82,12 +82,14 @@ namespace MainApp.DailyHours
             }
         }
 
-        public void OnGetLogsForDateCompletion(dynamic displayColumns, double hoursRecorded)
+        public void OnGetLogsForDateCompletion(dynamic displayColumns, dynamic categorySummaryColumns, double hoursRecorded)
         {
             this.dGridLogs.DataSource = displayColumns;
+            this.dgdCategorySummary.DataSource = categorySummaryColumns;
             _hoursRecorded = hoursRecorded;
             
             this.dGridLogs.Refresh();
+            this.dgdCategorySummary.Refresh();
             UpdateHoursDisplay();
         }
 
@@ -195,6 +197,23 @@ namespace MainApp.DailyHours
         private void dGridLogs_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
             _parentForm.RowPrepaint(this.dGridLogs);
+        }
+
+        private void dgdCategorySummary_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            try
+            {
+                IDataGridHelper helper = DataGridHelper.GetInstance();
+
+                helper.SetAutoResizeCells(ref this.dGridLogs);
+
+                this.dgdCategorySummary
+                    .Columns[0]
+                    .AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            }
+            catch
+            {
+            }
         }
     }
 }
