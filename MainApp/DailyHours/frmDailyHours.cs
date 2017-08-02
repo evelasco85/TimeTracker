@@ -8,7 +8,7 @@ namespace MainApp.DailyHours
 {
     public partial class frmDailyHours : Form, IDailyHoursView
     {
-        Form _parentForm;
+        frmMain _parentForm;
 
         public frmDailyHours()
         {
@@ -27,7 +27,7 @@ namespace MainApp.DailyHours
 
         public void OnViewReady(object data)
         {
-            this._parentForm = (Form)data.GetType().GetProperty("parentForm").GetValue(data, null);
+            this._parentForm = (frmMain)data.GetType().GetProperty("parentForm").GetValue(data, null);
 
             this.ViewRequest.GetData(null);
         }
@@ -66,12 +66,17 @@ namespace MainApp.DailyHours
             this.ViewRequest.GetLogsForDate(this.QueryResults, dateTimeManualEntry.Value.Date);
         }
 
+        void UpdateHoursDisplay(double hoursRecorded)
+        {
+            txtHoursRecorded.Text = hoursRecorded.ToString();
+        }
 
-        public void OnGetLogsForDateCompletion(dynamic displayColumns)
+        public void OnGetLogsForDateCompletion(dynamic displayColumns, double hoursRecorded)
         {
             this.dGridLogs.DataSource = displayColumns;
 
             this.dGridLogs.Refresh();
+            UpdateHoursDisplay(hoursRecorded);
         }
 
         void DecorateGrid()
@@ -99,5 +104,56 @@ namespace MainApp.DailyHours
             DecorateGrid();
         }
 
+        private void btnIncementDayByOne_Click(object sender, EventArgs e)
+        {
+            IncrementDayByOne();
+        }
+
+        void IncrementDayByOne()
+        {
+            this.dateTimeManualEntry.Value = this.dateTimeManualEntry.Value.AddDays(1);
+        }
+
+        private void btnManuaTrackerEntry_Click(object sender, EventArgs e)
+        {
+            if(_parentForm != null)
+                _parentForm.btnManuaTrackerEntry_Click(sender, e);
+
+            this.ViewRequest.GetLogsForDate(this.QueryResults, dateTimeManualEntry.Value.Date);
+        }
+
+        private void dGridLogs_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int index = e.RowIndex;
+
+            try
+            {
+                DataGridViewRow row = this.dGridLogs.Rows[index];
+                string category = row.Cells[LogEntriesController.CATEGORY_INDEX].Value.ToString();
+
+                if ((category == LogEntriesController.HOLIDAY) || (category == LogEntriesController.LEAVE))
+                    return;
+
+                int primaryKey = int.Parse(row.Cells[LogEntriesController.ID_INDEX].Value.ToString());
+                DateTime createdDate = DateTime.Parse(row.Cells[LogEntriesController.CREATED_INDEX].Value.ToString());
+                DateTime systemCreatedDate =
+                    DateTime.Parse(row.Cells[LogEntriesController.SYSTEM_CREATED_INDEX].Value.ToString());
+                string description = row.Cells[LogEntriesController.DESCRIPTION_INDEX].Value.ToString();
+                bool rememberSetting = _parentForm.ViewRequest.GetRememberedSetting();
+                DateTime rememberedCreatedDateTime = _parentForm.ViewRequest.GetRememberedDate();
+                double hoursRendered = Convert.ToDouble(row.Cells[LogEntriesController.HOURS_RENDERED_INDEX].Value);
+
+                _parentForm.SafeEditEntry(primaryKey, category, description, rememberSetting, createdDate,
+                    systemCreatedDate, rememberedCreatedDateTime, hoursRendered);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                /*Skip*/
+            }
+            finally
+            {
+                this.ViewRequest.GetLogsForDate(this.QueryResults, dateTimeManualEntry.Value.Date);
+            }
+        }
     }
 }

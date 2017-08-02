@@ -79,7 +79,12 @@ namespace MainApp.DailyHours
                 .OrderBy(x => x.Id)
                 .ToList();
 
-            this._dailyHoursView.OnGetLogsForDateCompletion(displayColumns);
+            double hoursRecorded = displayColumns
+                .Select(x => (double) x.HoursRendered)
+                .ToList()
+                .Sum();
+
+            this._dailyHoursView.OnGetLogsForDateCompletion(displayColumns, hoursRecorded);
         }
     }
 }

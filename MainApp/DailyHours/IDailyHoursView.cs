@@ -9,7 +9,7 @@ namespace MainApp.DailyHours
         IViewControllerEvents<LogEntry>
     {
         void OnGetDailyRecordDataCompletion(dynamic displayColumns);
-        void OnGetLogsForDateCompletion(dynamic displayColumns);
+        void OnGetLogsForDateCompletion(dynamic displayColumns, double hoursRecorded);
     }
 
     public interface IDailyHoursRequests : IViewControllerRequests<LogEntry>

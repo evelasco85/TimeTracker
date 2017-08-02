@@ -209,7 +209,7 @@ namespace MainApp
             this.RestartTimer();
         }
 
-        void SafeEditEntry(int primaryKey, string category, string description, bool rememberSetting,
+        public void SafeEditEntry(int primaryKey, string category, string description, bool rememberSetting,
             DateTime createdDate, DateTime systemCreatedDate, DateTime rememberedCreatedDateTime,
             Double hoursRendered
             )
@@ -343,7 +343,7 @@ namespace MainApp
             return success;
         }
 
-        private void btnManuaTrackerEntry_Click(object sender, EventArgs e)
+        public void btnManuaTrackerEntry_Click(object sender, EventArgs e)
         {
             this.AddEntry();
         }
