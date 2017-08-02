@@ -124,6 +124,7 @@
             this.dGridLogs.TabIndex = 41;
             this.dGridLogs.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGridLogs_CellDoubleClick);
             this.dGridLogs.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dGridLogs_DataBindingComplete);
+            this.dGridLogs.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dGridLogs_RowPrePaint);
             // 
             // btnManuaTrackerEntry
             // 

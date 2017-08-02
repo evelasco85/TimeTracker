@@ -60,8 +60,58 @@ namespace MainApp.DailyHours
             throw new System.NotImplementedException();
         }
 
-        public void GetLogsForDate(IEnumerable<LogEntry> logEntries, DateTime selectedDate)
+        public void GetLogsForDate(IEnumerable<LogEntry> logEnumerables, DateTime selectedDate)
         {
+            IEnumerable<Leave> leaves = this._repository
+                .GetEntityQuery<Leave>()
+                .Where(x => (x.Date.Day == selectedDate.Day) && (x.Date.Month == selectedDate.Month) && (x.Date.Year == selectedDate.Year));
+            IEnumerable<Holiday> holidays = this._repository
+                .GetEntityQuery<Holiday>()
+                .Where(x => (x.Date.Day == selectedDate.Day) && (x.Date.Month == selectedDate.Month) && (x.Date.Year == selectedDate.Year));
+
+            IList<LogEntry> availableLogEntries = logEnumerables
+                .Where(log => DateHelper.GetInstance().DateEquivalent(log.Created, selectedDate))
+                .ToList();
+            IList<LogEntry> leaveLogEntries = leaves.Select(x =>
+                    new LogEntry
+                    {
+                        Category = LogEntriesController.LEAVE,
+                        Created = x.Date,
+                        System_Created = x.SystemCreated,
+                        SystemUpdateDateTime = x.SystemUpdated,
+                        Id = 0,
+                        Description = x.Description
+                    })
+                .ToList();
+            IList<LogEntry> holidayLogEntries = holidays.Select(x =>
+                    new LogEntry
+                    {
+                        Category = LogEntriesController.HOLIDAY,
+                        Created = x.Date,
+                        System_Created = x.SystemCreated,
+                        SystemUpdateDateTime = x.SystemUpdated,
+                        Id = 0,
+                        Description = x.Description
+                    })
+                .ToList();
+
+            List<LogEntry> logEntries = new List<LogEntry>();
+
+            logEntries.AddRange(availableLogEntries);
+            logEntries.AddRange(leaveLogEntries);
+            logEntries.AddRange(holidayLogEntries);
+
+            if (!logEntries.Any())
+            {
+                logEntries.Add(new LogEntry
+                {
+                    Created = selectedDate,
+                    System_Created = DateTime.MinValue,
+                    Category = LogEntriesController.NO_CATEGORY,
+                    Description = LogEntriesController.NO_DESCRIPTION
+                });
+            }
+
             var displayColumns = logEntries
                 .Select(LogEntriesController.GetDisplayColumns)
                 .Where(log => DateHelper.GetInstance().DateEquivalent(log.Created, selectedDate))

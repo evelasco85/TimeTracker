@@ -16,6 +16,6 @@ namespace MainApp.DailyHours
     {
         //void GetDailyRecordData(IEnumerable<LogEntry> logEntries, DateTime selectedDate);
 
-        void GetLogsForDate(IEnumerable<LogEntry> logEntries, DateTime selectedDate);
+        void GetLogsForDate(IEnumerable<LogEntry> logEnumerables, DateTime selectedDate);
     }
 }

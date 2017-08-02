@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using Domain.Controllers;
 using Domain.Helpers;
@@ -70,9 +71,15 @@ namespace MainApp.DailyHours
             txtHoursRecorded.Text = _hoursRecorded.ToString();
 
             if (hoursUnrecorded < 0)
+            {
+                txtHoursUnrecorded.ForeColor = Color.DarkOliveGreen;
                 txtHoursUnrecorded.Text = "0";
+            }
             else
+            {
+                txtHoursUnrecorded.ForeColor = Color.Red;
                 txtHoursUnrecorded.Text = hoursUnrecorded.ToString();
+            }
         }
 
         public void OnGetLogsForDateCompletion(dynamic displayColumns, double hoursRecorded)
@@ -175,6 +182,11 @@ namespace MainApp.DailyHours
         private void txtHoursRendered_KeyUp(object sender, KeyEventArgs e)
         {
             UpdateHoursDisplay();
+        }
+
+        private void dGridLogs_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            _parentForm.RowPrepaint(this.dGridLogs);
         }
     }
 }

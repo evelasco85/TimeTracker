@@ -390,14 +390,19 @@ namespace MainApp
 
         private void dGridLogs_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
-            for (int index = 0; index < this.dGridLogs.Rows.Count; index++)
+            RowPrepaint(this.dGridLogs);   
+        }
+
+        public void RowPrepaint(DataGridView dataGrid)
+        {
+            for (int index = 0; index < dataGrid.Rows.Count; index++)
             {
-                DataGridViewRow row = this.dGridLogs.Rows[index];
+                DataGridViewRow row = dataGrid.Rows[index];
                 DateTime created = DateTime.Parse(row.Cells[LogEntriesController.CREATED_INDEX].Value.ToString());
                 string description = row.Cells[LogEntriesController.DESCRIPTION_INDEX].Value.ToString();
                 string category = row.Cells[LogEntriesController.CATEGORY_INDEX].Value.ToString();
 
-                if((category == LogEntriesController.HOLIDAY) || (category == LogEntriesController.LEAVE))
+                if ((category == LogEntriesController.HOLIDAY) || (category == LogEntriesController.LEAVE))
                 {
                     row.DefaultCellStyle.BackColor = Color.Gold;
                 }
@@ -413,7 +418,7 @@ namespace MainApp
                 {
                     bool evenValue = ((created.DayOfYear % 2) == 0);
 
-                    if(evenValue)
+                    if (evenValue)
                         row.DefaultCellStyle.BackColor = Color.LightSkyBlue;
                     else
                         row.DefaultCellStyle.BackColor = Color.GhostWhite;

@@ -494,11 +494,11 @@
             // btnDailyHours
             // 
             this.btnDailyHours.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDailyHours.Location = new System.Drawing.Point(364, 471);
+            this.btnDailyHours.Location = new System.Drawing.Point(260, 461);
             this.btnDailyHours.Name = "btnDailyHours";
-            this.btnDailyHours.Size = new System.Drawing.Size(151, 30);
+            this.btnDailyHours.Size = new System.Drawing.Size(255, 51);
             this.btnDailyHours.TabIndex = 35;
-            this.btnDailyHours.Text = "Daily Hours";
+            this.btnDailyHours.Text = "Navigate Daily Hours";
             this.btnDailyHours.UseVisualStyleBackColor = true;
             this.btnDailyHours.Click += new System.EventHandler(this.btnDailyHours_Click);
             // 
