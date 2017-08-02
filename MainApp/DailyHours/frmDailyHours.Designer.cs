@@ -120,7 +120,7 @@
             this.dGridLogs.Name = "dGridLogs";
             this.dGridLogs.RowTemplate.ReadOnly = true;
             this.dGridLogs.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dGridLogs.Size = new System.Drawing.Size(917, 406);
+            this.dGridLogs.Size = new System.Drawing.Size(1126, 469);
             this.dGridLogs.TabIndex = 41;
             this.dGridLogs.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGridLogs_CellDoubleClick);
             this.dGridLogs.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dGridLogs_DataBindingComplete);
@@ -128,7 +128,6 @@
             // 
             // btnManuaTrackerEntry
             // 
-            this.btnManuaTrackerEntry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnManuaTrackerEntry.Location = new System.Drawing.Point(31, 132);
             this.btnManuaTrackerEntry.Name = "btnManuaTrackerEntry";
             this.btnManuaTrackerEntry.Size = new System.Drawing.Size(151, 30);
@@ -171,7 +170,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(990, 633);
+            this.ClientSize = new System.Drawing.Size(1169, 649);
             this.Controls.Add(this.btnDecrementDayByOne);
             this.Controls.Add(this.txtHoursRecorded);
             this.Controls.Add(this.label2);
