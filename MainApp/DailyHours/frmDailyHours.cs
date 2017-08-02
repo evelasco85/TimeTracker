@@ -128,16 +128,16 @@ namespace MainApp.DailyHours
 
         void IncrementDayByOne()
         {
-            this.dateTimeManualEntry.Value = this.dateTimeManualEntry.Value.AddDays(1);
-
             ResetRenderedHoursEntry();
+         
+            this.dateTimeManualEntry.Value = this.dateTimeManualEntry.Value.AddDays(1);
         }
 
         void DecrementDayByOne()
         {
-            this.dateTimeManualEntry.Value = this.dateTimeManualEntry.Value.AddDays(-1);
-
             ResetRenderedHoursEntry();
+
+            this.dateTimeManualEntry.Value = this.dateTimeManualEntry.Value.AddDays(-1);
         }
 
         private void btnManuaTrackerEntry_Click(object sender, EventArgs e)
