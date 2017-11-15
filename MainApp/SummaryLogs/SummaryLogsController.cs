@@ -13,6 +13,7 @@ namespace Domain.Controllers
         public const int cID = 1 << 2;
         public override int ID { get { return cID; } }
 
+        public const int CATEGORY_INDEX = 0;
         public const int CREATED_INDEX = 0;
         public const int DAY_INDEX = 1;
         public const int DESCRIPTION_INDEX = 2;
@@ -105,8 +106,19 @@ namespace Domain.Controllers
             var summarizedLogEntries = preparedLogEntries
                 .SelectMany(x => x)
                 .ToList();
+            var summarizedLogHoursEntries = logEntries
+                .GroupBy(x => x.Category)
+                .Select(x =>
+                    new
+                    {
+                        Category = x.Key,
+                        Total_Hours = x.Sum(entry => entry.HoursRendered)
+                    });
 
-            this._summaryView.OnGetLogEntriesCompletion(summarizedLogEntries.OrderByDescending(x => x.Created).ToList());
+            this._summaryView.OnGetLogEntriesCompletion(
+                summarizedLogHoursEntries.ToList(),
+                summarizedLogEntries.OrderByDescending(x => x.Created).ToList()
+                );
         }
 
         public override void GetData(Func<LogEntry, bool> criteria)

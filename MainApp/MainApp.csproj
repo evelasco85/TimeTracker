@@ -184,14 +184,6 @@
     </Compile>
     <Compile Include="StandardOperatingProcedure\IStandardOperatingProcedureView.cs" />
     <Compile Include="StandardOperatingProcedure\StandardOperatingProcedureController.cs" />
-    <Compile Include="SummaryHours\frmSummarizeHoursByCategories.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SummaryHours\frmSummarizeHoursByCategories.Designer.cs">
-      <DependentUpon>frmSummarizeHoursByCategories.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SummaryHours\ISummaryHoursByCategoriesView.cs" />
-    <Compile Include="SummaryHours\SummaryHoursByCategoriesController.cs" />
     <Compile Include="SummaryLogs\frmSummarizeLogs.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -265,9 +257,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LogEntries\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SummaryHours\frmSummarizeHoursByCategories.resx">
-      <DependentUpon>frmSummarizeHoursByCategories.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SummaryLogs\frmSummarizeLogs.resx">
       <DependentUpon>frmSummarizeLogs.cs</DependentUpon>

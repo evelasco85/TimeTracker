@@ -64,7 +64,6 @@
             this.txtObjectives = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnStandardOperatingProcedure = new System.Windows.Forms.Button();
-            this.btnSummarizeHoursByCategories = new System.Windows.Forms.Button();
             this.cboCategory = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnDailyHours = new System.Windows.Forms.Button();
@@ -141,7 +140,6 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnRefresh.Location = new System.Drawing.Point(201, 32);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(58, 33);
@@ -393,7 +391,6 @@
             // 
             // lblCountdown
             // 
-            this.lblCountdown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCountdown.AutoSize = true;
             this.lblCountdown.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblCountdown.Location = new System.Drawing.Point(13, 12);
@@ -459,18 +456,6 @@
             this.btnStandardOperatingProcedure.UseVisualStyleBackColor = true;
             this.btnStandardOperatingProcedure.Click += new System.EventHandler(this.btnStandardOperatingProcedure_Click);
             // 
-            // btnSummarizeHoursByCategories
-            // 
-            this.btnSummarizeHoursByCategories.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSummarizeHoursByCategories.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSummarizeHoursByCategories.Location = new System.Drawing.Point(692, 600);
-            this.btnSummarizeHoursByCategories.Name = "btnSummarizeHoursByCategories";
-            this.btnSummarizeHoursByCategories.Size = new System.Drawing.Size(173, 30);
-            this.btnSummarizeHoursByCategories.TabIndex = 32;
-            this.btnSummarizeHoursByCategories.Text = "Summarize Hours By Categories";
-            this.btnSummarizeHoursByCategories.UseVisualStyleBackColor = true;
-            this.btnSummarizeHoursByCategories.Click += new System.EventHandler(this.btnSummarizeHoursByCategories_Click);
-            // 
             // cboCategory
             // 
             this.cboCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -483,7 +468,6 @@
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(13, 42);
             this.label3.Name = "label3";
@@ -509,7 +493,6 @@
             this.Controls.Add(this.btnDailyHours);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cboCategory);
-            this.Controls.Add(this.btnSummarizeHoursByCategories);
             this.Controls.Add(this.btnStandardOperatingProcedure);
             this.Controls.Add(this.txtObjectives);
             this.Controls.Add(this.label2);
@@ -583,7 +566,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnStandardOperatingProcedure;
         private System.Windows.Forms.Label lblTotalHours;
-        private System.Windows.Forms.Button btnSummarizeHoursByCategories;
         private System.Windows.Forms.ComboBox cboCategory;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnDailyHours;

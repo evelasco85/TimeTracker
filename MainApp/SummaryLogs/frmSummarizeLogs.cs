@@ -64,25 +64,32 @@ namespace MainApp
             this.ViewRequest.GetLogEntries(logs, selectedMonth);
         }
 
-        public void OnGetLogEntriesCompletion(dynamic summarizedLogEntries)
+        public void OnGetLogEntriesCompletion(dynamic summarizedLogHours, dynamic summarizedLogEntries)
         {
+            this.dGridLogHours.DataSource = summarizedLogHours;
             this.dGridLogs.DataSource = summarizedLogEntries;
         }
 
         void DecorateGrid()
         {
+            this.dGridLogHours.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            this.dGridLogHours.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             this.dGridLogs.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             this.dGridLogs.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
             IDataGridHelper helper = DataGridHelper.GetInstance();
 
+            helper.SetAutoResizeCells(ref this.dGridLogHours);
             helper.SetAutoResizeCells(ref this.dGridLogs);
             helper.SetColumnToDateFormat(this.dGridLogs.Columns[SummaryLogsController.CREATED_INDEX], "yyyy-MM-dd");
             helper.SetColumnToDayFormat(this.dGridLogs.Columns[SummaryLogsController.DAY_INDEX]);
-
+            
             this.dGridLogs
                 .Columns[SummaryLogsController.DESCRIPTION_INDEX]
                 .AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            this.dGridLogHours
+                .Columns[SummaryLogsController.CATEGORY_INDEX]
+                .AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
         }
 
         private void dGridLogs_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)

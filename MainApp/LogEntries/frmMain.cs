@@ -514,16 +514,6 @@ namespace MainApp
             this._frontController.Process(LogEntriesController.cID, SummaryLogsController.cID, Operation.OpenView, new { selectedMonth = selectedMonth, parentForm = this });
         }
 
-        private void btnSummarizeHoursByCategories_Click(object sender, EventArgs e)
-        {
-            this.OpenSummarizedHoursByCategories(this.dateTimeMonth.Value);
-        }
-
-        void OpenSummarizedHoursByCategories(DateTime selectedMonth)
-        {
-            this._frontController.Process(LogEntriesController.cID, SummaryHoursByCategoriesController.cID, Operation.OpenView, new { selectedMonth = selectedMonth, parentForm = this });
-        }
-
         private void btnHoliday_Click(object sender, EventArgs e)
         {
             this.OpenHolidays();

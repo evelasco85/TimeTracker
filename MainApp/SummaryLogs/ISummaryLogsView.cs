@@ -6,7 +6,7 @@ namespace Domain.Views
 {
     public interface ISummaryLogsView : IView<LogEntry, ISummaryLogsRequests>, IViewControllerEvents<LogEntry>
     {
-        void OnGetLogEntriesCompletion(dynamic summarizedLogEntries);
+        void OnGetLogEntriesCompletion(dynamic summarizedLogHours, dynamic summarizedLogEntries);
     }
 
     public interface ISummaryLogsRequests : IViewControllerRequests<LogEntry>

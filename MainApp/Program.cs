@@ -45,7 +45,6 @@ namespace MainApp
             manager.RegisterController(new AttributeController(repository, new frmAttribute()));
             manager.RegisterController(new ActivityController(repository, new frmActivity()));
             manager.RegisterController(new StandardOperatingProcedureController(repository, new frmStandardOperatingProcedure()));
-            manager.RegisterController(new SummaryHoursByCategoriesController(repository, new frmSummarizeHoursByCategories()));
             manager.RegisterController(new DailyHoursController(repository, new frmDailyHours()));
             
             //Prepare data for main window before showing
