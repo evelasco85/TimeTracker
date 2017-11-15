@@ -20,7 +20,7 @@ namespace Domain.Helpers
         Leave GetLeave(IEnumerable<Leave> entries, int id);
         IList<LogEntry> GetMonthLogs(IEnumerable<LogEntry> logEntries, DateTime selectedMonth);
         double GetHours(IEnumerable<LogEntry> logEntries, DateTime selectedMonth);
-        IList<LogEntry> GetMonthSummaryLogs(IEnumerable<LogEntry> logEntries, DateTime selectedMonth);
+        IList<LogEntry> GetMonthSummaryLogs(IEnumerable<LogEntry> logEntries, DateTime startDate, DateTime endDate);
         IList<LogEntry> GenerateMissingEntriesForMissingDates(IEnumerable<LogEntry> entries, DateTime selectedMonth,
             IList<LogEntry> holidayLogEntries, IList<LogEntry> leaveLogEntries);
         bool DateEquivalent(DateTime date1, DateTime date2);
@@ -151,11 +151,13 @@ namespace Domain.Helpers
             return availableEntries;
         }
 
-        public IList<LogEntry> GetMonthSummaryLogs(IEnumerable<LogEntry> logEntries, DateTime selectedMonth)
+        public IList<LogEntry> GetMonthSummaryLogs(IEnumerable<LogEntry> logEntries, DateTime startDate, DateTime endDate)
         {
+            DateTime endDate24HourResolution = endDate.AddDays(1);
             IList<LogEntry> availableEntries = logEntries
-                .Where(x => (x.Created.Month == selectedMonth.Month) &&
-                    (x.Created.Year == selectedMonth.Year))
+                .Where(x =>
+                    ((x.Created >= startDate) && (x.Created < endDate24HourResolution))
+                    )
                 .OrderBy(x => x.Created)
                 .ToList()
                 .Select(x =>
