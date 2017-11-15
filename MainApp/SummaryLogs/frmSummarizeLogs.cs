@@ -14,7 +14,7 @@ namespace MainApp
         public ISummaryLogsRequests ViewRequest { get; set; }
         public IEnumerable<LogEntry> QueryResults { get; set; }
 
-        Form _parentForm;
+        frmMain _parentForm;
 
         public frmSummarizeLogs()
         {
@@ -45,7 +45,7 @@ namespace MainApp
 
         public void OnViewReady(object data)
         {
-            this._parentForm = (Form)data.GetType().GetProperty("parentForm").GetValue(data, null);
+            this._parentForm = (frmMain)data.GetType().GetProperty("parentForm").GetValue(data, null);
             DateTime selectedMonth = (DateTime)data.GetType().GetProperty("selectedMonth").GetValue(data, null);
 
             dateTimeStart.Value = new DateTime(selectedMonth.Year, selectedMonth.Month, 1);
@@ -161,7 +161,39 @@ namespace MainApp
 
         private void dGridLogs_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+            int index = e.RowIndex;
+            string category = string.Empty;
+
+            try
+            {
+                DataGridViewRow row = this.dGridLogs.Rows[index];
+                
+                category = row.Cells[SummaryLogsController.CATEGORY_INDEX].Value.ToString();
+
+                if ((category == LogEntriesController.HOLIDAY) || (category == LogEntriesController.LEAVE))
+                    return;
+
+                int primaryKey = int.Parse(row.Cells[SummaryLogsController.ID_INDEX].Value.ToString());
+                DateTime createdDate = DateTime.Parse(row.Cells[SummaryLogsController.CREATED_INDEX].Value.ToString());
+                DateTime systemCreatedDate =
+                    DateTime.Parse(row.Cells[SummaryLogsController.SYSTEM_CREATED_INDEX].Value.ToString());
+                string description = row.Cells[SummaryLogsController.DESCRIPTION_INDEX].Value.ToString();
+                bool rememberSetting = _parentForm.ViewRequest.GetRememberedSetting();
+                DateTime rememberedCreatedDateTime = _parentForm.ViewRequest.GetRememberedDate();
+                double hoursRendered = Convert.ToDouble(row.Cells[SummaryLogsController.HOURS_RENDERED_INDEX].Value);
+
+                _parentForm.SafeEditEntry(primaryKey, category, description, rememberSetting, createdDate,
+                    systemCreatedDate, rememberedCreatedDateTime, hoursRendered);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                /*Skip*/
+            }
+            finally
+            {
+                RefreshView();
+                this.ViewRequest.GetLogEntriesByCategory(this.QueryResults, dateTimeStart.Value, dateTimeEnd.Value, category);
+            }
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)

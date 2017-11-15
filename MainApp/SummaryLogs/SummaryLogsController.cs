@@ -18,6 +18,9 @@ namespace Domain.Controllers
         public const int DAY_INDEX = 2;
         public const int CATEGORY_INDEX = 3;
         public const int DESCRIPTION_INDEX = 4;
+        public const int HOURS_RENDERED_INDEX = 5;
+        public const int SYSTEM_CREATED_INDEX = 6;
+        
 
         ISummaryLogsView _summaryView;
         IDateHelper _helper;
@@ -62,7 +65,8 @@ namespace Domain.Controllers
                                     @Day = x,
                                     Category = y.Category,
                                     Description = y.Description,
-                                    Hour = y.HoursRendered
+                                    Hour = y.HoursRendered,
+                                    SystemCreatedDate = y.System_Created
                                 })
                             .ToList()
                 )
@@ -99,7 +103,8 @@ namespace Domain.Controllers
                                     @Day = x,
                                     Category = y.Category,
                                     Description =  y.Description,
-                                    Hour = y.HoursRendered
+                                    Hour = y.HoursRendered,
+                                    SystemCreatedDate = y.System_Created
                                 })
                             .ToList()
                 )
@@ -109,18 +114,45 @@ namespace Domain.Controllers
             preparedLogEntries.Add(
                 allLogDates
                     .Where(x => (datesWithoutLogs.Any(z => z.Date == x.Date.Date)))
-                    .Select(x => new { Id = 0, Created = x.Date.Date, @Day = x.Date.Date, Category = "N/A", Description = "N/A", Hour = 0.0 })
+                    .Select(x => new
+                    {
+                        Id = 0,
+                        Created = x.Date.Date,
+                        @Day = x.Date.Date,
+                        Category = LogEntriesController.NO_CATEGORY,
+                        Description = LogEntriesController.NO_DESCRIPTION,
+                        Hour = 0.0,
+                        SystemCreatedDate = DateTime.Now
+                    })
                     .ToList()
-                );
+            );
 
             DateTime endDate24HourResolution = endDate.AddDays(1);
             IQueryable<Leave> leaveQuery = this._repository.GetEntityQuery<Leave>()
                 .Where(x => (x.Date >= startDate.Date) && (x.Date < endDate24HourResolution));
-            preparedLogEntries.Add(leaveQuery.Select(x => new { Id = 0, Created = x.Date, @Day = x.Date, Category = "LEAVE", Description = "**LEAVE**   " + x.Description, Hour = 0.0 }).ToList());
+            preparedLogEntries.Add(leaveQuery.Select(x => new
+            {
+                Id = 0,
+                Created = x.Date,
+                @Day = x.Date,
+                Category = "LEAVE",
+                Description = "**LEAVE**   " + x.Description,
+                Hour = 0.0,
+                SystemCreatedDate = x.SystemCreated
+            }).ToList());
 
             IQueryable<Holiday> holidayQuery = this._repository.GetEntityQuery<Holiday>()
                 .Where(x => (x.Date >= startDate.Date) && (x.Date < endDate24HourResolution));
-            preparedLogEntries.Add(holidayQuery.Select(x => new { Id = 0, Created = x.Date, @Day = x.Date, Category = "HOLIDAY", Description = "**HOLIDAY**   " + x.Description, Hour = 0.0 }).ToList());
+            preparedLogEntries.Add(holidayQuery.Select(x => new
+            {
+                Id = 0,
+                Created = x.Date,
+                @Day = x.Date,
+                Category = "HOLIDAY",
+                Description = "**HOLIDAY**   " + x.Description,
+                Hour = 0.0,
+                SystemCreatedDate = x.SystemCreated
+            }).ToList());
 
             var summarizedLogEntries = preparedLogEntries
                 .SelectMany(x => x)
