@@ -70,6 +70,20 @@ namespace MainApp
                 System_Created = systemCreatedDate
             };
 
+            IEnumerable<string> currentCategories = (IEnumerable<string>)cboCategory.DataSource;
+
+            if ((currentCategories == null) || (currentCategories.Count() < 1))
+            {
+                this.cboCategory.DataSource = new List<string> { category };
+            }
+            else if(!currentCategories.Any(cat => cat == category))
+            {
+                this.cboCategory.DataSource = new List<string>(currentCategories)
+                {
+                    category
+                };
+            }
+
             this.cboCategory.Text = category;
             this.txtDescription.Text = description;
             this.txtHours.Text = hoursRendered.ToString();

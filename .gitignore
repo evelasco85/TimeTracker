@@ -22,3 +22,5 @@ packages
 
 *.dbmdl
 *.jfm
+
+.vs/
