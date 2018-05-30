@@ -89,7 +89,7 @@
             this.dGridLogs.Name = "dGridLogs";
             this.dGridLogs.RowTemplate.ReadOnly = true;
             this.dGridLogs.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dGridLogs.Size = new System.Drawing.Size(1089, 386);
+            this.dGridLogs.Size = new System.Drawing.Size(965, 386);
             this.dGridLogs.TabIndex = 0;
             this.dGridLogs.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGridLogs_CellClick);
             this.dGridLogs.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGridLogs_CellDoubleClick);
@@ -99,9 +99,9 @@
             // btnManuaTrackerEntry
             // 
             this.btnManuaTrackerEntry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnManuaTrackerEntry.Location = new System.Drawing.Point(197, 528);
+            this.btnManuaTrackerEntry.Location = new System.Drawing.Point(157, 528);
             this.btnManuaTrackerEntry.Name = "btnManuaTrackerEntry";
-            this.btnManuaTrackerEntry.Size = new System.Drawing.Size(151, 30);
+            this.btnManuaTrackerEntry.Size = new System.Drawing.Size(115, 30);
             this.btnManuaTrackerEntry.TabIndex = 1;
             this.btnManuaTrackerEntry.Text = "Manual Entry";
             this.btnManuaTrackerEntry.UseVisualStyleBackColor = true;
@@ -160,7 +160,7 @@
             this.panel1.Controls.Add(this.lblSundayDaysCount);
             this.panel1.Controls.Add(this.lblSaturdaysCount);
             this.panel1.Controls.Add(this.lblHolidaysCount);
-            this.panel1.Location = new System.Drawing.Point(886, 461);
+            this.panel1.Location = new System.Drawing.Point(762, 461);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(215, 189);
             this.panel1.TabIndex = 13;
@@ -263,7 +263,7 @@
             // 
             this.lblCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCategory.AutoSize = true;
-            this.lblCategory.Location = new System.Drawing.Point(1138, 12);
+            this.lblCategory.Location = new System.Drawing.Point(1014, 12);
             this.lblCategory.Name = "lblCategory";
             this.lblCategory.Size = new System.Drawing.Size(52, 13);
             this.lblCategory.TabIndex = 14;
@@ -272,7 +272,7 @@
             // txtCategory
             // 
             this.txtCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCategory.Location = new System.Drawing.Point(1141, 28);
+            this.txtCategory.Location = new System.Drawing.Point(1017, 28);
             this.txtCategory.Name = "txtCategory";
             this.txtCategory.ReadOnly = true;
             this.txtCategory.Size = new System.Drawing.Size(150, 20);
@@ -282,7 +282,7 @@
             // 
             this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescription.Location = new System.Drawing.Point(1141, 85);
+            this.txtDescription.Location = new System.Drawing.Point(1017, 85);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.ReadOnly = true;
@@ -294,7 +294,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1138, 69);
+            this.label1.Location = new System.Drawing.Point(1014, 69);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 13);
             this.label1.TabIndex = 16;
@@ -303,9 +303,9 @@
             // btnSummarizeLogs
             // 
             this.btnSummarizeLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSummarizeLogs.Location = new System.Drawing.Point(702, 530);
+            this.btnSummarizeLogs.Location = new System.Drawing.Point(560, 528);
             this.btnSummarizeLogs.Name = "btnSummarizeLogs";
-            this.btnSummarizeLogs.Size = new System.Drawing.Size(151, 30);
+            this.btnSummarizeLogs.Size = new System.Drawing.Size(115, 30);
             this.btnSummarizeLogs.TabIndex = 18;
             this.btnSummarizeLogs.Text = "Summarize Logs";
             this.btnSummarizeLogs.UseVisualStyleBackColor = true;
@@ -314,9 +314,9 @@
             // btnHoliday
             // 
             this.btnHoliday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnHoliday.Location = new System.Drawing.Point(364, 564);
+            this.btnHoliday.Location = new System.Drawing.Point(291, 564);
             this.btnHoliday.Name = "btnHoliday";
-            this.btnHoliday.Size = new System.Drawing.Size(151, 30);
+            this.btnHoliday.Size = new System.Drawing.Size(115, 30);
             this.btnHoliday.TabIndex = 19;
             this.btnHoliday.Text = "Holiday";
             this.btnHoliday.UseVisualStyleBackColor = true;
@@ -325,9 +325,9 @@
             // btnLeave
             // 
             this.btnLeave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnLeave.Location = new System.Drawing.Point(364, 600);
+            this.btnLeave.Location = new System.Drawing.Point(291, 600);
             this.btnLeave.Name = "btnLeave";
-            this.btnLeave.Size = new System.Drawing.Size(151, 30);
+            this.btnLeave.Size = new System.Drawing.Size(115, 30);
             this.btnLeave.TabIndex = 20;
             this.btnLeave.Text = "Leave";
             this.btnLeave.UseVisualStyleBackColor = true;
@@ -336,9 +336,9 @@
             // btnCategory
             // 
             this.btnCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCategory.Location = new System.Drawing.Point(364, 528);
+            this.btnCategory.Location = new System.Drawing.Point(291, 528);
             this.btnCategory.Name = "btnCategory";
-            this.btnCategory.Size = new System.Drawing.Size(151, 30);
+            this.btnCategory.Size = new System.Drawing.Size(115, 30);
             this.btnCategory.TabIndex = 21;
             this.btnCategory.Text = "Category";
             this.btnCategory.UseVisualStyleBackColor = true;
@@ -347,9 +347,9 @@
             // btnAttribute
             // 
             this.btnAttribute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAttribute.Location = new System.Drawing.Point(535, 528);
+            this.btnAttribute.Location = new System.Drawing.Point(428, 528);
             this.btnAttribute.Name = "btnAttribute";
-            this.btnAttribute.Size = new System.Drawing.Size(151, 30);
+            this.btnAttribute.Size = new System.Drawing.Size(115, 30);
             this.btnAttribute.TabIndex = 22;
             this.btnAttribute.Text = "Attribute";
             this.btnAttribute.UseVisualStyleBackColor = true;
@@ -358,9 +358,9 @@
             // btnActivity
             // 
             this.btnActivity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnActivity.Location = new System.Drawing.Point(535, 564);
+            this.btnActivity.Location = new System.Drawing.Point(428, 564);
             this.btnActivity.Name = "btnActivity";
-            this.btnActivity.Size = new System.Drawing.Size(151, 30);
+            this.btnActivity.Size = new System.Drawing.Size(115, 30);
             this.btnActivity.TabIndex = 23;
             this.btnActivity.Text = "Activity";
             this.btnActivity.UseVisualStyleBackColor = true;
@@ -370,9 +370,9 @@
             // 
             this.btnDailyAttribute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnDailyAttribute.Enabled = false;
-            this.btnDailyAttribute.Location = new System.Drawing.Point(197, 600);
+            this.btnDailyAttribute.Location = new System.Drawing.Point(157, 600);
             this.btnDailyAttribute.Name = "btnDailyAttribute";
-            this.btnDailyAttribute.Size = new System.Drawing.Size(151, 30);
+            this.btnDailyAttribute.Size = new System.Drawing.Size(115, 30);
             this.btnDailyAttribute.TabIndex = 24;
             this.btnDailyAttribute.Text = "Daily Attributes";
             this.btnDailyAttribute.UseVisualStyleBackColor = true;
@@ -381,9 +381,9 @@
             // btnPersonalNote
             // 
             this.btnPersonalNote.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnPersonalNote.Location = new System.Drawing.Point(535, 600);
+            this.btnPersonalNote.Location = new System.Drawing.Point(428, 600);
             this.btnPersonalNote.Name = "btnPersonalNote";
-            this.btnPersonalNote.Size = new System.Drawing.Size(151, 30);
+            this.btnPersonalNote.Size = new System.Drawing.Size(115, 30);
             this.btnPersonalNote.TabIndex = 25;
             this.btnPersonalNote.Text = "Note";
             this.btnPersonalNote.UseVisualStyleBackColor = true;
@@ -402,9 +402,9 @@
             // btnDailyActivity
             // 
             this.btnDailyActivity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDailyActivity.Location = new System.Drawing.Point(196, 564);
+            this.btnDailyActivity.Location = new System.Drawing.Point(156, 564);
             this.btnDailyActivity.Name = "btnDailyActivity";
-            this.btnDailyActivity.Size = new System.Drawing.Size(151, 30);
+            this.btnDailyActivity.Size = new System.Drawing.Size(115, 30);
             this.btnDailyActivity.TabIndex = 27;
             this.btnDailyActivity.Text = "Daily Activities";
             this.btnDailyActivity.UseVisualStyleBackColor = true;
@@ -415,7 +415,7 @@
             this.btnObjective.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnObjective.Location = new System.Drawing.Point(16, 528);
             this.btnObjective.Name = "btnObjective";
-            this.btnObjective.Size = new System.Drawing.Size(151, 30);
+            this.btnObjective.Size = new System.Drawing.Size(115, 30);
             this.btnObjective.TabIndex = 28;
             this.btnObjective.Text = "Objective";
             this.btnObjective.UseVisualStyleBackColor = true;
@@ -425,7 +425,7 @@
             // 
             this.txtObjectives.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtObjectives.Location = new System.Drawing.Point(1141, 369);
+            this.txtObjectives.Location = new System.Drawing.Point(1017, 369);
             this.txtObjectives.Multiline = true;
             this.txtObjectives.Name = "txtObjectives";
             this.txtObjectives.ReadOnly = true;
@@ -439,7 +439,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label2.Location = new System.Drawing.Point(1138, 353);
+            this.label2.Location = new System.Drawing.Point(1014, 353);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(156, 13);
             this.label2.TabIndex = 29;
@@ -450,7 +450,7 @@
             this.btnStandardOperatingProcedure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnStandardOperatingProcedure.Location = new System.Drawing.Point(16, 600);
             this.btnStandardOperatingProcedure.Name = "btnStandardOperatingProcedure";
-            this.btnStandardOperatingProcedure.Size = new System.Drawing.Size(151, 30);
+            this.btnStandardOperatingProcedure.Size = new System.Drawing.Size(115, 30);
             this.btnStandardOperatingProcedure.TabIndex = 31;
             this.btnStandardOperatingProcedure.Text = "S.O.P";
             this.btnStandardOperatingProcedure.UseVisualStyleBackColor = true;
@@ -489,7 +489,7 @@
             // frmMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.ClientSize = new System.Drawing.Size(1443, 649);
+            this.ClientSize = new System.Drawing.Size(1319, 649);
             this.Controls.Add(this.btnDailyHours);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cboCategory);
@@ -518,7 +518,9 @@
             this.Controls.Add(this.lblMonth);
             this.Controls.Add(this.btnManuaTrackerEntry);
             this.Controls.Add(this.dGridLogs);
+            this.MinimumSize = new System.Drawing.Size(1335, 688);
             this.Name = "frmMain";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main";
             this.Resize += new System.EventHandler(this.frmMain_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.dGridLogs)).EndInit();
