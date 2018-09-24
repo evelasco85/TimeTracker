@@ -9,14 +9,14 @@
         <EntityTypeShape EntityType="WorklogDBModel.Activity" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="WorklogDBModel.Attribute" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="WorklogDBModel.Category" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="WorklogDBModel.DayActivity" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WorklogDBModel.DayAttribute" Width="1.5" PointX="4.75" PointY="4.75" />
         <EntityTypeShape EntityType="WorklogDBModel.Holiday" Width="1.5" PointX="6.75" PointY="0.75" />
         <EntityTypeShape EntityType="WorklogDBModel.Leave" Width="1.5" PointX="0.75" PointY="6.75" />
-        <EntityTypeShape EntityType="WorklogDBModel.LogEntry" Width="1.5" PointX="6.75" PointY="3.75" />
-        <EntityTypeShape EntityType="WorklogDBModel.DayActivity" Width="1.5" PointX="3.375" PointY="6.75" />
-        <EntityTypeShape EntityType="WorklogDBModel.DayAttribute" Width="1.5" PointX="9.375" PointY="0.75" />
-        <EntityTypeShape EntityType="WorklogDBModel.Objective" Width="1.5" PointX="5.375" PointY="6.75" />
-        <EntityTypeShape EntityType="WorklogDBModel.PersonalNote" Width="1.5" PointX="7.375" PointY="6.75" />
-        <EntityTypeShape EntityType="WorklogDBModel.StandardOperatingProcedure" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="WorklogDBModel.Objective" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="WorklogDBModel.PersonalNote" Width="1.5" PointX="6.75" PointY="6.75" />
+        <EntityTypeShape EntityType="WorklogDBModel.StandardOperatingProcedure" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WorklogDBModel.LogEntry" Width="1.5" PointX="3.375" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

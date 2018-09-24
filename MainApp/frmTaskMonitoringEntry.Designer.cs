@@ -117,7 +117,7 @@
             this.cboCategory.FormattingEnabled = true;
             this.cboCategory.Location = new System.Drawing.Point(103, 242);
             this.cboCategory.Name = "cboCategory";
-            this.cboCategory.Size = new System.Drawing.Size(173, 21);
+            this.cboCategory.Size = new System.Drawing.Size(476, 21);
             this.cboCategory.TabIndex = 1;
             // 
             // lblDay
