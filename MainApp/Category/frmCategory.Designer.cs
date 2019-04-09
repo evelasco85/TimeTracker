@@ -33,6 +33,7 @@
             this.txtCategoryName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.chkShowInSummary = new System.Windows.Forms.CheckBox();
+            this.chkShowInTaskEntry = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -101,11 +102,22 @@
             this.chkShowInSummary.Text = "Show in Summary";
             this.chkShowInSummary.UseVisualStyleBackColor = true;
             // 
+            // chkShowInTaskEntry
+            // 
+            this.chkShowInTaskEntry.AutoSize = true;
+            this.chkShowInTaskEntry.Location = new System.Drawing.Point(49, 126);
+            this.chkShowInTaskEntry.Name = "chkShowInTaskEntry";
+            this.chkShowInTaskEntry.Size = new System.Drawing.Size(118, 17);
+            this.chkShowInTaskEntry.TabIndex = 20;
+            this.chkShowInTaskEntry.Text = "Show in Task Entry";
+            this.chkShowInTaskEntry.UseVisualStyleBackColor = true;
+            // 
             // frmCategory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1139, 651);
+            this.Controls.Add(this.chkShowInTaskEntry);
             this.Controls.Add(this.chkShowInSummary);
             this.Controls.Add(this.lblId);
             this.Controls.Add(this.label3);
@@ -113,12 +125,14 @@
             this.Controls.Add(this.label2);
             this.Name = "frmCategory";
             this.Text = "Categories";
+            this.Controls.SetChildIndex(this.pnlDGrid, 0);
             this.Controls.SetChildIndex(this.panel1, 0);
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.txtCategoryName, 0);
             this.Controls.SetChildIndex(this.label3, 0);
             this.Controls.SetChildIndex(this.lblId, 0);
             this.Controls.SetChildIndex(this.chkShowInSummary, 0);
+            this.Controls.SetChildIndex(this.chkShowInTaskEntry, 0);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -132,5 +146,6 @@
         private System.Windows.Forms.TextBox txtCategoryName;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox chkShowInSummary;
+        private System.Windows.Forms.CheckBox chkShowInTaskEntry;
     }
 }

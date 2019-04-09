@@ -52,6 +52,16 @@ namespace Domain.Controllers
 
             return categoryQuery;
         }
+
+        public IEnumerable<Category> GetTaskEntryCategories()
+        {
+            IQueryable<Category> categoryQuery = this._repository
+                .GetEntityQuery<Category>()
+                .Where(category => category.ShowInTaskEntry);
+
+            return categoryQuery;
+        }
+
         public bool GetRememberedSetting() { return this._rememberSetting; }
         public void SetRememberedSetting(bool rememberSetting) { this._rememberSetting = rememberSetting; }
 

@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="WorklogDB.publish.xml" />
+    <None Include="DB_to_SqlProj_Compare.scmp" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="WorklogDB.refactorlog" />

@@ -229,7 +229,8 @@ namespace MainApp
                         this.ViewRequest.GetObjectiveData(createdDate);
 
                         using (frmTaskMonitoringEntry monitoring = new frmTaskMonitoringEntry(
-                            this.ViewRequest.GetCategories()
+                            this.ViewRequest
+                                .GetTaskEntryCategories()
                                 .Select(x => x.Name),
                             primaryKey, category, description, rememberSetting, createdDate, systemCreatedDate,
                             this.txtObjectives.Text, hoursRendered
@@ -274,7 +275,8 @@ namespace MainApp
                 this._promptingInProgress = true;
 
                 using (frmTaskMonitoringEntry monitoring = new frmTaskMonitoringEntry(
-                    this.ViewRequest.GetCategories()
+                    this.ViewRequest
+                        .GetTaskEntryCategories()
                         .Select(x => x.Name),
                     this.ViewRequest.GetRememberedSetting(),
                     this.ViewRequest.GetRememberedDate(),

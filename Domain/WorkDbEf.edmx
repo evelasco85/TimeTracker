@@ -41,6 +41,7 @@
           <Property Name="ShowInSummary" Type="bit" Nullable="false" />
           <Property Name="System_Created" Type="datetime" Nullable="false" />
           <Property Name="SystemUpdateDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ShowInTaskEntry" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="DayActivity">
           <Key>
@@ -196,6 +197,7 @@
           <Property Name="ShowInSummary" Type="Boolean" Nullable="false" />
           <Property Name="System_Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="SystemUpdateDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ShowInTaskEntry" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="DayActivity">
           <Key>
@@ -322,6 +324,7 @@
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="WorklogDBModel.Category">
               <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="ShowInTaskEntry" ColumnName="ShowInTaskEntry" />
                 <ScalarProperty Name="SystemUpdateDateTime" ColumnName="SystemUpdateDateTime" />
                 <ScalarProperty Name="System_Created" ColumnName="System_Created" />
                 <ScalarProperty Name="ShowInSummary" ColumnName="ShowInSummary" />

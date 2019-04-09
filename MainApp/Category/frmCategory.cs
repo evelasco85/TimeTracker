@@ -103,6 +103,7 @@ namespace MainApp
                 this.lblId.Text = category.Id.ToString();
                 this.txtCategoryName.Text = category.Name;
                 this.chkShowInSummary.Checked = category.ShowInSummary;
+                this.chkShowInTaskEntry.Checked = category.ShowInTaskEntry;
             }
             catch (ArgumentOutOfRangeException) { /*Skip*/}
             catch (Exception ex)
@@ -115,6 +116,7 @@ namespace MainApp
         {
             this.txtCategoryName.ReadOnly = !enable;
             this.chkShowInSummary.Enabled = enable;
+            this.chkShowInTaskEntry.Enabled = enable;
         }
 
         public void ResetInputWindow()
@@ -122,6 +124,7 @@ namespace MainApp
             this.lblId.Text = string.Empty;
             this.txtCategoryName.Clear();
             this.chkShowInSummary.Checked = false;
+            this.chkShowInTaskEntry.Checked = false;
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -180,6 +183,7 @@ namespace MainApp
 
             category.Name = this.txtCategoryName.Text;
             category.ShowInSummary = this.chkShowInSummary.Checked;
+            category.ShowInTaskEntry = this.chkShowInTaskEntry.Checked;
             category.SystemUpdateDateTime = DateTime.Now;
 
             this.ViewRequest.SaveData(category);

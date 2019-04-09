@@ -19,5 +19,6 @@ namespace Domain
         public bool ShowInSummary { get; set; }
         public System.DateTime System_Created { get; set; }
         public System.DateTime SystemUpdateDateTime { get; set; }
+        public bool ShowInTaskEntry { get; set; }
     }
 }

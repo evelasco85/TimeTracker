@@ -20,6 +20,7 @@ namespace Domain.Views
         DateTime GetRememberedDate();
         void SetRememberedDate(DateTime date);
         IEnumerable<Category> GetCategories();
+        IEnumerable<Category> GetTaskEntryCategories();
         void GetObjectiveData(DateTime dateTime);
     }
 }
